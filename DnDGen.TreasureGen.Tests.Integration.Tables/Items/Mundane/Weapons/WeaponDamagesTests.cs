@@ -57,7 +57,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane.Weapons
         {
             var bludgeoning = WeaponConstants.GetAllBludgeoning(false, false);
             var isBludgeoning = bludgeoning.Contains(weapon);
-            var hasBludgeoning = weaponDamages[key].All(d => d.Contains(AttributeConstants.DamageTypes.Bludgeoning));
+            var hasBludgeoning = weaponDamages[key].Any(d => d.Contains(AttributeConstants.DamageTypes.Bludgeoning));
 
             Assert.That(hasBludgeoning, Is.EqualTo(isBludgeoning), weapon);
         }
@@ -66,7 +66,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane.Weapons
         {
             var piercing = WeaponConstants.GetAllPiercing(false, false);
             var isPiercing = piercing.Contains(weapon);
-            var hasPiercing = weaponDamages[key].All(d => d.Contains(AttributeConstants.DamageTypes.Piercing));
+            var hasPiercing = weaponDamages[key].Any(d => d.Contains(AttributeConstants.DamageTypes.Piercing));
 
             Assert.That(hasPiercing, Is.EqualTo(isPiercing), weapon);
         }
@@ -75,7 +75,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane.Weapons
         {
             var slashing = WeaponConstants.GetAllSlashing(false, false);
             var isSlashing = slashing.Contains(weapon);
-            var hasSlashing = weaponDamages[key].All(d => d.Contains(AttributeConstants.DamageTypes.Slashing));
+            var hasSlashing = weaponDamages[key].Any(d => d.Contains(AttributeConstants.DamageTypes.Slashing));
 
             Assert.That(hasSlashing, Is.EqualTo(isSlashing), weapon);
         }
