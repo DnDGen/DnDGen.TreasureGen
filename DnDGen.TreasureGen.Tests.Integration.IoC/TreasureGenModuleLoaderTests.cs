@@ -35,9 +35,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.IoC
         {
             AssertNotSingleton<JustInTimeFactory>();
             AssertNotSingleton<IPercentileSelector>();
-
-            //INFO: There is a caching proxy on this selector
-            AssertSingleton<ICollectionSelector>();
+            AssertNotSingleton<ICollectionSelector>();
         }
     }
 }

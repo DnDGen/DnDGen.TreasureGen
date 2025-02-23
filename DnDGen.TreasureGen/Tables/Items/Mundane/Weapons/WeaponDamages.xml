@@ -686,7 +686,7 @@
 	</collection>
 	<collection>
 		<name>GuisarmeMedium</name>
-		<entry>2d4@Slashing@</entry>
+		<entry>1d8@Slashing@</entry>
 	</collection>
 	<collection>
 		<name>HalberdMedium</name>
@@ -1670,326 +1670,80 @@
 	</collection>
 	<collection>
 		<name>SapGargantuan</name>
-		<entry>1d3@Bludgeoning@</entry>
-		<entry>1d4@Bludgeoning@</entry>
-		<entry>1d6@Bludgeoning@</entry>
-		<entry>1d8@Bludgeoning@</entry>
-		<entry>2d6@Bludgeoning@</entry>
 		<entry>3d6@Bludgeoning@</entry>
-		<entry>4d6@Bludgeoning@</entry>
-		<entry>2d3@Bludgeoning@</entry>
-		<entry>2d4@Bludgeoning@</entry>
-		<entry>2d6@Bludgeoning@</entry>
-		<entry>2d8@Bludgeoning@</entry>
-		<entry>4d6@Bludgeoning@</entry>
-		<entry>6d6@Bludgeoning@</entry>
-		<entry>8d6@Bludgeoning@</entry>
 	</collection>
 	<collection>
 		<name>ScimitarGargantuan</name>
-		<entry>1d3@Slashing@</entry>
-		<entry>1d4@Slashing@</entry>
-		<entry>1d6@Slashing@</entry>
-		<entry>1d8@Slashing@</entry>
-		<entry>2d6@Slashing@</entry>
 		<entry>3d6@Slashing@</entry>
-		<entry>4d6@Slashing@</entry>
-		<entry>2d3@Slashing@</entry>
-		<entry>2d4@Slashing@</entry>
-		<entry>2d6@Slashing@</entry>
-		<entry>2d8@Slashing@</entry>
-		<entry>4d6@Slashing@</entry>
-		<entry>6d6@Slashing@</entry>
-		<entry>8d6@Slashing@</entry>
 	</collection>
 	<collection>
 		<name>ScytheGargantuan</name>
-		<entry>1d4@Piercing or Slashing@</entry>
-		<entry>1d6@Piercing or Slashing@</entry>
-		<entry>2d4@Piercing or Slashing@</entry>
-		<entry>2d6@Piercing or Slashing@</entry>
-		<entry>3d6@Piercing or Slashing@</entry>
 		<entry>4d6@Piercing or Slashing@</entry>
-		<entry>6d6@Piercing or Slashing@</entry>
-		<entry>4d4@Piercing or Slashing@</entry>
-		<entry>4d6@Piercing or Slashing@</entry>
-		<entry>8d4@Piercing or Slashing@</entry>
-		<entry>8d6@Piercing or Slashing@</entry>
-		<entry>12d6@Piercing or Slashing@</entry>
-		<entry>16d6@Piercing or Slashing@</entry>
-		<entry>24d6@Piercing or Slashing@</entry>
 	</collection>
 	<collection>
 		<name>Short swordGargantuan</name>
-		<entry>1d3@Piercing@</entry>
-		<entry>1d4@Piercing@</entry>
-		<entry>1d6@Piercing@</entry>
-		<entry>1d8@Piercing@</entry>
-		<entry>2d6@Piercing@</entry>
 		<entry>3d6@Piercing@</entry>
-		<entry>4d6@Piercing@</entry>
-		<entry>2d3@Piercing@</entry>
-		<entry>2d4@Piercing@</entry>
-		<entry>2d6@Piercing@</entry>
-		<entry>2d8@Piercing@</entry>
-		<entry>4d6@Piercing@</entry>
-		<entry>6d6@Piercing@</entry>
-		<entry>8d6@Piercing@</entry>
 	</collection>
 	<collection>
 		<name>ShortbowGargantuan</name>
-		<entry>1d3@Piercing@</entry>
-		<entry>1d4@Piercing@</entry>
-		<entry>1d6@Piercing@</entry>
-		<entry>1d8@Piercing@</entry>
-		<entry>2d6@Piercing@</entry>
 		<entry>3d6@Piercing@</entry>
-		<entry>4d6@Piercing@</entry>
-		<entry>3d3@Piercing@</entry>
-		<entry>3d4@Piercing@</entry>
-		<entry>3d6@Piercing@</entry>
-		<entry>3d8@Piercing@</entry>
-		<entry>6d6@Piercing@</entry>
-		<entry>9d6@Piercing@</entry>
-		<entry>12d6@Piercing@</entry>
 	</collection>
 	<collection>
 		<name>ShortspearGargantuan</name>
-		<entry>1d3@Piercing@</entry>
-		<entry>1d4@Piercing@</entry>
-		<entry>1d6@Piercing@</entry>
-		<entry>1d8@Piercing@</entry>
-		<entry>2d6@Piercing@</entry>
 		<entry>3d6@Piercing@</entry>
-		<entry>4d6@Piercing@</entry>
-		<entry>2d3@Piercing@</entry>
-		<entry>2d4@Piercing@</entry>
-		<entry>2d6@Piercing@</entry>
-		<entry>2d8@Piercing@</entry>
-		<entry>4d6@Piercing@</entry>
-		<entry>6d6@Piercing@</entry>
-		<entry>8d6@Piercing@</entry>
 	</collection>
 	<collection>
 		<name>ShurikenGargantuan</name>
-		<entry>0@Piercing@</entry>
-		<entry>1@Piercing@</entry>
-		<entry>1d2@Piercing@</entry>
-		<entry>1d3@Piercing@</entry>
-		<entry>1d4@Piercing@</entry>
 		<entry>1d6@Piercing@</entry>
-		<entry>1d8@Piercing@</entry>
-		<entry>1@Piercing@</entry>
-		<entry>2@Piercing@</entry>
-		<entry>2d2@Piercing@</entry>
-		<entry>2d3@Piercing@</entry>
-		<entry>2d4@Piercing@</entry>
-		<entry>2d6@Piercing@</entry>
-		<entry>2d8@Piercing@</entry>
 	</collection>
 	<collection>
 		<name>SianghamGargantuan</name>
-		<entry>1d3@Piercing@</entry>
-		<entry>1d4@Piercing@</entry>
-		<entry>1d6@Piercing@</entry>
-		<entry>1d8@Piercing@</entry>
-		<entry>2d6@Piercing@</entry>
 		<entry>3d6@Piercing@</entry>
-		<entry>4d6@Piercing@</entry>
-		<entry>2d3@Piercing@</entry>
-		<entry>2d4@Piercing@</entry>
-		<entry>2d6@Piercing@</entry>
-		<entry>2d8@Piercing@</entry>
-		<entry>4d6@Piercing@</entry>
-		<entry>6d6@Piercing@</entry>
-		<entry>8d6@Piercing@</entry>
 	</collection>
 	<collection>
 		<name>SickleGargantuan</name>
-		<entry>1d3@Slashing@</entry>
-		<entry>1d4@Slashing@</entry>
-		<entry>1d6@Slashing@</entry>
-		<entry>1d8@Slashing@</entry>
-		<entry>2d6@Slashing@</entry>
 		<entry>3d6@Slashing@</entry>
-		<entry>4d6@Slashing@</entry>
-		<entry>2d3@Slashing@</entry>
-		<entry>2d4@Slashing@</entry>
-		<entry>2d6@Slashing@</entry>
-		<entry>2d8@Slashing@</entry>
-		<entry>4d6@Slashing@</entry>
-		<entry>6d6@Slashing@</entry>
-		<entry>8d6@Slashing@</entry>
 	</collection>
 	<collection>
 		<name>SlingGargantuan</name>
-		<entry>1d2@Bludgeoning@</entry>
-		<entry>1d3@Bludgeoning@</entry>
-		<entry>1d4@Bludgeoning@</entry>
-		<entry>1d6@Bludgeoning@</entry>
-		<entry>1d8@Bludgeoning@</entry>
 		<entry>2d6@Bludgeoning@</entry>
-		<entry>3d6@Bludgeoning@</entry>
-		<entry>2d2@Bludgeoning@</entry>
-		<entry>2d3@Bludgeoning@</entry>
-		<entry>2d4@Bludgeoning@</entry>
-		<entry>2d6@Bludgeoning@</entry>
-		<entry>2d8@Bludgeoning@</entry>
-		<entry>4d6@Bludgeoning@</entry>
-		<entry>6d6@Bludgeoning@</entry>
 	</collection>
 	<collection>
 		<name>Sling bulletGargantuan</name>
 		<entry>0@Bludgeoning@</entry>
-		<entry>0@Bludgeoning@</entry>
-		<entry>0@Bludgeoning@</entry>
-		<entry>0@Bludgeoning@</entry>
-		<entry>0@Bludgeoning@</entry>
-		<entry>0@Bludgeoning@</entry>
-		<entry>0@Bludgeoning@</entry>
-		<entry>0@Bludgeoning@</entry>
-		<entry>0@Bludgeoning@</entry>
-		<entry>0@Bludgeoning@</entry>
-		<entry>0@Bludgeoning@</entry>
-		<entry>0@Bludgeoning@</entry>
-		<entry>0@Bludgeoning@</entry>
-		<entry>0@Bludgeoning@</entry>
 	</collection>
 	<collection>
 		<name>SpearGargantuan</name>
-		<entry>1d4@Piercing@</entry>
-		<entry>1d6@Piercing@</entry>
-		<entry>1d8@Piercing@</entry>
-		<entry>2d6@Piercing@</entry>
-		<entry>3d6@Piercing@</entry>
 		<entry>4d6@Piercing@</entry>
-		<entry>6d6@Piercing@</entry>
-		<entry>3d4@Piercing@</entry>
-		<entry>3d6@Piercing@</entry>
-		<entry>3d8@Piercing@</entry>
-		<entry>6d6@Piercing@</entry>
-		<entry>9d6@Piercing@</entry>
-		<entry>12d6@Piercing@</entry>
-		<entry>18d6@Piercing@</entry>
 	</collection>
 	<collection>
 		<name>Spiked chainGargantuan</name>
-		<entry>1d4@Piercing@</entry>
-		<entry>1d6@Piercing@</entry>
-		<entry>2d4@Piercing@</entry>
-		<entry>2d6@Piercing@</entry>
-		<entry>3d6@Piercing@</entry>
 		<entry>4d6@Piercing@</entry>
-		<entry>6d6@Piercing@</entry>
-		<entry>2d4@Piercing@</entry>
-		<entry>2d6@Piercing@</entry>
-		<entry>4d4@Piercing@</entry>
-		<entry>4d6@Piercing@</entry>
-		<entry>6d6@Piercing@</entry>
-		<entry>8d6@Piercing@</entry>
-		<entry>12d6@Piercing@</entry>
 	</collection>
 	<collection>
 		<name>Spiked gauntletGargantuan</name>
-		<entry>1d2@Piercing@</entry>
-		<entry>1d3@Piercing@</entry>
-		<entry>1d4@Piercing@</entry>
-		<entry>1d6@Piercing@</entry>
-		<entry>1d8@Piercing@</entry>
 		<entry>2d6@Piercing@</entry>
-		<entry>3d6@Piercing@</entry>
-		<entry>2d2@Piercing@</entry>
-		<entry>2d3@Piercing@</entry>
-		<entry>2d4@Piercing@</entry>
-		<entry>2d6@Piercing@</entry>
-		<entry>2d8@Piercing@</entry>
-		<entry>4d6@Piercing@</entry>
-		<entry>6d6@Piercing@</entry>
 	</collection>
 	<collection>
 		<name>Throwing axeGargantuan</name>
-		<entry>1d3@Slashing@</entry>
-		<entry>1d4@Slashing@</entry>
-		<entry>1d6@Slashing@</entry>
-		<entry>1d8@Slashing@</entry>
-		<entry>2d6@Slashing@</entry>
 		<entry>3d6@Slashing@</entry>
-		<entry>4d6@Slashing@</entry>
-		<entry>2d3@Slashing@</entry>
-		<entry>2d4@Slashing@</entry>
-		<entry>2d6@Slashing@</entry>
-		<entry>2d8@Slashing@</entry>
-		<entry>4d6@Slashing@</entry>
-		<entry>6d6@Slashing@</entry>
-		<entry>8d6@Slashing@</entry>
 	</collection>
 	<collection>
 		<name>TridentGargantuan</name>
-		<entry>1d4@Piercing@</entry>
-		<entry>1d6@Piercing@</entry>
-		<entry>1d8@Piercing@</entry>
-		<entry>2d6@Piercing@</entry>
-		<entry>3d6@Piercing@</entry>
 		<entry>4d6@Piercing@</entry>
-		<entry>6d6@Piercing@</entry>
-		<entry>2d4@Piercing@</entry>
-		<entry>2d6@Piercing@</entry>
-		<entry>2d8@Piercing@</entry>
-		<entry>4d6@Piercing@</entry>
-		<entry>6d6@Piercing@</entry>
-		<entry>8d6@Piercing@</entry>
-		<entry>12d6@Piercing@</entry>
 	</collection>
 	<collection>
 		<name>Two-bladed swordGargantuan</name>
-		<entry>1d4@Slashing@,1d4@Slashing@</entry>
-		<entry>1d6@Slashing@,1d6@Slashing@</entry>
-		<entry>1d8@Slashing@,1d8@Slashing@</entry>
-		<entry>2d6@Slashing@,2d6@Slashing@</entry>
-		<entry>3d6@Slashing@,3d6@Slashing@</entry>
-		<entry>4d6@Slashing@,4d6@Slashing@</entry>
-		<entry>6d6@Slashing@,6d6@Slashing@</entry>
-		<entry>2d4@Slashing@,2d4@Slashing@</entry>
-		<entry>2d6@Slashing@,2d6@Slashing@</entry>
-		<entry>2d8@Slashing@,2d8@Slashing@</entry>
-		<entry>4d6@Slashing@,4d6@Slashing@</entry>
-		<entry>6d6@Slashing@,6d6@Slashing@</entry>
-		<entry>8d6@Slashing@,8d6@Slashing@</entry>
-		<entry>12d6@Slashing@,12d6@Slashing@</entry>
+		<entry>4d6@Slashing@</entry>
+		<entry>4d6@Slashing@</entry>
 	</collection>
 	<collection>
 		<name>WarhammerGargantuan</name>
-		<entry>1d4@Bludgeoning@</entry>
-		<entry>1d6@Bludgeoning@</entry>
-		<entry>1d8@Bludgeoning@</entry>
-		<entry>2d6@Bludgeoning@</entry>
-		<entry>3d6@Bludgeoning@</entry>
 		<entry>4d6@Bludgeoning@</entry>
-		<entry>6d6@Bludgeoning@</entry>
-		<entry>3d4@Bludgeoning@</entry>
-		<entry>3d6@Bludgeoning@</entry>
-		<entry>3d8@Bludgeoning@</entry>
-		<entry>6d6@Bludgeoning@</entry>
-		<entry>9d6@Bludgeoning@</entry>
-		<entry>12d6@Bludgeoning@</entry>
-		<entry>18d6@Bludgeoning@</entry>
 	</collection>
 	<collection>
 		<name>WhipGargantuan</name>
-		<entry>1@Slashing@</entry>
-		<entry>1d2@Slashing@</entry>
-		<entry>1d3@Slashing@</entry>
-		<entry>1d4@Slashing@</entry>
-		<entry>1d6@Slashing@</entry>
 		<entry>1d8@Slashing@</entry>
-		<entry>2d6@Slashing@</entry>
-		<entry>2@Slashing@</entry>
-		<entry>2d2@Slashing@</entry>
-		<entry>2d3@Slashing@</entry>
-		<entry>2d4@Slashing@</entry>
-		<entry>2d6@Slashing@</entry>
-		<entry>2d8@Slashing@</entry>
-		<entry>4d6@Slashing@</entry>
 	</collection>
 	<collection>
 		<name>Bastard swordColossal</name>

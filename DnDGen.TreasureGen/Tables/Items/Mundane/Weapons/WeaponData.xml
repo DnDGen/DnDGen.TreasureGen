@@ -3,499 +3,286 @@
 <collections>
   <collection>
     <name>Arrow</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x3@@</entry>
   </collection>
   <collection>
     <name>Bastard sword</name>
-    <entry>2</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>2@x2@@</entry>
   </collection>
   <collection>
     <name>Battleaxe</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x3@@</entry>
   </collection>
   <collection>
     <name>Bolas</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Club</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Composite longbow</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry>Arrow</entry>
-    <entry></entry>
+    <entry>1@x3@Arrow@</entry>
   </collection>
   <collection>
     <name>Composite shortbow</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry>Arrow</entry>
-    <entry></entry>
+    <entry>1@x3@Arrow@</entry>
   </collection>
   <collection>
     <name>Crossbow bolt</name>
-    <entry>2</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>2@x2@@</entry>
   </collection>
   <collection>
     <name>Dagger</name>
-    <entry>2</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>2@x2@@</entry>
   </collection>
   <collection>
     <name>Dart</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Dire flail</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry>x2</entry>
+    <entry>1@x2@@x2</entry>
   </collection>
   <collection>
     <name>Dwarven urgrosh</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry></entry>
-    <entry>x3</entry>
+    <entry>1@x3@@x3</entry>
   </collection>
   <collection>
     <name>Dwarven waraxe</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x3@@</entry>
   </collection>
   <collection>
     <name>Falchion</name>
-    <entry>3</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>3@x2@@</entry>
   </collection>
   <collection>
     <name>Flail</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Gauntlet</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Glaive</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x3@@</entry>
   </collection>
   <collection>
     <name>Gnome hooked hammer</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry></entry>
-    <entry>x4</entry>
+    <entry>1@x3@@x4</entry>
   </collection>
   <collection>
     <name>Greataxe</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x3@@</entry>
   </collection>
   <collection>
     <name>Greatclub</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Greatsword</name>
-    <entry>2</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>2@x2@@</entry>
   </collection>
   <collection>
     <name>Guisarme</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x3@@</entry>
   </collection>
   <collection>
     <name>Halberd</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x3@@</entry>
   </collection>
   <collection>
     <name>Handaxe</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x3@@</entry>
   </collection>
   <collection>
     <name>Hand crossbow</name>
-    <entry>2</entry>
-    <entry>x2</entry>
-    <entry>Crossbow bolt</entry>
-    <entry></entry>
+    <entry>2@x2@Crossbow bolt@</entry>
   </collection>
   <collection>
     <name>Heavy crossbow</name>
-    <entry>2</entry>
-    <entry>x2</entry>
-    <entry>Crossbow bolt</entry>
-    <entry></entry>
+    <entry>2@x2@Crossbow bolt@</entry>
   </collection>
   <collection>
     <name>Heavy flail</name>
-    <entry>2</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>2@x2@@</entry>
   </collection>
   <collection>
     <name>Heavy mace</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Heavy pick</name>
-    <entry>1</entry>
-    <entry>x4</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x4@@</entry>
   </collection>
   <collection>
     <name>Heavy repeating crossbow</name>
-    <entry>2</entry>
-    <entry>x2</entry>
-    <entry>Crossbow bolt</entry>
-    <entry></entry>
+    <entry>2@x2@Crossbow bolt@</entry>
   </collection>
   <collection>
     <name>Javelin</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Kama</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Kukri</name>
-    <entry>3</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>3@x2@@</entry>
   </collection>
   <collection>
     <name>Lance</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x3@@</entry>
   </collection>
   <collection>
     <name>Light crossbow</name>
-    <entry>2</entry>
-    <entry>x2</entry>
-    <entry>Crossbow bolt</entry>
-    <entry></entry>
+    <entry>2@x2@Crossbow bolt@</entry>
   </collection>
   <collection>
     <name>Light hammer</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Light mace</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Light pick</name>
-    <entry>1</entry>
-    <entry>x4</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x4@@</entry>
   </collection>
   <collection>
     <name>Light repeating crossbow</name>
-    <entry>2</entry>
-    <entry>x2</entry>
-    <entry>Crossbow bolt</entry>
-    <entry></entry>
+    <entry>2@x2@Crossbow bolt@</entry>
   </collection>
   <collection>
     <name>Longbow</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry>Arrow</entry>
-    <entry></entry>
+    <entry>1@x3@Arrow@</entry>
   </collection>
   <collection>
     <name>Longspear</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x3@@</entry>
   </collection>
   <collection>
     <name>Longsword</name>
-    <entry>2</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>2@x2@@</entry>
   </collection>
   <collection>
     <name>Morningstar</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Net</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Nunchaku</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Orc double axe</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry></entry>
-    <entry>x3</entry>
+    <entry>1@x3@@x3</entry>
   </collection>
   <collection>
     <name>Pincer staff</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Punching dagger</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x3@@</entry>
   </collection>
   <collection>
     <name>Quarterstaff</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry>x2</entry>
+    <entry>1@x2@@x2</entry>
   </collection>
   <collection>
     <name>Ranseur</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x3@@</entry>
   </collection>
   <collection>
     <name>Rapier</name>
-    <entry>3</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>3@x2@@</entry>
   </collection>
   <collection>
     <name>Sai</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Sap</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Scimitar</name>
-    <entry>3</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>3@x2@@</entry>
   </collection>
   <collection>
     <name>Scythe</name>
-    <entry>1</entry>
-    <entry>x4</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x4@@</entry>
   </collection>
   <collection>
     <name>Short sword</name>
-    <entry>2</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>2@x2@@</entry>
   </collection>
   <collection>
     <name>Shortbow</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry>Arrow</entry>
-    <entry></entry>
+    <entry>1@x3@Arrow@</entry>
   </collection>
   <collection>
     <name>Shortspear</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Shuriken</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Siangham</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Sickle</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Sling</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry>Sling bullet</entry>
-    <entry></entry>
+    <entry>1@x2@Sling bullet@</entry>
   </collection>
   <collection>
     <name>Sling bullet</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Spear</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x3@@</entry>
   </collection>
   <collection>
     <name>Spiked chain</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Spiked gauntlet</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Throwing axe</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Trident</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
   <collection>
     <name>Two-bladed sword</name>
-    <entry>2</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry>x2</entry>
+    <entry>2@x2@@x2</entry>
   </collection>
   <collection>
     <name>Warhammer</name>
-    <entry>1</entry>
-    <entry>x3</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x3@@</entry>
   </collection>
   <collection>
     <name>Whip</name>
-    <entry>1</entry>
-    <entry>x2</entry>
-    <entry></entry>
-    <entry></entry>
+    <entry>1@x2@@</entry>
   </collection>
 </collections>

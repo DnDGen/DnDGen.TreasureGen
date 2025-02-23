@@ -1,6 +1,7 @@
-﻿using NUnit.Framework;
-using System;
+﻿using DnDGen.Infrastructure.Helpers;
+using DnDGen.TreasureGen.Selectors.Selections;
 using DnDGen.TreasureGen.Tables;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
 {
@@ -22,10 +23,12 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
         [TestCase("19", "120 ft. darkvision, blindsense, and hearing", 4, 3)]
         public void OrderedAttributes(string strength, string senses, int lesserPowersCount, int greaterPowersCount)
         {
-            var data = new string[3];
-            data[DataIndexConstants.Intelligence.GreaterPowersCount] = Convert.ToString(greaterPowersCount);
-            data[DataIndexConstants.Intelligence.LesserPowersCount] = Convert.ToString(lesserPowersCount);
-            data[DataIndexConstants.Intelligence.Senses] = senses;
+            var data = DataHelper.Parse(new IntelligenceDataSelection
+            {
+                Senses = senses,
+                LesserPowersCount = lesserPowersCount,
+                GreaterPowersCount = greaterPowersCount,
+            });
 
             AssertOrderedCollections(strength, data);
         }
