@@ -21,31 +21,31 @@ steps:
   inputs:
     command: test
     projects: './DnDGen.TreasureGen.Tests.Unit/DnDGen.TreasureGen.Tests.Unit.csproj'
-    arguments: '-v normal'
+    arguments: '-v normal --collect "Code Coverage"'
 - task: DotNetCoreCLI@2
   displayName: IoC Tests
   inputs:
     command: test
     projects: './DnDGen.TreasureGen.Tests.Integration.IoC/DnDGen.TreasureGen.Tests.Integration.IoC.csproj'
-    arguments: '-v normal'
+    arguments: '-v normal --collect "Code Coverage"'
 - task: DotNetCoreCLI@2
   displayName: Table Tests
   inputs:
     command: test
     projects: './DnDGen.TreasureGen.Tests.Integration.Tables/DnDGen.TreasureGen.Tests.Integration.Tables.csproj'
-    arguments: '-v normal'
+    arguments: '-v normal --collect "Code Coverage"'
 - task: DotNetCoreCLI@2
   displayName: Integration Tests
   inputs:
     command: test
     projects: './DnDGen.TreasureGen.Tests.Integration/DnDGen.TreasureGen.Tests.Integration.csproj'
-    arguments: '-v normal'
+    arguments: '-v normal --collect "Code Coverage"'
 - task: DotNetCoreCLI@2
   displayName: Stress Tests
   inputs:
     command: test
     projects: './DnDGen.TreasureGen.Tests.Integration.Stress/DnDGen.TreasureGen.Tests.Integration.Stress.csproj'
-    arguments: '-v normal --configuration Stress'
+    arguments: '-v normal --configuration Stress --collect "Code Coverage"'
 
 - task: PowerShell@2
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
