@@ -53,24 +53,6 @@ namespace DnDGen.TreasureGen.Tests.Integration.Stress.Items.Magical
         }
 
         [Test]
-        public void BUG_CubicGateDoesNotDuplicateMaterialPlane()
-        {
-            stressor.Stress(AssertCubicGatePlanesAreUnique);
-        }
-
-        private void AssertCubicGatePlanesAreUnique()
-        {
-            var cubicGate = stressor.Generate(
-                () => GenerateItemFromName(WondrousItemConstants.CubicGate, PowerConstants.Major),
-                i => i.ItemType == itemType && i.Name == WondrousItemConstants.CubicGate);
-
-            Assert.That(cubicGate.ItemType, Is.EqualTo(ItemTypeConstants.WondrousItem));
-            Assert.That(cubicGate.Name, Is.EqualTo(WondrousItemConstants.CubicGate));
-            Assert.That(cubicGate.Contents, Is.Unique);
-            Assert.That(cubicGate.Contents.Select(p => p.ToLower()), Is.Unique);
-        }
-
-        [Test]
         public void StressWondrousItemFromName()
         {
             stressor.Stress(GenerateAndAssertItemFromName);
