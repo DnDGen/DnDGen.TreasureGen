@@ -1,7 +1,6 @@
 ﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
 using DnDGen.TreasureGen.Tests.Unit.Generators.Items;
-using Ninject;
 using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
@@ -9,15 +8,14 @@ namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
     [TestFixture]
     public class WandGeneratorTests : IntegrationTests
     {
-        [Inject, Named(ItemTypeConstants.Wand)]
-        public MagicalItemGenerator WandGenerator { get; set; }
-
+        private MagicalItemGenerator wandGenerator;
         private ItemVerifier itemVerifier;
 
         [SetUp]
         public void Setup()
         {
             itemVerifier = new ItemVerifier();
+            wandGenerator = GetNewInstanceOf<MagicalItemGenerator>(ItemTypeConstants.Wand);
         }
 
         [TestCase("whatever", PowerConstants.Minor)]
@@ -25,7 +23,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
         [TestCase("whatever", PowerConstants.Major)]
         public void GenerateWand(string itemName, string power)
         {
-            var item = WandGenerator.Generate(power, itemName);
+            var item = wandGenerator.Generate(power, itemName);
             itemVerifier.AssertItem(item);
         }
     }
