@@ -1,6 +1,5 @@
 ﻿using DnDGen.Infrastructure.Models;
 using DnDGen.Infrastructure.Selectors.Collections;
-using DnDGen.Infrastructure.Selectors.Percentiles;
 using DnDGen.TreasureGen.Generators.Items.Magical;
 using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
@@ -18,7 +17,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
     public class RingGeneratorTests
     {
         private MagicalItemGenerator ringGenerator;
-        private Mock<IPercentileTypeAndAmountSelector> mockTypeAndAmountPercentileSelector;
+        private Mock<ITreasurePercentileTypeAndAmountSelector> mockTypeAndAmountPercentileSelector;
         private Mock<ICollectionSelector> mockCollectionsSelector;
         private Mock<IChargesGenerator> mockChargesGenerator;
         private Mock<ISpellGenerator> mockSpellGenerator;
@@ -31,7 +30,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
         public void Setup()
         {
             mockCollectionsSelector = new Mock<ICollectionSelector>();
-            mockTypeAndAmountPercentileSelector = new Mock<IPercentileTypeAndAmountSelector>();
+            mockTypeAndAmountPercentileSelector = new Mock<ITreasurePercentileTypeAndAmountSelector>();
             mockChargesGenerator = new Mock<IChargesGenerator>();
             mockSpellGenerator = new Mock<ISpellGenerator>();
             mockReplacementSelector = new Mock<IReplacementSelector>();

@@ -23,6 +23,19 @@ namespace DnDGen.TreasureGen.Tests.Integration.IoC.Modules
         }
 
         [Test]
+        public void TreasurePercentileTypeAndAmountSelectorNotConstructedAsSingleton()
+        {
+            AssertNotSingleton<ITreasurePercentileTypeAndAmountSelector>();
+        }
+
+        [Test]
+        public void TreasurePercentileTypeAndAmountSelectorHasReplacementDecorator()
+        {
+            var selector = GetNewInstanceOf<ITreasurePercentileTypeAndAmountSelector>();
+            Assert.That(selector, Is.InstanceOf<PercentileTypeAndAmountSelectorStringReplacementDecorator>());
+        }
+
+        [Test]
         public void CollectionData_SpecialAbilityDataSelectorNotConstructedAsSingleton()
         {
             AssertNotSingleton<ICollectionDataSelector<SpecialAbilityDataSelection>>();

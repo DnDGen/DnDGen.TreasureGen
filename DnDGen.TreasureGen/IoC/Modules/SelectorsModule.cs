@@ -11,6 +11,7 @@ namespace DnDGen.TreasureGen.IoC.Modules
         public override void Load()
         {
             Bind<ITreasurePercentileSelector>().To<PercentileSelectorStringReplacementDecorator>();
+            Bind<ITreasurePercentileTypeAndAmountSelector>().To<PercentileTypeAndAmountSelectorStringReplacementDecorator>();
             Bind<IReplacementSelector>().To<ReplacementSelector>();
             Bind<IWeaponDataSelector>().To<WeaponDataSelector>();
 

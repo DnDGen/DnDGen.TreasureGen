@@ -1,5 +1,4 @@
 ﻿using DnDGen.Infrastructure.Selectors.Collections;
-using DnDGen.Infrastructure.Selectors.Percentiles;
 using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
 using DnDGen.TreasureGen.Selectors.Percentiles;
@@ -15,14 +14,14 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
         private readonly ICollectionSelector collectionsSelector;
         private readonly ISpellGenerator spellGenerator;
         private readonly IChargesGenerator chargesGenerator;
-        private readonly IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
+        private readonly ITreasurePercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
         private readonly IReplacementSelector replacementSelector;
 
         public RingGenerator(
             ICollectionSelector collectionsSelector,
             ISpellGenerator spellGenerator,
             IChargesGenerator chargesGenerator,
-            IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
+            ITreasurePercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
             IReplacementSelector replacementSelector)
         {
             this.collectionsSelector = collectionsSelector;
