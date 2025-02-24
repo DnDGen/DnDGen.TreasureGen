@@ -60,7 +60,7 @@ namespace DnDGen.TreasureGen.Items.Magical
                     .Union(
                     [
                         weapon.Size,
-                        weapon.ThreatRangeDescription,
+                        weapon.ThreatRangeSummary,
                     ]);
             }
 

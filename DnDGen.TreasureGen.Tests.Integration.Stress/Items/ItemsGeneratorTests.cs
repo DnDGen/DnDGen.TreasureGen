@@ -4,7 +4,7 @@ using DnDGen.TreasureGen.Items.Mundane;
 using DnDGen.TreasureGen.Tests.Unit.Generators.Items;
 using NUnit.Framework;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Stress.Items
@@ -62,84 +62,79 @@ namespace DnDGen.TreasureGen.Tests.Integration.Stress.Items
                 itemVerifier.AssertItem(item);
         }
 
-        [TestCase(ItemTypeConstants.AlchemicalItem)]
-        [TestCase(ItemTypeConstants.Armor)]
-        [TestCase(ItemTypeConstants.Potion)]
-        [TestCase(ItemTypeConstants.Ring)]
-        [TestCase(ItemTypeConstants.Rod)]
-        [TestCase(ItemTypeConstants.Scroll)]
-        [TestCase(ItemTypeConstants.Staff)]
-        [TestCase(ItemTypeConstants.Tool)]
-        [TestCase(ItemTypeConstants.Wand)]
-        [TestCase(ItemTypeConstants.Weapon)]
-        [TestCase(ItemTypeConstants.WondrousItem)]
-        public void StressNamedItemAtLevel(string itemType)
+        [Test]
+        public void StressNamedItemAtLevel()
         {
-            stressor.Stress(() => GenerateAndAssertNamedItemAtLevelItems(itemType));
+            stressor.Stress(GenerateAndAssertNamedItemAtLevelItems);
         }
 
-        private void GenerateAndAssertNamedItemAtLevelItems(string itemType)
+        private void GenerateAndAssertNamedItemAtLevelItems()
         {
             var level = GetNewLevel();
+            var itemType = GetRandomItemType();
             var itemName = GetRandomItemName(itemType);
 
             var item = itemsGenerator.GenerateAtLevel(level, itemType, itemName);
             itemVerifier.AssertItem(item);
         }
 
+        private string GetRandomItemType()
+        {
+            var itemTypes = new[]
+            {
+                ItemTypeConstants.AlchemicalItem,
+                ItemTypeConstants.Armor,
+                ItemTypeConstants.Potion,
+                ItemTypeConstants.Ring,
+                ItemTypeConstants.Rod,
+                ItemTypeConstants.Scroll,
+                ItemTypeConstants.Staff,
+                ItemTypeConstants.Tool,
+                ItemTypeConstants.Wand,
+                ItemTypeConstants.Weapon,
+                ItemTypeConstants.WondrousItem,
+            };
+
+            var itemType = collectionSelector.SelectRandomFrom(itemTypes);
+            return itemType;
+        }
+
         private string GetRandomItemName(string itemType)
         {
-            var itemNames = Enumerable.Empty<string>();
-
-            switch (itemType)
-            {
-                case ItemTypeConstants.AlchemicalItem:
-                    itemNames = AlchemicalItemConstants.GetAllAlchemicalItems(); break;
-                case ItemTypeConstants.Armor:
-                    itemNames = ArmorConstants.GetAllArmorsAndShields(true); break;
-                case ItemTypeConstants.Potion:
-                    itemNames = PotionConstants.GetAllPotions(true); break;
-                case ItemTypeConstants.Ring:
-                    itemNames = RingConstants.GetAllRings(); break;
-                case ItemTypeConstants.Rod:
-                    itemNames = RodConstants.GetAllRods(); break;
-                case ItemTypeConstants.Scroll:
-                    itemNames = new[] { $"Scroll {Guid.NewGuid()}" }; break;
-                case ItemTypeConstants.Staff:
-                    itemNames = StaffConstants.GetAllStaffs(); break;
-                case ItemTypeConstants.Tool:
-                    itemNames = ToolConstants.GetAllTools(); break;
-                case ItemTypeConstants.Wand:
-                    itemNames = new[] { $"Wand {Guid.NewGuid()}" }; break;
-                case ItemTypeConstants.Weapon:
-                    itemNames = WeaponConstants.GetAllWeapons(true, true); break;
-                case ItemTypeConstants.WondrousItem:
-                    itemNames = WondrousItemConstants.GetAllWondrousItems(); break;
-            }
-
+            var itemNames = GetItemNames(itemType);
             var itemName = collectionSelector.SelectRandomFrom(itemNames);
             return itemName;
         }
 
-        [TestCase(ItemTypeConstants.AlchemicalItem)]
-        [TestCase(ItemTypeConstants.Armor)]
-        [TestCase(ItemTypeConstants.Potion)]
-        [TestCase(ItemTypeConstants.Ring)]
-        [TestCase(ItemTypeConstants.Rod)]
-        [TestCase(ItemTypeConstants.Scroll)]
-        [TestCase(ItemTypeConstants.Staff)]
-        [TestCase(ItemTypeConstants.Tool)]
-        [TestCase(ItemTypeConstants.Wand)]
-        [TestCase(ItemTypeConstants.Weapon)]
-        [TestCase(ItemTypeConstants.WondrousItem)]
-        public async Task StressNamedItemAtLevelAsync(string itemType)
+        private IEnumerable<string> GetItemNames(string itemType)
         {
-            await stressor.StressAsync(async () => await GenerateAndAssertNamedItemAtLevelAsync(itemType));
+            return itemType switch
+            {
+                ItemTypeConstants.AlchemicalItem => AlchemicalItemConstants.GetAllAlchemicalItems(),
+                ItemTypeConstants.Armor => ArmorConstants.GetAllArmorsAndShields(true),
+                ItemTypeConstants.Potion => PotionConstants.GetAllPotions(true),
+                ItemTypeConstants.Ring => RingConstants.GetAllRings(),
+                ItemTypeConstants.Rod => RodConstants.GetAllRods(),
+                ItemTypeConstants.Scroll => [$"Scroll {Guid.NewGuid()}"],
+                ItemTypeConstants.Staff => StaffConstants.GetAllStaffs(),
+                ItemTypeConstants.Tool => ToolConstants.GetAllTools(),
+                ItemTypeConstants.Wand => [$"Wand {Guid.NewGuid()}"],
+                ItemTypeConstants.Weapon => WeaponConstants.GetAllWeapons(true, true),
+                ItemTypeConstants.WondrousItem => WondrousItemConstants.GetAllWondrousItems(),
+                _ => throw new ArgumentException($"{itemType} is not a valid Item Type"),
+            };
         }
 
-        private async Task GenerateAndAssertNamedItemAtLevelAsync(string itemType)
+        [Test]
+        public async Task StressNamedItemAtLevelAsync()
+        {
+            await stressor.StressAsync(GenerateAndAssertNamedItemAtLevelAsync);
+        }
+
+        private async Task GenerateAndAssertNamedItemAtLevelAsync()
         {
             var level = GetNewLevel();
+            var itemType = GetRandomItemType();
             var itemName = GetRandomItemName(itemType);
 
             var item = await itemsGenerator.GenerateAtLevelAsync(level, itemType, itemName);

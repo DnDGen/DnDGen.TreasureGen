@@ -429,8 +429,8 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             Assert.That(weapon.Traits, Is.All.Not.EqualTo("size"));
             Assert.That(weapon.Size, Is.EqualTo(template.Size).And.EqualTo("size"));
             Assert.That(weapon.CriticalMultiplier, Is.EqualTo("over 9000!!!"));
-            Assert.That(weapon.Damages.Select(d => d.Description), Is.EqualTo(template.Damages.Select(d => d.Description)));
-            Assert.That(weapon.CriticalDamages.Select(d => d.Description), Is.EqualTo(template.CriticalDamages.Select(d => d.Description)));
+            Assert.That(weapon.Damages.Select(d => d.Summary), Is.EqualTo(template.Damages.Select(d => d.Summary)));
+            Assert.That(weapon.CriticalDamages.Select(d => d.Summary), Is.EqualTo(template.CriticalDamages.Select(d => d.Summary)));
             Assert.That(weapon.ThreatRange, Is.EqualTo(42));
             Assert.That(weapon.Ammunition, Is.EqualTo("QA tears"));
         }
@@ -466,8 +466,8 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             Assert.That(weapon.Traits, Is.All.Not.EqualTo("size"));
             Assert.That(weapon.Size, Is.EqualTo("size"));
             Assert.That(weapon.CriticalMultiplier, Is.EqualTo("over 9000!!!"));
-            Assert.That(weapon.Damages.Select(d => d.Description), Is.EqualTo(template.Damages.Select(d => d.Description)));
-            Assert.That(weapon.CriticalDamages.Select(d => d.Description), Is.EqualTo(template.CriticalDamages.Select(d => d.Description)));
+            Assert.That(weapon.Damages.Select(d => d.Summary), Is.EqualTo(template.Damages.Select(d => d.Summary)));
+            Assert.That(weapon.CriticalDamages.Select(d => d.Summary), Is.EqualTo(template.CriticalDamages.Select(d => d.Summary)));
             Assert.That(weapon.ThreatRange, Is.EqualTo(42));
             Assert.That(weapon.Ammunition, Is.EqualTo("QA tears"));
         }
@@ -502,8 +502,8 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             Assert.That(weapon.Traits, Is.All.Not.EqualTo("size"));
             Assert.That(weapon.Size, Is.EqualTo(template.Size));
             Assert.That(weapon.CriticalMultiplier, Is.EqualTo("over 9000!!!"));
-            Assert.That(weapon.Damages.Select(d => d.Description), Is.EqualTo(template.Damages.Select(d => d.Description)));
-            Assert.That(weapon.CriticalDamages.Select(d => d.Description), Is.EqualTo(template.CriticalDamages.Select(d => d.Description)));
+            Assert.That(weapon.Damages.Select(d => d.Summary), Is.EqualTo(template.Damages.Select(d => d.Summary)));
+            Assert.That(weapon.CriticalDamages.Select(d => d.Summary), Is.EqualTo(template.CriticalDamages.Select(d => d.Summary)));
             Assert.That(weapon.ThreatRange, Is.EqualTo(42));
             Assert.That(weapon.Ammunition, Is.EqualTo("QA tears"));
         }
@@ -539,8 +539,8 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             Assert.That(weapon.Traits, Is.All.Not.EqualTo("size"));
             Assert.That(weapon.Size, Is.EqualTo("size"));
             Assert.That(weapon.CriticalMultiplier, Is.EqualTo("over 9000!!!"));
-            Assert.That(weapon.Damages.Select(d => d.Description), Is.EqualTo(template.Damages.Select(d => d.Description)));
-            Assert.That(weapon.CriticalDamages.Select(d => d.Description), Is.EqualTo(template.CriticalDamages.Select(d => d.Description)));
+            Assert.That(weapon.Damages.Select(d => d.Summary), Is.EqualTo(template.Damages.Select(d => d.Summary)));
+            Assert.That(weapon.CriticalDamages.Select(d => d.Summary), Is.EqualTo(template.CriticalDamages.Select(d => d.Summary)));
             Assert.That(weapon.ThreatRange, Is.EqualTo(42));
             Assert.That(weapon.Ammunition, Is.EqualTo("QA tears"));
         }
@@ -579,10 +579,10 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             Assert.That(weapon.Size, Is.EqualTo(template.Size));
             Assert.That(weapon.CriticalMultiplier, Is.EqualTo("over 9000!!!"));
             Assert.That(weapon.SecondaryCriticalMultiplier, Is.EqualTo("sevenfold"));
-            Assert.That(weapon.Damages.Select(d => d.Description), Is.EqualTo(template.Damages.Select(d => d.Description)));
-            Assert.That(weapon.CriticalDamages.Select(d => d.Description), Is.EqualTo(template.CriticalDamages.Select(d => d.Description)));
-            Assert.That(weapon.SecondaryDamages.Select(d => d.Description), Is.EqualTo(template.SecondaryDamages.Select(d => d.Description)));
-            Assert.That(weapon.SecondaryCriticalDamages.Select(d => d.Description), Is.EqualTo(template.SecondaryCriticalDamages.Select(d => d.Description)));
+            Assert.That(weapon.Damages.Select(d => d.Summary), Is.EqualTo(template.Damages.Select(d => d.Summary)));
+            Assert.That(weapon.CriticalDamages.Select(d => d.Summary), Is.EqualTo(template.CriticalDamages.Select(d => d.Summary)));
+            Assert.That(weapon.SecondaryDamages.Select(d => d.Summary), Is.EqualTo(template.SecondaryDamages.Select(d => d.Summary)));
+            Assert.That(weapon.SecondaryCriticalDamages.Select(d => d.Summary), Is.EqualTo(template.SecondaryCriticalDamages.Select(d => d.Summary)));
             Assert.That(weapon.ThreatRange, Is.EqualTo(42));
             Assert.That(weapon.Ammunition, Is.EqualTo("QA tears"));
         }
@@ -837,8 +837,8 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             Assert.That(weapon.Traits, Is.All.Not.EqualTo("other size"));
             Assert.That(weapon.Size, Is.EqualTo("custom size"));
             Assert.That(weapon.CriticalMultiplier, Is.EqualTo("over 9000!!!"));
-            Assert.That(weapon.Damages.Select(d => d.Description), Is.EqualTo(template.Damages.Select(d => d.Description)));
-            Assert.That(weapon.CriticalDamages.Select(d => d.Description), Is.EqualTo(template.CriticalDamages.Select(d => d.Description)));
+            Assert.That(weapon.Damages.Select(d => d.Summary), Is.EqualTo(template.Damages.Select(d => d.Summary)));
+            Assert.That(weapon.CriticalDamages.Select(d => d.Summary), Is.EqualTo(template.CriticalDamages.Select(d => d.Summary)));
             Assert.That(weapon.ThreatRange, Is.EqualTo(42));
             Assert.That(weapon.Ammunition, Is.EqualTo("QA tears"));
         }

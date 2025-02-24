@@ -69,7 +69,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Stress.Items.Magical
                 .Or.Contains(AttributeConstants.DamageTypes.Slashing), item.Name);
 
             Assert.That(weapon.Size, Is.Not.Empty, item.Name);
-            Assert.That(weapon.ThreatRangeDescription, Is.Not.Empty, item.Name);
+            Assert.That(weapon.ThreatRangeSummary, Is.Not.Empty, item.Name);
         }
 
         protected override IEnumerable<string> GetItemNames()

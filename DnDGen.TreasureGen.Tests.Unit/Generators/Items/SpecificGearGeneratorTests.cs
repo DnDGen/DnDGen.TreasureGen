@@ -372,7 +372,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             Assert.That(weapon.Damages, Is.EqualTo(mundaneWeapon.Damages));
             Assert.That(weapon.CriticalDamages, Is.EqualTo(mundaneWeapon.CriticalDamages));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Quantity, Is.EqualTo(mundaneWeapon.Quantity));
             Assert.That(mundaneWeapon.Quantity, Is.AtLeast(2));
         }
@@ -555,7 +555,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             Assert.That(weapon.Damages, Is.EqualTo(mundaneWeapon.Damages));
             Assert.That(weapon.CriticalDamages, Is.EqualTo(mundaneWeapon.CriticalDamages));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Quantity, Is.EqualTo(mundaneWeapon.Quantity));
             Assert.That(mundaneWeapon.Quantity, Is.AtLeast(2));
         }
@@ -621,7 +621,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             Assert.That(weapon.Damages, Is.EqualTo(mundaneWeapon.Damages));
             Assert.That(weapon.CriticalDamages, Is.EqualTo(mundaneWeapon.CriticalDamages));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Quantity, Is.EqualTo(mundaneWeapon.Quantity));
             Assert.That(weapon.SecondaryCriticalMultiplier, Is.EqualTo(mundaneWeapon.SecondaryCriticalMultiplier));
             Assert.That(weapon.SecondaryDamages, Is.EqualTo(mundaneWeapon.SecondaryDamages));
@@ -689,7 +689,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             var weapon = gear as Weapon;
             Assert.That(weapon.CriticalMultiplier, Is.EqualTo(mundaneWeapon.CriticalMultiplier));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Quantity, Is.EqualTo(mundaneWeapon.Quantity));
             Assert.That(weapon.SecondaryCriticalMultiplier, Is.Empty);
             Assert.That(weapon.SecondaryDamages, Is.Empty);
@@ -761,7 +761,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             var weapon = gear as Weapon;
             Assert.That(weapon.CriticalMultiplier, Is.EqualTo(mundaneWeapon.CriticalMultiplier));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Quantity, Is.EqualTo(mundaneWeapon.Quantity));
             Assert.That(weapon.SecondaryCriticalMultiplier, Is.EqualTo(mundaneWeapon.SecondaryCriticalMultiplier));
             Assert.That(weapon.SecondaryHasAbilities, Is.True);
@@ -852,7 +852,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             Assert.That(weapon.Damages, Is.EqualTo(mundaneWeapon.Damages));
             Assert.That(weapon.CriticalDamages, Is.EqualTo(mundaneWeapon.CriticalDamages));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size).And.EqualTo(size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Quantity, Is.EqualTo(mundaneWeapon.Quantity).And.AtLeast(2));
         }
 
@@ -916,7 +916,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             Assert.That(weapon.Damages, Is.EqualTo(mundaneWeapon.Damages));
             Assert.That(weapon.CriticalDamages, Is.EqualTo(mundaneWeapon.CriticalDamages));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Quantity, Is.EqualTo(mundaneWeapon.Quantity));
             Assert.That(mundaneWeapon.Quantity, Is.AtLeast(2));
         }
@@ -1339,7 +1339,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             Assert.That(weapon.Damages, Is.EqualTo(mundaneWeapon.Damages));
             Assert.That(weapon.CriticalDamages, Is.EqualTo(mundaneWeapon.CriticalDamages));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Quantity, Is.EqualTo(mundaneWeapon.Quantity).And.AtLeast(2));
             Assert.That(weapon.SecondaryCriticalMultiplier, Is.Empty);
             Assert.That(weapon.SecondaryDamages, Is.Empty);
@@ -1414,7 +1414,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             var weapon = gear as Weapon;
             Assert.That(weapon.CriticalMultiplier, Is.EqualTo(mundaneWeapon.CriticalMultiplier));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Quantity, Is.EqualTo(mundaneWeapon.Quantity).And.AtLeast(2));
             Assert.That(weapon.SecondaryCriticalMultiplier, Is.Empty);
             Assert.That(weapon.SecondaryDamages, Is.Empty);
@@ -1486,7 +1486,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             Assert.That(weapon.Damages, Is.EqualTo(mundaneWeapon.Damages));
             Assert.That(weapon.CriticalDamages, Is.EqualTo(mundaneWeapon.CriticalDamages));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Quantity, Is.EqualTo(mundaneWeapon.Quantity).And.AtLeast(2));
             Assert.That(weapon.SecondaryCriticalMultiplier, Is.EqualTo(mundaneWeapon.SecondaryCriticalMultiplier));
             Assert.That(weapon.SecondaryDamages, Is.EqualTo(mundaneWeapon.SecondaryDamages));
@@ -1565,7 +1565,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             var weapon = gear as Weapon;
             Assert.That(weapon.CriticalMultiplier, Is.EqualTo(mundaneWeapon.CriticalMultiplier));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Quantity, Is.EqualTo(mundaneWeapon.Quantity).And.AtLeast(2));
             Assert.That(weapon.SecondaryCriticalMultiplier, Is.EqualTo(mundaneWeapon.SecondaryCriticalMultiplier));
             Assert.That(weapon.IsDoubleWeapon, Is.True);
@@ -1631,7 +1631,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             Assert.That(weapon.Damages, Is.EqualTo(mundaneWeapon.Damages));
             Assert.That(weapon.CriticalDamages, Is.EqualTo(mundaneWeapon.CriticalDamages));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Quantity, Is.EqualTo(mundaneWeapon.Quantity));
             Assert.That(mundaneWeapon.Quantity, Is.AtLeast(2));
         }
@@ -1694,7 +1694,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             Assert.That(weapon.Damages, Is.EqualTo(mundaneWeapon.Damages));
             Assert.That(weapon.CriticalDamages, Is.EqualTo(mundaneWeapon.CriticalDamages));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Quantity, Is.EqualTo(mundaneWeapon.Quantity));
             Assert.That(mundaneWeapon.Quantity, Is.AtLeast(2));
         }

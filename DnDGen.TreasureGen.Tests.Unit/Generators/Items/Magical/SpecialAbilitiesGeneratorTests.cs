@@ -2416,7 +2416,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
         [TestCase(1, "19-20")]
         [TestCase(2, "17-20")]
         [TestCase(3, "15-20")]
-        public void ApplyAbilitiesToWeapon_Keen(int originalThreatRange, string keenDescription)
+        public void ApplyAbilitiesToWeapon_Keen(int originalThreatRange, string keenSummary)
         {
             var keen = new SpecialAbility { Name = SpecialAbilityConstants.Keen };
             var weapon = CreateWeapon();
@@ -2427,7 +2427,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             Assert.That(updatedWeapon, Is.EqualTo(weapon));
             Assert.That(weapon.Magic.SpecialAbilities.Count(), Is.EqualTo(2));
             Assert.That(weapon.ThreatRange, Is.EqualTo(originalThreatRange * 2));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(keenDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(keenSummary));
         }
 
         [Test]
@@ -2542,7 +2542,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             Assert.That(weapon.SecondaryCriticalDamages, Is.Empty);
             Assert.That(weapon.Contents, Contains.Item("spell"));
             Assert.That(weapon.ThreatRange, Is.EqualTo(2));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo("19-20"));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo("19-20"));
         }
 
         [Test]
@@ -2655,7 +2655,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             Assert.That(weapon.SecondaryCriticalDamages[4].Condition, Is.EqualTo("my other crit condition 2"));
             Assert.That(weapon.Contents, Contains.Item("spell"));
             Assert.That(weapon.ThreatRange, Is.EqualTo(2));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo("19-20"));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo("19-20"));
         }
     }
 }

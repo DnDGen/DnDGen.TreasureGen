@@ -6,18 +6,18 @@ namespace DnDGen.TreasureGen.Items
     {
         public string Roll { get; set; }
         public string Type { get; set; }
-        public string Description
+        public string Summary
         {
             get
             {
-                var description = $"{Roll} {Type}".Trim();
+                var summary = $"{Roll} {Type}".Trim();
 
                 if (IsConditional)
                 {
-                    description += $" ({Condition})";
+                    summary += $" ({Condition})";
                 }
 
-                return description;
+                return summary;
             }
 
         }

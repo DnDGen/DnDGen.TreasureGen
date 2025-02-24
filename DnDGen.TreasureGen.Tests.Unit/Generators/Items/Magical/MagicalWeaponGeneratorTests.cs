@@ -281,12 +281,12 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             var weapon = item as Weapon;
             Assert.That(weapon.Attributes, Is.SupersetOf(random.Attributes));
             Assert.That(weapon.CriticalMultiplier, Is.EqualTo(random.CriticalMultiplier));
-            Assert.That(weapon.Damages.Select(d => d.Description), Is.EqualTo(
-                random.Damages.Select(d => d.Description)));
-            Assert.That(weapon.CriticalDamages.Select(d => d.Description), Is.EqualTo(
-                random.CriticalDamages.Select(d => d.Description)));
+            Assert.That(weapon.Damages.Select(d => d.Summary), Is.EqualTo(
+                random.Damages.Select(d => d.Summary)));
+            Assert.That(weapon.CriticalDamages.Select(d => d.Summary), Is.EqualTo(
+                random.CriticalDamages.Select(d => d.Summary)));
             Assert.That(weapon.Size, Is.EqualTo(random.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(random.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(random.ThreatRangeSummary));
             Assert.That(weapon.IsDoubleWeapon, Is.False);
             Assert.That(weapon.SecondaryMagicBonus, Is.Zero);
             Assert.That(weapon.SecondaryHasAbilities, Is.False);
@@ -372,19 +372,19 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             var weapon = item as Weapon;
             Assert.That(weapon.Attributes, Is.SupersetOf(random.Attributes));
             Assert.That(weapon.CriticalMultiplier, Is.EqualTo(random.CriticalMultiplier));
-            Assert.That(weapon.Damages.Select(d => d.Description), Is.EqualTo(
-                random.Damages.Select(d => d.Description)));
-            Assert.That(weapon.CriticalDamages.Select(d => d.Description), Is.EqualTo(
-                random.CriticalDamages.Select(d => d.Description)));
+            Assert.That(weapon.Damages.Select(d => d.Summary), Is.EqualTo(
+                random.Damages.Select(d => d.Summary)));
+            Assert.That(weapon.CriticalDamages.Select(d => d.Summary), Is.EqualTo(
+                random.CriticalDamages.Select(d => d.Summary)));
             Assert.That(weapon.Size, Is.EqualTo(random.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(random.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(random.ThreatRangeSummary));
             Assert.That(weapon.IsDoubleWeapon, Is.True);
             Assert.That(weapon.SecondaryHasAbilities, Is.True);
             Assert.That(weapon.SecondaryMagicBonus, Is.Positive.And.EqualTo(template.Magic.Bonus));
-            Assert.That(weapon.SecondaryDamages.Select(d => d.Description), Is.Not.Empty.And.EqualTo(
-                random.SecondaryDamages.Select(d => d.Description)));
-            Assert.That(weapon.SecondaryCriticalDamages.Select(d => d.Description), Is.Not.Empty.And.EqualTo(
-                random.SecondaryCriticalDamages.Select(d => d.Description)));
+            Assert.That(weapon.SecondaryDamages.Select(d => d.Summary), Is.Not.Empty.And.EqualTo(
+                random.SecondaryDamages.Select(d => d.Summary)));
+            Assert.That(weapon.SecondaryCriticalDamages.Select(d => d.Summary), Is.Not.Empty.And.EqualTo(
+                random.SecondaryCriticalDamages.Select(d => d.Summary)));
         }
 
         [Test]

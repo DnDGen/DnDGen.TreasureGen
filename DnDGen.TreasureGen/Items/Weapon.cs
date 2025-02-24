@@ -8,20 +8,20 @@ namespace DnDGen.TreasureGen.Items
         public string Ammunition { get; set; }
         public List<Damage> Damages { get; set; }
         public string DamageRoll => GetRoll(Damages, false);
-        public string DamageDescription => GetDescription(Damages, false);
+        public string DamageSummary => GetDamageSummary(Damages, false);
         public List<Damage> SecondaryDamages { get; set; }
         public string SecondaryDamageRoll => GetRoll(SecondaryDamages, true);
-        public string SecondaryDamageDescription => GetDescription(SecondaryDamages, true);
+        public string SecondaryDamageSummary => GetDamageSummary(SecondaryDamages, true);
         public List<Damage> CriticalDamages { get; set; }
         public string CriticalDamageRoll => GetRoll(CriticalDamages, false);
-        public string CriticalDamageDescription => GetDescription(CriticalDamages, false);
+        public string CriticalDamageSummary => GetDamageSummary(CriticalDamages, false);
         public string CriticalMultiplier { get; set; }
         public List<Damage> SecondaryCriticalDamages { get; set; }
         public string SecondaryCriticalDamageRoll => GetRoll(SecondaryCriticalDamages, true);
-        public string SecondaryCriticalDamageDescription => GetDescription(SecondaryCriticalDamages, true);
+        public string SecondaryCriticalDamageSummary => GetDamageSummary(SecondaryCriticalDamages, true);
         public string SecondaryCriticalMultiplier { get; set; }
         public string Size { get; set; }
-        public string ThreatRangeDescription => ThreatRange <= 1 ? 20.ToString() : $"{20 - ThreatRange + 1}-20";
+        public string ThreatRangeSummary => ThreatRange <= 1 ? 20.ToString() : $"{20 - ThreatRange + 1}-20";
         public int ThreatRange { get; set; }
         public bool IsDoubleWeapon => Attributes.Contains(AttributeConstants.DoubleWeapon);
         public int SecondaryMagicBonus { get; set; }
@@ -57,9 +57,9 @@ namespace DnDGen.TreasureGen.Items
             return roll;
         }
 
-        private string GetDescription(List<Damage> damages, bool secondary)
+        private string GetDamageSummary(List<Damage> damages, bool secondary)
         {
-            var description = string.Empty;
+            var summary = string.Empty;
             if (!damages.Any())
             {
                 if (Magic.Bonus > 0 && !secondary)
@@ -68,27 +68,27 @@ namespace DnDGen.TreasureGen.Items
                 if (SecondaryMagicBonus > 0 && secondary)
                     return SecondaryMagicBonus.ToString();
 
-                return description;
+                return summary;
             }
 
-            description = damages[0].Description;
+            summary = damages[0].Summary;
 
             if (Magic.Bonus > 0 && !secondary)
             {
-                description = description.Replace(damages[0].Roll, $"{damages[0].Roll}+{Magic.Bonus}");
+                summary = summary.Replace(damages[0].Roll, $"{damages[0].Roll}+{Magic.Bonus}");
             }
 
             if (SecondaryMagicBonus > 0 && secondary)
             {
-                description = description.Replace(damages[0].Roll, $"{damages[0].Roll}+{SecondaryMagicBonus}");
+                summary = summary.Replace(damages[0].Roll, $"{damages[0].Roll}+{SecondaryMagicBonus}");
             }
 
             foreach (var damage in damages.Skip(1))
             {
-                description += $" + {damage.Description}";
+                summary += $" + {damage.Summary}";
             }
 
-            return description;
+            return summary;
         }
 
         public override bool CanBeUsedAsWeaponOrArmor => true;

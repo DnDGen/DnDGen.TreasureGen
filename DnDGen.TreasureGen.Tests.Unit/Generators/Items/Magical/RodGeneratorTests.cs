@@ -229,7 +229,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             Assert.That(weapon.Damages, Is.EqualTo(mundaneWeapon.Damages));
             Assert.That(weapon.CriticalDamages, Is.EqualTo(mundaneWeapon.CriticalDamages));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Traits, Contains.Item(TraitConstants.Masterwork));
             Assert.That(weapon.IsDoubleWeapon, Is.False);
             Assert.That(weapon.SecondaryMagicBonus, Is.Zero);
@@ -272,7 +272,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             Assert.That(weapon.Damages, Is.EqualTo(mundaneWeapon.Damages));
             Assert.That(weapon.CriticalDamages, Is.EqualTo(mundaneWeapon.CriticalDamages));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Traits, Contains.Item(TraitConstants.Masterwork));
             Assert.That(weapon.IsDoubleWeapon, Is.True);
             Assert.That(weapon.SecondaryMagicBonus, Is.EqualTo(selection.Amount));
@@ -411,10 +411,10 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             var weapon = rod as Weapon;
             Assert.That(weapon.Attributes, Is.SupersetOf(mundaneWeapon.Attributes));
             Assert.That(weapon.CriticalMultiplier, Is.EqualTo(mundaneWeapon.CriticalMultiplier));
-            Assert.That(weapon.Damages.Select(d => d.Description), Is.EqualTo(mundaneWeapon.Damages.Select(d => d.Description)));
-            Assert.That(weapon.CriticalDamages.Select(d => d.Description), Is.EqualTo(mundaneWeapon.CriticalDamages.Select(d => d.Description)));
+            Assert.That(weapon.Damages.Select(d => d.Summary), Is.EqualTo(mundaneWeapon.Damages.Select(d => d.Summary)));
+            Assert.That(weapon.CriticalDamages.Select(d => d.Summary), Is.EqualTo(mundaneWeapon.CriticalDamages.Select(d => d.Summary)));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Traits, Contains.Item(TraitConstants.Masterwork).And.Count.EqualTo(1));
             Assert.That(weapon.IsDoubleWeapon, Is.False);
             Assert.That(weapon.SecondaryMagicBonus, Is.Zero);
@@ -475,10 +475,10 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             var weapon = rod as Weapon;
             Assert.That(weapon.Attributes, Is.SupersetOf(mundaneWeapon.Attributes));
             Assert.That(weapon.CriticalMultiplier, Is.EqualTo(mundaneWeapon.CriticalMultiplier));
-            Assert.That(weapon.Damages.Select(d => d.Description), Is.EqualTo(mundaneWeapon.Damages.Select(d => d.Description)));
-            Assert.That(weapon.CriticalDamages.Select(d => d.Description), Is.EqualTo(mundaneWeapon.CriticalDamages.Select(d => d.Description)));
+            Assert.That(weapon.Damages.Select(d => d.Summary), Is.EqualTo(mundaneWeapon.Damages.Select(d => d.Summary)));
+            Assert.That(weapon.CriticalDamages.Select(d => d.Summary), Is.EqualTo(mundaneWeapon.CriticalDamages.Select(d => d.Summary)));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Traits, Contains.Item(TraitConstants.Masterwork).And.Count.EqualTo(1));
             Assert.That(weapon.IsDoubleWeapon, Is.True);
             Assert.That(weapon.SecondaryMagicBonus, Is.EqualTo(9266));
@@ -595,10 +595,10 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             var weapon = rod as Weapon;
             Assert.That(weapon.Attributes, Is.SupersetOf(mundaneWeapon.Attributes));
             Assert.That(weapon.CriticalMultiplier, Is.EqualTo(mundaneWeapon.CriticalMultiplier));
-            Assert.That(weapon.Damages.Select(d => d.Description), Is.EqualTo(mundaneWeapon.Damages.Select(d => d.Description)));
-            Assert.That(weapon.CriticalDamages.Select(d => d.Description), Is.EqualTo(mundaneWeapon.CriticalDamages.Select(d => d.Description)));
+            Assert.That(weapon.Damages.Select(d => d.Summary), Is.EqualTo(mundaneWeapon.Damages.Select(d => d.Summary)));
+            Assert.That(weapon.CriticalDamages.Select(d => d.Summary), Is.EqualTo(mundaneWeapon.CriticalDamages.Select(d => d.Summary)));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Traits, Contains.Item(TraitConstants.Masterwork)
                 .And.SupersetOf(template.Traits)
                 .And.Count.EqualTo(3)
@@ -892,7 +892,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             Assert.That(weapon.Damages, Is.EqualTo(mundaneWeapon.Damages));
             Assert.That(weapon.CriticalDamages, Is.EqualTo(mundaneWeapon.CriticalDamages));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Traits, Contains.Item(TraitConstants.Masterwork));
             Assert.That(weapon.IsDoubleWeapon, Is.False);
             Assert.That(weapon.SecondaryMagicBonus, Is.Zero);
@@ -949,7 +949,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             Assert.That(weapon.Damages, Is.EqualTo(mundaneWeapon.Damages));
             Assert.That(weapon.CriticalDamages, Is.EqualTo(mundaneWeapon.CriticalDamages));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
             Assert.That(weapon.Traits, Contains.Item(TraitConstants.Masterwork));
             Assert.That(weapon.IsDoubleWeapon, Is.True);
             Assert.That(weapon.SecondaryMagicBonus, Is.EqualTo(90210));
@@ -1010,7 +1010,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             Assert.That(weapon.Damages, Is.EqualTo(mundaneWeapon.Damages));
             Assert.That(weapon.CriticalDamages, Is.EqualTo(mundaneWeapon.CriticalDamages));
             Assert.That(weapon.Size, Is.EqualTo(mundaneWeapon.Size));
-            Assert.That(weapon.ThreatRangeDescription, Is.EqualTo(mundaneWeapon.ThreatRangeDescription));
+            Assert.That(weapon.ThreatRangeSummary, Is.EqualTo(mundaneWeapon.ThreatRangeSummary));
         }
 
         [Test]

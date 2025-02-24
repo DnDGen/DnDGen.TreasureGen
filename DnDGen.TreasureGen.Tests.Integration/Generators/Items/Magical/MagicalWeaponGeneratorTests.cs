@@ -142,11 +142,11 @@ namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
 
             var weapon = item as Weapon;
             Assert.That(weapon.IsDoubleWeapon, Is.True);
-            Assert.That(weapon.SecondaryCriticalDamageDescription, Is.Not.Empty);
+            Assert.That(weapon.SecondaryCriticalDamageSummary, Is.Not.Empty);
             Assert.That(weapon.SecondaryCriticalDamageRoll, Is.Not.Empty);
             Assert.That(weapon.SecondaryCriticalDamages, Is.Not.Empty);
             Assert.That(weapon.SecondaryCriticalMultiplier, Is.Not.Empty);
-            Assert.That(weapon.SecondaryDamageDescription, Is.Not.Empty);
+            Assert.That(weapon.SecondaryDamageSummary, Is.Not.Empty);
             Assert.That(weapon.SecondaryDamageRoll, Is.Not.Empty);
             Assert.That(weapon.SecondaryDamages, Is.Not.Empty);
             Assert.That(weapon.SecondaryMagicBonus, Is.Positive);
@@ -162,11 +162,11 @@ namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
 
             var weapon = item as Weapon;
             Assert.That(weapon.IsDoubleWeapon, Is.True);
-            Assert.That(weapon.SecondaryCriticalDamageDescription, Is.Not.Empty);
+            Assert.That(weapon.SecondaryCriticalDamageSummary, Is.Not.Empty);
             Assert.That(weapon.SecondaryCriticalDamageRoll, Is.Not.Empty);
             Assert.That(weapon.SecondaryCriticalDamages, Is.Not.Empty);
             Assert.That(weapon.SecondaryCriticalMultiplier, Is.Not.Empty);
-            Assert.That(weapon.SecondaryDamageDescription, Is.Not.Empty);
+            Assert.That(weapon.SecondaryDamageSummary, Is.Not.Empty);
             Assert.That(weapon.SecondaryDamageRoll, Is.Not.Empty);
             Assert.That(weapon.SecondaryDamages, Is.Not.Empty);
             Assert.That(weapon.SecondaryMagicBonus, Is.EqualTo(1).And.EqualTo(weapon.Magic.Bonus));
@@ -182,8 +182,8 @@ namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
             Assert.That(item, Is.InstanceOf<Weapon>(), item.Name);
 
             var weapon = item as Weapon;
-            Assert.That(weapon.Damages, Has.Count.GreaterThan(1), weapon.DamageDescription);
-            Assert.That(weapon.CriticalDamages, Has.Count.GreaterThan(1), weapon.CriticalDamageDescription);
+            Assert.That(weapon.Damages, Has.Count.GreaterThan(1), weapon.DamageSummary);
+            Assert.That(weapon.CriticalDamages, Has.Count.GreaterThan(1), weapon.CriticalDamageSummary);
         }
 
         [TestCaseSource(typeof(ItemPowerTestData), nameof(ItemPowerTestData.SpecificWeapons))]
