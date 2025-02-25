@@ -11,7 +11,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane.Weapons
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Collections.Formattable.ITEMTYPEAttributes, ItemTypeConstants.Weapon); }
+            get { return TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Weapon); }
         }
 
         [TestCase(WeaponConstants.Dagger,
@@ -407,15 +407,14 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane.Weapons
             AttributeConstants.TwoHanded)]
         public void WeaponAttributes(string name, params string[] attributes)
         {
-            base.Collections(name, attributes);
+            base.AssertCollection(name, attributes);
         }
 
         [Test]
         public void AllWeaponsAreInTable()
         {
             var weapons = WeaponConstants.GetAllWeapons(false, false);
-            var keys = GetKeys();
-            AssertCollection(keys, weapons);
+            AssertCollection(table.Keys, weapons);
         }
 
         [Test]
@@ -427,8 +426,6 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane.Weapons
 
         private void VerifyAttribute(IEnumerable<string> weaponsWith, string attribute)
         {
-            var keys = GetKeys();
-
             var entriesWith = table.Where(kvp => kvp.Value.Contains(attribute));
             var entriesWithout = table.Except(entriesWith);
 

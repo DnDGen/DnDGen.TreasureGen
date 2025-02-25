@@ -1,15 +1,12 @@
-﻿using NUnit.Framework;
-using DnDGen.TreasureGen.Tables;
+﻿using DnDGen.TreasureGen.Tables;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
 {
     [TestFixture]
     public class IntelligenceDedicatedPowerTests : PercentileTests
     {
-        protected override string tableName
-        {
-            get { return TableNameConstants.Percentiles.Set.IntelligenceDedicatedPowers; }
-        }
+        protected override string tableName => TableNameConstants.Percentiles.IntelligenceDedicatedPowers;
 
         [Test]
         public override void ReplacementStringsAreValid()
@@ -40,9 +37,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
         [TestCase("Item can cast 15d6 Greater Shout 3/day", 88, 92)]
         [TestCase("Item can use Waves of Exhaustion", 93, 98)]
         [TestCase("Item can use True Resurrection on wielder 1/month", 99, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        public void IntelligenceDedicatedPowersPercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
+            AssertPercentile(content, lower, upper);
         }
     }
 }

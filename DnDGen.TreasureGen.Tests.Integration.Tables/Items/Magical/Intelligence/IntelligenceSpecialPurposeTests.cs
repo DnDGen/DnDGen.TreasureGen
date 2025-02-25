@@ -1,15 +1,12 @@
-﻿using NUnit.Framework;
-using DnDGen.TreasureGen.Tables;
+﻿using DnDGen.TreasureGen.Tables;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
 {
     [TestFixture]
     public class IntelligenceSpecialPurposeTests : PercentileTests
     {
-        protected override string tableName
-        {
-            get { return TableNameConstants.Percentiles.Set.IntelligenceSpecialPurposes; }
-        }
+        protected override string tableName => TableNameConstants.Percentiles.IntelligenceSpecialPurposes;
 
         [Test]
         public override void ReplacementStringsAreValid()
@@ -34,15 +31,10 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
         [TestCase("Defeat/slay all (other than the item and the wielder)", 91, 95)]
         [TestCase("Defend arcane spellcasters", 96, 97)]
         [TestCase("Defend divine spellcasters", 98, 99)]
-        public override void Percentile(string content, int lower, int upper)
+        [TestCase("Defend nonspellcasters", 100, 100)]
+        public void IntelligenceSpecificPurposePercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
-        }
-
-        [TestCase("Defend nonspellcasters", 100)]
-        public override void Percentile(string content, int roll)
-        {
-            base.Percentile(content, roll);
+            AssertPercentile(content, lower, upper);
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿using DnDGen.Infrastructure.Generators;
+﻿using DnDGen.Infrastructure.Factories;
 using DnDGen.Infrastructure.Selectors.Collections;
+using DnDGen.Infrastructure.Selectors.Percentiles;
 using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
 using DnDGen.TreasureGen.Items.Mundane;
-using DnDGen.TreasureGen.Selectors.Percentiles;
 using DnDGen.TreasureGen.Tables;
 using System;
 using System.Collections.Generic;
@@ -13,13 +13,13 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
     internal class StaffGenerator : MagicalItemGenerator
     {
-        private readonly ITypeAndAmountPercentileSelector typeAndAmountPercentileSelector;
+        private readonly IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
         private readonly IChargesGenerator chargesGenerator;
         private readonly ICollectionSelector collectionsSelector;
         private readonly ISpecialAbilitiesGenerator specialAbilitiesGenerator;
         private readonly JustInTimeFactory justInTimeFactory;
 
-        public StaffGenerator(ITypeAndAmountPercentileSelector typeAndAmountPercentileSelector,
+        public StaffGenerator(IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
             IChargesGenerator chargesGenerator,
             ICollectionSelector collectionsSelector,
             ISpecialAbilitiesGenerator specialAbilitiesGenerator,
@@ -34,19 +34,21 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
         public Item GenerateRandom(string power)
         {
-            var rodPowers = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.PowerGroups, ItemTypeConstants.Staff);
+            var rodPowers = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.PowerGroups, ItemTypeConstants.Staff);
             var adjustedPower = PowerHelper.AdjustPower(power, rodPowers);
 
-            var tablename = string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, adjustedPower, ItemTypeConstants.Staff);
-            var selection = typeAndAmountPercentileSelector.SelectFrom(tablename);
+            var tablename = TableNameConstants.Percentiles.POWERITEMTYPEs(adjustedPower, ItemTypeConstants.Staff);
+            var selection = typeAndAmountPercentileSelector.SelectFrom(Config.Name, tablename);
 
             return GenerateStaff(selection.Type, selection.Amount);
         }
 
         private Item GenerateStaff(string name, int bonus, params string[] traits)
         {
-            var staff = new Item();
-            staff.Name = name;
+            var staff = new Item
+            {
+                Name = name
+            };
             staff.Magic.Bonus = bonus;
             staff.Traits = new HashSet<string>(traits);
 
@@ -59,11 +61,11 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
         public Item Generate(string power, string itemName, params string[] traits)
         {
             var staffName = GetStaffName(itemName);
-            var powers = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.PowerGroups, staffName);
+            var powers = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.PowerGroups, staffName);
             var adjustedPower = PowerHelper.AdjustPower(power, powers);
 
-            var tablename = string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, adjustedPower, ItemTypeConstants.Staff);
-            var selections = typeAndAmountPercentileSelector.SelectAllFrom(tablename);
+            var tablename = TableNameConstants.Percentiles.POWERITEMTYPEs(adjustedPower, ItemTypeConstants.Staff);
+            var selections = typeAndAmountPercentileSelector.SelectAllFrom(Config.Name, tablename);
             var matches = selections.Where(s => s.Type == staffName).ToList();
 
             var selection = collectionsSelector.SelectRandomFrom(matches);
@@ -76,7 +78,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             if (staffs.Contains(itemName))
                 return itemName;
 
-            var staffFromBaseName = collectionsSelector.FindCollectionOf(Config.Name, TableNameConstants.Collections.Set.ItemGroups, itemName, staffs.ToArray());
+            var staffFromBaseName = collectionsSelector.FindCollectionOf(Config.Name, TableNameConstants.Collections.ItemGroups, itemName, staffs.ToArray());
 
             return staffFromBaseName;
         }
@@ -84,10 +86,10 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
         private Item BuildStaff(Item staff)
         {
             staff.ItemType = ItemTypeConstants.Staff;
-            staff.Attributes = new[] { AttributeConstants.Charged, AttributeConstants.OneTimeUse };
+            staff.Attributes = [AttributeConstants.Charged, AttributeConstants.OneTimeUse];
             staff.Quantity = 1;
             staff.IsMagical = true;
-            staff.BaseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.ItemGroups, staff.Name);
+            staff.BaseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, staff.Name);
 
             staff = GetWeapon(staff);
 
@@ -102,89 +104,24 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
             var weaponName = weapons.Intersect(staff.BaseNames).First();
 
-            var mundaneWeaponGenerator = justInTimeFactory.Build<MundaneItemGenerator>(ItemTypeConstants.Weapon);
-            var mundaneWeapon = mundaneWeaponGenerator.Generate(weaponName, staff.Traits.ToArray()) as Weapon;
+            var weaponGenerator = justInTimeFactory.Build<MundaneItemGenerator>(ItemTypeConstants.Weapon);
+            var weapon = weaponGenerator.Generate(weaponName, [.. staff.Traits]) as Weapon;
 
-            staff.Attributes = staff.Attributes.Union(mundaneWeapon.Attributes).Except(new[] { AttributeConstants.OneTimeUse });
-            staff.CloneInto(mundaneWeapon);
+            staff.Attributes = staff.Attributes.Union(weapon.Attributes).Except([AttributeConstants.OneTimeUse]);
+            staff.CloneInto(weapon);
 
-            if (mundaneWeapon.IsMagical)
-                mundaneWeapon.Traits.Add(TraitConstants.Masterwork);
+            if (weapon.IsMagical)
+                weapon.Traits.Add(TraitConstants.Masterwork);
 
-            if (mundaneWeapon.IsDoubleWeapon)
+            if (weapon.IsDoubleWeapon)
             {
-                mundaneWeapon.SecondaryHasAbilities = true;
-                mundaneWeapon.SecondaryMagicBonus = staff.Magic.Bonus;
+                weapon.SecondaryHasAbilities = true;
+                weapon.SecondaryMagicBonus = staff.Magic.Bonus;
             }
 
-            foreach (var specialAbility in mundaneWeapon.Magic.SpecialAbilities)
-            {
-                if (specialAbility.Damages.Any())
-                {
-                    var damages = specialAbility.Damages.Select(d => d.Clone()).ToArray();
-                    var damageType = mundaneWeapon.Damages[0].Type;
+            weapon = specialAbilitiesGenerator.ApplyAbilitiesToWeapon(weapon);
 
-                    foreach (var damage in damages)
-                    {
-                        if (string.IsNullOrEmpty(damage.Type))
-                        {
-                            damage.Type = damageType;
-                        }
-                    }
-
-                    mundaneWeapon.Damages.AddRange(damages);
-
-                    if (mundaneWeapon.SecondaryHasAbilities)
-                    {
-                        var secondaryDamages = specialAbility.Damages.Select(d => d.Clone()).ToArray();
-                        var secondaryDamageType = mundaneWeapon.SecondaryDamages[0].Type;
-
-                        foreach (var damage in secondaryDamages)
-                        {
-                            if (string.IsNullOrEmpty(damage.Type))
-                            {
-                                damage.Type = secondaryDamageType;
-                            }
-                        }
-
-                        mundaneWeapon.SecondaryDamages.AddRange(secondaryDamages);
-                    }
-                }
-
-                if (specialAbility.CriticalDamages.Any())
-                {
-                    var damageType = mundaneWeapon.CriticalDamages[0].Type;
-                    foreach (var damage in specialAbility.CriticalDamages[mundaneWeapon.CriticalMultiplier])
-                    {
-                        if (string.IsNullOrEmpty(damage.Type))
-                        {
-                            damage.Type = damageType;
-                        }
-                    }
-
-                    mundaneWeapon.CriticalDamages.AddRange(specialAbility.CriticalDamages[mundaneWeapon.CriticalMultiplier]);
-
-                    if (mundaneWeapon.SecondaryHasAbilities)
-                    {
-                        foreach (var damage in specialAbility.CriticalDamages[mundaneWeapon.SecondaryCriticalMultiplier])
-                        {
-                            if (string.IsNullOrEmpty(damage.Type))
-                            {
-                                damage.Type = damageType;
-                            }
-                        }
-
-                        mundaneWeapon.SecondaryCriticalDamages.AddRange(specialAbility.CriticalDamages[mundaneWeapon.SecondaryCriticalMultiplier]);
-                    }
-                }
-
-                if (specialAbility.Name == SpecialAbilityConstants.Keen)
-                {
-                    mundaneWeapon.ThreatRange *= 2;
-                }
-            }
-
-            return mundaneWeapon;
+            return weapon;
         }
 
         public Item Generate(Item template, bool allowRandomDecoration = false)
@@ -192,7 +129,18 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             var staff = template.Clone();
 
             staff.Magic.Intelligence = template.Magic.Intelligence.Clone();
-            staff.Magic.SpecialAbilities = specialAbilitiesGenerator.GenerateFor(template.Magic.SpecialAbilities);
+
+            var baseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, staff.Name);
+            var weapons = WeaponConstants.GetAllMelee(false, false);
+            var weaponBaseNames = weapons.Intersect(baseNames);
+            if (weaponBaseNames.Any())
+            {
+                var weaponName = weaponBaseNames.First();
+                var mundaneWeaponGenerator = justInTimeFactory.Build<MundaneItemGenerator>(ItemTypeConstants.Weapon);
+                var mundaneWeapon = mundaneWeaponGenerator.Generate(weaponName, [.. staff.Traits]) as Weapon;
+
+                staff.Magic.SpecialAbilities = specialAbilitiesGenerator.GenerateFor(staff.Magic.SpecialAbilities, mundaneWeapon.CriticalMultiplier);
+            }
 
             staff = BuildStaff(staff);
 

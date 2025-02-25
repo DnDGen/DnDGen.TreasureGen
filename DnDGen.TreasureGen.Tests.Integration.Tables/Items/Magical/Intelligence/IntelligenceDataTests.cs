@@ -1,16 +1,14 @@
-﻿using NUnit.Framework;
-using System;
+﻿using DnDGen.Infrastructure.Helpers;
+using DnDGen.TreasureGen.Selectors.Selections;
 using DnDGen.TreasureGen.Tables;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
 {
     [TestFixture]
     public class IntelligenceDataTests : CollectionsTests
     {
-        protected override string tableName
-        {
-            get { return TableNameConstants.Collections.Set.IntelligenceData; }
-        }
+        protected override string tableName => TableNameConstants.Collections.IntelligenceData;
 
         [TestCase("12", "30 ft. vision and hearing", 1, 0)]
         [TestCase("13", "60 ft. vision and hearing", 2, 0)]
@@ -20,14 +18,16 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
         [TestCase("17", "120 ft. darkvision and hearing", 3, 1)]
         [TestCase("18", "120 ft. darkvision, blindsense, and hearing", 3, 2)]
         [TestCase("19", "120 ft. darkvision, blindsense, and hearing", 4, 3)]
-        public void OrderedAttributes(string strength, string senses, int lesserPowersCount, int greaterPowersCount)
+        public void IntelligenceData(string strength, string senses, int lesserPowersCount, int greaterPowersCount)
         {
-            var data = new string[3];
-            data[DataIndexConstants.Intelligence.GreaterPowersCount] = Convert.ToString(greaterPowersCount);
-            data[DataIndexConstants.Intelligence.LesserPowersCount] = Convert.ToString(lesserPowersCount);
-            data[DataIndexConstants.Intelligence.Senses] = senses;
+            var data = DataHelper.Parse(new IntelligenceDataSelection
+            {
+                Senses = senses,
+                LesserPowersCount = lesserPowersCount,
+                GreaterPowersCount = greaterPowersCount,
+            });
 
-            OrderedCollections(strength, data);
+            AssertCollection(strength, data);
         }
     }
 }

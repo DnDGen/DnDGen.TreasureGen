@@ -9,7 +9,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane
     {
         protected override string tableName
         {
-            get { return TableNameConstants.Percentiles.Set.HasSpecialMaterial; }
+            get { return TableNameConstants.Percentiles.HasSpecialMaterial; }
         }
 
         [Test]

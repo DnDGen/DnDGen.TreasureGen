@@ -3,27 +3,27 @@
 <percentiles>
   <percentile>
     <lower>1</lower>
-    <content></content>
+	  <content>@0</content>
     <upper>14</upper>
   </percentile>
   <percentile>
     <lower>15</lower>
-    <content>Copper,1000d6</content>
+    <content>Copper@1000d6</content>
     <upper>29</upper>
   </percentile>
   <percentile>
     <lower>30</lower>
-    <content>Silver,100d8</content>
+    <content>Silver@100d8</content>
     <upper>52</upper>
   </percentile>
   <percentile>
     <lower>53</lower>
-    <content>Gold,20d8</content>
+    <content>Gold@20d8</content>
     <upper>95</upper>
   </percentile>
   <percentile>
     <lower>96</lower>
-    <content>Platinum,6d6+4</content>
+    <content>Platinum@6d6+4</content>
     <upper>100</upper>
   </percentile>
 </percentiles>

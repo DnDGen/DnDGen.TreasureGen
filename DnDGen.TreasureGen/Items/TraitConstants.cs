@@ -17,18 +17,14 @@ namespace DnDGen.TreasureGen.Items
             public const string Mithral = "Mithral";
             public const string AlchemicalSilver = "Alchemical silver";
 
-            public static IEnumerable<string> All()
-            {
-                return new[]
-                {
-                    Darkwood,
-                    Adamantine,
-                    Dragonhide,
-                    ColdIron,
-                    Mithral,
-                    AlchemicalSilver
-                };
-            }
+            public static IEnumerable<string> GetAll() => [
+                Darkwood,
+                Adamantine,
+                Dragonhide,
+                ColdIron,
+                Mithral,
+                AlchemicalSilver
+            ];
         }
 
         public static class Sizes
@@ -41,19 +37,15 @@ namespace DnDGen.TreasureGen.Items
             public const string Gargantuan = "Gargantuan";
             public const string Colossal = "Colossal";
 
-            public static IEnumerable<string> All()
-            {
-                return new[]
-                {
-                    Tiny,
-                    Small,
-                    Medium,
-                    Large,
-                    Huge,
-                    Gargantuan,
-                    Colossal
-                };
-            }
+            public static IEnumerable<string> GetAll() => [
+                Tiny,
+                Small,
+                Medium,
+                Large,
+                Huge,
+                Gargantuan,
+                Colossal
+            ];
         }
     }
 }

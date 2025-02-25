@@ -7,10 +7,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Goods.Levels
     [TestFixture]
     public class Level10GoodsTests : TypeAndAmountPercentileTests
     {
-        protected override string tableName
-        {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.LevelXGoods, 10); }
-        }
+        protected override string tableName => TableNameConstants.Percentiles.LevelXGoods(10);
 
         [Test]
         public override void ReplacementStringsAreValid()
@@ -18,17 +15,12 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Goods.Levels
             AssertReplacementStringsAreValid();
         }
 
-        [TestCase(EmptyContent, 1, 35)]
-        public override void Percentile(string content, int lower, int upper)
-        {
-            base.Percentile(content, lower, upper);
-        }
-
+        [TestCase("", AmountConstants.Range0, 1, 35)]
         [TestCase(GoodsConstants.Gem, AmountConstants.Range1d8, 36, 79)]
         [TestCase(GoodsConstants.Art, AmountConstants.Range1d6, 80, 100)]
-        public override void TypeAndAmountPercentile(string type, string amount, int lower, int upper)
+        public void Level10GoodsPercentile(string type, string amount, int lower, int upper)
         {
-            base.TypeAndAmountPercentile(type, amount, lower, upper);
+            AssertTypeAndAmountPercentile(type, amount, lower, upper);
         }
 
         [Test]

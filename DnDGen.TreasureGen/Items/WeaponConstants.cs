@@ -835,8 +835,8 @@ namespace DnDGen.TreasureGen.Items
 
         public static IEnumerable<string> GetAllPiercing(bool includeSpecific, bool includeTemplates)
         {
-            IEnumerable<string> piercing = new[]
-            {
+            IEnumerable<string> piercing =
+            [
                 Dagger,
                 PunchingDagger,
                 SpikedGauntlet,
@@ -899,7 +899,7 @@ namespace DnDGen.TreasureGen.Items
                 CompositeShortbow_StrengthPlus2,
                 CompositeLongbow_StrengthPlus3,
                 CompositeLongbow_StrengthPlus4,
-            };
+            ];
 
             if (!includeSpecific)
             {

@@ -1,16 +1,13 @@
-﻿using NUnit.Framework;
+﻿using DnDGen.TreasureGen.Items.Magical;
 using DnDGen.TreasureGen.Tables;
-using DnDGen.TreasureGen.Items.Magical;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Curses
 {
     [TestFixture]
     public class CursedDependentSituationsTests : PercentileTests
     {
-        protected override string tableName
-        {
-            get { return TableNameConstants.Percentiles.Set.CursedDependentSituations; }
-        }
+        protected override string tableName => TableNameConstants.Percentiles.CursedDependentSituations;
 
         [Test]
         public override void ReplacementStringsAreValid()
@@ -41,17 +38,12 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Curses
         [TestCase(CurseConstants.Dependent.HandsOfSpellcaster, 86, 90)]
         [TestCase(CurseConstants.Dependent.HandsOfPARTIALALIGNMENT, 91, 93)]
         [TestCase(CurseConstants.Dependent.HandsOfFULLALIGNMENT, 94, 95)]
+        [TestCase(CurseConstants.Dependent.HandsOfGENDER, 96, 96)]
         [TestCase(CurseConstants.Dependent.NonholyDays, 97, 99)]
-        public override void Percentile(string content, int lower, int upper)
+        [TestCase(CurseConstants.Dependent.MilesFromSite, 100, 100)]
+        public void CursedDependentSituationsPercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
-        }
-
-        [TestCase(CurseConstants.Dependent.HandsOfGENDER, 96)]
-        [TestCase(CurseConstants.Dependent.MilesFromSite, 100)]
-        public override void Percentile(string content, int roll)
-        {
-            base.Percentile(content, roll);
+            AssertPercentile(content, lower, upper);
         }
     }
 }

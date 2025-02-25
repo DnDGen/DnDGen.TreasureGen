@@ -8,7 +8,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Armor.Specif
     {
         protected override string tableName
         {
-            get { return TableNameConstants.Percentiles.Set.CastersShieldContainsSpell; }
+            get { return TableNameConstants.Percentiles.CastersShieldContainsSpell; }
         }
 
         [Test]

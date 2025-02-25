@@ -3,217 +3,217 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content>Potion of Cure Light Wounds,0</content>
+        <content>Potion of Cure Light Wounds@0</content>
         <upper>10</upper>
     </percentile>
     <percentile>
         <lower>11</lower>
-        <content>Potion of Endure Elements,0</content>
+        <content>Potion of Endure Elements@0</content>
         <upper>13</upper>
     </percentile>
     <percentile>
         <lower>14</lower>
-        <content>Potion of Hide from Animals,0</content>
+        <content>Potion of Hide from Animals@0</content>
         <upper>15</upper>
     </percentile>
     <percentile>
         <lower>16</lower>
-        <content>Potion of Hide from Undead,0</content>
+        <content>Potion of Hide from Undead@0</content>
         <upper>17</upper>
     </percentile>
     <percentile>
         <lower>18</lower>
-        <content>Potion of Jump,0</content>
+        <content>Potion of Jump@0</content>
         <upper>19</upper>
     </percentile>
     <percentile>
         <lower>20</lower>
-        <content>Potion of Mage Armor,0</content>
+        <content>Potion of Mage Armor@0</content>
         <upper>22</upper>
     </percentile>
     <percentile>
         <lower>23</lower>
-        <content>Potion of Magic Fang,0</content>
+        <content>Potion of Magic Fang@0</content>
         <upper>25</upper>
     </percentile>
     <percentile>
         <lower>26</lower>
-        <content>Oil of Magic Stone,0</content>
+        <content>Oil of Magic Stone@0</content>
         <upper>26</upper>
     </percentile>
     <percentile>
         <lower>27</lower>
-        <content>Oil of Magic Weapon,0</content>
+        <content>Oil of Magic Weapon@0</content>
         <upper>29</upper>
     </percentile>
     <percentile>
         <lower>30</lower>
-        <content>Potion of Pass Without Trace,0</content>
+        <content>Potion of Pass Without Trace@0</content>
         <upper>30</upper>
     </percentile>
     <percentile>
         <lower>31</lower>
-        <content>Potion of Protection from PARTIALALIGNMENT,0</content>
+        <content>Potion of Protection from PARTIALALIGNMENT@0</content>
         <upper>32</upper>
     </percentile>
     <percentile>
         <lower>33</lower>
-        <content>Potion of Remove Fear,0</content>
+        <content>Potion of Remove Fear@0</content>
         <upper>34</upper>
     </percentile>
     <percentile>
         <lower>35</lower>
-        <content>Potion of Sanctuary,0</content>
+        <content>Potion of Sanctuary@0</content>
         <upper>35</upper>
     </percentile>
     <percentile>
         <lower>36</lower>
-        <content>Potion of Shield of Faith,2</content>
+        <content>Potion of Shield of Faith@2</content>
         <upper>38</upper>
     </percentile>
     <percentile>
         <lower>39</lower>
-        <content>Oil of Shillelagh,0</content>
+        <content>Oil of Shillelagh@0</content>
         <upper>39</upper>
     </percentile>
     <percentile>
         <lower>40</lower>
-        <content>Oil of Bless Weapon,0</content>
+        <content>Oil of Bless Weapon@0</content>
         <upper>41</upper>
     </percentile>
     <percentile>
         <lower>42</lower>
-        <content>Potion of Enlarge Person,0</content>
+        <content>Potion of Enlarge Person@0</content>
         <upper>44</upper>
     </percentile>
     <percentile>
         <lower>45</lower>
-        <content>Potion of Reduce Person,0</content>
+        <content>Potion of Reduce Person@0</content>
         <upper>45</upper>
     </percentile>
     <percentile>
         <lower>46</lower>
-        <content>Potion of Aid,0</content>
+        <content>Potion of Aid@0</content>
         <upper>47</upper>
     </percentile>
     <percentile>
         <lower>48</lower>
-        <content>Potion of Barkskin,2</content>
+        <content>Potion of Barkskin@2</content>
         <upper>50</upper>
     </percentile>
     <percentile>
         <lower>51</lower>
-        <content>Potion of Bear's Endurance,0</content>
+        <content>Potion of Bear's Endurance@0</content>
         <upper>53</upper>
     </percentile>
     <percentile>
         <lower>54</lower>
-        <content>Potion of Blur,0</content>
+        <content>Potion of Blur@0</content>
         <upper>56</upper>
     </percentile>
     <percentile>
         <lower>57</lower>
-        <content>Potion of Bull's Strength,0</content>
+        <content>Potion of Bull's Strength@0</content>
         <upper>59</upper>
     </percentile>
     <percentile>
         <lower>60</lower>
-        <content>Potion of Cat's Grace,0</content>
+        <content>Potion of Cat's Grace@0</content>
         <upper>62</upper>
     </percentile>
     <percentile>
         <lower>63</lower>
-        <content>Potion of Cure Moderate Wounds,0</content>
+        <content>Potion of Cure Moderate Wounds@0</content>
         <upper>67</upper>
     </percentile>
     <percentile>
         <lower>68</lower>
-        <content>Oil of Darkness,0</content>
+        <content>Oil of Darkness@0</content>
         <upper>68</upper>
     </percentile>
     <percentile>
         <lower>69</lower>
-        <content>Potion of Darkvision,0</content>
+        <content>Potion of Darkvision@0</content>
         <upper>71</upper>
     </percentile>
     <percentile>
         <lower>72</lower>
-        <content>Potion of Delay Poison,0</content>
+        <content>Potion of Delay Poison@0</content>
         <upper>74</upper>
     </percentile>
     <percentile>
         <lower>75</lower>
-        <content>Potion of Eagle's Splendor,0</content>
+        <content>Potion of Eagle's Splendor@0</content>
         <upper>76</upper>
     </percentile>
     <percentile>
         <lower>77</lower>
-        <content>Potion of Fox's Cunning,0</content>
+        <content>Potion of Fox's Cunning@0</content>
         <upper>78</upper>
     </percentile>
     <percentile>
         <lower>79</lower>
-        <content>Potion of Invisibility,0</content>
+        <content>Potion of Invisibility@0</content>
         <upper>80</upper>
     </percentile>
     <percentile>
         <lower>81</lower>
-        <content>Oil of Invisibility,0</content>
+        <content>Oil of Invisibility@0</content>
         <upper>81</upper>
     </percentile>
     <percentile>
         <lower>82</lower>
-        <content>Potion of Lesser Restoration,0</content>
+        <content>Potion of Lesser Restoration@0</content>
         <upper>84</upper>
     </percentile>
     <percentile>
         <lower>85</lower>
-        <content>Potion of Levitate,0</content>
+        <content>Potion of Levitate@0</content>
         <upper>85</upper>
     </percentile>
     <percentile>
         <lower>86</lower>
-        <content>Oil of Levitate,0</content>
+        <content>Oil of Levitate@0</content>
         <upper>86</upper>
     </percentile>
     <percentile>
         <lower>87</lower>
-        <content>Potion of Misdirection,0</content>
+        <content>Potion of Misdirection@0</content>
         <upper>87</upper>
     </percentile>
     <percentile>
         <lower>88</lower>
-        <content>Potion of Owl's Wisdom,0</content>
+        <content>Potion of Owl's Wisdom@0</content>
         <upper>89</upper>
     </percentile>
     <percentile>
         <lower>90</lower>
-        <content>Potion of Protection from Arrows 10/magic,0</content>
+        <content>Potion of Protection from Arrows 10/magic@0</content>
         <upper>91</upper>
     </percentile>
     <percentile>
         <lower>92</lower>
-        <content>Potion of Remove Paralysis,0</content>
+        <content>Potion of Remove Paralysis@0</content>
         <upper>93</upper>
     </percentile>
     <percentile>
         <lower>94</lower>
-        <content>Potion of Resist ENERGY 10,0</content>
+        <content>Potion of Resist ENERGY 10@0</content>
         <upper>96</upper>
     </percentile>
     <percentile>
         <lower>97</lower>
-        <content>Potion of Shield of Faith,3</content>
+        <content>Potion of Shield of Faith@3</content>
         <upper>97</upper>
     </percentile>
     <percentile>
         <lower>98</lower>
-        <content>Potion of Spider Climb,0</content>
+        <content>Potion of Spider Climb@0</content>
         <upper>99</upper>
     </percentile>
     <percentile>
         <lower>100</lower>
-        <content>Potion of Undetectable Alignment,0</content>
+        <content>Potion of Undetectable Alignment@0</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

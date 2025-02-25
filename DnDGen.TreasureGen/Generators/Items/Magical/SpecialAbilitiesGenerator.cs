@@ -1,9 +1,8 @@
 ﻿using DnDGen.Infrastructure.Selectors.Collections;
 using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
-using DnDGen.TreasureGen.Selectors.Collections;
-using DnDGen.TreasureGen.Selectors.Helpers;
 using DnDGen.TreasureGen.Selectors.Percentiles;
+using DnDGen.TreasureGen.Selectors.Selections;
 using DnDGen.TreasureGen.Tables;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,23 +14,31 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
         private const int MaxBonus = 10;
 
         private readonly ICollectionSelector collectionsSelector;
-        private readonly ISpecialAbilityDataSelector specialAbilityDataSelector;
+        private readonly ICollectionDataSelector<DamageDataSelection> damageDataSelector;
+        private readonly ICollectionDataSelector<SpecialAbilityDataSelection> specialAbilityDataSelector;
         private readonly ITreasurePercentileSelector percentileSelector;
-        private readonly DamageHelper damageHelper;
+        private readonly ISpellGenerator spellGenerator;
 
-        public SpecialAbilitiesGenerator(ICollectionSelector collectionsSelector, ITreasurePercentileSelector percentileSelector, ISpecialAbilityDataSelector specialAbilityDataSelector)
+        public const string BonusSpecialAbility = "BonusSpecialAbility";
+
+        public SpecialAbilitiesGenerator(
+            ICollectionSelector collectionsSelector,
+            ITreasurePercentileSelector percentileSelector,
+            ICollectionDataSelector<SpecialAbilityDataSelection> specialAbilityDataSelector,
+            ICollectionDataSelector<DamageDataSelection> damageDataSelector,
+            ISpellGenerator spellGenerator)
         {
             this.collectionsSelector = collectionsSelector;
             this.percentileSelector = percentileSelector;
             this.specialAbilityDataSelector = specialAbilityDataSelector;
-
-            damageHelper = new DamageHelper();
+            this.damageDataSelector = damageDataSelector;
+            this.spellGenerator = spellGenerator;
         }
 
         public IEnumerable<SpecialAbility> GenerateFor(Item targetItem, string power, int quantity)
         {
             if (targetItem.Magic.Bonus <= 0 || quantity <= 0)
-                return Enumerable.Empty<SpecialAbility>();
+                return [];
 
             var tableNames = GetTableNames(targetItem, power);
             var bonusSum = targetItem.Magic.Bonus;
@@ -52,7 +59,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
                 }
 
                 var ability = GenerateAbilityFrom(availableAbilities, tableNames);
-                if (ability.Name == "BonusSpecialAbility")
+                if (ability.Name == BonusSpecialAbility)
                 {
                     quantity++;
                     continue;
@@ -86,24 +93,24 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
             if (targetItem.Attributes.Contains(AttributeConstants.Melee))
             {
-                var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERATTRIBUTESpecialAbilities, power, AttributeConstants.Melee);
+                var tableName = TableNameConstants.Percentiles.POWERATTRIBUTESpecialAbilities(power, AttributeConstants.Melee);
                 tableNames.Add(tableName);
             }
 
             if (targetItem.Attributes.Contains(AttributeConstants.Ranged))
             {
-                var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERATTRIBUTESpecialAbilities, power, AttributeConstants.Ranged);
+                var tableName = TableNameConstants.Percentiles.POWERATTRIBUTESpecialAbilities(power, AttributeConstants.Ranged);
                 tableNames.Add(tableName);
             }
 
             if (targetItem.Attributes.Contains(AttributeConstants.Shield))
             {
-                var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERATTRIBUTESpecialAbilities, power, AttributeConstants.Shield);
+                var tableName = TableNameConstants.Percentiles.POWERATTRIBUTESpecialAbilities(power, AttributeConstants.Shield);
                 tableNames.Add(tableName);
             }
             else if (targetItem.ItemType == ItemTypeConstants.Armor)
             {
-                var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERATTRIBUTESpecialAbilities, power, ItemTypeConstants.Armor);
+                var tableName = TableNameConstants.Percentiles.POWERATTRIBUTESpecialAbilities(power, ItemTypeConstants.Armor);
                 tableNames.Add(tableName);
             }
 
@@ -113,6 +120,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
         private List<SpecialAbility> GetAvailableAbilities(Item targetItem, IEnumerable<string> tableNames, int bonus)
         {
             var availableAbilities = new List<SpecialAbility>();
+            var weapon = targetItem as Weapon;
 
             foreach (var tableName in tableNames)
             {
@@ -120,11 +128,10 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
                 foreach (var abilityName in abilityNames)
                 {
-                    if (abilityName == "BonusSpecialAbility")
+                    if (abilityName == BonusSpecialAbility)
                         continue;
 
-                    var ability = GetSpecialAbility(abilityName);
-
+                    var ability = GetSpecialAbility(abilityName, weapon?.CriticalMultiplier ?? string.Empty);
                     if (ability.RequirementsMet(targetItem) && bonus + ability.BonusEquivalent <= 10)
                         availableAbilities.Add(ability);
                 }
@@ -133,63 +140,27 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return availableAbilities;
         }
 
-        private SpecialAbility GetSpecialAbility(string abilityName)
+        private SpecialAbility GetSpecialAbility(string abilityName, string criticalMultiplier)
         {
             var ability = new SpecialAbility();
-            var abilitySelection = specialAbilityDataSelector.SelectFrom(abilityName);
+            var abilitySelection = specialAbilityDataSelector.SelectOneFrom(Config.Name, TableNameConstants.Collections.SpecialAbilityData, abilityName);
 
             ability.Name = abilityName;
             ability.BaseName = abilitySelection.BaseName;
-            ability.AttributeRequirements = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.SpecialAbilityAttributeRequirements, ability.BaseName);
+            ability.AttributeRequirements = collectionsSelector.SelectFrom(
+                Config.Name,
+                TableNameConstants.Collections.SpecialAbilityAttributeRequirements,
+                ability.BaseName);
             ability.BonusEquivalent = abilitySelection.BonusEquivalent;
             ability.Power = abilitySelection.Power;
 
-            var damagesData = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.WeaponDamages, abilityName).ToArray();
-            if (!damagesData.Any())
+            var damagesData = damageDataSelector.SelectFrom(Config.Name, TableNameConstants.Collections.AbilityDamages, abilityName);
+            ability.Damages.AddRange(damagesData.Select(Damage.From));
+
+            if (!string.IsNullOrEmpty(criticalMultiplier))
             {
-                return ability;
-            }
-
-            if (!string.IsNullOrEmpty(damagesData[0]))
-            {
-                var damageEntries = damageHelper.ParseEntries(damagesData[0]);
-
-                foreach (var damageEntry in damageEntries)
-                {
-                    ability.Damages.Add(new Damage
-                    {
-                        Roll = damageEntry[DataIndexConstants.Weapon.DamageData.RollIndex],
-                        Type = damageEntry[DataIndexConstants.Weapon.DamageData.TypeIndex],
-                        Condition = damageEntry[DataIndexConstants.Weapon.DamageData.ConditionIndex],
-                    });
-                }
-            }
-
-            if (string.IsNullOrEmpty(damagesData[1]))
-            {
-                return ability;
-            }
-
-            var multipliers = new[] { "x2", "x3", "x4" };
-
-            for (var i = 1; i < damagesData.Length; i++)
-            {
-                var multiplier = multipliers[i - 1];
-                ability.CriticalDamages[multiplier] = new List<Damage>();
-
-                var criticalDamageEntries = damageHelper.ParseEntries(damagesData[i]);
-
-                foreach (var criticalDamageEntry in criticalDamageEntries)
-                {
-                    var damage = new Damage
-                    {
-                        Roll = criticalDamageEntry[DataIndexConstants.Weapon.DamageData.RollIndex],
-                        Type = criticalDamageEntry[DataIndexConstants.Weapon.DamageData.TypeIndex],
-                        Condition = criticalDamageEntry[DataIndexConstants.Weapon.DamageData.ConditionIndex],
-                    };
-
-                    ability.CriticalDamages[multiplier].Add(damage);
-                }
+                var critDamagesData = damageDataSelector.SelectFrom(Config.Name, TableNameConstants.Collections.AbilityDamages, abilityName + criticalMultiplier);
+                ability.CriticalDamages.AddRange(critDamagesData.Select(Damage.From));
             }
 
             return ability;
@@ -206,8 +177,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
             foreach (var ability in availableAbilities)
             {
-                //INFO: This means it is a custom special ability
-                if (!specialAbilityDataSelector.IsSpecialAbility(ability.Name))
+                if (IsCustomSpecialAbility(ability.Name))
                 {
                     strongestAbilities.Add(ability);
                     continue;
@@ -226,6 +196,11 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return strongestAbilities;
         }
 
+        private bool IsCustomSpecialAbility(string abilityName)
+        {
+            return !specialAbilityDataSelector.IsCollection(Config.Name, TableNameConstants.Collections.SpecialAbilityData, abilityName);
+        }
+
         private SpecialAbility GenerateAbilityFrom(IEnumerable<SpecialAbility> availableAbilities, IEnumerable<string> tableNames)
         {
             var abilityName = string.Empty;
@@ -236,32 +211,95 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
                 abilityName = percentileSelector.SelectFrom(Config.Name, tableName);
 
-                if (abilityName == "BonusSpecialAbility")
+                if (abilityName == BonusSpecialAbility)
                     return new SpecialAbility { Name = abilityName };
             } while (!availableAbilities.Any(a => a.Name == abilityName));
 
             return availableAbilities.First(a => a.Name == abilityName);
         }
 
-        public IEnumerable<SpecialAbility> GenerateFor(IEnumerable<SpecialAbility> abilityPrototypes)
+        public IEnumerable<SpecialAbility> GenerateFor(IEnumerable<SpecialAbility> abilityPrototypes, string criticalMultiplier)
         {
             var abilities = new List<SpecialAbility>();
 
             foreach (var abilityPrototype in abilityPrototypes)
             {
-                if (specialAbilityDataSelector.IsSpecialAbility(abilityPrototype.Name))
-                {
-                    var ability = GetSpecialAbility(abilityPrototype.Name);
-                    abilities.Add(ability);
-                }
-                else
+                if (IsCustomSpecialAbility(abilityPrototype.Name))
                 {
                     abilities.Add(abilityPrototype);
+                    continue;
                 }
+
+                var ability = GetSpecialAbility(abilityPrototype.Name, criticalMultiplier);
+                abilities.Add(ability);
             }
 
             var strongestAbilities = GetStrongestAvailableAbilities(abilities);
             return strongestAbilities;
+        }
+
+        public Weapon ApplyAbilitiesToWeapon(Weapon weapon)
+        {
+            if (weapon.Magic.SpecialAbilities.Any(a => a.Name == SpecialAbilityConstants.SpellStoring))
+            {
+                var shouldStoreSpell = percentileSelector.SelectFrom<bool>(Config.Name, TableNameConstants.Percentiles.SpellStoringContainsSpell);
+
+                if (shouldStoreSpell)
+                {
+                    var spellType = spellGenerator.GenerateType();
+                    var level = spellGenerator.GenerateLevel(PowerConstants.Minor);
+                    var spell = spellGenerator.Generate(spellType, level);
+
+                    weapon.Contents.Add(spell);
+                }
+            }
+
+            foreach (var specialAbility in weapon.Magic.SpecialAbilities)
+            {
+                var weaponDamages = GetWeaponDamages(specialAbility.Damages, weapon.Damages[0].Type);
+                weapon.Damages.AddRange(weaponDamages);
+
+                var weaponCritDamages = GetWeaponDamages(specialAbility.CriticalDamages, weapon.CriticalDamages[0].Type);
+                weapon.CriticalDamages.AddRange(weaponCritDamages);
+
+                if (specialAbility.Name == SpecialAbilityConstants.Keen)
+                {
+                    weapon.ThreatRange *= 2;
+                }
+            }
+
+            if (weapon.IsDoubleWeapon && weapon.SecondaryHasAbilities)
+            {
+                var secondaryAbilities = GenerateFor(weapon.Magic.SpecialAbilities, weapon.SecondaryCriticalMultiplier);
+
+                foreach (var specialAbility in secondaryAbilities)
+                {
+                    var weaponDamages = GetWeaponDamages(specialAbility.Damages, weapon.SecondaryDamages[0].Type);
+                    weapon.SecondaryDamages.AddRange(weaponDamages);
+
+                    var weaponCritDamages = GetWeaponDamages(specialAbility.CriticalDamages, weapon.SecondaryCriticalDamages[0].Type);
+                    weapon.SecondaryCriticalDamages.AddRange(weaponCritDamages);
+                }
+            }
+
+            return weapon;
+        }
+
+        private IEnumerable<Damage> GetWeaponDamages(IEnumerable<Damage> abilityDamages, string weaponDamageType)
+        {
+            if (!abilityDamages.Any())
+                return [];
+
+            var damages = abilityDamages.Select(d => d.Clone()).ToArray();
+            foreach (var damage in damages)
+            {
+                if (string.IsNullOrEmpty(damage.Type))
+                {
+                    damage.Type = weaponDamageType;
+                }
+            }
+
+            return damages;
         }
     }
 }

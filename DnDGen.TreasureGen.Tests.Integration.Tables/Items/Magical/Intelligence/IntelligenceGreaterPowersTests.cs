@@ -6,10 +6,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
     [TestFixture]
     public class IntelligenceGreaterPowersTests : PercentileTests
     {
-        protected override string tableName
-        {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.IntelligencePOWERPowers, "Greater"); }
-        }
+        protected override string tableName => TableNameConstants.Percentiles.IntelligenceGreaterPowers;
 
         [Test]
         public override void ReplacementStringsAreValid()
@@ -45,9 +42,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
         [TestCase("Item can Locate Creature 3/day", 86, 91)]
         [TestCase("Item can use Fear against foes 3/day", 92, 97)]
         [TestCase("Item can use Detect Thoughts at will", 98, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        public void IntelligenceGreaterPowersPercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
+            AssertPercentile(content, lower, upper);
         }
     }
 }

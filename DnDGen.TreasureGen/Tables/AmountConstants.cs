@@ -2,6 +2,7 @@
 {
     internal static class AmountConstants
     {
+        public const string Range0 = "0";
         public const string Range1 = "1";
         public const string Range1d3 = "1d3";
         public const string Range1d3Plus1 = "1d3+1";

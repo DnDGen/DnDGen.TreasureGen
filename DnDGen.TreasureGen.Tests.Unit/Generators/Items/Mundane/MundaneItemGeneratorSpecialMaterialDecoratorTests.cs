@@ -33,7 +33,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
 
             mockInnerGenerator.Setup(g => g.GenerateRandom()).Returns(item);
             mockCollectionsSelector
-                .Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.Set.SpecialMaterials, TraitConstants.Masterwork))
+                .Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.SpecialMaterials, TraitConstants.Masterwork))
                 .Returns(masterworkMaterials);
         }
 

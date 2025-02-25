@@ -1,16 +1,14 @@
-﻿using DnDGen.TreasureGen.Items;
+﻿using DnDGen.TreasureGen.Generators.Items.Magical;
+using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Tables;
 using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Armor.Minor
 {
     [TestFixture]
-    public class MinorArmorsTests : PercentileTests
+    public class MinorArmorsTests : TypeAndAmountPercentileTests
     {
-        protected override string tableName
-        {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, PowerConstants.Minor, ItemTypeConstants.Armor); }
-        }
+        protected override string tableName => TableNameConstants.Percentiles.POWERITEMTYPEs(PowerConstants.Minor, ItemTypeConstants.Armor);
 
         [Test]
         public override void ReplacementStringsAreValid()
@@ -24,13 +22,16 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Armor.Minor
             AssertTableIsComplete();
         }
 
-        [TestCase("1", 1, 80)]
-        [TestCase("2", 81, 87)]
-        [TestCase(ItemTypeConstants.Armor, 88, 91)]
-        [TestCase("SpecialAbility", 92, 100)]
-        public override void Percentile(string value, int lower, int upper)
+        [TestCase(AttributeConstants.Shield, 1, 1, 60)]
+        [TestCase(ItemTypeConstants.Armor, 1, 61, 80)]
+        [TestCase(AttributeConstants.Shield, 2, 81, 85)]
+        [TestCase(ItemTypeConstants.Armor, 2, 86, 87)]
+        [TestCase(ItemTypeConstants.Armor, MagicalArmorGenerator.SpecificBonus, 88, 89)]
+        [TestCase(AttributeConstants.Shield, MagicalArmorGenerator.SpecificBonus, 90, 91)]
+        [TestCase(MagicalArmorGenerator.SpecialAbility, 0, 92, 100)]
+        public void MinorArmorsPercentile(string type, int amount, int lower, int upper)
         {
-            base.Percentile(value, lower, upper);
+            AssertTypeAndAmountPercentile(type, amount, lower, upper);
         }
     }
 }

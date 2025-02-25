@@ -1,15 +1,12 @@
-﻿using NUnit.Framework;
-using DnDGen.TreasureGen.Tables;
+﻿using DnDGen.TreasureGen.Tables;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
 {
     [TestFixture]
     public class IntelligenceLesserPowersTests : PercentileTests
     {
-        protected override string tableName
-        {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.IntelligencePOWERPowers, "Lesser"); }
-        }
+        protected override string tableName => TableNameConstants.Percentiles.IntelligenceLesserPowers;
 
         [Test]
         public override void ReplacementStringsAreValid()
@@ -45,9 +42,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
         [TestCase("Item can use Daze Monster 3/day", 87, 89)]
         [TestCase("Item can use Locate Object 3/day", 90, 95)]
         [TestCase("Item can use Cure Moderate Wounds (2d8+3) on wielder 3/day", 96, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        public void IntelligenceLesserPowersPercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
+            AssertPercentile(content, lower, upper);
         }
     }
 }

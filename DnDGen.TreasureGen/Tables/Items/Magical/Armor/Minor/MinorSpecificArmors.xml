@@ -3,17 +3,17 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content>Chain shirt,0</content>
+        <content>Chain shirt@0</content>
         <upper>50</upper>
     </percentile>
     <percentile>
         <lower>51</lower>
-        <content>Full plate,0</content>
+        <content>Full plate@0</content>
         <upper>80</upper>
     </percentile>
     <percentile>
         <lower>81</lower>
-        <content>Elven Chain,0</content>
+        <content>Elven Chain@0</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

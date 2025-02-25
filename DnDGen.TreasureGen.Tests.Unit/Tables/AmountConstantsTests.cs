@@ -7,7 +7,8 @@ namespace DnDGen.TreasureGen.Tests.Unit.Tables
     [TestFixture]
     public class AmountConstantsTests
     {
-        [TestCase(AmountConstants.Range1, 1, 1)]
+        [TestCase(AmountConstants.Range0, 0)]
+        [TestCase(AmountConstants.Range1, 1)]
         [TestCase(AmountConstants.Range1d3, 1, 3)]
         [TestCase(AmountConstants.Range1d3Plus1, 1, 3, 1, 1)]
         [TestCase(AmountConstants.Range1d3Plus2, 1, 3, 1, 2)]
@@ -100,7 +101,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Tables
         [TestCase(AmountConstants.Range6d4x100, 6, 4, 100)]
         [TestCase(AmountConstants.Range6d6, 6, 6)]
         [TestCase(AmountConstants.Range7d6, 7, 6)]
-        public void RangeConstant(string constant, int quantity, int die, int multiplier = 1, int bonus = 0)
+        public void RangeConstant(string constant, int quantity, int die = 1, int multiplier = 1, int bonus = 0)
         {
             var roll = $"{quantity}d{die}";
 

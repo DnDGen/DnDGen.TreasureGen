@@ -6,7 +6,8 @@ namespace DnDGen.TreasureGen.Tests.Unit
     public class LevelLimitsTests
     {
         [TestCase(LevelLimits.Minimum, 1)]
-        [TestCase(LevelLimits.Maximum, 100)]
+        [TestCase(LevelLimits.Maximum_Standard, 20)]
+        [TestCase(LevelLimits.Maximum_Epic, 30)]
         public void LevelLimit(int limit, int value)
         {
             Assert.That(limit, Is.EqualTo(value));

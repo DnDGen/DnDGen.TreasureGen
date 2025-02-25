@@ -9,7 +9,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Wands
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, PowerConstants.Minor, ItemTypeConstants.Wand); }
+            get { return TableNameConstants.Percentiles.POWERITEMTYPEs(PowerConstants.Minor, ItemTypeConstants.Wand); }
         }
 
         [Test]
@@ -59,15 +59,15 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Wands
         [TestCase("Silence", 92, 94)]
         [TestCase("Summon Monster II", 95, 97)]
         [TestCase("Web", 98, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        public void Percentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
+            base.AssertPercentile(content, lower, upper);
         }
 
         [TestCase("Magic Missile (5th)", 37)]
-        public override void Percentile(string content, int roll)
+        public void Percentile(string content, int roll)
         {
-            base.Percentile(content, roll);
+            base.AssertPercentile(content, roll);
         }
     }
 }

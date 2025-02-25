@@ -9,7 +9,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Goods.Art
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Collections.Formattable.GOODTYPEDescriptions, GoodsConstants.Art); }
+            get { return TableNameConstants.Collections.GOODTYPEDescriptions(GoodsConstants.Art); }
         }
 
         [TestCase("1d10*10", "silver ewer",
@@ -42,9 +42,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Goods.Art
                               "jeweled electrum ring")]
         [TestCase("2d6*1000", "gold and ruby ring",
                               "gold cup set with emeralds")]
-        public override void Collections(string name, params string[] attributes)
+        public void Collection(string name, params string[] attributes)
         {
-            base.Collections(name, attributes);
+            base.AssertCollection(name, attributes);
         }
     }
 }

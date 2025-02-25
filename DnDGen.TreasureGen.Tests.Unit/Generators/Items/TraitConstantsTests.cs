@@ -31,7 +31,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         [Test]
         public void AllSpecialMaterials()
         {
-            var materials = TraitConstants.SpecialMaterials.All();
+            var materials = TraitConstants.SpecialMaterials.GetAll();
             Assert.That(materials, Contains.Item(TraitConstants.SpecialMaterials.Mithral));
             Assert.That(materials, Contains.Item(TraitConstants.SpecialMaterials.Adamantine));
             Assert.That(materials, Contains.Item(TraitConstants.SpecialMaterials.AlchemicalSilver));
@@ -44,7 +44,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         [Test]
         public void AllSizes()
         {
-            var sizes = TraitConstants.Sizes.All();
+            var sizes = TraitConstants.Sizes.GetAll();
             Assert.That(sizes, Contains.Item(TraitConstants.Sizes.Colossal));
             Assert.That(sizes, Contains.Item(TraitConstants.Sizes.Gargantuan));
             Assert.That(sizes, Contains.Item(TraitConstants.Sizes.Huge));

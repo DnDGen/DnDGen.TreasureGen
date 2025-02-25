@@ -3,7 +3,6 @@ using DnDGen.TreasureGen.Items.Mundane;
 using DnDGen.TreasureGen.Selectors.Percentiles;
 using DnDGen.TreasureGen.Tables;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items.Mundane
 {
@@ -18,17 +17,19 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
 
         public Item GenerateRandom()
         {
-            var name = percentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.Set.Tools);
+            var name = percentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.Tools);
             return Generate(name);
         }
 
         public Item Generate(string itemName, params string[] traits)
         {
-            var tool = new Item();
-            tool.Name = itemName;
-            tool.ItemType = ItemTypeConstants.Tool;
-            tool.BaseNames = new[] { itemName };
-            tool.Traits = new HashSet<string>(traits);
+            var tool = new Item
+            {
+                Name = itemName,
+                ItemType = ItemTypeConstants.Tool,
+                BaseNames = [itemName],
+                Traits = new HashSet<string>(traits)
+            };
 
             return tool;
         }
@@ -38,8 +39,8 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
             var tool = template.MundaneClone();
             tool.ItemType = ItemTypeConstants.Tool;
             tool.Quantity = 1;
-            tool.BaseNames = new[] { tool.Name };
-            tool.Attributes = Enumerable.Empty<string>();
+            tool.BaseNames = [tool.Name];
+            tool.Attributes = [];
 
             return tool;
         }

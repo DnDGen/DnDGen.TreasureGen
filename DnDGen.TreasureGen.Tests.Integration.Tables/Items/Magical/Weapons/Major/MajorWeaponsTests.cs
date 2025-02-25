@@ -1,7 +1,7 @@
-﻿using NUnit.Framework;
-using System;
+﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Tables;
-using DnDGen.TreasureGen.Items;
+using NUnit.Framework;
+using System;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Weapons.Major
 {
@@ -10,7 +10,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Weapons.Majo
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, PowerConstants.Major, ItemTypeConstants.Weapon); }
+            get { return TableNameConstants.Percentiles.POWERITEMTYPEs(PowerConstants.Major, ItemTypeConstants.Weapon); }
         }
 
         [Test]
@@ -27,9 +27,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Weapons.Majo
 
         [TestCase(ItemTypeConstants.Weapon, 50, 63)]
         [TestCase("SpecialAbility", 64, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        public void Percentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
+            base.AssertPercentile(content, lower, upper);
         }
 
         [TestCase(3, 1, 20)]
@@ -38,7 +38,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Weapons.Majo
         public void Percentile(int bonus, int lower, int upper)
         {
             var content = Convert.ToString(bonus);
-            Percentile(content, lower, upper);
+            AssertPercentile(content, lower, upper);
         }
     }
 }

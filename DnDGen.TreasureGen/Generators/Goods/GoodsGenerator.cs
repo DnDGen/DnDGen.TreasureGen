@@ -1,7 +1,7 @@
-﻿using DnDGen.Infrastructure.Selectors.Collections;
+﻿using DnDGen.Infrastructure.Models;
+using DnDGen.Infrastructure.Selectors.Collections;
+using DnDGen.Infrastructure.Selectors.Percentiles;
 using DnDGen.TreasureGen.Goods;
-using DnDGen.TreasureGen.Selectors.Percentiles;
-using DnDGen.TreasureGen.Selectors.Selections;
 using DnDGen.TreasureGen.Tables;
 using System;
 using System.Collections.Generic;
@@ -12,10 +12,10 @@ namespace DnDGen.TreasureGen.Generators.Goods
 {
     internal class GoodsGenerator : IGoodsGenerator
     {
-        private readonly ITypeAndAmountPercentileSelector typeAndAmountPercentileSelector;
+        private readonly IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
         private readonly ICollectionSelector collectionSelector;
 
-        public GoodsGenerator(ITypeAndAmountPercentileSelector typeAndAmountPercentileSelector, ICollectionSelector collectionSelector)
+        public GoodsGenerator(IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector, ICollectionSelector collectionSelector)
         {
             this.typeAndAmountPercentileSelector = typeAndAmountPercentileSelector;
             this.collectionSelector = collectionSelector;
@@ -23,55 +23,50 @@ namespace DnDGen.TreasureGen.Generators.Goods
 
         public IEnumerable<Good> GenerateAtLevel(int level)
         {
-            if (level < LevelLimits.Minimum || level > LevelLimits.Maximum)
-                throw new ArgumentException($"Level {level} is not a valid level for treasure generation");
-
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.LevelXGoods, level);
-            var typeAndAmountSelection = typeAndAmountPercentileSelector.SelectFrom(tableName);
-
-            if (string.IsNullOrEmpty(typeAndAmountSelection.Type))
-                return Enumerable.Empty<Good>();
-
+            var validLevel = GetValidLevel(level);
+            var typeAndAmountSelection = typeAndAmountPercentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.LevelXGoods(validLevel));
             var goods = new List<Good>();
 
-            while (typeAndAmountSelection.Amount-- > 0)
+            while (goods.Count < typeAndAmountSelection.Amount)
             {
                 var good = GenerateGood(typeAndAmountSelection);
-
                 goods.Add(good);
             }
 
             return goods;
         }
 
-        private Good GenerateGood(TypeAndAmountSelection quantity)
+        private int GetValidLevel(int level)
         {
-            var valueTableName = string.Format(TableNameConstants.Percentiles.Formattable.GOODTYPEValues, quantity.Type);
-            var descriptionTableName = string.Format(TableNameConstants.Collections.Formattable.GOODTYPEDescriptions, quantity.Type);
+            if (level < LevelLimits.Minimum)
+                throw new ArgumentException($"Level {level} is not a valid level for treasure generation");
 
-            var valueSelection = typeAndAmountPercentileSelector.SelectFrom(valueTableName);
+            if (level > LevelLimits.Maximum_Standard)
+                return LevelLimits.Maximum_Standard;
 
-            var good = new Good();
-            good.Description = collectionSelector.SelectRandomFrom(Config.Name, descriptionTableName, valueSelection.Type);
-            good.ValueInGold = valueSelection.Amount;
+            return level;
+        }
+
+        private Good GenerateGood(TypeAndAmountDataSelection quantity)
+        {
+            var valueSelection = typeAndAmountPercentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.GOODTYPEValues(quantity.Type));
+
+            var good = new Good
+            {
+                Description = collectionSelector.SelectRandomFrom(Config.Name, TableNameConstants.Collections.GOODTYPEDescriptions(quantity.Type), valueSelection.Type),
+                ValueInGold = valueSelection.Amount
+            };
 
             return good;
         }
 
         public async Task<IEnumerable<Good>> GenerateAtLevelAsync(int level)
         {
-            if (level < LevelLimits.Minimum || level > LevelLimits.Maximum)
-                throw new ArgumentException($"Level {level} is not a valid level for treasure generation");
-
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.LevelXGoods, level);
-            var typeAndAmountSelection = typeAndAmountPercentileSelector.SelectFrom(tableName);
-
-            if (string.IsNullOrEmpty(typeAndAmountSelection.Type))
-                return Enumerable.Empty<Good>();
-
+            var validLevel = GetValidLevel(level);
+            var typeAndAmountSelection = typeAndAmountPercentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.LevelXGoods(validLevel));
             var tasks = new List<Task<Good>>();
 
-            while (typeAndAmountSelection.Amount-- > 0)
+            while (tasks.Count < typeAndAmountSelection.Amount)
             {
                 var task = Task.Run(() => GenerateGood(typeAndAmountSelection));
                 tasks.Add(task);

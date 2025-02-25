@@ -1,11 +1,11 @@
-﻿using DnDGen.TreasureGen.Items;
-using DnDGen.TreasureGen.Items.Magical;
-using DnDGen.TreasureGen.Selectors.Collections;
-using DnDGen.TreasureGen.Selectors.Helpers;
+﻿using DnDGen.Infrastructure.Helpers;
+using DnDGen.TreasureGen.Items;
+using DnDGen.TreasureGen.Selectors.Selections;
 using DnDGen.TreasureGen.Tables;
 using NUnit.Framework;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
@@ -14,595 +14,670 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane.Weapons
     [TestFixture]
     public class WeaponDamagesTests : CollectionsTests
     {
-        protected override string tableName => TableNameConstants.Collections.Set.WeaponDamages;
+        protected override string tableName => TableNameConstants.Collections.WeaponDamages;
 
-        private DamageHelper damageHelper;
-        private IWeaponDataSelector weaponDataSelector;
+        private Dictionary<string, List<string>> weaponDamages;
 
-        [SetUp]
-        public void Setup()
+        [OneTimeSetUp]
+        public void OneTimeSetup()
         {
-            damageHelper = new DamageHelper();
-            weaponDataSelector = GetNewInstanceOf<IWeaponDataSelector>();
-        }
-
-        [TestCase(WeaponConstants.Dagger,
-            "1d2#Piercing or Slashing#", "1d3#Piercing or Slashing#", "1d4#Piercing or Slashing#", "1d6#Piercing or Slashing#", "1d8#Piercing or Slashing#", "2d6#Piercing or Slashing#", "3d6#Piercing or Slashing#",
-            "2d2#Piercing or Slashing#", "2d3#Piercing or Slashing#", "2d4#Piercing or Slashing#", "2d6#Piercing or Slashing#", "2d8#Piercing or Slashing#", "4d6#Piercing or Slashing#", "6d6#Piercing or Slashing#")]
-        [TestCase(WeaponConstants.Greataxe,
-            "1d8#Slashing#", "1d10#Slashing#", "1d12#Slashing#", "3d6#Slashing#", "4d6#Slashing#", "6d6#Slashing#", "8d6#Slashing#",
-            "3d8#Slashing#", "3d10#Slashing#", "3d12#Slashing#", "9d6#Slashing#", "12d6#Slashing#", "18d6#Slashing#", "24d6#Slashing#")]
-        [TestCase(WeaponConstants.Greatsword,
-            "1d8#Slashing#", "1d10#Slashing#", "2d6#Slashing#", "3d6#Slashing#", "4d6#Slashing#", "6d6#Slashing#", "8d6#Slashing#",
-            "2d8#Slashing#", "2d10#Slashing#", "4d6#Slashing#", "6d6#Slashing#", "8d6#Slashing#", "12d6#Slashing#", "16d6#Slashing#")]
-        [TestCase(WeaponConstants.Kama,
-            "1d3#Slashing#", "1d4#Slashing#", "1d6#Slashing#", "1d8#Slashing#", "2d6#Slashing#", "3d6#Slashing#", "4d6#Slashing#",
-            "2d3#Slashing#", "2d4#Slashing#", "2d6#Slashing#", "2d8#Slashing#", "4d6#Slashing#", "6d6#Slashing#", "8d6#Slashing#")]
-        [TestCase(WeaponConstants.Longsword,
-            "1d4#Slashing#", "1d6#Slashing#", "1d8#Slashing#", "2d6#Slashing#", "3d6#Slashing#", "4d6#Slashing#", "6d6#Slashing#",
-            "2d4#Slashing#", "2d6#Slashing#", "2d8#Slashing#", "4d6#Slashing#", "6d6#Slashing#", "8d6#Slashing#", "12d6#Slashing#")]
-        [TestCase(WeaponConstants.LightMace,
-            "1d3#Bludgeoning#", "1d4#Bludgeoning#", "1d6#Bludgeoning#", "1d8#Bludgeoning#", "2d6#Bludgeoning#", "3d6#Bludgeoning#", "4d6#Bludgeoning#",
-            "2d3#Bludgeoning#", "2d4#Bludgeoning#", "2d6#Bludgeoning#", "2d8#Bludgeoning#", "4d6#Bludgeoning#", "6d6#Bludgeoning#", "8d6#Bludgeoning#")]
-        [TestCase(WeaponConstants.HeavyMace,
-            "1d4#Bludgeoning#", "1d6#Bludgeoning#", "1d8#Bludgeoning#", "2d6#Bludgeoning#", "3d6#Bludgeoning#", "4d6#Bludgeoning#", "6d6#Bludgeoning#",
-            "2d4#Bludgeoning#", "2d6#Bludgeoning#", "2d8#Bludgeoning#", "4d6#Bludgeoning#", "6d6#Bludgeoning#", "8d6#Bludgeoning#", "12d6#Bludgeoning#")]
-        [TestCase(WeaponConstants.Nunchaku,
-            "1d3#Bludgeoning#", "1d4#Bludgeoning#", "1d6#Bludgeoning#", "1d8#Bludgeoning#", "2d6#Bludgeoning#", "3d6#Bludgeoning#", "4d6#Bludgeoning#",
-            "2d3#Bludgeoning#", "2d4#Bludgeoning#", "2d6#Bludgeoning#", "2d8#Bludgeoning#", "4d6#Bludgeoning#", "6d6#Bludgeoning#", "8d6#Bludgeoning#")]
-        [TestCase(WeaponConstants.Quarterstaff,
-            "1d3#Bludgeoning#,1d3#Bludgeoning#", "1d4#Bludgeoning#,1d4#Bludgeoning#", "1d6#Bludgeoning#,1d6#Bludgeoning#", "1d8#Bludgeoning#,1d8#Bludgeoning#", "2d6#Bludgeoning#,2d6#Bludgeoning#", "3d6#Bludgeoning#,3d6#Bludgeoning#", "4d6#Bludgeoning#,4d6#Bludgeoning#",
-            "2d3#Bludgeoning#,2d3#Bludgeoning#", "2d4#Bludgeoning#,2d4#Bludgeoning#", "2d6#Bludgeoning#,2d6#Bludgeoning#", "2d8#Bludgeoning#,2d8#Bludgeoning#", "4d6#Bludgeoning#,4d6#Bludgeoning#", "6d6#Bludgeoning#,6d6#Bludgeoning#", "8d6#Bludgeoning#,8d6#Bludgeoning#")]
-        [TestCase(WeaponConstants.Rapier,
-            "1d3#Piercing#", "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#", "4d6#Piercing#",
-            "2d3#Piercing#", "2d4#Piercing#", "2d6#Piercing#", "2d8#Piercing#", "4d6#Piercing#", "6d6#Piercing#", "8d6#Piercing#")]
-        [TestCase(WeaponConstants.Scimitar,
-            "1d3#Slashing#", "1d4#Slashing#", "1d6#Slashing#", "1d8#Slashing#", "2d6#Slashing#", "3d6#Slashing#", "4d6#Slashing#",
-            "2d3#Slashing#", "2d4#Slashing#", "2d6#Slashing#", "2d8#Slashing#", "4d6#Slashing#", "6d6#Slashing#", "8d6#Slashing#")]
-        [TestCase(WeaponConstants.Shortspear,
-            "1d3#Piercing#", "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#", "4d6#Piercing#",
-            "2d3#Piercing#", "2d4#Piercing#", "2d6#Piercing#", "2d8#Piercing#", "4d6#Piercing#", "6d6#Piercing#", "8d6#Piercing#")]
-        [TestCase(WeaponConstants.Siangham,
-            "1d3#Piercing#", "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#", "4d6#Piercing#",
-            "2d3#Piercing#", "2d4#Piercing#", "2d6#Piercing#", "2d8#Piercing#", "4d6#Piercing#", "6d6#Piercing#", "8d6#Piercing#")]
-        [TestCase(WeaponConstants.BastardSword,
-            "1d6#Slashing#", "1d8#Slashing#", "1d10#Slashing#", "2d8#Slashing#", "3d8#Slashing#", "4d8#Slashing#", "6d8#Slashing#",
-            "2d6#Slashing#", "2d8#Slashing#", "2d10#Slashing#", "4d8#Slashing#", "6d8#Slashing#", "8d8#Slashing#", "12d8#Slashing#")]
-        [TestCase(WeaponConstants.ShortSword,
-            "1d3#Piercing#", "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#", "4d6#Piercing#",
-            "2d3#Piercing#", "2d4#Piercing#", "2d6#Piercing#", "2d8#Piercing#", "4d6#Piercing#", "6d6#Piercing#", "8d6#Piercing#")]
-        [TestCase(WeaponConstants.DwarvenWaraxe,
-            "1d6#Slashing#", "1d8#Slashing#", "1d10#Slashing#", "2d8#Slashing#", "3d8#Slashing#", "4d8#Slashing#", "6d8#Slashing#",
-            "3d6#Slashing#", "3d8#Slashing#", "3d10#Slashing#", "6d8#Slashing#", "9d8#Slashing#", "12d8#Slashing#", "18d8#Slashing#")]
-        [TestCase(WeaponConstants.OrcDoubleAxe,
-            "1d4#Slashing#,1d4#Slashing#", "1d6#Slashing#,1d6#Slashing#", "1d8#Slashing#,1d8#Slashing#", "2d6#Slashing#,2d6#Slashing#", "3d6#Slashing#,3d6#Slashing#", "4d6#Slashing#,4d6#Slashing#", "6d6#Slashing#,6d6#Slashing#",
-            "3d4#Slashing#,3d4#Slashing#", "3d6#Slashing#,3d6#Slashing#", "3d8#Slashing#,3d8#Slashing#", "6d6#Slashing#,6d6#Slashing#", "9d6#Slashing#,9d6#Slashing#", "12d6#Slashing#,12d6#Slashing#", "18d6#Slashing#,18d6#Slashing#")]
-        [TestCase(WeaponConstants.Battleaxe,
-            "1d4#Slashing#", "1d6#Slashing#", "1d8#Slashing#", "2d6#Slashing#", "3d6#Slashing#", "4d6#Slashing#", "6d6#Slashing#",
-            "3d4#Slashing#", "3d6#Slashing#", "3d8#Slashing#", "6d6#Slashing#", "9d6#Slashing#", "12d6#Slashing#", "18d6#Slashing#")]
-        [TestCase(WeaponConstants.SpikedChain,
-            "1d4#Piercing#", "1d6#Piercing#", "2d4#Piercing#", "2d6#Piercing#", "3d6#Piercing#", "4d6#Piercing#", "6d6#Piercing#",
-            "2d4#Piercing#", "2d6#Piercing#", "4d4#Piercing#", "4d6#Piercing#", "6d6#Piercing#", "8d6#Piercing#", "12d6#Piercing#")]
-        [TestCase(WeaponConstants.Club,
-            "1d3#Bludgeoning#", "1d4#Bludgeoning#", "1d6#Bludgeoning#", "1d8#Bludgeoning#", "2d6#Bludgeoning#", "3d6#Bludgeoning#", "4d6#Bludgeoning#",
-            "2d3#Bludgeoning#", "2d4#Bludgeoning#", "2d6#Bludgeoning#", "2d8#Bludgeoning#", "4d6#Bludgeoning#", "6d6#Bludgeoning#", "8d6#Bludgeoning#")]
-        [TestCase(WeaponConstants.HandCrossbow,
-            "1d2#Piercing#", "1d3#Piercing#", "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#",
-            "2d2#Piercing#", "2d3#Piercing#", "2d4#Piercing#", "2d6#Piercing#", "2d8#Piercing#", "4d6#Piercing#", "6d6#Piercing#")]
-        [TestCase(WeaponConstants.HeavyRepeatingCrossbow,
-            "1d6#Piercing#", "1d8#Piercing#", "1d10#Piercing#", "2d8#Piercing#", "3d8#Piercing#", "4d8#Piercing#", "6d8#Piercing#",
-            "2d6#Piercing#", "2d8#Piercing#", "2d10#Piercing#", "4d8#Piercing#", "6d8#Piercing#", "8d8#Piercing#", "12d8#Piercing#")]
-        [TestCase(WeaponConstants.LightRepeatingCrossbow,
-            "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#", "4d6#Piercing#", "6d6#Piercing#",
-            "2d4#Piercing#", "2d6#Piercing#", "2d8#Piercing#", "4d6#Piercing#", "6d6#Piercing#", "8d6#Piercing#", "12d6#Piercing#")]
-        [TestCase(WeaponConstants.PunchingDagger,
-            "1d2#Piercing#", "1d3#Piercing#", "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#",
-            "3d2#Piercing#", "3d3#Piercing#", "3d4#Piercing#", "3d6#Piercing#", "3d8#Piercing#", "6d6#Piercing#", "9d6#Piercing#")]
-        [TestCase(WeaponConstants.Falchion,
-            "1d4#Slashing#", "1d6#Slashing#", "2d4#Slashing#", "2d6#Slashing#", "3d6#Slashing#", "4d6#Slashing#", "6d6#Slashing#",
-            "2d4#Slashing#", "2d6#Slashing#", "4d4#Slashing#", "4d6#Slashing#", "6d6#Slashing#", "8d6#Slashing#", "12d6#Slashing#")]
-        [TestCase(WeaponConstants.DireFlail,
-            "1d4#Bludgeoning#,1d4#Bludgeoning#", "1d6#Bludgeoning#,1d6#Bludgeoning#", "1d8#Bludgeoning#,1d8#Bludgeoning#", "2d6#Bludgeoning#,2d6#Bludgeoning#", "3d6#Bludgeoning#,3d6#Bludgeoning#", "4d6#Bludgeoning#,4d6#Bludgeoning#", "6d6#Bludgeoning#,6d6#Bludgeoning#",
-            "2d4#Bludgeoning#,2d4#Bludgeoning#", "2d6#Bludgeoning#,2d6#Bludgeoning#", "2d8#Bludgeoning#,2d8#Bludgeoning#", "4d6#Bludgeoning#,4d6#Bludgeoning#", "6d6#Bludgeoning#,6d6#Bludgeoning#", "8d6#Bludgeoning#,8d6#Bludgeoning#", "12d6#Bludgeoning#,12d6#Bludgeoning#")]
-        [TestCase(WeaponConstants.HeavyFlail,
-            "1d6#Bludgeoning#", "1d8#Bludgeoning#", "1d10#Bludgeoning#", "2d8#Bludgeoning#", "3d8#Bludgeoning#", "4d8#Bludgeoning#", "6d8#Bludgeoning#",
-            "2d6#Bludgeoning#", "2d8#Bludgeoning#", "2d10#Bludgeoning#", "4d8#Bludgeoning#", "6d8#Bludgeoning#", "8d8#Bludgeoning#", "12d8#Bludgeoning#")]
-        [TestCase(WeaponConstants.Flail,
-            "1d4#Bludgeoning#", "1d6#Bludgeoning#", "1d8#Bludgeoning#", "2d6#Bludgeoning#", "3d6#Bludgeoning#", "4d6#Bludgeoning#", "6d6#Bludgeoning#",
-            "2d4#Bludgeoning#", "2d6#Bludgeoning#", "2d8#Bludgeoning#", "4d6#Bludgeoning#", "6d6#Bludgeoning#", "8d6#Bludgeoning#", "12d6#Bludgeoning#")]
-        [TestCase(WeaponConstants.Gauntlet,
-            "1#Bludgeoning#", "1d2#Bludgeoning#", "1d3#Bludgeoning#", "1d4#Bludgeoning#", "1d6#Bludgeoning#", "1d8#Bludgeoning#", "2d6#Bludgeoning#",
-            "2#Bludgeoning#", "2d2#Bludgeoning#", "2d3#Bludgeoning#", "2d4#Bludgeoning#", "2d6#Bludgeoning#", "2d8#Bludgeoning#", "4d6#Bludgeoning#")]
-        [TestCase(WeaponConstants.SpikedGauntlet,
-            "1d2#Piercing#", "1d3#Piercing#", "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#",
-            "2d2#Piercing#", "2d3#Piercing#", "2d4#Piercing#", "2d6#Piercing#", "2d8#Piercing#", "4d6#Piercing#", "6d6#Piercing#")]
-        [TestCase(WeaponConstants.Glaive,
-            "1d6#Slashing#", "1d8#Slashing#", "1d10#Slashing#", "2d8#Slashing#", "3d8#Slashing#", "4d8#Slashing#", "6d8#Slashing#",
-            "3d6#Slashing#", "3d8#Slashing#", "3d10#Slashing#", "6d8#Slashing#", "9d8#Slashing#", "12d8#Slashing#", "18d8#Slashing#")]
-        [TestCase(WeaponConstants.Greatclub,
-            "1d6#Bludgeoning#", "1d8#Bludgeoning#", "1d10#Bludgeoning#", "2d8#Bludgeoning#", "3d8#Bludgeoning#", "4d8#Bludgeoning#", "6d8#Bludgeoning#",
-            "2d6#Bludgeoning#", "2d8#Bludgeoning#", "2d10#Bludgeoning#", "4d8#Bludgeoning#", "6d8#Bludgeoning#", "8d8#Bludgeoning#", "12d8#Bludgeoning#")]
-        [TestCase(WeaponConstants.Guisarme,
-            "1d4#Slashing#", "1d6#Slashing#", "2d4#Slashing#", "2d6#Slashing#", "3d6#Slashing#", "4d6#Slashing#", "6d6#Slashing#",
-            "3d4#Slashing#", "3d6#Slashing#", "6d4#Slashing#", "6d6#Slashing#", "9d6#Slashing#", "12d6#Slashing#", "18d6#Slashing#")]
-        [TestCase(WeaponConstants.Halberd,
-            "1d6#Piercing or Slashing#", "1d8#Piercing or Slashing#", "1d10#Piercing or Slashing#", "2d8#Piercing or Slashing#", "3d8#Piercing or Slashing#", "4d8#Piercing or Slashing#", "6d8#Piercing or Slashing#",
-            "3d6#Piercing or Slashing#", "3d8#Piercing or Slashing#", "3d10#Piercing or Slashing#", "6d8#Piercing or Slashing#", "9d8#Piercing or Slashing#", "12d8#Piercing or Slashing#", "18d8#Piercing or Slashing#")]
-        [TestCase(WeaponConstants.Spear,
-            "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#", "4d6#Piercing#", "6d6#Piercing#",
-            "3d4#Piercing#", "3d6#Piercing#", "3d8#Piercing#", "6d6#Piercing#", "9d6#Piercing#", "12d6#Piercing#", "18d6#Piercing#")]
-        [TestCase(WeaponConstants.GnomeHookedHammer,
-            "1d4#Bludgeoning#,1d3#Piercing#", "1d6#Bludgeoning#,1d4#Piercing#", "1d8#Bludgeoning#,1d6#Piercing#", "2d6#Bludgeoning#,1d8#Piercing#", "3d6#Bludgeoning#,2d6#Piercing#", "4d6#Bludgeoning#,3d6#Piercing#", "6d6#Bludgeoning#,4d6#Piercing#",
-            "3d4#Bludgeoning#,4d3#Piercing#", "3d6#Bludgeoning#,4d4#Piercing#", "3d8#Bludgeoning#,4d6#Piercing#", "6d6#Bludgeoning#,4d8#Piercing#", "9d6#Bludgeoning#,8d6#Piercing#", "12d6#Bludgeoning#,12d6#Piercing#", "18d6#Bludgeoning#,16d6#Piercing#")]
-        [TestCase(WeaponConstants.LightHammer,
-            "1d2#Bludgeoning#", "1d3#Bludgeoning#", "1d4#Bludgeoning#", "1d6#Bludgeoning#", "1d8#Bludgeoning#", "2d6#Bludgeoning#", "3d6#Bludgeoning#",
-            "2d2#Bludgeoning#", "2d3#Bludgeoning#", "2d4#Bludgeoning#", "2d6#Bludgeoning#", "2d8#Bludgeoning#", "4d6#Bludgeoning#", "6d6#Bludgeoning#")]
-        [TestCase(WeaponConstants.Handaxe,
-            "1d3#Slashing#", "1d4#Slashing#", "1d6#Slashing#", "1d8#Slashing#", "2d6#Slashing#", "3d6#Slashing#", "4d6#Slashing#",
-            "3d3#Slashing#", "3d4#Slashing#", "3d6#Slashing#", "3d8#Slashing#", "6d6#Slashing#", "9d6#Slashing#", "12d6#Slashing#")]
-        [TestCase(WeaponConstants.Kukri,
-            "1d2#Slashing#", "1d3#Slashing#", "1d4#Slashing#", "1d6#Slashing#", "1d8#Slashing#", "2d6#Slashing#", "3d6#Slashing#",
-            "2d2#Slashing#", "2d3#Slashing#", "2d4#Slashing#", "2d6#Slashing#", "2d8#Slashing#", "4d6#Slashing#", "6d6#Slashing#")]
-        [TestCase(WeaponConstants.Lance,
-            "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#", "4d6#Piercing#", "6d6#Piercing#",
-            "3d4#Piercing#", "3d6#Piercing#", "3d8#Piercing#", "6d6#Piercing#", "9d6#Piercing#", "12d6#Piercing#", "18d6#Piercing#")]
-        [TestCase(WeaponConstants.Longspear,
-            "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#", "4d6#Piercing#", "6d6#Piercing#",
-            "3d4#Piercing#", "3d6#Piercing#", "3d8#Piercing#", "6d6#Piercing#", "9d6#Piercing#", "12d6#Piercing#", "18d6#Piercing#")]
-        [TestCase(WeaponConstants.Morningstar,
-            "1d4#Bludgeoning and Piercing#", "1d6#Bludgeoning and Piercing#", "1d8#Bludgeoning and Piercing#", "2d6#Bludgeoning and Piercing#", "3d6#Bludgeoning and Piercing#", "4d6#Bludgeoning and Piercing#", "6d6#Bludgeoning and Piercing#",
-            "2d4#Bludgeoning and Piercing#", "2d6#Bludgeoning and Piercing#", "2d8#Bludgeoning and Piercing#", "4d6#Bludgeoning and Piercing#", "6d6#Bludgeoning and Piercing#", "8d6#Bludgeoning and Piercing#", "12d6#Bludgeoning and Piercing#")]
-        [TestCase(WeaponConstants.Net,
-            "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#",
-            "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#")]
-        [TestCase(WeaponConstants.HeavyPick,
-            "1d3#Piercing#", "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#", "4d6#Piercing#",
-            "4d3#Piercing#", "4d4#Piercing#", "4d6#Piercing#", "4d8#Piercing#", "8d6#Piercing#", "12d6#Piercing#", "16d6#Piercing#")]
-        [TestCase(WeaponConstants.LightPick,
-            "1d2#Piercing#", "1d3#Piercing#", "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#",
-            "4d2#Piercing#", "4d3#Piercing#", "4d4#Piercing#", "4d6#Piercing#", "4d8#Piercing#", "8d6#Piercing#", "12d6#Piercing#")]
-        [TestCase(WeaponConstants.Sai,
-            "1d2#Bludgeoning#", "1d3#Bludgeoning#", "1d4#Bludgeoning#", "1d6#Bludgeoning#", "1d8#Bludgeoning#", "2d6#Bludgeoning#", "3d6#Bludgeoning#",
-            "2d2#Bludgeoning#", "2d3#Bludgeoning#", "2d4#Bludgeoning#", "2d6#Bludgeoning#", "2d8#Bludgeoning#", "4d6#Bludgeoning#", "6d6#Bludgeoning#")]
-        [TestCase(WeaponConstants.Bolas,
-            "1d2#Bludgeoning#", "1d3#Bludgeoning#", "1d4#Bludgeoning#", "1d6#Bludgeoning#", "1d8#Bludgeoning#", "2d6#Bludgeoning#", "3d6#Bludgeoning#",
-            "2d2#Bludgeoning#", "2d3#Bludgeoning#", "2d4#Bludgeoning#", "2d6#Bludgeoning#", "2d8#Bludgeoning#", "4d6#Bludgeoning#", "6d6#Bludgeoning#")]
-        [TestCase(WeaponConstants.Ranseur,
-            "1d4#Piercing#", "1d6#Piercing#", "2d4#Piercing#", "2d6#Piercing#", "3d6#Piercing#", "4d6#Piercing#", "6d6#Piercing#",
-            "3d4#Piercing#", "3d6#Piercing#", "6d4#Piercing#", "6d6#Piercing#", "9d6#Piercing#", "12d6#Piercing#", "18d6#Piercing#")]
-        [TestCase(WeaponConstants.Sap,
-            "1d3#Bludgeoning#", "1d4#Bludgeoning#", "1d6#Bludgeoning#", "1d8#Bludgeoning#", "2d6#Bludgeoning#", "3d6#Bludgeoning#", "4d6#Bludgeoning#",
-            "2d3#Bludgeoning#", "2d4#Bludgeoning#", "2d6#Bludgeoning#", "2d8#Bludgeoning#", "4d6#Bludgeoning#", "6d6#Bludgeoning#", "8d6#Bludgeoning#")]
-        [TestCase(WeaponConstants.Scythe,
-            "1d4#Piercing or Slashing#", "1d6#Piercing or Slashing#", "2d4#Piercing or Slashing#", "2d6#Piercing or Slashing#", "3d6#Piercing or Slashing#", "4d6#Piercing or Slashing#", "6d6#Piercing or Slashing#",
-            "4d4#Piercing or Slashing#", "4d6#Piercing or Slashing#", "8d4#Piercing or Slashing#", "8d6#Piercing or Slashing#", "12d6#Piercing or Slashing#", "16d6#Piercing or Slashing#", "24d6#Piercing or Slashing#")]
-        [TestCase(WeaponConstants.Shuriken,
-            "0#Piercing#", "1#Piercing#", "1d2#Piercing#", "1d3#Piercing#", "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#",
-            "1#Piercing#", "2#Piercing#", "2d2#Piercing#", "2d3#Piercing#", "2d4#Piercing#", "2d6#Piercing#", "2d8#Piercing#")]
-        [TestCase(WeaponConstants.Sickle,
-            "1d3#Slashing#", "1d4#Slashing#", "1d6#Slashing#", "1d8#Slashing#", "2d6#Slashing#", "3d6#Slashing#", "4d6#Slashing#",
-            "2d3#Slashing#", "2d4#Slashing#", "2d6#Slashing#", "2d8#Slashing#", "4d6#Slashing#", "6d6#Slashing#", "8d6#Slashing#")]
-        [TestCase(WeaponConstants.TwoBladedSword,
-            "1d4#Slashing#,1d4#Slashing#", "1d6#Slashing#,1d6#Slashing#", "1d8#Slashing#,1d8#Slashing#", "2d6#Slashing#,2d6#Slashing#", "3d6#Slashing#,3d6#Slashing#", "4d6#Slashing#,4d6#Slashing#", "6d6#Slashing#,6d6#Slashing#",
-            "2d4#Slashing#,2d4#Slashing#", "2d6#Slashing#,2d6#Slashing#", "2d8#Slashing#,2d8#Slashing#", "4d6#Slashing#,4d6#Slashing#", "6d6#Slashing#,6d6#Slashing#", "8d6#Slashing#,8d6#Slashing#", "12d6#Slashing#,12d6#Slashing#")]
-        [TestCase(WeaponConstants.Trident,
-            "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#", "4d6#Piercing#", "6d6#Piercing#",
-            "2d4#Piercing#", "2d6#Piercing#", "2d8#Piercing#", "4d6#Piercing#", "6d6#Piercing#", "8d6#Piercing#", "12d6#Piercing#")]
-        [TestCase(WeaponConstants.DwarvenUrgrosh,
-            "1d4#Slashing#,1d3#Piercing#", "1d6#Slashing#,1d4#Piercing#", "1d8#Slashing#,1d6#Piercing#", "2d6#Slashing#,1d8#Piercing#", "3d6#Slashing#,2d6#Piercing#", "4d6#Slashing#,3d6#Piercing#", "6d6#Slashing#,4d6#Piercing#",
-            "3d4#Slashing#,3d3#Piercing#", "3d6#Slashing#,3d4#Piercing#", "3d8#Slashing#,3d6#Piercing#", "6d6#Slashing#,3d8#Piercing#", "9d6#Slashing#,6d6#Piercing#", "12d6#Slashing#,9d6#Piercing#", "18d6#Slashing#,12d6#Piercing#")]
-        [TestCase(WeaponConstants.Warhammer,
-            "1d4#Bludgeoning#", "1d6#Bludgeoning#", "1d8#Bludgeoning#", "2d6#Bludgeoning#", "3d6#Bludgeoning#", "4d6#Bludgeoning#", "6d6#Bludgeoning#",
-            "3d4#Bludgeoning#", "3d6#Bludgeoning#", "3d8#Bludgeoning#", "6d6#Bludgeoning#", "9d6#Bludgeoning#", "12d6#Bludgeoning#", "18d6#Bludgeoning#")]
-        [TestCase(WeaponConstants.Whip,
-            "1#Slashing#", "1d2#Slashing#", "1d3#Slashing#", "1d4#Slashing#", "1d6#Slashing#", "1d8#Slashing#", "2d6#Slashing#",
-            "2#Slashing#", "2d2#Slashing#", "2d3#Slashing#", "2d4#Slashing#", "2d6#Slashing#", "2d8#Slashing#", "4d6#Slashing#")]
-        [TestCase(WeaponConstants.ThrowingAxe,
-            "1d3#Slashing#", "1d4#Slashing#", "1d6#Slashing#", "1d8#Slashing#", "2d6#Slashing#", "3d6#Slashing#", "4d6#Slashing#",
-            "2d3#Slashing#", "2d4#Slashing#", "2d6#Slashing#", "2d8#Slashing#", "4d6#Slashing#", "6d6#Slashing#", "8d6#Slashing#")]
-        [TestCase(WeaponConstants.HeavyCrossbow,
-            "1d6#Piercing#", "1d8#Piercing#", "1d10#Piercing#", "2d8#Piercing#", "3d8#Piercing#", "4d8#Piercing#", "6d8#Piercing#",
-            "2d6#Piercing#", "2d8#Piercing#", "2d10#Piercing#", "4d8#Piercing#", "6d8#Piercing#", "8d8#Piercing#", "12d8#Piercing#")]
-        [TestCase(WeaponConstants.LightCrossbow,
-            "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#", "4d6#Piercing#", "6d6#Piercing#",
-            "2d4#Piercing#", "2d6#Piercing#", "2d8#Piercing#", "4d6#Piercing#", "6d6#Piercing#", "8d6#Piercing#", "12d6#Piercing#")]
-        [TestCase(WeaponConstants.Dart,
-            "1d2#Piercing#", "1d3#Piercing#", "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#",
-            "2d2#Piercing#", "2d3#Piercing#", "2d4#Piercing#", "2d6#Piercing#", "2d8#Piercing#", "4d6#Piercing#", "6d6#Piercing#")]
-        [TestCase(WeaponConstants.Javelin,
-            "1d3#Piercing#", "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#", "4d6#Piercing#",
-            "2d3#Piercing#", "2d4#Piercing#", "2d6#Piercing#", "2d8#Piercing#", "4d6#Piercing#", "6d6#Piercing#", "8d6#Piercing#")]
-        [TestCase(WeaponConstants.Shortbow,
-            "1d3#Piercing#", "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#", "4d6#Piercing#",
-            "3d3#Piercing#", "3d4#Piercing#", "3d6#Piercing#", "3d8#Piercing#", "6d6#Piercing#", "9d6#Piercing#", "12d6#Piercing#")]
-        [TestCase(WeaponConstants.CompositeShortbow,
-            "1d3#Piercing#", "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#", "4d6#Piercing#",
-            "3d3#Piercing#", "3d4#Piercing#", "3d6#Piercing#", "3d8#Piercing#", "6d6#Piercing#", "9d6#Piercing#", "12d6#Piercing#")]
-        [TestCase(WeaponConstants.Sling,
-            "1d2#Bludgeoning#", "1d3#Bludgeoning#", "1d4#Bludgeoning#", "1d6#Bludgeoning#", "1d8#Bludgeoning#", "2d6#Bludgeoning#", "3d6#Bludgeoning#",
-            "2d2#Bludgeoning#", "2d3#Bludgeoning#", "2d4#Bludgeoning#", "2d6#Bludgeoning#", "2d8#Bludgeoning#", "4d6#Bludgeoning#", "6d6#Bludgeoning#")]
-        [TestCase(WeaponConstants.Longbow,
-            "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#", "4d6#Piercing#", "6d6#Piercing#",
-            "3d4#Piercing#", "3d6#Piercing#", "3d8#Piercing#", "6d6#Piercing#", "9d6#Piercing#", "12d6#Piercing#", "18d6#Piercing#")]
-        [TestCase(WeaponConstants.CompositeLongbow,
-            "1d4#Piercing#", "1d6#Piercing#", "1d8#Piercing#", "2d6#Piercing#", "3d6#Piercing#", "4d6#Piercing#", "6d6#Piercing#",
-            "3d4#Piercing#", "3d6#Piercing#", "3d8#Piercing#", "6d6#Piercing#", "9d6#Piercing#", "12d6#Piercing#", "18d6#Piercing#")]
-        [TestCase(WeaponConstants.Arrow,
-            "0#Piercing#", "0#Piercing#", "0#Piercing#", "0#Piercing#", "0#Piercing#", "0#Piercing#", "0#Piercing#",
-            "0#Piercing#", "0#Piercing#", "0#Piercing#", "0#Piercing#", "0#Piercing#", "0#Piercing#", "0#Piercing#")]
-        [TestCase(WeaponConstants.CrossbowBolt,
-            "0#Piercing#", "0#Piercing#", "0#Piercing#", "0#Piercing#", "0#Piercing#", "0#Piercing#", "0#Piercing#",
-            "0#Piercing#", "0#Piercing#", "0#Piercing#", "0#Piercing#", "0#Piercing#", "0#Piercing#", "0#Piercing#")]
-        [TestCase(WeaponConstants.SlingBullet,
-            "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#",
-            "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#", "0#Bludgeoning#")]
-        [TestCase(WeaponConstants.PincerStaff,
-            "1d6#Bludgeoning#", "1d8#Bludgeoning#", "1d10#Bludgeoning#", "2d8#Bludgeoning#", "3d8#Bludgeoning#", "4d8#Bludgeoning#", "6d8#Bludgeoning#",
-            "2d6#Bludgeoning#", "2d8#Bludgeoning#", "2d10#Bludgeoning#", "4d8#Bludgeoning#", "6d8#Bludgeoning#", "8d8#Bludgeoning#", "12d8#Bludgeoning#")]
-        public void WeaponDamages(string weapon, params string[] damagesData)
-        {
-            foreach (var data in damagesData)
-            {
-                var isValid = damageHelper.ValidateEntries(data);
-                Assert.That(isValid, Is.True, data);
-            }
-
-            var sizes = TraitConstants.Sizes.All();
-            Assert.That(damagesData, Has.Length.EqualTo(sizes.Count() * 2)
-                .And.All.Not.Empty);
-
-            base.OrderedCollections(weapon, damagesData);
-        }
-
-        [TestCase(SpecialAbilityConstants.Aberrationbane,
-            "2d6##Against Aberrations",
-            "2d6##Against Aberrations",
-            "2d6##Against Aberrations",
-            "2d6##Against Aberrations")]
-        [TestCase(SpecialAbilityConstants.AcidResistance)]
-        [TestCase(SpecialAbilityConstants.AirOutsiderbane,
-            "2d6##Against Air Outsiders",
-            "2d6##Against Air Outsiders",
-            "2d6##Against Air Outsiders",
-            "2d6##Against Air Outsiders")]
-        [TestCase(SpecialAbilityConstants.Anarchic,
-            "2d6##Against Lawful alignment",
-            "2d6##Against Lawful alignment",
-            "2d6##Against Lawful alignment",
-            "2d6##Against Lawful alignment")]
-        [TestCase(SpecialAbilityConstants.Animalbane,
-            "2d6##Against Animals",
-            "2d6##Against Animals",
-            "2d6##Against Animals",
-            "2d6##Against Animals")]
-        [TestCase(SpecialAbilityConstants.Animated)]
-        [TestCase(SpecialAbilityConstants.AquaticHumanoidbane,
-            "2d6##Against Aquatic Humanoids",
-            "2d6##Against Aquatic Humanoids",
-            "2d6##Against Aquatic Humanoids",
-            "2d6##Against Aquatic Humanoids")]
-        [TestCase(SpecialAbilityConstants.ArrowCatching)]
-        [TestCase(SpecialAbilityConstants.ArrowDeflection)]
-        [TestCase(SpecialAbilityConstants.Axiomatic,
-            "2d6##Against Chaotic alignment",
-            "2d6##Against Chaotic alignment",
-            "2d6##Against Chaotic alignment",
-            "2d6##Against Chaotic alignment")]
-        [TestCase(SpecialAbilityConstants.Bane,
-            "2d6##Against DESIGNATEDFOE",
-            "2d6##Against DESIGNATEDFOE",
-            "2d6##Against DESIGNATEDFOE",
-            "2d6##Against DESIGNATEDFOE")]
-        [TestCase(SpecialAbilityConstants.Bashing)]
-        [TestCase(SpecialAbilityConstants.Blinding)]
-        [TestCase(SpecialAbilityConstants.BrilliantEnergy)]
-        [TestCase(SpecialAbilityConstants.ChaoticOutsiderbane,
-            "2d6##Against Chaotic Outsiders",
-            "2d6##Against Chaotic Outsiders",
-            "2d6##Against Chaotic Outsiders",
-            "2d6##Against Chaotic Outsiders")]
-        [TestCase(SpecialAbilityConstants.ColdResistance)]
-        [TestCase(SpecialAbilityConstants.Constructbane,
-            "2d6##Against Constructs",
-            "2d6##Against Constructs",
-            "2d6##Against Constructs",
-            "2d6##Against Constructs")]
-        [TestCase(SpecialAbilityConstants.Dancing)]
-        [TestCase(SpecialAbilityConstants.Defending)]
-        [TestCase(SpecialAbilityConstants.DESIGNATEDFOEbane,
-            "2d6##Against DESIGNATEDFOE",
-            "2d6##Against DESIGNATEDFOE",
-            "2d6##Against DESIGNATEDFOE",
-            "2d6##Against DESIGNATEDFOE")]
-        [TestCase(SpecialAbilityConstants.Disruption)]
-        [TestCase(SpecialAbilityConstants.Distance)]
-        [TestCase(SpecialAbilityConstants.Dragonbane,
-            "2d6##Against Dragons",
-            "2d6##Against Dragons",
-            "2d6##Against Dragons",
-            "2d6##Against Dragons")]
-        [TestCase(SpecialAbilityConstants.Dwarfbane,
-            "2d6##Against Dwarfs",
-            "2d6##Against Dwarfs",
-            "2d6##Against Dwarfs",
-            "2d6##Against Dwarfs")]
-        [TestCase(SpecialAbilityConstants.EarthOutsiderbane,
-            "2d6##Against Earth Outsiders",
-            "2d6##Against Earth Outsiders",
-            "2d6##Against Earth Outsiders",
-            "2d6##Against Earth Outsiders")]
-        [TestCase(SpecialAbilityConstants.ElectricityResistance)]
-        [TestCase(SpecialAbilityConstants.Elementalbane,
-            "2d6##Against Elementals",
-            "2d6##Against Elementals",
-            "2d6##Against Elementals",
-            "2d6##Against Elementals")]
-        [TestCase(SpecialAbilityConstants.Elfbane,
-            "2d6##Against Elfs",
-            "2d6##Against Elfs",
-            "2d6##Against Elfs",
-            "2d6##Against Elfs")]
-        [TestCase(SpecialAbilityConstants.Etherealness)]
-        [TestCase(SpecialAbilityConstants.EvilOutsiderbane,
-            "2d6##Against Evil Outsiders",
-            "2d6##Against Evil Outsiders",
-            "2d6##Against Evil Outsiders",
-            "2d6##Against Evil Outsiders")]
-        [TestCase(SpecialAbilityConstants.Feybane,
-            "2d6##Against Feys",
-            "2d6##Against Feys",
-            "2d6##Against Feys",
-            "2d6##Against Feys")]
-        [TestCase(SpecialAbilityConstants.FireOutsiderbane,
-            "2d6##Against Fire Outsiders",
-            "2d6##Against Fire Outsiders",
-            "2d6##Against Fire Outsiders",
-            "2d6##Against Fire Outsiders")]
-        [TestCase(SpecialAbilityConstants.FireResistance)]
-        [TestCase(SpecialAbilityConstants.Flaming,
-            "1d6#Fire#",
-            "1d6#Fire#",
-            "1d6#Fire#",
-            "1d6#Fire#")]
-        [TestCase(SpecialAbilityConstants.FlamingBurst,
-            "1d6#Fire#",
-            "1d6#Fire#,1d10#Fire#",
-            "1d6#Fire#,2d10#Fire#",
-            "1d6#Fire#,3d10#Fire#")]
-        [TestCase(SpecialAbilityConstants.Fortification)]
-        [TestCase(SpecialAbilityConstants.Frost,
-            "1d6#Cold#",
-            "1d6#Cold#",
-            "1d6#Cold#",
-            "1d6#Cold#")]
-        [TestCase(SpecialAbilityConstants.GhostTouch)]
-        [TestCase(SpecialAbilityConstants.GhostTouchArmor)]
-        [TestCase(SpecialAbilityConstants.GhostTouchWeapon)]
-        [TestCase(SpecialAbilityConstants.Giantbane,
-            "2d6##Against Giants",
-            "2d6##Against Giants",
-            "2d6##Against Giants",
-            "2d6##Against Giants")]
-        [TestCase(SpecialAbilityConstants.Glamered)]
-        [TestCase(SpecialAbilityConstants.Gnollbane, "2d6##Against Gnolls", "2d6##Against Gnolls", "2d6##Against Gnolls", "2d6##Against Gnolls")]
-        [TestCase(SpecialAbilityConstants.Gnomebane, "2d6##Against Gnomes", "2d6##Against Gnomes", "2d6##Against Gnomes", "2d6##Against Gnomes")]
-        [TestCase(SpecialAbilityConstants.Goblinoidbane, "2d6##Against Goblinoids", "2d6##Against Goblinoids", "2d6##Against Goblinoids", "2d6##Against Goblinoids")]
-        [TestCase(SpecialAbilityConstants.GoodOutsiderbane, "2d6##Against Good Outsiders", "2d6##Against Good Outsiders", "2d6##Against Good Outsiders", "2d6##Against Good Outsiders")]
-        [TestCase(SpecialAbilityConstants.GreaterAcidResistance)]
-        [TestCase(SpecialAbilityConstants.GreaterColdResistance)]
-        [TestCase(SpecialAbilityConstants.GreaterElectricityResistance)]
-        [TestCase(SpecialAbilityConstants.GreaterFireResistance)]
-        [TestCase(SpecialAbilityConstants.GreaterShadow)]
-        [TestCase(SpecialAbilityConstants.GreaterSilentMoves)]
-        [TestCase(SpecialAbilityConstants.GreaterSlick)]
-        [TestCase(SpecialAbilityConstants.GreaterSonicResistance)]
-        [TestCase(SpecialAbilityConstants.Halflingbane, "2d6##Against Halflings", "2d6##Against Halflings", "2d6##Against Halflings", "2d6##Against Halflings")]
-        [TestCase(SpecialAbilityConstants.HeavyFortification)]
-        [TestCase(SpecialAbilityConstants.Holy, "2d6##Against Evil alignment", "2d6##Against Evil alignment", "2d6##Against Evil alignment", "2d6##Against Evil alignment")]
-        [TestCase(SpecialAbilityConstants.Humanbane, "2d6##Against Humans", "2d6##Against Humans", "2d6##Against Humans", "2d6##Against Humans")]
-        [TestCase(SpecialAbilityConstants.IcyBurst, "1d6#Cold#", "1d6#Cold#,1d10#Cold#", "1d6#Cold#,2d10#Cold#", "1d6#Cold#,3d10#Cold#")]
-        [TestCase(SpecialAbilityConstants.ImprovedAcidResistance)]
-        [TestCase(SpecialAbilityConstants.ImprovedColdResistance)]
-        [TestCase(SpecialAbilityConstants.ImprovedElectricityResistance)]
-        [TestCase(SpecialAbilityConstants.ImprovedFireResistance)]
-        [TestCase(SpecialAbilityConstants.ImprovedShadow)]
-        [TestCase(SpecialAbilityConstants.ImprovedSilentMoves)]
-        [TestCase(SpecialAbilityConstants.ImprovedSlick)]
-        [TestCase(SpecialAbilityConstants.ImprovedSonicResistance)]
-        [TestCase(SpecialAbilityConstants.Invulnerability)]
-        [TestCase(SpecialAbilityConstants.Keen)]
-        [TestCase(SpecialAbilityConstants.KiFocus)]
-        [TestCase(SpecialAbilityConstants.LawfulOutsiderbane, "2d6##Against Lawful Outsiders", "2d6##Against Lawful Outsiders", "2d6##Against Lawful Outsiders", "2d6##Against Lawful Outsiders")]
-        [TestCase(SpecialAbilityConstants.LightFortification)]
-        [TestCase(SpecialAbilityConstants.MagicalBeastbane, "2d6##Against Magical Beasts", "2d6##Against Magical Beasts", "2d6##Against Magical Beasts", "2d6##Against Magical Beasts")]
-        [TestCase(SpecialAbilityConstants.Merciful, "1d6##", "1d6##", "1d6##", "1d6##")]
-        [TestCase(SpecialAbilityConstants.MightyCleaving)]
-        [TestCase(SpecialAbilityConstants.ModerateFortification)]
-        [TestCase(SpecialAbilityConstants.MonstrousHumanoidbane, "2d6##Against Monstrous Humanoids", "2d6##Against Monstrous Humanoids", "2d6##Against Monstrous Humanoids", "2d6##Against Monstrous Humanoids")]
-        [TestCase(SpecialAbilityConstants.Oozebane, "2d6##Against Oozes", "2d6##Against Oozes", "2d6##Against Oozes", "2d6##Against Oozes")]
-        [TestCase(SpecialAbilityConstants.Orcbane, "2d6##Against Orcs", "2d6##Against Orcs", "2d6##Against Orcs", "2d6##Against Orcs")]
-        [TestCase(SpecialAbilityConstants.Plantbane, "2d6##Against Plants", "2d6##Against Plants", "2d6##Against Plants", "2d6##Against Plants")]
-        [TestCase(SpecialAbilityConstants.Reflecting)]
-        [TestCase(SpecialAbilityConstants.ReptilianHumanoidbane, "2d6##Against Reptilian Humanoids", "2d6##Against Reptilian Humanoids", "2d6##Against Reptilian Humanoids", "2d6##Against Reptilian Humanoids")]
-        [TestCase(SpecialAbilityConstants.Returning)]
-        [TestCase(SpecialAbilityConstants.Seeking)]
-        [TestCase(SpecialAbilityConstants.Shadow)]
-        [TestCase(SpecialAbilityConstants.Shapeshifterbane, "2d6##Against Shapeshifters", "2d6##Against Shapeshifters", "2d6##Against Shapeshifters", "2d6##Against Shapeshifters")]
-        [TestCase(SpecialAbilityConstants.Shock, "1d6#Electricity#", "1d6#Electricity#", "1d6#Electricity#", "1d6#Electricity#")]
-        [TestCase(SpecialAbilityConstants.ShockingBurst, "1d6#Electricity#", "1d6#Electricity#,1d10#Electricity#", "1d6#Electricity#,2d10#Electricity#", "1d6#Electricity#,3d10#Electricity#")]
-        [TestCase(SpecialAbilityConstants.SilentMoves)]
-        [TestCase(SpecialAbilityConstants.Slick)]
-        [TestCase(SpecialAbilityConstants.SonicResistance)]
-        [TestCase(SpecialAbilityConstants.Speed)]
-        [TestCase(SpecialAbilityConstants.SpellResistance)]
-        [TestCase(SpecialAbilityConstants.SpellResistance13)]
-        [TestCase(SpecialAbilityConstants.SpellResistance15)]
-        [TestCase(SpecialAbilityConstants.SpellResistance17)]
-        [TestCase(SpecialAbilityConstants.SpellResistance19)]
-        [TestCase(SpecialAbilityConstants.SpellStoring)]
-        [TestCase(SpecialAbilityConstants.Throwing)]
-        [TestCase(SpecialAbilityConstants.Thundering, "", "1d8#Sonic#", "2d8#Sonic#", "3d8#Sonic#")]
-        [TestCase(SpecialAbilityConstants.Undeadbane, "2d6##Against Undead", "2d6##Against Undead", "2d6##Against Undead", "2d6##Against Undead")]
-        [TestCase(SpecialAbilityConstants.UndeadControlling)]
-        [TestCase(SpecialAbilityConstants.Unholy, "2d6##Against Good alignment", "2d6##Against Good alignment", "2d6##Against Good alignment", "2d6##Against Good alignment")]
-        [TestCase(SpecialAbilityConstants.Verminbane, "2d6##Against Vermin", "2d6##Against Vermin", "2d6##Against Vermin", "2d6##Against Vermin")]
-        [TestCase(SpecialAbilityConstants.Vicious, "2d6##,1d6##To the wielder", "2d6##,1d6##To the wielder", "2d6##,1d6##To the wielder", "2d6##,1d6##To the wielder")]
-        [TestCase(SpecialAbilityConstants.Vorpal)]
-        [TestCase(SpecialAbilityConstants.WaterOutsiderbane, "2d6##Against Water Outsiders", "2d6##Against Water Outsiders", "2d6##Against Water Outsiders", "2d6##Against Water Outsiders")]
-        [TestCase(SpecialAbilityConstants.Wild)]
-        [TestCase(SpecialAbilityConstants.Wounding, "1#Constitution#", "1#Constitution#", "1#Constitution#", "1#Constitution#")]
-        public void SpecialAbilityDamages(string specialAbility, params string[] damagesData)
-        {
-            foreach (var data in damagesData)
-            {
-                var isValid = damageHelper.ValidateEntries(data);
-                Assert.That(isValid, Is.True, data);
-            }
-
-            Assert.That(damagesData, Has.Length.EqualTo(4).Or.Empty);
-
-            base.OrderedCollections(specialAbility, damagesData);
+            weaponDamages = GetWeaponDamages();
         }
 
         [Test]
         public void AllKeysArePresent()
         {
             var weapons = WeaponConstants.GetAllWeapons(false, false);
-            var specialAbilities = SpecialAbilityConstants.GetAllAbilities(true);
+            var sizes = TraitConstants.Sizes.GetAll();
+            var expectedKeys = weapons.SelectMany(w => sizes.Select(s => w + s));
 
-            var expectedKeys = weapons.Union(specialAbilities);
-            var actualKeys = GetKeys();
-
-            AssertCollection(actualKeys, expectedKeys);
+            Assert.That(weaponDamages.Keys, Is.EquivalentTo(expectedKeys));
+            AssertCollection(table.Keys, expectedKeys);
         }
 
-        public static IEnumerable Weapons => WeaponConstants.GetAllWeapons(false, false).Select(w => new TestCaseData(w));
-
         [TestCaseSource(nameof(Weapons))]
-        public void BludgeoningWeaponsMatchConstants(string weapon)
+        public void WeaponDamages(string weapon)
+        {
+            var sizes = TraitConstants.Sizes.GetAll();
+
+            foreach (var size in sizes)
+            {
+                var key = weapon + size;
+                AssertBludgeoningWeaponsMatchConstants(weapon, key);
+                AssertPiercingWeaponsMatchConstants(weapon, key);
+                AssertSlashingWeaponsMatchConstants(weapon, key);
+                AssertDoubleWeaponsHaveMultipleDamages(weapon, key);
+
+                Assert.That(weaponDamages, Contains.Key(key));
+                AssertCollection(key, [.. weaponDamages[key]]);
+            }
+        }
+
+        private void AssertBludgeoningWeaponsMatchConstants(string weapon, string key)
         {
             var bludgeoning = WeaponConstants.GetAllBludgeoning(false, false);
             var isBludgeoning = bludgeoning.Contains(weapon);
-            var hasBludgeoning = table[weapon].All(d => d.Contains(AttributeConstants.DamageTypes.Bludgeoning));
+            var hasBludgeoning = weaponDamages[key].Any(d => d.Contains(AttributeConstants.DamageTypes.Bludgeoning));
 
-            Assert.That(hasBludgeoning, Is.EqualTo(isBludgeoning), weapon);
+            Assert.That(hasBludgeoning, Is.EqualTo(isBludgeoning), key);
         }
 
-        [TestCaseSource(nameof(Weapons))]
-        public void PiercingWeaponsMatchConstants(string weapon)
+        private void AssertPiercingWeaponsMatchConstants(string weapon, string key)
         {
             var piercing = WeaponConstants.GetAllPiercing(false, false);
             var isPiercing = piercing.Contains(weapon);
-            var hasPiercing = table[weapon].All(d => d.Contains(AttributeConstants.DamageTypes.Piercing));
+            var hasPiercing = weaponDamages[key].Any(d => d.Contains(AttributeConstants.DamageTypes.Piercing));
 
-            Assert.That(hasPiercing, Is.EqualTo(isPiercing), weapon);
+            Assert.That(hasPiercing, Is.EqualTo(isPiercing), key);
         }
 
-        [TestCaseSource(nameof(Weapons))]
-        public void SlashingWeaponsMatchConstants(string weapon)
+        private void AssertSlashingWeaponsMatchConstants(string weapon, string key)
         {
             var slashing = WeaponConstants.GetAllSlashing(false, false);
             var isSlashing = slashing.Contains(weapon);
-            var hasSlashing = table[weapon].All(d => d.Contains(AttributeConstants.DamageTypes.Slashing));
+            var hasSlashing = weaponDamages[key].Any(d => d.Contains(AttributeConstants.DamageTypes.Slashing));
 
-            Assert.That(hasSlashing, Is.EqualTo(isSlashing), weapon);
+            Assert.That(hasSlashing, Is.EqualTo(isSlashing), key);
         }
 
-        [TestCaseSource(nameof(Weapons))]
-        public void DoubleWeaponsHaveMultipleDamages(string weapon)
+        private void AssertDoubleWeaponsHaveMultipleDamages(string weapon, string key)
         {
             var doubleWeapons = WeaponConstants.GetAllDouble(false, false);
             var isDouble = doubleWeapons.Contains(weapon);
-            var damageData = table[weapon].Select(d => damageHelper.ParseEntries(d));
-
-            if (isDouble)
-            {
-                Assert.That(damageData, Is.All.Length.EqualTo(2), weapon);
-            }
-            else
-            {
-                Assert.That(damageData, Is.All.Length.EqualTo(1), weapon);
-            }
+            var count = isDouble ? 2 : 1;
+            Assert.That(weaponDamages[key].Count, Is.EqualTo(count), key);
         }
 
-        [TestCaseSource(nameof(Weapons))]
-        public void WeaponCriticalDamagesHaveCorrectMultiplier(string weapon)
+        private Dictionary<string, List<string>> GetWeaponDamages()
         {
-            var sizes = TraitConstants.Sizes.All().ToArray();
-            var noDamage = new[]
+            var damages = new Dictionary<string, List<string>>
             {
-                WeaponConstants.CrossbowBolt,
-                WeaponConstants.Arrow,
-                WeaponConstants.SlingBullet,
-                WeaponConstants.Net,
+                [WeaponConstants.Dagger + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d2", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Dagger + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Dagger + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Dagger + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Dagger + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Dagger + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Dagger + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Greataxe + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Greataxe + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d10", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Greataxe + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d12", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Greataxe + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Greataxe + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Greataxe + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Greataxe + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "8d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Greatsword + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Greatsword + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d10", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Greatsword + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Greatsword + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Greatsword + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Greatsword + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Greatsword + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "8d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Kama + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Kama + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Kama + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Kama + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Kama + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Kama + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Kama + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Longsword + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Longsword + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Longsword + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Longsword + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Longsword + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Longsword + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Longsword + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.HeavyMace + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.HeavyMace + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.HeavyMace + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.HeavyMace + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.HeavyMace + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.HeavyMace + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.HeavyMace + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.LightMace + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.LightMace + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.LightMace + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.LightMace + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.LightMace + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.LightMace + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.LightMace + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Nunchaku + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Nunchaku + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Nunchaku + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Nunchaku + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Nunchaku + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Nunchaku + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Nunchaku + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Quarterstaff + TraitConstants.Sizes.Tiny] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Quarterstaff + TraitConstants.Sizes.Small] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Quarterstaff + TraitConstants.Sizes.Medium] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Quarterstaff + TraitConstants.Sizes.Large] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Quarterstaff + TraitConstants.Sizes.Huge] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Quarterstaff + TraitConstants.Sizes.Gargantuan] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Quarterstaff + TraitConstants.Sizes.Colossal] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Scimitar + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Scimitar + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Scimitar + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Scimitar + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Scimitar + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Scimitar + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Scimitar + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Rapier + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Rapier + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Rapier + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Rapier + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Rapier + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Rapier + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Rapier + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shortspear + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shortspear + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shortspear + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shortspear + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shortspear + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shortspear + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shortspear + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Siangham + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Siangham + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Siangham + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Siangham + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Siangham + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Siangham + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Siangham + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.ShortSword + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.ShortSword + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.ShortSword + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.ShortSword + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.ShortSword + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.ShortSword + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.ShortSword + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.BastardSword + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.BastardSword + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.BastardSword + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d10", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.BastardSword + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.BastardSword + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.BastardSword + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.BastardSword + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.DwarvenWaraxe + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.DwarvenWaraxe + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.DwarvenWaraxe + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d10", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.DwarvenWaraxe + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.DwarvenWaraxe + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.DwarvenWaraxe + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.DwarvenWaraxe + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.OrcDoubleAxe + TraitConstants.Sizes.Tiny] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.OrcDoubleAxe + TraitConstants.Sizes.Small] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.OrcDoubleAxe + TraitConstants.Sizes.Medium] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.OrcDoubleAxe + TraitConstants.Sizes.Large] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.OrcDoubleAxe + TraitConstants.Sizes.Huge] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.OrcDoubleAxe + TraitConstants.Sizes.Gargantuan] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.OrcDoubleAxe + TraitConstants.Sizes.Colossal] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Battleaxe + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Battleaxe + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Battleaxe + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Battleaxe + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Battleaxe + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Battleaxe + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Battleaxe + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.SpikedChain + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.SpikedChain + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.SpikedChain + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.SpikedChain + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.SpikedChain + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.SpikedChain + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.SpikedChain + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Club + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Club + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Club + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Club + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Club + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Club + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Club + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.HandCrossbow + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d2", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HandCrossbow + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HandCrossbow + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HandCrossbow + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HandCrossbow + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HandCrossbow + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HandCrossbow + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HeavyRepeatingCrossbow + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HeavyRepeatingCrossbow + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HeavyRepeatingCrossbow + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d10", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HeavyRepeatingCrossbow + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HeavyRepeatingCrossbow + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HeavyRepeatingCrossbow + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HeavyRepeatingCrossbow + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightRepeatingCrossbow + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightRepeatingCrossbow + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightRepeatingCrossbow + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightRepeatingCrossbow + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightRepeatingCrossbow + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightRepeatingCrossbow + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightRepeatingCrossbow + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.PunchingDagger + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d2", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.PunchingDagger + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.PunchingDagger + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.PunchingDagger + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.PunchingDagger + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.PunchingDagger + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.PunchingDagger + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Falchion + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Falchion + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Falchion + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d4", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Falchion + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Falchion + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Falchion + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Falchion + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.DireFlail + TraitConstants.Sizes.Tiny] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.DireFlail + TraitConstants.Sizes.Small] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.DireFlail + TraitConstants.Sizes.Medium] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.DireFlail + TraitConstants.Sizes.Large] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.DireFlail + TraitConstants.Sizes.Huge] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.DireFlail + TraitConstants.Sizes.Gargantuan] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.DireFlail + TraitConstants.Sizes.Colossal] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.HeavyFlail + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.HeavyFlail + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.HeavyFlail + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d10", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.HeavyFlail + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.HeavyFlail + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.HeavyFlail + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.HeavyFlail + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Flail + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Flail + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Flail + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Flail + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Flail + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Flail + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Flail + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Gauntlet + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Gauntlet + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d2", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Gauntlet + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Gauntlet + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Gauntlet + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Gauntlet + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Gauntlet + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.SpikedGauntlet + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d2", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.SpikedGauntlet + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.SpikedGauntlet + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.SpikedGauntlet + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.SpikedGauntlet + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.SpikedGauntlet + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.SpikedGauntlet + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Glaive + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Glaive + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Glaive + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d10", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Glaive + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Glaive + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Glaive + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Glaive + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Greatclub + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Greatclub + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Greatclub + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d10", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Greatclub + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Greatclub + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Greatclub + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Greatclub + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Guisarme + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Guisarme + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Guisarme + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Guisarme + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Guisarme + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Guisarme + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Guisarme + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Halberd + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Halberd + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Halberd + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d10", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Halberd + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d8", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Halberd + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d8", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Halberd + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d8", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Halberd + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d8", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Spear + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Spear + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Spear + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Spear + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Spear + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Spear + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Spear + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.GnomeHookedHammer + TraitConstants.Sizes.Tiny] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.GnomeHookedHammer + TraitConstants.Sizes.Small] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.GnomeHookedHammer + TraitConstants.Sizes.Medium] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.GnomeHookedHammer + TraitConstants.Sizes.Large] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.GnomeHookedHammer + TraitConstants.Sizes.Huge] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.GnomeHookedHammer + TraitConstants.Sizes.Gargantuan] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.GnomeHookedHammer + TraitConstants.Sizes.Colossal] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Bludgeoning }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightHammer + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d2", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.LightHammer + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.LightHammer + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.LightHammer + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.LightHammer + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.LightHammer + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.LightHammer + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Handaxe + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Handaxe + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Handaxe + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Handaxe + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Handaxe + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Handaxe + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Handaxe + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Kukri + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d2", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Kukri + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Kukri + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Kukri + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Kukri + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Kukri + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Kukri + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Lance + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Lance + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Lance + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Lance + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Lance + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Lance + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Lance + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Longspear + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Longspear + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Longspear + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Longspear + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Longspear + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Longspear + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Longspear + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Morningstar + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = "Bludgeoning and Piercing" })],
+                [WeaponConstants.Morningstar + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = "Bludgeoning and Piercing" })],
+                [WeaponConstants.Morningstar + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = "Bludgeoning and Piercing" })],
+                [WeaponConstants.Morningstar + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = "Bludgeoning and Piercing" })],
+                [WeaponConstants.Morningstar + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = "Bludgeoning and Piercing" })],
+                [WeaponConstants.Morningstar + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = "Bludgeoning and Piercing" })],
+                [WeaponConstants.Morningstar + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = "Bludgeoning and Piercing" })],
+                [WeaponConstants.Net + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Net + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Net + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Net + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Net + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Net + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Net + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.HeavyPick + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HeavyPick + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HeavyPick + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HeavyPick + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HeavyPick + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HeavyPick + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HeavyPick + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightPick + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d2", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightPick + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightPick + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightPick + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightPick + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightPick + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightPick + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Sai + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d2", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Sai + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Sai + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Sai + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Sai + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Sai + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Sai + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Bolas + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d2", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Bolas + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Bolas + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Bolas + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Bolas + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Bolas + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Bolas + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Ranseur + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Ranseur + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Ranseur + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Ranseur + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Ranseur + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Ranseur + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Ranseur + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Sap + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Sap + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Sap + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Sap + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Sap + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Sap + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Sap + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Scythe + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Scythe + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Scythe + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d4", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Scythe + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Scythe + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Scythe + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Scythe + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = "Piercing or Slashing" })],
+                [WeaponConstants.Shuriken + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shuriken + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shuriken + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d2", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shuriken + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shuriken + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shuriken + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shuriken + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Sickle + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Sickle + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Sickle + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Sickle + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Sickle + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Sickle + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Sickle + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.TwoBladedSword + TraitConstants.Sizes.Tiny] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.TwoBladedSword + TraitConstants.Sizes.Small] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.TwoBladedSword + TraitConstants.Sizes.Medium] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.TwoBladedSword + TraitConstants.Sizes.Large] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.TwoBladedSword + TraitConstants.Sizes.Huge] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.TwoBladedSword + TraitConstants.Sizes.Gargantuan] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.TwoBladedSword + TraitConstants.Sizes.Colossal] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Trident + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Trident + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Trident + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Trident + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Trident + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Trident + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Trident + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.DwarvenUrgrosh + TraitConstants.Sizes.Tiny] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.DwarvenUrgrosh + TraitConstants.Sizes.Small] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.DwarvenUrgrosh + TraitConstants.Sizes.Medium] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.DwarvenUrgrosh + TraitConstants.Sizes.Large] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.DwarvenUrgrosh + TraitConstants.Sizes.Huge] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.DwarvenUrgrosh + TraitConstants.Sizes.Gargantuan] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.DwarvenUrgrosh + TraitConstants.Sizes.Colossal] = [
+                    DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Slashing }),
+                    DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Warhammer + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Warhammer + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Warhammer + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Warhammer + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Warhammer + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Warhammer + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Warhammer + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Whip + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Whip + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d2", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Whip + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Whip + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Whip + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Whip + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.Whip + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.ThrowingAxe + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.ThrowingAxe + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.ThrowingAxe + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.ThrowingAxe + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.ThrowingAxe + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.ThrowingAxe + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.ThrowingAxe + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Slashing })],
+                [WeaponConstants.HeavyCrossbow + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HeavyCrossbow + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HeavyCrossbow + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d10", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HeavyCrossbow + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HeavyCrossbow + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HeavyCrossbow + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.HeavyCrossbow + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightCrossbow + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightCrossbow + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightCrossbow + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightCrossbow + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightCrossbow + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightCrossbow + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.LightCrossbow + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Dart + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d2", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Dart + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Dart + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Dart + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Dart + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Dart + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Dart + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Javelin + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Javelin + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Javelin + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Javelin + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Javelin + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Javelin + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Javelin + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shortbow + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shortbow + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shortbow + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shortbow + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shortbow + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shortbow + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Shortbow + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CompositeShortbow + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CompositeShortbow + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CompositeShortbow + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CompositeShortbow + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CompositeShortbow + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CompositeShortbow + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CompositeShortbow + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Sling + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d2", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Sling + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d3", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Sling + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Sling + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Sling + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Sling + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Sling + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.PincerStaff + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.PincerStaff + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.PincerStaff + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d10", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.PincerStaff + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.PincerStaff + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.PincerStaff + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.PincerStaff + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d8", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.SlingBullet + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.SlingBullet + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.SlingBullet + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.SlingBullet + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.SlingBullet + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.SlingBullet + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.SlingBullet + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Bludgeoning })],
+                [WeaponConstants.Arrow + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Arrow + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Arrow + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Arrow + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Arrow + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Arrow + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Arrow + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CrossbowBolt + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CrossbowBolt + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CrossbowBolt + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CrossbowBolt + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CrossbowBolt + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CrossbowBolt + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CrossbowBolt + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "0", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CompositeLongbow + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CompositeLongbow + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CompositeLongbow + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CompositeLongbow + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CompositeLongbow + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CompositeLongbow + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.CompositeLongbow + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Longbow + TraitConstants.Sizes.Tiny] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d4", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Longbow + TraitConstants.Sizes.Small] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Longbow + TraitConstants.Sizes.Medium] = [DataHelper.Parse(new DamageDataSelection { Roll = "1d8", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Longbow + TraitConstants.Sizes.Large] = [DataHelper.Parse(new DamageDataSelection { Roll = "2d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Longbow + TraitConstants.Sizes.Huge] = [DataHelper.Parse(new DamageDataSelection { Roll = "3d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Longbow + TraitConstants.Sizes.Gargantuan] = [DataHelper.Parse(new DamageDataSelection { Roll = "4d6", Type = AttributeConstants.DamageTypes.Piercing })],
+                [WeaponConstants.Longbow + TraitConstants.Sizes.Colossal] = [DataHelper.Parse(new DamageDataSelection { Roll = "6d6", Type = AttributeConstants.DamageTypes.Piercing })],
             };
 
-            var weaponData = weaponDataSelector.Select(weapon);
-            var damageDatas = table[weapon].Select(d => damageHelper.ParseEntries(d)).ToArray();
-
-            for (var i = 0; i < sizes.Length; i++)
-            {
-                var normal = damageDatas[i];
-                var critical = damageDatas[i + sizes.Length];
-
-                Assert.That(normal, Has.Length.EqualTo(critical.Length), weapon);
-                Assert.That(normal, Has.Length.EqualTo(1).Or.Length.EqualTo(2));
-                Assert.That(critical, Has.Length.EqualTo(1).Or.Length.EqualTo(2));
-
-                Assert.That(critical[0][DataIndexConstants.Weapon.DamageData.TypeIndex], Is.EqualTo(normal[0][DataIndexConstants.Weapon.DamageData.TypeIndex]), weapon);
-                Assert.That(normal[0][DataIndexConstants.Weapon.DamageData.ConditionIndex], Is.Empty, weapon);
-                Assert.That(critical[0][DataIndexConstants.Weapon.DamageData.ConditionIndex], Is.Empty, weapon);
-
-                var normalSections = normal[0][DataIndexConstants.Weapon.DamageData.RollIndex].Split('d');
-                var normalQuantity = Convert.ToInt32(normalSections[0]);
-                var normalDie = 1;
-                if (normalSections.Length > 1)
-                    normalDie = Convert.ToInt32(normalSections[1]);
-
-                var criticalSections = critical[0][DataIndexConstants.Weapon.DamageData.RollIndex].Split('d');
-                var criticalQuantity = Convert.ToInt32(criticalSections[0]);
-                var criticalDie = 1;
-                if (criticalSections.Length > 1)
-                    criticalDie = Convert.ToInt32(criticalSections[1]);
-
-                if (noDamage.Contains(weapon))
-                {
-                    Assert.That(criticalDie, Is.EqualTo(normalDie).And.EqualTo(1), weapon);
-                    Assert.That(criticalQuantity, Is.EqualTo(normalQuantity).And.Zero, $"{weapon}: {weaponData.CriticalMultiplier}");
-                    continue;
-                }
-
-                var multiplier = Convert.ToInt32(weaponData.CriticalMultiplier.Substring(1, 1));
-
-                Assert.That(multiplier, Is.EqualTo(2).Or.EqualTo(3).Or.EqualTo(4));
-                Assert.That(criticalDie, Is.EqualTo(normalDie), weapon);
-                Assert.That(criticalQuantity, Is.EqualTo(Math.Max(normalQuantity * multiplier, 1)), $"{weapon}: {weaponData.CriticalMultiplier}");
-
-                if (normal.Length == 1)
-                    continue;
-
-                Assert.That(critical[1][DataIndexConstants.Weapon.DamageData.TypeIndex], Is.EqualTo(normal[1][DataIndexConstants.Weapon.DamageData.TypeIndex]), weapon);
-                Assert.That(normal[1][DataIndexConstants.Weapon.DamageData.ConditionIndex], Is.Empty, weapon);
-                Assert.That(critical[1][DataIndexConstants.Weapon.DamageData.ConditionIndex], Is.Empty, weapon);
-
-                var normalSecondarySections = normal[1][DataIndexConstants.Weapon.DamageData.RollIndex].Split('d');
-                var normalSecondaryQuantity = Convert.ToInt32(normalSecondarySections[0]);
-                var normalSecondaryDie = 1;
-                if (normalSecondarySections.Length > 1)
-                    normalSecondaryDie = Convert.ToInt32(normalSecondarySections[1]);
-
-                var criticalSecondarySections = critical[1][DataIndexConstants.Weapon.DamageData.RollIndex].Split('d');
-                var criticalSecondaryQuantity = Convert.ToInt32(criticalSecondarySections[0]);
-                var criticalSecondaryDie = 1;
-                if (criticalSecondarySections.Length > 1)
-                    criticalSecondaryDie = Convert.ToInt32(criticalSecondarySections[1]);
-
-                var secondaryMultiplier = Convert.ToInt32(weaponData.SecondaryCriticalMultiplier.Substring(1, 1));
-
-                Assert.That(secondaryMultiplier, Is.EqualTo(2).Or.EqualTo(3).Or.EqualTo(4));
-                Assert.That(criticalSecondaryDie, Is.EqualTo(normalSecondaryDie), weapon);
-                Assert.That(criticalSecondaryQuantity, Is.EqualTo(Math.Max(normalSecondaryQuantity * secondaryMultiplier, 1)), $"{weapon}: {weaponData.SecondaryCriticalMultiplier}");
-            }
+            return damages;
         }
+
+        public static IEnumerable Weapons => WeaponConstants.GetAllWeapons(false, false).Select(w => new TestCaseData(w));
     }
 }

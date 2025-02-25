@@ -1,17 +1,14 @@
-﻿using NUnit.Framework;
-using DnDGen.TreasureGen.Tables;
-using DnDGen.TreasureGen.Items;
+﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
+using DnDGen.TreasureGen.Tables;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Potions
 {
     [TestFixture]
     public class MinorPotionsTests : TypeAndAmountPercentileTests
     {
-        protected override string tableName
-        {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, PowerConstants.Minor, ItemTypeConstants.Potion); }
-        }
+        protected override string tableName => TableNameConstants.Percentiles.POWERITEMTYPEs(PowerConstants.Minor, ItemTypeConstants.Potion);
 
         [Test]
         public override void ReplacementStringsAreValid()
@@ -56,9 +53,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Potions
         [TestCase(PotionConstants.RemoveParalysis, 0, 92, 93)]
         [TestCase(PotionConstants.ResistENERGY_10, 0, 94, 96)]
         [TestCase(PotionConstants.SpiderClimb, 0, 98, 99)]
-        public override void TypeAndAmountPercentile(string name, int amount, int lower, int upper)
+        public void MinorPotionPercentile(string name, int amount, int lower, int upper)
         {
-            base.TypeAndAmountPercentile(name, amount, lower, upper);
+            AssertTypeAndAmountPercentile(name, amount, lower, upper);
         }
 
         [TestCase(PotionConstants.MagicStone, 0, 26)]
@@ -73,9 +70,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Potions
         [TestCase(PotionConstants.Misdirection, 0, 87)]
         [TestCase(PotionConstants.ShieldOfFaith, 3, 97)]
         [TestCase(PotionConstants.UndetectableAlignment, 0, 100)]
-        public override void TypeAndAmountPercentile(string name, int amount, int roll)
+        public void MinorPotionPercentile(string name, int amount, int roll)
         {
-            base.TypeAndAmountPercentile(name, amount, roll);
+            AssertTypeAndAmountPercentile(name, amount, roll);
         }
     }
 }

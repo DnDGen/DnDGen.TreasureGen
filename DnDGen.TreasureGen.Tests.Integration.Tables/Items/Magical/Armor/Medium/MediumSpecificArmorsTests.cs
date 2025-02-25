@@ -1,16 +1,13 @@
-﻿using NUnit.Framework;
+﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Tables;
-using DnDGen.TreasureGen.Items;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Armor.Medium
 {
     [TestFixture]
     public class MediumSpecificArmorsTests : TypeAndAmountPercentileTests
     {
-        protected override string tableName
-        {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.POWERSpecificITEMTYPEs, PowerConstants.Medium, ItemTypeConstants.Armor); }
-        }
+        protected override string tableName => TableNameConstants.Percentiles.POWERSpecificITEMTYPEs(PowerConstants.Medium, ItemTypeConstants.Armor);
 
         [Test]
         public override void ReplacementStringsAreValid()
@@ -31,9 +28,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Armor.Medium
         [TestCase(ArmorConstants.Breastplate, 0, 68, 82)]
         [TestCase(ArmorConstants.DwarvenPlate, 0, 83, 97)]
         [TestCase(ArmorConstants.BandedMailOfLuck, 3, 98, 100)]
-        public override void TypeAndAmountPercentile(string type, int amount, int lower, int upper)
+        public void MediumSpecificArmorsPercentile(string type, int amount, int lower, int upper)
         {
-            base.TypeAndAmountPercentile(type, amount, lower, upper);
+            AssertTypeAndAmountPercentile(type, amount, lower, upper);
         }
     }
 }

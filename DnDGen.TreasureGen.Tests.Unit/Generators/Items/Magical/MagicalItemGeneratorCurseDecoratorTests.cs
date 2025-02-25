@@ -65,7 +65,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             var specificCursedItem = new Item();
             mockCurseGenerator.Setup(g => g.HasCurse(innerItem)).Returns(true);
             mockCurseGenerator.Setup(g => g.ItemTypeCanBeSpecificCursedItem(innerItem.ItemType)).Returns(true);
-            mockCurseGenerator.Setup(g => g.GenerateCurse()).Returns(TableNameConstants.Percentiles.Set.SpecificCursedItems);
+            mockCurseGenerator.Setup(g => g.GenerateCurse()).Returns(TableNameConstants.Percentiles.SpecificCursedItems);
             mockCurseGenerator.Setup(g => g.GenerateSpecificCursedItem(innerItem.ItemType)).Returns(specificCursedItem);
 
             var item = decorator.GenerateRandom("power");
@@ -79,8 +79,8 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             mockCurseGenerator.Setup(g => g.HasCurse(innerItem)).Returns(true);
             mockCurseGenerator.Setup(g => g.ItemTypeCanBeSpecificCursedItem(innerItem.ItemType)).Returns(false);
             mockCurseGenerator.SetupSequence(g => g.GenerateCurse())
-                .Returns(TableNameConstants.Percentiles.Set.SpecificCursedItems)
-                .Returns(TableNameConstants.Percentiles.Set.SpecificCursedItems)
+                .Returns(TableNameConstants.Percentiles.SpecificCursedItems)
+                .Returns(TableNameConstants.Percentiles.SpecificCursedItems)
                 .Returns("cursed");
 
             var item = decorator.GenerateRandom("power");
@@ -127,8 +127,8 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             mockInnerGenerator.Setup(g => g.Generate(template, true)).Returns(innerItem);
             mockCurseGenerator.Setup(g => g.HasCurse(innerItem)).Returns(true);
             mockCurseGenerator.SetupSequence(g => g.GenerateCurse())
-                .Returns(TableNameConstants.Percentiles.Set.SpecificCursedItems)
-                .Returns(TableNameConstants.Percentiles.Set.SpecificCursedItems)
+                .Returns(TableNameConstants.Percentiles.SpecificCursedItems)
+                .Returns(TableNameConstants.Percentiles.SpecificCursedItems)
                 .Returns("cursed");
             mockCurseGenerator.Setup(g => g.GenerateRandom()).Returns(specificCursedItem);
 
@@ -188,7 +188,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             var specificCursedItem = new Item();
             mockCurseGenerator.Setup(g => g.HasCurse(innerItem)).Returns(true);
             mockCurseGenerator.Setup(g => g.CanBeSpecificCursedItem("item name")).Returns(true);
-            mockCurseGenerator.Setup(g => g.GenerateCurse()).Returns(TableNameConstants.Percentiles.Set.SpecificCursedItems);
+            mockCurseGenerator.Setup(g => g.GenerateCurse()).Returns(TableNameConstants.Percentiles.SpecificCursedItems);
             mockCurseGenerator.Setup(g => g.Generate("item name", "trait 1", "trait 2")).Returns(specificCursedItem);
 
             var item = decorator.Generate("power", "item name", "trait 1", "trait 2");
@@ -204,8 +204,8 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             mockCurseGenerator.Setup(g => g.HasCurse(innerItem)).Returns(true);
             mockCurseGenerator.Setup(g => g.CanBeSpecificCursedItem("item name")).Returns(false);
             mockCurseGenerator.SetupSequence(g => g.GenerateCurse())
-                .Returns(TableNameConstants.Percentiles.Set.SpecificCursedItems)
-                .Returns(TableNameConstants.Percentiles.Set.SpecificCursedItems)
+                .Returns(TableNameConstants.Percentiles.SpecificCursedItems)
+                .Returns(TableNameConstants.Percentiles.SpecificCursedItems)
                 .Returns("cursed");
             mockCurseGenerator.Setup(g => g.Generate("item name")).Returns(specificCursedItem);
 

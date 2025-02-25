@@ -12,7 +12,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items
         {
             get
             {
-                return TableNameConstants.Collections.Set.ItemGroups;
+                return TableNameConstants.Collections.ItemGroups;
             }
         }
 
@@ -250,7 +250,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items
         [TestCase(WondrousItemConstants.VacousGrimoire, WondrousItemConstants.VacousGrimoire)]
         public void BaseNameGroup(string name, params string[] baseNames)
         {
-            base.Collections(name, baseNames);
+            base.AssertCollection(name, baseNames);
         }
 
         [Test]
@@ -289,7 +289,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items
                 WeaponConstants.MaceOfBlood
             };
 
-            base.Collections(CurseConstants.SpecificCursedItem, items);
+            base.AssertCollection(CurseConstants.SpecificCursedItem, items);
         }
     }
 }

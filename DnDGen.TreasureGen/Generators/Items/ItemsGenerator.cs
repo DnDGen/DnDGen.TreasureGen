@@ -1,9 +1,9 @@
-﻿using DnDGen.Infrastructure.Generators;
+﻿using DnDGen.Infrastructure.Factories;
 using DnDGen.Infrastructure.Selectors.Collections;
+using DnDGen.Infrastructure.Selectors.Percentiles;
 using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
 using DnDGen.TreasureGen.Items.Mundane;
-using DnDGen.TreasureGen.Selectors.Collections;
 using DnDGen.TreasureGen.Selectors.Percentiles;
 using DnDGen.TreasureGen.Tables;
 using System;
@@ -15,56 +15,92 @@ namespace DnDGen.TreasureGen.Generators.Items
 {
     internal class ItemsGenerator : IItemsGenerator
     {
-        private readonly ITypeAndAmountPercentileSelector typeAndAmountPercentileSelector;
+        private readonly IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
         private readonly ITreasurePercentileSelector percentileSelector;
         private readonly JustInTimeFactory justInTimeFactory;
-        private readonly IRangeDataSelector rangeDataSelector;
         private readonly ICollectionSelector collectionSelector;
+        private readonly ICollectionTypeAndAmountSelector typeAndAmountCollectionSelector;
 
         public ItemsGenerator(
-            ITypeAndAmountPercentileSelector typeAndAmountPercentileSelector,
+            IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
             JustInTimeFactory justInTimeFactory,
             ITreasurePercentileSelector percentileSelector,
-            IRangeDataSelector rangeDataSelector,
-            ICollectionSelector collectionSelector)
+            ICollectionSelector collectionSelector,
+            ICollectionTypeAndAmountSelector typeAndAmountCollectionSelector)
         {
             this.typeAndAmountPercentileSelector = typeAndAmountPercentileSelector;
             this.justInTimeFactory = justInTimeFactory;
             this.percentileSelector = percentileSelector;
-            this.rangeDataSelector = rangeDataSelector;
             this.collectionSelector = collectionSelector;
+            this.typeAndAmountCollectionSelector = typeAndAmountCollectionSelector;
         }
 
         public IEnumerable<Item> GenerateRandomAtLevel(int level)
         {
-            if (level < LevelLimits.Minimum || level > LevelLimits.Maximum)
-                throw new ArgumentException($"Level {level} is not a valid level for treasure generation");
+            var percentileLevel = GetValidPercentileLevel(level);
+            var extraItemsLevel = GetValidExtraItemLevel(level);
 
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.LevelXItems, level);
-            var result = typeAndAmountPercentileSelector.SelectFrom(tableName);
+            var percentileResult = typeAndAmountPercentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.LevelXItems(percentileLevel));
             var items = new List<Item>();
 
-            while (result.Amount-- > 0)
+            while (items.Count < percentileResult.Amount)
             {
-                var item = GenerateRandomAtPower(result.Type);
+                var item = GenerateRandomAtPower(percentileResult.Type);
+                items.Add(item);
+            }
+
+            var extraItemsResult = typeAndAmountCollectionSelector.SelectOneFrom(Config.Name, TableNameConstants.Collections.ExtraItems, extraItemsLevel.ToString());
+
+            while (items.Count < percentileResult.Amount + extraItemsResult.Amount)
+            {
+                var item = GenerateRandomAtPower(extraItemsResult.Type);
                 items.Add(item);
             }
 
             return items;
         }
 
-        public async Task<IEnumerable<Item>> GenerateRandomAtLevelAsync(int level)
+        private int GetValidPercentileLevel(int level)
         {
-            if (level < LevelLimits.Minimum || level > LevelLimits.Maximum)
+            if (level < LevelLimits.Minimum)
                 throw new ArgumentException($"Level {level} is not a valid level for treasure generation");
 
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.LevelXItems, level);
-            var result = typeAndAmountPercentileSelector.SelectFrom(tableName);
+            if (level > LevelLimits.Maximum_Standard)
+                return LevelLimits.Maximum_Standard;
+
+            return level;
+        }
+
+        private int GetValidExtraItemLevel(int level)
+        {
+            if (level < LevelLimits.Minimum)
+                throw new ArgumentException($"Level {level} is not a valid level for treasure generation");
+
+            if (level > LevelLimits.Maximum_Epic)
+                return LevelLimits.Maximum_Epic;
+
+            return level;
+        }
+
+        public async Task<IEnumerable<Item>> GenerateRandomAtLevelAsync(int level)
+        {
+            var percentileLevel = GetValidPercentileLevel(level);
+            var extraItemsLevel = GetValidExtraItemLevel(level);
+
+            var percentileResult = typeAndAmountPercentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.LevelXItems(percentileLevel));
             var tasks = new List<Task<Item>>();
 
-            while (result.Amount-- > 0)
+            while (tasks.Count < percentileResult.Amount)
             {
-                var task = Task.Run(() => GenerateRandomAtPower(result.Type));
+                var task = Task.Run(() => GenerateRandomAtPower(percentileResult.Type));
+                tasks.Add(task);
+            }
+
+            var extraItemsResult = typeAndAmountCollectionSelector.SelectOneFrom(Config.Name, TableNameConstants.Collections.ExtraItems, extraItemsLevel.ToString());
+
+            while (tasks.Count < percentileResult.Amount + extraItemsResult.Amount)
+            {
+                var task = Task.Run(() => GenerateRandomAtPower(extraItemsResult.Type));
                 tasks.Add(task);
             }
 
@@ -83,31 +119,26 @@ namespace DnDGen.TreasureGen.Generators.Items
 
         private Item GenerateRandomMundaneItem()
         {
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERItems, PowerConstants.Mundane);
-            var itemType = percentileSelector.SelectFrom(Config.Name, tableName);
+            var itemType = percentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.POWERItems(PowerConstants.Mundane));
 
             return GenerateMundaneItem(itemType);
         }
 
         private Item GenerateRandomMagicalItemAtPower(string power)
         {
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERItems, power);
-            var itemType = percentileSelector.SelectFrom(Config.Name, tableName);
+            var itemType = percentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.POWERItems(power));
 
             return GenerateMagicalItemAtPower(power, itemType);
         }
 
         public Item GenerateAtLevel(int level, string itemType, string itemName, params string[] traits)
         {
-            if (level < LevelLimits.Minimum || level > LevelLimits.Maximum)
-                throw new ArgumentException($"Level {level} is not a valid level for treasure generation");
-
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.LevelXItems, level);
-            var result = typeAndAmountPercentileSelector.SelectFrom(tableName);
-            var powers = collectionSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.PowerGroups, itemType);
+            var percentileLevel = GetValidPercentileLevel(level);
+            var result = typeAndAmountPercentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.LevelXItems(percentileLevel));
+            var powers = collectionSelector.SelectFrom(Config.Name, TableNameConstants.Collections.PowerGroups, itemType);
 
             if (itemType != ItemTypeConstants.Scroll && itemType != ItemTypeConstants.Wand)
-                powers = collectionSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.PowerGroups, itemName);
+                powers = collectionSelector.SelectFrom(Config.Name, TableNameConstants.Collections.PowerGroups, itemName);
 
             var power = PowerHelper.AdjustPower(result.Type, powers);
             if (power == PowerConstants.Mundane)

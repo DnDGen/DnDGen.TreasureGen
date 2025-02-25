@@ -1,7 +1,9 @@
-﻿using DnDGen.Stress;
+﻿using DnDGen.Infrastructure.Selectors.Collections;
+using DnDGen.Stress;
 using DnDGen.TreasureGen.Items;
 using NUnit.Framework;
-using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Stress
@@ -9,15 +11,13 @@ namespace DnDGen.TreasureGen.Tests.Integration.Stress
     [TestFixture]
     public abstract class StressTests : IntegrationTests
     {
-        public Random Random { get; set; }
-
-        [SetUp]
-        public void StressSetup()
-        {
-            Random = GetNewInstanceOf<Random>();
-        }
-
         protected Stressor stressor;
+        protected ICollectionSelector collectionSelector;
+
+        private string[] powers;
+        private IEnumerable<int> standardLevels;
+        private IEnumerable<int> epicLevels;
+        private IEnumerable<int> excessLevels;
 
         [OneTimeSetUp]
         public void StressOneTimeSetup()
@@ -35,23 +35,36 @@ namespace DnDGen.TreasureGen.Tests.Integration.Stress
 #endif
 
             stressor = new Stressor(options);
+            powers = [PowerConstants.Minor, PowerConstants.Medium, PowerConstants.Major];
+            standardLevels = Enumerable.Range(LevelLimits.Minimum, LevelLimits.Maximum_Standard);
+            epicLevels = Enumerable.Range(LevelLimits.Maximum_Standard + 1, 10);
+            excessLevels = Enumerable.Range(LevelLimits.Maximum_Epic + 1, 10);
+
+            Assert.That(standardLevels.First(), Is.EqualTo(LevelLimits.Minimum));
+            Assert.That(standardLevels.Last(), Is.EqualTo(LevelLimits.Maximum_Standard));
+            Assert.That(epicLevels.First(), Is.EqualTo(LevelLimits.Maximum_Standard + 1));
+            Assert.That(epicLevels.Last(), Is.EqualTo(LevelLimits.Maximum_Epic));
+            Assert.That(excessLevels.First(), Is.EqualTo(LevelLimits.Maximum_Epic + 1));
+            Assert.That(excessLevels.Last(), Is.EqualTo(LevelLimits.Maximum_Epic + 10));
+        }
+
+        [SetUp]
+        public void StressSetup()
+        {
+            collectionSelector = GetNewInstanceOf<ICollectionSelector>();
         }
 
         protected int GetNewLevel()
         {
-            return Random.Next(LevelLimits.Minimum, LevelLimits.Maximum + 1);
+            return collectionSelector.SelectRandomFrom(standardLevels, epicLevels, excessLevels);
         }
 
         protected string GetNewPower(bool allowMinor = true)
         {
-            var limit = allowMinor ? 3 : 2;
+            if (allowMinor)
+                return collectionSelector.SelectRandomFrom(powers);
 
-            switch (Random.Next(limit))
-            {
-                case 0: return PowerConstants.Major;
-                case 1: return PowerConstants.Medium;
-                default: return PowerConstants.Minor;
-            }
+            return collectionSelector.SelectRandomFrom(powers.Except([PowerConstants.Minor]));
         }
     }
 }

@@ -28,7 +28,7 @@ namespace DnDGen.TreasureGen.Items
                 if (specificNames.Contains(Name))
                     return summary;
 
-                var specialMaterials = TraitConstants.SpecialMaterials.All();
+                var specialMaterials = TraitConstants.SpecialMaterials.GetAll();
                 var materialTraits = Traits.Intersect(specialMaterials);
                 if (materialTraits.Any())
                 {
@@ -87,13 +87,13 @@ namespace DnDGen.TreasureGen.Items
 
         public Item()
         {
-            Traits = new HashSet<string>();
-            Attributes = Enumerable.Empty<string>();
+            Traits = [];
+            Attributes = [];
             Magic = new Magic();
             Quantity = 1;
             Name = string.Empty;
-            BaseNames = Enumerable.Empty<string>();
-            Contents = new List<string>();
+            BaseNames = [];
+            Contents = [];
             ItemType = string.Empty;
         }
 

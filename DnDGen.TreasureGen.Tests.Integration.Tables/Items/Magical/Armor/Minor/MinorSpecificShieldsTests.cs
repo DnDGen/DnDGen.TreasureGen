@@ -1,16 +1,13 @@
-﻿using NUnit.Framework;
+﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Tables;
-using DnDGen.TreasureGen.Items;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Armor.Minor
 {
     [TestFixture]
     public class MinorSpecificShieldsTests : TypeAndAmountPercentileTests
     {
-        protected override string tableName
-        {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.POWERSpecificITEMTYPEs, PowerConstants.Minor, AttributeConstants.Shield); }
-        }
+        protected override string tableName => TableNameConstants.Percentiles.POWERSpecificITEMTYPEs(PowerConstants.Minor, AttributeConstants.Shield);
 
         [Test]
         public override void ReplacementStringsAreValid()
@@ -28,9 +25,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Armor.Minor
         [TestCase(ArmorConstants.HeavyWoodenShield, 0, 31, 80)]
         [TestCase(ArmorConstants.HeavySteelShield, 0, 81, 95)]
         [TestCase(ArmorConstants.CastersShield, 1, 96, 100)]
-        public override void TypeAndAmountPercentile(string type, int amount, int lower, int upper)
+        public void MinorSpecificShieldsPercentile(string type, int amount, int lower, int upper)
         {
-            base.TypeAndAmountPercentile(type, amount, lower, upper);
+            AssertTypeAndAmountPercentile(type, amount, lower, upper);
         }
     }
 }

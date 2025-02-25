@@ -1,4 +1,4 @@
-﻿using DnDGen.Infrastructure.Generators;
+﻿using DnDGen.Infrastructure.Factories;
 using DnDGen.Infrastructure.Selectors.Collections;
 using DnDGen.Infrastructure.Selectors.Percentiles;
 using DnDGen.RollGen;
@@ -35,9 +35,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.IoC
         {
             AssertNotSingleton<JustInTimeFactory>();
             AssertNotSingleton<IPercentileSelector>();
-
-            //INFO: There is a caching proxy on this selector
-            AssertSingleton<ICollectionSelector>();
+            AssertNotSingleton<ICollectionSelector>();
         }
     }
 }

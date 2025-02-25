@@ -3,17 +3,17 @@
 <percentiles>
   <percentile>
     <lower>1</lower>
-    <content></content>
+	  <content>@0</content>
     <upper>3</upper>
   </percentile>
   <percentile>
     <lower>4</lower>
-    <content>Gold,1000d10+2000</content>
+    <content>Gold@1000d10+2000</content>
     <upper>68</upper>
   </percentile>
   <percentile>
     <lower>69</lower>
-    <content>Platinum,200d10</content>
+    <content>Platinum@200d10</content>
     <upper>100</upper>
   </percentile>
 </percentiles>

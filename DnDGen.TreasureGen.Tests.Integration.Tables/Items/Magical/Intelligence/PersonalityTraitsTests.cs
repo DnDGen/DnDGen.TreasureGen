@@ -1,5 +1,5 @@
-﻿using NUnit.Framework;
-using DnDGen.TreasureGen.Tables;
+﻿using DnDGen.TreasureGen.Tables;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
 {
@@ -8,7 +8,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
     {
         protected override string tableName
         {
-            get { return TableNameConstants.Percentiles.Set.PersonalityTraits; }
+            get { return TableNameConstants.Percentiles.PersonalityTraits; }
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
         [TestCase("Unusual color", 23)]
         [TestCase("Shiny", 24)]
         [TestCase("Dull", 25)]
-        [TestCase(EmptyContent, 26)]
+        [TestCase("", 26)]
         [TestCase("Tarnish or wear", 27)]
         [TestCase("Complains", 28)]
         [TestCase("Distinctive jewels", 29)]
@@ -123,9 +123,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
         [TestCase("Prefers members of one class over all others", 98)]
         [TestCase("Jokester", 99)]
         [TestCase("No sense of humor", 100)]
-        public override void Percentile(string content, int roll)
+        public void PersonalityTraitsPercentile(string content, int roll)
         {
-            base.Percentile(content, roll);
+            AssertPercentile(content, roll);
         }
     }
 }

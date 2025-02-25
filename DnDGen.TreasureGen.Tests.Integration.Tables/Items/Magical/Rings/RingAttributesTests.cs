@@ -1,7 +1,7 @@
-﻿using NUnit.Framework;
-using DnDGen.TreasureGen.Tables;
-using DnDGen.TreasureGen.Items;
+﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
+using DnDGen.TreasureGen.Tables;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Rings
 {
@@ -10,7 +10,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Rings
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Collections.Formattable.ITEMTYPEAttributes, ItemTypeConstants.Ring); }
+            get { return TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Ring); }
         }
 
         [TestCase(RingConstants.FeatherFalling)]
@@ -70,7 +70,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Rings
         [TestCase(RingConstants.ThreeWishes, AttributeConstants.Charged, AttributeConstants.OneTimeUse)]
         public void RingAttributes(string name, params string[] attributes)
         {
-            base.Collections(name, attributes);
+            base.AssertCollection(name, attributes);
         }
     }
 }

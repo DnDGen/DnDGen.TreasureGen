@@ -9,7 +9,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.WondrousItem
     {
         protected override string tableName
         {
-            get { return TableNameConstants.Percentiles.Set.IsDeckOfIllusionsFullyCharged; }
+            get { return TableNameConstants.Percentiles.IsDeckOfIllusionsFullyCharged; }
         }
 
         [Test]

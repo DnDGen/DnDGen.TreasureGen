@@ -9,7 +9,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane.Armors
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, PowerConstants.Mundane, ItemTypeConstants.Armor); }
+            get { return TableNameConstants.Percentiles.POWERITEMTYPEs(PowerConstants.Mundane, ItemTypeConstants.Armor); }
         }
 
         [Test]
@@ -31,9 +31,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane.Armors
         [TestCase(ArmorConstants.HalfPlate, 35, 54)]
         [TestCase(ArmorConstants.FullPlate, 55, 80)]
         [TestCase(AttributeConstants.Shield, 81, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        public void Percentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
+            base.AssertPercentile(content, lower, upper);
         }
     }
 }

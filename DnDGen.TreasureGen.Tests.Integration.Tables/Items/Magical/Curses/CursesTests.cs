@@ -1,16 +1,13 @@
-﻿using NUnit.Framework;
+﻿using DnDGen.TreasureGen.Items.Magical;
 using DnDGen.TreasureGen.Tables;
-using DnDGen.TreasureGen.Items.Magical;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Curses
 {
     [TestFixture]
     public class CursesTests : PercentileTests
     {
-        protected override string tableName
-        {
-            get { return TableNameConstants.Percentiles.Set.Curses; }
-        }
+        protected override string tableName => TableNameConstants.Percentiles.Curses;
 
         [Test]
         public override void ReplacementStringsAreValid()
@@ -30,10 +27,10 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Curses
         [TestCase(CurseConstants.Requirement, 46, 60)]
         [TestCase(CurseConstants.Drawback, 61, 75)]
         [TestCase(CurseConstants.DifferentEffect, 76, 90)]
-        [TestCase(TableNameConstants.Percentiles.Set.SpecificCursedItems, 91, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        [TestCase(TableNameConstants.Percentiles.SpecificCursedItems, 91, 100)]
+        public void CursesPercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
+            AssertPercentile(content, lower, upper);
         }
     }
 }

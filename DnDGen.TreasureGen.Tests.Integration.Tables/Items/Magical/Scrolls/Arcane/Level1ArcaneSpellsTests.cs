@@ -8,7 +8,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Scrolls.Arca
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.LevelXSPELLTYPESpells, 1, "Arcane"); }
+            get { return TableNameConstants.Percentiles.LevelXSPELLTYPESpells(1, "Arcane"); }
         }
 
         [Test]
@@ -31,6 +31,8 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Scrolls.Arca
         [TestCase("Chill Touch", 13, 14)]
         [TestCase("Color Spray", 15, 16)]
         [TestCase("Comprehend Languages", 17, 19)]
+        [TestCase("Lesser Confusion", 20, 20)]
+        [TestCase("Cure Light Wounds", 21, 21)]
         [TestCase("Detect Secret Doors", 22, 24)]
         [TestCase("Detect Undead", 25, 26)]
         [TestCase("Disguise Self", 27, 29)]
@@ -38,6 +40,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Scrolls.Arca
         [TestCase("Enlarge Person", 33, 35)]
         [TestCase("Erase", 36, 37)]
         [TestCase("Expeditious Retreat", 38, 40)]
+        [TestCase("Feather Fall", 41, 41)]
         [TestCase("Grease", 42, 43)]
         [TestCase("Hold Portal", 44, 45)]
         [TestCase("Hypnotism", 46, 47)]
@@ -60,20 +63,12 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Scrolls.Arca
         [TestCase("Summon Monster I", 89, 90)]
         [TestCase("Tenser's Floating Disc", 91, 93)]
         [TestCase("True Strike", 94, 95)]
+        [TestCase("Undetectable Alignment", 96, 96)]
         [TestCase("Unseen Servant", 97, 98)]
         [TestCase("Ventriloquism", 99, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        public void Level1ArcaneSpellsPercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
-        }
-
-        [TestCase("Lesser Confusion", 20)]
-        [TestCase("Cure Light Wounds", 21)]
-        [TestCase("Feather Fall", 41)]
-        [TestCase("Undetectable Alignment", 96)]
-        public override void Percentile(string content, int roll)
-        {
-            base.Percentile(content, roll);
+            AssertPercentile(content, lower, upper);
         }
     }
 }

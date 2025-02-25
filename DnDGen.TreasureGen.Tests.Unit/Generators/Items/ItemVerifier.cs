@@ -50,7 +50,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
                 if (ability.BaseName == SpecialAbilityConstants.Bane)
                 {
                     Assert.That(ability.Damages.Select(d => d.Condition), Is.All.Not.Empty, $"{item.Summary} with {ability.Name}");
-                    Assert.That(ability.CriticalDamages.SelectMany(kvp => kvp.Value).Select(d => d.Condition), Is.All.Not.Empty, $"{item.Summary} with {ability.Name}");
+                    Assert.That(ability.CriticalDamages.Select(d => d.Condition), Is.All.Not.Empty, $"{item.Summary} with {ability.Name}");
                 }
             }
 
@@ -85,12 +85,12 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             Assert.That(weapon.CriticalMultiplier, Is.EqualTo("x2").Or.EqualTo("x3").Or.EqualTo("x4"), $"{weapon.Summary} critical multiplier");
             Assert.That(weapon.Size, Is.Not.Empty, $"{weapon.Summary} size");
             Assert.That(weapon.Damages, Is.Not.Empty
-                .And.Count.EqualTo(1 + weapon.Magic.SpecialAbilities.SelectMany(a => a.Damages).Count()), $"{weapon.Summary} damages: {weapon.DamageDescription}");
+                .And.Count.EqualTo(1 + weapon.Magic.SpecialAbilities.SelectMany(a => a.Damages).Count()), $"{weapon.Summary} damages: {weapon.DamageSummary}");
             Assert.That(weapon.CriticalDamages, Is.Not.Empty
                 .And.Count.EqualTo(1 + weapon.Magic.SpecialAbilities
                     .Where(a => a.CriticalDamages.Any())
-                    .SelectMany(a => a.CriticalDamages[weapon.CriticalMultiplier])
-                    .Count()), $"{weapon.Summary} critical damages: {weapon.CriticalDamageDescription}");
+                    .SelectMany(a => a.CriticalDamages)
+                    .Count()), $"{weapon.Summary} critical damages: {weapon.CriticalDamageSummary}");
 
             foreach (var damage in weapon.Damages)
             {
@@ -114,7 +114,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
                 .Or.Contains(AttributeConstants.DamageTypes.Slashing), weapon.Summary);
 
             Assert.That(weapon.ThreatRange, Is.Positive.And.InRange(1, 6), $"{weapon.Summary} threat range");
-            Assert.That(weapon.ThreatRangeDescription, Is.Not.Empty, $"{weapon.Summary} threat range description");
+            Assert.That(weapon.ThreatRangeSummary, Is.Not.Empty, $"{weapon.Summary} threat range summary");
             Assert.That(weapon.Ammunition, Is.Not.Null, weapon.Summary);
 
             if (weapon.IsMagical)
@@ -132,8 +132,8 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             if (weapon.Attributes.Contains(AttributeConstants.DoubleWeapon))
             {
                 Assert.That(weapon.SecondaryCriticalMultiplier, Is.EqualTo("x2").Or.EqualTo("x3").Or.EqualTo("x4"), $"{weapon.Summary} secondary critical multiplier");
-                Assert.That(weapon.SecondaryDamages, Is.Not.Empty, $"{weapon.Summary} secondary damages: {weapon.SecondaryDamageDescription}");
-                Assert.That(weapon.SecondaryCriticalDamages, Is.Not.Empty, $"{weapon.Summary} secondary critical damages: {weapon.SecondaryCriticalDamageDescription}");
+                Assert.That(weapon.SecondaryDamages, Is.Not.Empty, $"{weapon.Summary} secondary damages: {weapon.SecondaryDamageSummary}");
+                Assert.That(weapon.SecondaryCriticalDamages, Is.Not.Empty, $"{weapon.Summary} secondary critical damages: {weapon.SecondaryCriticalDamageSummary}");
 
                 foreach (var damage in weapon.SecondaryDamages)
                 {
@@ -160,12 +160,12 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
                 {
                     Assert.That(weapon.SecondaryMagicBonus, Is.EqualTo(weapon.Magic.Bonus), weapon.Summary);
                     Assert.That(weapon.SecondaryDamages, Is.Not.Empty
-                        .And.Count.EqualTo(1 + weapon.Magic.SpecialAbilities.SelectMany(a => a.Damages).Count()), $"{weapon.Summary} secondary damages: {weapon.SecondaryDamageDescription}");
+                        .And.Count.EqualTo(1 + weapon.Magic.SpecialAbilities.SelectMany(a => a.Damages).Count()), $"{weapon.Summary} secondary damages: {weapon.SecondaryDamageSummary}");
                     Assert.That(weapon.SecondaryCriticalDamages, Is.Not.Empty
                         .And.Count.EqualTo(1 + weapon.Magic.SpecialAbilities
                             .Where(a => a.CriticalDamages.Any())
-                            .SelectMany(a => a.CriticalDamages[weapon.SecondaryCriticalMultiplier])
-                            .Count()), $"{weapon.Summary} secondary critical damages: {weapon.SecondaryCriticalDamageDescription}");
+                            .SelectMany(a => a.CriticalDamages)
+                            .Count()), $"{weapon.Summary} secondary critical damages: {weapon.SecondaryCriticalDamageSummary}");
                 }
                 else if (weapon.Magic.Bonus > 0)
                 {
@@ -175,9 +175,9 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
                 {
                     Assert.That(weapon.SecondaryMagicBonus, Is.Zero, weapon.Summary);
                     Assert.That(weapon.SecondaryDamages, Is.Not.Empty
-                        .And.Count.EqualTo(1), $"{weapon.Summary} secondary damages: {weapon.SecondaryDamageDescription}");
+                        .And.Count.EqualTo(1), $"{weapon.Summary} secondary damages: {weapon.SecondaryDamageSummary}");
                     Assert.That(weapon.SecondaryCriticalDamages, Is.Not.Empty
-                        .And.Count.EqualTo(1), $"{weapon.Summary} secondary critical damages: {weapon.SecondaryCriticalDamageDescription}");
+                        .And.Count.EqualTo(1), $"{weapon.Summary} secondary critical damages: {weapon.SecondaryCriticalDamageSummary}");
                 }
             }
             else
@@ -246,7 +246,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
 
         public void AssertSpecificCursedItem(Item item)
         {
-            var materials = TraitConstants.SpecialMaterials.All();
+            var materials = TraitConstants.SpecialMaterials.GetAll();
 
             AssertItem(item);
             Assert.That(item.Magic.Curse, Is.Not.Empty.And.EqualTo(CurseConstants.SpecificCursedItem), item.Summary);
@@ -256,9 +256,10 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
 
         public Armor CreateRandomArmorTemplate(string name)
         {
-            var template = new Armor();
-
-            template.Name = name;
+            var template = new Armor
+            {
+                Name = name
+            };
             template = PopulateItem(template) as Armor;
 
             template.ArmorBonus = random.Next();
@@ -270,9 +271,10 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
 
         public Weapon CreateRandomWeaponTemplate(string name)
         {
-            var template = new Weapon();
-
-            template.Name = name;
+            var template = new Weapon
+            {
+                Name = name
+            };
             template = PopulateItem(template) as Weapon;
 
             var damageTypes = new[] { AttributeConstants.DamageTypes.Bludgeoning, AttributeConstants.DamageTypes.Piercing, AttributeConstants.DamageTypes.Slashing };
@@ -295,9 +297,10 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
 
         public Item CreateRandomTemplate(string name)
         {
-            var template = new Item();
-
-            template.Name = name;
+            var template = new Item
+            {
+                Name = name
+            };
             template = PopulateItem(template);
 
             return template;
@@ -305,7 +308,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
 
         private Item PopulateItem(Item item)
         {
-            item.BaseNames = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+            item.BaseNames = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()];
             item.Quantity = random.Next();
             item.Contents.Add(Guid.NewGuid().ToString());
             item.Contents.Add(Guid.NewGuid().ToString());
@@ -347,7 +350,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             Assert.That(item.IsMagical, Is.True, item.Summary);
             Assert.That(item.Magic.Curse, Is.EqualTo(template.Magic.Curse).Or.EqualTo(CurseConstants.SpecificCursedItem), item.Summary);
 
-            var sizes = TraitConstants.Sizes.All();
+            var sizes = TraitConstants.Sizes.GetAll();
             Assert.That(item.Traits, Is.SupersetOf(template.Traits.Except(sizes)), item.Summary);
 
             if (item.Attributes.Contains(AttributeConstants.OneTimeUse) || item.Attributes.Contains(AttributeConstants.Ammunition))

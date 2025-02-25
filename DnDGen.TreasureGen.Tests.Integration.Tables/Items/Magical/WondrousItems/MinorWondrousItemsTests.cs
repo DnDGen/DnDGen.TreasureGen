@@ -10,7 +10,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.WondrousItem
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, PowerConstants.Minor, ItemTypeConstants.WondrousItem); }
+            get { return TableNameConstants.Percentiles.POWERITEMTYPEs(PowerConstants.Minor, ItemTypeConstants.WondrousItem); }
         }
 
         [Test]
@@ -125,9 +125,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.WondrousItem
         [TestCase(WondrousItemConstants.BottleOfAir, 0, 98)]
         [TestCase(WondrousItemConstants.BagOfHolding_III, 0, 99)]
         [TestCase(WondrousItemConstants.PeriaptOfHealth, 0, 100)]
-        public override void TypeAndAmountPercentile(string type, int amount, int roll)
+        public void TypeAndAmountPercentile(string type, int amount, int roll)
         {
-            base.TypeAndAmountPercentile(type, amount, roll);
+            base.AssertTypeAndAmountPercentile(type, amount, roll);
         }
     }
 }

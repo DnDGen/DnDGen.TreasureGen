@@ -1,18 +1,15 @@
-﻿using NUnit.Framework;
-using DnDGen.TreasureGen.Tables;
+﻿using DnDGen.TreasureGen.Generators.Items.Magical;
 using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
+using DnDGen.TreasureGen.Tables;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Armor.Minor
 {
     [TestFixture]
     public class MinorArmorSpecialAbilitiesTests : PercentileTests
     {
-        protected override string tableName
-        {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.POWERATTRIBUTESpecialAbilities, PowerConstants.Minor, ItemTypeConstants.Armor); }
-        }
-
+        protected override string tableName => TableNameConstants.Percentiles.POWERATTRIBUTESpecialAbilities(PowerConstants.Minor, ItemTypeConstants.Armor);
         [Test]
         public override void ReplacementStringsAreValid()
         {
@@ -31,18 +28,13 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Armor.Minor
         [TestCase(SpecialAbilityConstants.Shadow, 53, 72)]
         [TestCase(SpecialAbilityConstants.SilentMoves, 73, 92)]
         [TestCase(SpecialAbilityConstants.SpellResistance13, 93, 96)]
-        public override void Percentile(string content, int lower, int upper)
+        [TestCase(SpecialAbilityConstants.ImprovedSlick, 97, 97)]
+        [TestCase(SpecialAbilityConstants.ImprovedShadow, 98, 98)]
+        [TestCase(SpecialAbilityConstants.ImprovedSilentMoves, 99, 99)]
+        [TestCase(SpecialAbilitiesGenerator.BonusSpecialAbility, 100, 100)]
+        public void MinorArmorSpecialAbilitiesPercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
-        }
-
-        [TestCase(SpecialAbilityConstants.ImprovedSlick, 97)]
-        [TestCase(SpecialAbilityConstants.ImprovedShadow, 98)]
-        [TestCase(SpecialAbilityConstants.ImprovedSilentMoves, 99)]
-        [TestCase("BonusSpecialAbility", 100)]
-        public override void Percentile(string content, int roll)
-        {
-            base.Percentile(content, roll);
+            AssertPercentile(content, lower, upper);
         }
     }
 }

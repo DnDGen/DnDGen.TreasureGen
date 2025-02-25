@@ -1,7 +1,6 @@
 ﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
 using DnDGen.TreasureGen.Tests.Unit.Generators.Items;
-using Ninject;
 using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
@@ -9,15 +8,14 @@ namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
     [TestFixture]
     public class ScrollGeneratorTests : IntegrationTests
     {
-        [Inject, Named(ItemTypeConstants.Scroll)]
-        public MagicalItemGenerator ScrollGenerator { get; set; }
-
+        private MagicalItemGenerator scrollGenerator;
         private ItemVerifier itemVerifier;
 
         [SetUp]
         public void Setup()
         {
             itemVerifier = new ItemVerifier();
+            scrollGenerator = GetNewInstanceOf<MagicalItemGenerator>(ItemTypeConstants.Scroll);
         }
 
         [TestCase(ItemTypeConstants.Scroll, PowerConstants.Minor)]
@@ -28,7 +26,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
         [TestCase("whatever", PowerConstants.Major)]
         public void GenerateScroll(string itemName, string power)
         {
-            var item = ScrollGenerator.Generate(power, itemName);
+            var item = scrollGenerator.Generate(power, itemName);
             itemVerifier.AssertItem(item);
         }
     }

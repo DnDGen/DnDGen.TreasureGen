@@ -1,4 +1,5 @@
 ﻿using DnDGen.Infrastructure.Selectors.Collections;
+using DnDGen.Infrastructure.Selectors.Percentiles;
 using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
 using DnDGen.TreasureGen.Selectors.Percentiles;
@@ -10,12 +11,12 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
     internal class PotionGenerator : MagicalItemGenerator
     {
-        private readonly ITypeAndAmountPercentileSelector typeAndAmountPercentileSelector;
+        private readonly IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
         private readonly ICollectionSelector collectionSelector;
         private readonly IReplacementSelector replacementSelector;
 
         public PotionGenerator(
-            ITypeAndAmountPercentileSelector typeAndAmountPercentileSelector,
+            IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
             ICollectionSelector collectionSelector,
             IReplacementSelector replacementSelector)
         {
@@ -26,22 +27,22 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
         public Item GenerateRandom(string power)
         {
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, power, ItemTypeConstants.Potion);
-            var result = typeAndAmountPercentileSelector.SelectFrom(tableName);
+            var result = typeAndAmountPercentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.POWERITEMTYPEs(power, ItemTypeConstants.Potion));
 
             return GeneratePotion(result.Type, result.Amount);
         }
 
         private Item GeneratePotion(string itemName, int bonus, params string[] traits)
         {
-            var potion = new Item();
-
-            potion.Name = itemName;
-            potion.BaseNames = new[] { itemName };
-            potion.ItemType = ItemTypeConstants.Potion;
+            var potion = new Item
+            {
+                Name = itemName,
+                BaseNames = [itemName],
+                ItemType = ItemTypeConstants.Potion
+            };
             potion.Magic.Bonus = bonus;
             potion.IsMagical = true;
-            potion.Attributes = new[] { AttributeConstants.OneTimeUse };
+            potion.Attributes = [AttributeConstants.OneTimeUse];
             potion.Traits = new HashSet<string>(traits);
 
             return potion;
@@ -49,11 +50,10 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
         public Item Generate(string power, string itemName, params string[] traits)
         {
-            var possiblePowers = collectionSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.PowerGroups, itemName);
+            var possiblePowers = collectionSelector.SelectFrom(Config.Name, TableNameConstants.Collections.PowerGroups, itemName);
             var adjustedPower = PowerHelper.AdjustPower(power, possiblePowers);
 
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, adjustedPower, ItemTypeConstants.Potion);
-            var results = typeAndAmountPercentileSelector.SelectAllFrom(tableName);
+            var results = typeAndAmountPercentileSelector.SelectAllFrom(Config.Name, TableNameConstants.Percentiles.POWERITEMTYPEs(adjustedPower, ItemTypeConstants.Potion));
             var matches = results.Where(r => NameMatches(r.Type, itemName));
             var result = collectionSelector.SelectRandomFrom(matches);
 
@@ -73,9 +73,9 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
         public Item Generate(Item template, bool allowRandomDecoration = false)
         {
             var potion = template.Clone();
-            potion.BaseNames = new[] { potion.Name };
+            potion.BaseNames = [potion.Name];
             potion.ItemType = ItemTypeConstants.Potion;
-            potion.Attributes = new[] { AttributeConstants.OneTimeUse };
+            potion.Attributes = [AttributeConstants.OneTimeUse];
             potion.IsMagical = true;
             potion.Quantity = 1;
 

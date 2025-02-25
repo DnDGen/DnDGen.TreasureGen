@@ -30,7 +30,7 @@ namespace DnDGen.TreasureGen.Selectors.Percentiles
 
         private Dictionary<string, IEnumerable<string>> GetReplacementTargetsAndTables(string source, bool allowSingle)
         {
-            var replacements = collectionsSelector.SelectAllFrom(Config.Name, TableNameConstants.Collections.Set.ReplacementStrings);
+            var replacements = collectionsSelector.SelectAllFrom(Config.Name, TableNameConstants.Collections.ReplacementStrings);
             var matchingReplacements = replacements
                 .Where(kvp => source.Contains(kvp.Key))
                 .Where(kvp => allowSingle || kvp.Value.Count() > 1)
@@ -41,8 +41,8 @@ namespace DnDGen.TreasureGen.Selectors.Percentiles
 
         private bool ShouldPerformReplace(string source, bool allowSingle) => GetReplacementTargetsAndTables(source, allowSingle).Any();
 
-        public IEnumerable<string> SelectAll(string source, bool allowSingle = false) => SelectAll(new[] { source }, allowSingle);
-        public string SelectSingle(string source) => SelectAll(new[] { source }, true).Single();
+        public IEnumerable<string> SelectAll(string source, bool allowSingle = false) => SelectAll([source], allowSingle);
+        public string SelectSingle(string source) => SelectAll([source], true).Single();
 
         public IEnumerable<string> SelectAll(IEnumerable<string> sources, bool allowSingle = false)
         {

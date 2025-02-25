@@ -9,7 +9,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Weapons.Mino
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.POWERSpecificITEMTYPEs, PowerConstants.Minor, ItemTypeConstants.Weapon); }
+            get { return TableNameConstants.Percentiles.POWERSpecificITEMTYPEs(PowerConstants.Minor, ItemTypeConstants.Weapon); }
         }
 
         [Test]
@@ -32,9 +32,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Weapons.Mino
         [TestCase(WeaponConstants.SlayingArrow, 1, 76, 80)]
         [TestCase(WeaponConstants.Dagger_Adamantine, 0, 81, 90)]
         [TestCase(WeaponConstants.Battleaxe_Adamantine, 0, 91, 100)]
-        public override void TypeAndAmountPercentile(string type, int amount, int lower, int upper)
+        public void TypeAndAmountPercentile(string type, int amount, int lower, int upper)
         {
-            base.TypeAndAmountPercentile(type, amount, lower, upper);
+            base.AssertTypeAndAmountPercentile(type, amount, lower, upper);
         }
     }
 }

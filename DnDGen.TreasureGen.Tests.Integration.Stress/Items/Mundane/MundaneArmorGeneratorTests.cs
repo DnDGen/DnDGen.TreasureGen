@@ -29,7 +29,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Stress.Items.Mundane
             Assert.That(item.Quantity, Is.EqualTo(1));
             Assert.That(item.IsMagical, Is.False);
 
-            var sizes = TraitConstants.Sizes.All();
+            var sizes = TraitConstants.Sizes.GetAll();
             Assert.That(item.Traits.Intersect(sizes), Is.Empty);
 
             Assert.That(item, Is.InstanceOf<Armor>());

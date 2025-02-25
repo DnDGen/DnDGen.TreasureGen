@@ -1,17 +1,17 @@
-﻿using NUnit.Framework;
-using DnDGen.TreasureGen.Tables;
+﻿using DnDGen.Infrastructure.Helpers;
+using DnDGen.Infrastructure.Models;
+using DnDGen.RollGen;
 using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
+using DnDGen.TreasureGen.Tables;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical
 {
     [TestFixture]
     public class ChargeLimitsTests : CollectionsTests
     {
-        protected override string tableName
-        {
-            get { return TableNameConstants.Collections.Set.ChargeLimits; }
-        }
+        protected override string tableName => TableNameConstants.Collections.ChargeLimits;
 
         [TestCase(WondrousItemConstants.BraceletOfFriends, 1, 4)]
         [TestCase(WondrousItemConstants.BroochOfShielding, 1, 101)]
@@ -41,8 +41,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical
         [TestCase(RodConstants.Rulership, 1, 500)]
         public void ChargeLimits(string name, int min, int max)
         {
-            var limits = new[] { min.ToString(), max.ToString() };
-            base.OrderedCollections(name, limits);
+            var roll = RollHelper.GetRollWithMostEvenDistribution(min, max, true);
+            var data = DataHelper.Parse(new TypeAndAmountDataSelection { Type = name, Roll = roll });
+            AssertCollection(name, data);
         }
     }
 }

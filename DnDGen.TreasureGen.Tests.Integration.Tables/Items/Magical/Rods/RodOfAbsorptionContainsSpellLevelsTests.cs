@@ -9,7 +9,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Rods
     {
         protected override string tableName
         {
-            get { return TableNameConstants.Percentiles.Set.RodOfAbsorptionContainsSpellLevels; }
+            get { return TableNameConstants.Percentiles.RodOfAbsorptionContainsSpellLevels; }
         }
 
         [Test]

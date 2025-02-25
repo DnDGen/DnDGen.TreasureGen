@@ -28,7 +28,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         [Test]
         public void GenerateTool()
         {
-            mockPercentileSelector.Setup(p => p.SelectFrom(Config.Name, TableNameConstants.Percentiles.Set.Tools)).Returns("tool");
+            mockPercentileSelector.Setup(p => p.SelectFrom(Config.Name, TableNameConstants.Percentiles.Tools)).Returns("tool");
 
             var tool = toolGenerator.GenerateRandom();
             Assert.That(tool.Name, Is.EqualTo("tool"));

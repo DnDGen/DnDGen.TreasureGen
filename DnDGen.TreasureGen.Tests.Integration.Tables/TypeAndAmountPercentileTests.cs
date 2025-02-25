@@ -1,31 +1,33 @@
-﻿using System;
+﻿using DnDGen.Infrastructure.Helpers;
+using DnDGen.Infrastructure.Models;
+using System;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables
 {
     public abstract class TypeAndAmountPercentileTests : PercentileTests
     {
-        public virtual void TypeAndAmountPercentile(string type, string amount, int lower, int upper)
+        public void AssertTypeAndAmountPercentile(string type, string amount, int lower, int upper)
         {
-            var content = string.Format("{0},{1}", type, amount);
-            base.Percentile(content, lower, upper);
+            var content = DataHelper.Parse(new TypeAndAmountDataSelection { Type = type, Roll = amount });
+            AssertPercentile(content, lower, upper);
         }
 
-        public virtual void TypeAndAmountPercentile(string type, string amount, int roll)
+        public void AssertTypeAndAmountPercentile(string type, string amount, int roll)
         {
-            var content = string.Format("{0},{1}", type, amount);
-            base.Percentile(content, roll);
+            var content = DataHelper.Parse(new TypeAndAmountDataSelection { Type = type, Roll = amount });
+            AssertPercentile(content, roll);
         }
 
-        public virtual void TypeAndAmountPercentile(string type, int amount, int lower, int upper)
+        public void AssertTypeAndAmountPercentile(string type, int amount, int lower, int upper)
         {
             var amountString = Convert.ToString(amount);
-            TypeAndAmountPercentile(type, amountString, lower, upper);
+            AssertTypeAndAmountPercentile(type, amountString, lower, upper);
         }
 
-        public virtual void TypeAndAmountPercentile(string type, int amount, int roll)
+        public void AssertTypeAndAmountPercentile(string type, int amount, int roll)
         {
             var amountString = Convert.ToString(amount);
-            TypeAndAmountPercentile(type, amountString, roll);
+            AssertTypeAndAmountPercentile(type, amountString, roll);
         }
     }
 }

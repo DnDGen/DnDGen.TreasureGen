@@ -1,16 +1,13 @@
-﻿using NUnit.Framework;
+﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Tables;
-using DnDGen.TreasureGen.Items;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Potions
 {
     [TestFixture]
     public class PotionTraitsTests : PercentileTests
     {
-        protected override string tableName
-        {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.ITEMTYPETraits, ItemTypeConstants.Potion); }
-        }
+        protected override string tableName => TableNameConstants.Percentiles.ITEMTYPETraits(ItemTypeConstants.Potion);
 
         [Test]
         public override void ReplacementStringsAreValid()
@@ -24,10 +21,10 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Potions
             AssertTableIsComplete();
         }
 
-        [TestCase(EmptyContent, 1, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        [TestCase("", 1, 100)]
+        public void PotionTraitPercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
+            AssertPercentile(content, lower, upper);
         }
     }
 }

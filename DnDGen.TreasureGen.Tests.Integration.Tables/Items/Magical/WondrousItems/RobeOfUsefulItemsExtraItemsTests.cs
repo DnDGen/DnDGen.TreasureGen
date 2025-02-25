@@ -9,7 +9,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.WondrousItem
     {
         protected override string tableName
         {
-            get { return TableNameConstants.Percentiles.Set.RobeOfUsefulItemsExtraItems; }
+            get { return TableNameConstants.Percentiles.RobeOfUsefulItemsExtraItems; }
         }
 
         [Test]
@@ -37,9 +37,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.WondrousItem
         [TestCase("Pair of war dogs (treat as riding dogs)", 84, 90)]
         [TestCase("Window (2 ft. by 4 ft., up to 2 ft. deep)", 91, 96)]
         [TestCase("Portable ram", 97, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        public void Percentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
+            base.AssertPercentile(content, lower, upper);
         }
     }
 }

@@ -1,5 +1,6 @@
-﻿using DnDGen.Infrastructure.Generators;
+﻿using DnDGen.Infrastructure.Factories;
 using DnDGen.Infrastructure.Selectors.Collections;
+using DnDGen.Infrastructure.Selectors.Percentiles;
 using DnDGen.TreasureGen.Generators.Items.Magical;
 using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
@@ -14,7 +15,7 @@ namespace DnDGen.TreasureGen.Generators.Items
 {
     internal class SpecificGearGenerator : ISpecificGearGenerator
     {
-        private readonly ITypeAndAmountPercentileSelector typeAndAmountPercentileSelector;
+        private readonly IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
         private readonly ICollectionSelector collectionsSelector;
         private readonly IChargesGenerator chargesGenerator;
         private readonly ITreasurePercentileSelector percentileSelector;
@@ -23,7 +24,7 @@ namespace DnDGen.TreasureGen.Generators.Items
         private readonly JustInTimeFactory justInTimeFactory;
         private readonly IReplacementSelector replacementSelector;
 
-        public SpecificGearGenerator(ITypeAndAmountPercentileSelector typeAndAmountPercentileSelector,
+        public SpecificGearGenerator(IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
             ICollectionSelector collectionsSelector,
             IChargesGenerator chargesGenerator,
             ITreasurePercentileSelector percentileSelector,
@@ -52,11 +53,11 @@ namespace DnDGen.TreasureGen.Generators.Items
             }
             else if (gear.Name == ArmorConstants.CastersShield)
             {
-                var hasSpell = percentileSelector.SelectFrom<bool>(Config.Name, TableNameConstants.Percentiles.Set.CastersShieldContainsSpell);
+                var hasSpell = percentileSelector.SelectFrom<bool>(Config.Name, TableNameConstants.Percentiles.CastersShieldContainsSpell);
 
                 if (hasSpell)
                 {
-                    var spellType = percentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.Set.CastersShieldSpellTypes);
+                    var spellType = percentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.CastersShieldSpellTypes);
                     var spellLevel = spellGenerator.GenerateLevel(PowerConstants.Medium);
                     var spell = spellGenerator.Generate(spellType, spellLevel);
                     var formattedSpell = $"{spell} ({spellType}, {spellLevel})";
@@ -66,13 +67,12 @@ namespace DnDGen.TreasureGen.Generators.Items
 
             var templateName = gear.Name;
             gear.Name = replacementSelector.SelectSingle(templateName);
+            gear.Magic.SpecialAbilities = GetSpecialAbilities(specificGearType, templateName, prototype.Magic.SpecialAbilities, string.Empty, true);
 
-            gear.Magic.SpecialAbilities = GetSpecialAbilities(specificGearType, templateName, prototype.Magic.SpecialAbilities);
-
-            var tableName = string.Format(TableNameConstants.Collections.Formattable.SpecificITEMTYPEAttributes, specificGearType);
+            var tableName = TableNameConstants.Collections.SpecificITEMTYPEAttributes(specificGearType);
             gear.Attributes = collectionsSelector.SelectFrom(Config.Name, tableName, templateName);
 
-            tableName = string.Format(TableNameConstants.Collections.Formattable.SpecificITEMTYPETraits, specificGearType);
+            tableName = TableNameConstants.Collections.SpecificITEMTYPETraits(specificGearType);
             var traits = collectionsSelector.SelectFrom(Config.Name, tableName, templateName);
 
             foreach (var trait in traits)
@@ -85,7 +85,7 @@ namespace DnDGen.TreasureGen.Generators.Items
             {
                 var designatedFoe = collectionsSelector.SelectRandomFrom(
                     Config.Name,
-                    TableNameConstants.Collections.Set.ReplacementStrings,
+                    TableNameConstants.Collections.ReplacementStrings,
                     ReplacementStringConstants.DesignatedFoe);
                 var trait = $"Designated Foe: {designatedFoe}";
                 gear.Traits.Add(trait);
@@ -111,7 +111,7 @@ namespace DnDGen.TreasureGen.Generators.Items
             var name = gear.BaseNames.First();
 
             var mundaneArmorGenerator = justInTimeFactory.Build<MundaneItemGenerator>(ItemTypeConstants.Armor);
-            var armor = mundaneArmorGenerator.Generate(name, gear.Traits.ToArray()) as Armor;
+            var armor = mundaneArmorGenerator.Generate(name, [.. gear.Traits]) as Armor;
 
             gear.CloneInto(armor);
 
@@ -128,7 +128,7 @@ namespace DnDGen.TreasureGen.Generators.Items
             var name = gear.BaseNames.First();
 
             var mundaneWeaponGenerator = justInTimeFactory.Build<MundaneItemGenerator>(ItemTypeConstants.Weapon);
-            var weapon = mundaneWeaponGenerator.Generate(name, gear.Traits.ToArray()) as Weapon;
+            var weapon = mundaneWeaponGenerator.Generate(name, [.. gear.Traits]) as Weapon;
 
             gear.CloneInto(weapon);
 
@@ -146,85 +146,34 @@ namespace DnDGen.TreasureGen.Generators.Items
                 weapon.SecondaryMagicBonus = weapon.Magic.Bonus;
             }
 
-            foreach (var specialAbility in weapon.Magic.SpecialAbilities)
-            {
-                if (specialAbility.Damages.Any())
-                {
-                    var damages = specialAbility.Damages.Select(d => d.Clone()).ToArray();
-                    var damageType = weapon.Damages[0].Type;
-
-                    foreach (var damage in damages)
-                    {
-                        if (string.IsNullOrEmpty(damage.Type))
-                        {
-                            damage.Type = damageType;
-                        }
-                    }
-
-                    weapon.Damages.AddRange(damages);
-
-                    if (weapon.SecondaryHasAbilities)
-                    {
-                        var secondaryDamages = specialAbility.Damages.Select(d => d.Clone()).ToArray();
-                        var secondaryDamageType = weapon.SecondaryDamages[0].Type;
-
-                        foreach (var damage in secondaryDamages)
-                        {
-                            if (string.IsNullOrEmpty(damage.Type))
-                            {
-                                damage.Type = secondaryDamageType;
-                            }
-                        }
-
-                        weapon.SecondaryDamages.AddRange(secondaryDamages);
-                    }
-                }
-
-                if (specialAbility.CriticalDamages.Any())
-                {
-                    var damageType = weapon.CriticalDamages[0].Type;
-                    foreach (var damage in specialAbility.CriticalDamages[weapon.CriticalMultiplier])
-                    {
-                        if (string.IsNullOrEmpty(damage.Type))
-                        {
-                            damage.Type = damageType;
-                        }
-                    }
-
-                    weapon.CriticalDamages.AddRange(specialAbility.CriticalDamages[weapon.CriticalMultiplier]);
-
-                    if (weapon.SecondaryHasAbilities)
-                    {
-                        var secondaryDamages = specialAbility.Damages.Select(d => d.Clone()).ToArray();
-                        var secondaryDamageType = weapon.SecondaryCriticalDamages[0].Type;
-
-                        foreach (var damage in specialAbility.CriticalDamages[weapon.SecondaryCriticalMultiplier])
-                        {
-                            if (string.IsNullOrEmpty(damage.Type))
-                            {
-                                damage.Type = secondaryDamageType;
-                            }
-                        }
-
-                        weapon.SecondaryCriticalDamages.AddRange(specialAbility.CriticalDamages[weapon.SecondaryCriticalMultiplier]);
-                    }
-                }
-
-                if (specialAbility.Name == SpecialAbilityConstants.Keen)
-                {
-                    weapon.ThreatRange *= 2;
-                }
-            }
+            weapon.Magic.SpecialAbilities = GetSpecialAbilities(
+                ItemTypeConstants.Weapon,
+                gear.Name,
+                weapon.Magic.SpecialAbilities,
+                weapon.CriticalMultiplier,
+                false);
+            weapon = specialAbilitiesGenerator.ApplyAbilitiesToWeapon(weapon);
 
             return weapon;
         }
 
-        private IEnumerable<SpecialAbility> GetSpecialAbilities(string specificGearType, string name, IEnumerable<SpecialAbility> templateSpecialAbilities)
+        private IEnumerable<SpecialAbility> GetSpecialAbilities(
+            string specificGearType,
+            string name,
+            IEnumerable<SpecialAbility> templateSpecialAbilities,
+            string criticalMultiplier,
+            bool addDefaultAbilities)
         {
-            var tableName = string.Format(TableNameConstants.Collections.Formattable.SpecificITEMTYPESpecialAbilities, specificGearType);
-            var abilityNames = collectionsSelector.SelectFrom(Config.Name, tableName, name);
-            var abilityPrototypes = abilityNames.Select(n => new SpecialAbility { Name = n }).Union(templateSpecialAbilities);
-            var abilities = specialAbilitiesGenerator.GenerateFor(abilityPrototypes);
+            var abilityPrototypes = templateSpecialAbilities;
+
+            if (addDefaultAbilities)
+            {
+                var tableName = TableNameConstants.Collections.SpecificITEMTYPESpecialAbilities(specificGearType);
+                var abilityNames = collectionsSelector.SelectFrom(Config.Name, tableName, name);
+                abilityPrototypes = abilityNames.Select(n => new SpecialAbility { Name = n }).Union(templateSpecialAbilities);
+            }
+
+            var abilities = specialAbilitiesGenerator.GenerateFor(abilityPrototypes, criticalMultiplier);
 
             return abilities;
         }
@@ -235,7 +184,7 @@ namespace DnDGen.TreasureGen.Generators.Items
 
             var specificGearType = GetSpecificGearType(gear.Name);
             gear.ItemType = GetItemType(specificGearType);
-            gear.BaseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.ItemGroups, gear.Name);
+            gear.BaseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, gear.Name);
 
             gear = SetPrototypeAttributes(gear, specificGearType);
 
@@ -274,19 +223,21 @@ namespace DnDGen.TreasureGen.Generators.Items
 
         public Item GeneratePrototypeFrom(string power, string specificGearType, string name, params string[] traits)
         {
-            var possiblePowers = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.PowerGroups, name);
+            var possiblePowers = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.PowerGroups, name);
             var adjustedPower = PowerHelper.AdjustPower(power, possiblePowers);
 
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERSpecificITEMTYPEs, adjustedPower, specificGearType);
-            var selections = typeAndAmountPercentileSelector.SelectAllFrom(tableName);
+            var tableName = TableNameConstants.Percentiles.POWERSpecificITEMTYPEs(adjustedPower, specificGearType);
+            var selections = typeAndAmountPercentileSelector.SelectAllFrom(Config.Name, tableName);
             selections = selections.Where(s => NameMatchesWithReplacements(name, s.Type));
 
             var selection = collectionsSelector.SelectRandomFrom(selections);
 
-            var gear = new Item();
-            gear.Name = selection.Type;
-            gear.BaseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.ItemGroups, selection.Type);
-            gear.ItemType = GetItemType(specificGearType);
+            var gear = new Item
+            {
+                Name = selection.Type,
+                BaseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, selection.Type),
+                ItemType = GetItemType(specificGearType)
+            };
             gear.Magic.Bonus = selection.Amount;
             gear.Quantity = 0;
             gear.Traits = new HashSet<string>(traits);
@@ -317,22 +268,22 @@ namespace DnDGen.TreasureGen.Generators.Items
 
         public string GenerateRandomNameFrom(string power, string specificGearType)
         {
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERSpecificITEMTYPEs, power, specificGearType);
-            var selection = typeAndAmountPercentileSelector.SelectFrom(tableName);
+            var tableName = TableNameConstants.Percentiles.POWERSpecificITEMTYPEs(power, specificGearType);
+            var selection = typeAndAmountPercentileSelector.SelectFrom(Config.Name, tableName);
 
             return selection.Type;
         }
 
         public string GenerateNameFrom(string power, string specificGearType, string baseType)
         {
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERSpecificITEMTYPEs, power, specificGearType);
-            var selections = typeAndAmountPercentileSelector.SelectAllFrom(tableName);
+            var tableName = TableNameConstants.Percentiles.POWERSpecificITEMTYPEs(power, specificGearType);
+            var selections = typeAndAmountPercentileSelector.SelectAllFrom(Config.Name, tableName);
 
             var names = new List<string>();
 
             foreach (var selection in selections)
             {
-                var baseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.ItemGroups, selection.Type);
+                var baseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, selection.Type);
                 if (baseNames.Contains(baseType))
                     names.Add(selection.Type);
             }
@@ -359,13 +310,13 @@ namespace DnDGen.TreasureGen.Generators.Items
 
         private IEnumerable<string> GetGear(string gearType)
         {
-            switch (gearType)
+            return gearType switch
             {
-                case ItemTypeConstants.Weapon: return WeaponConstants.GetAllSpecific();
-                case ItemTypeConstants.Armor: return ArmorConstants.GetAllSpecificArmors();
-                case AttributeConstants.Shield: return ArmorConstants.GetAllSpecificShields();
-                default: throw new ArgumentException($"{gearType} is not a valid specific gear type");
-            }
+                ItemTypeConstants.Weapon => WeaponConstants.GetAllSpecific(),
+                ItemTypeConstants.Armor => ArmorConstants.GetAllSpecificArmors(),
+                AttributeConstants.Shield => ArmorConstants.GetAllSpecificShields(),
+                _ => throw new ArgumentException($"{gearType} is not a valid specific gear type"),
+            };
         }
 
         public bool CanBeSpecific(string power, string specificGearType, string itemName)
@@ -373,12 +324,12 @@ namespace DnDGen.TreasureGen.Generators.Items
             if (IsSpecific(specificGearType, itemName))
                 return true;
 
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERSpecificITEMTYPEs, power, specificGearType);
-            var powerSelections = typeAndAmountPercentileSelector.SelectAllFrom(tableName);
+            var tableName = TableNameConstants.Percentiles.POWERSpecificITEMTYPEs(power, specificGearType);
+            var powerSelections = typeAndAmountPercentileSelector.SelectAllFrom(Config.Name, tableName);
 
             foreach (var selection in powerSelections)
             {
-                var baseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.ItemGroups, selection.Type);
+                var baseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, selection.Type);
                 if (baseNames.Contains(itemName))
                     return true;
             }

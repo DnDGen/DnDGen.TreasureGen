@@ -8,7 +8,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.WondrousItem
     {
         protected override string tableName
         {
-            get { return TableNameConstants.Percentiles.Set.IronFlaskContents; }
+            get { return TableNameConstants.Percentiles.IronFlaskContents; }
         }
 
         [Test]
@@ -23,7 +23,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.WondrousItem
             AssertTableIsComplete();
         }
 
-        [TestCase(EmptyContent, 1, 50)]
+        [TestCase("", 1, 50)]
         [TestCase("Large air elemental", 51, 54)]
         [TestCase("Arrowhawk", 55, 58)]
         [TestCase("Large earth elemental", 59, 62)]
@@ -34,9 +34,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.WondrousItem
         [TestCase("Adult tojanida", 79, 82)]
         [TestCase("Chaos beast", 83, 84)]
         [TestCase("Formian taskmaster", 85, 86)]
-        public override void Percentile(string content, int lower, int upper)
+        public void Percentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
+            base.AssertPercentile(content, lower, upper);
         }
 
         [TestCase("Vrock", 87)]
@@ -53,9 +53,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.WondrousItem
         [TestCase("Elder arrowhawk", 98)]
         [TestCase("Rakshasa", 99)]
         [TestCase("BalorOrPitFiend", 100)]
-        public override void Percentile(string content, int roll)
+        public void Percentile(string content, int roll)
         {
-            base.Percentile(content, roll);
+            base.AssertPercentile(content, roll);
         }
     }
 }

@@ -3,22 +3,22 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content></content>
+		<content>@0</content>
         <upper>54</upper>
     </percentile>
     <percentile>
         <lower>55</lower>
-        <content>Mundane,1d4</content>
+        <content>Mundane@1d4</content>
         <upper>59</upper>
     </percentile>
     <percentile>
         <lower>60</lower>
-        <content>Minor,1d3</content>
+        <content>Minor@1d3</content>
         <upper>99</upper>
     </percentile>
     <percentile>
         <lower>100</lower>
-        <content>Medium,1</content>
+        <content>Medium@1</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

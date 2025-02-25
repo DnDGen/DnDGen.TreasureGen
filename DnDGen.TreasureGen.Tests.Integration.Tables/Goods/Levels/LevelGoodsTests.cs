@@ -22,12 +22,12 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Goods
         [Test]
         public void LevelCoinsExistForAllLevels()
         {
-            for (var level = LevelLimits.Minimum; level <= LevelLimits.Maximum; level++)
+            for (var level = LevelLimits.Minimum; level <= LevelLimits.Maximum_Standard; level++)
             {
-                var levelTableName = string.Format(TableNameConstants.Percentiles.Formattable.LevelXGoods, level);
+                var levelTableName = TableNameConstants.Percentiles.LevelXGoods(level);
                 var table = percentileMapper.Map(Name, levelTableName);
-                Assert.That(table, Is.Not.Null);
-                Assert.That(table.Keys, Is.EqualTo(Enumerable.Range(1, 100)));
+                Assert.That(table, Is.Not.Null, levelTableName);
+                Assert.That(table.Keys, Is.EqualTo(Enumerable.Range(1, 100)), levelTableName);
             }
         }
     }

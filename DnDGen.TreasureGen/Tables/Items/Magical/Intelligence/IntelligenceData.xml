@@ -3,50 +3,34 @@
 <collections>
     <collection>
         <name>12</name>
-        <entry>30 ft. vision and hearing</entry>
-        <entry>1</entry>
-        <entry>0</entry>
+        <entry>30 ft. vision and hearing@1@0</entry>
     </collection>
     <collection>
         <name>13</name>
-        <entry>60 ft. vision and hearing</entry>
-        <entry>2</entry>
-        <entry>0</entry>
+        <entry>60 ft. vision and hearing@2@0</entry>
     </collection>
     <collection>
         <name>14</name>
-        <entry>120 ft. vision and hearing</entry>
-        <entry>2</entry>
-        <entry>0</entry>
+        <entry>120 ft. vision and hearing@2@0</entry>
     </collection>
     <collection>
         <name>15</name>
-        <entry>60 ft. darkvision and hearing</entry>
-        <entry>3</entry>
-        <entry>0</entry>
+        <entry>60 ft. darkvision and hearing@3@0</entry>
     </collection>
     <collection>
         <name>16</name>
-        <entry>60 ft. darkvision and hearing</entry>
-        <entry>3</entry>
-        <entry>0</entry>
+        <entry>60 ft. darkvision and hearing@3@0</entry>
     </collection>
     <collection>
         <name>17</name>
-        <entry>120 ft. darkvision and hearing</entry>
-        <entry>3</entry>
-        <entry>1</entry>
+        <entry>120 ft. darkvision and hearing@3@1</entry>
     </collection>
     <collection>
         <name>18</name>
-        <entry>120 ft. darkvision, blindsense, and hearing</entry>
-        <entry>3</entry>
-        <entry>2</entry>
+        <entry>120 ft. darkvision, blindsense, and hearing@3@2</entry>
     </collection>
     <collection>
         <name>19</name>
-        <entry>120 ft. darkvision, blindsense, and hearing</entry>
-        <entry>4</entry>
-        <entry>3</entry>
+        <entry>120 ft. darkvision, blindsense, and hearing@4@3</entry>
     </collection>
 </collections>

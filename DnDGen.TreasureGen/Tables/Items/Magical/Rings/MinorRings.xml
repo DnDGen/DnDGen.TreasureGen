@@ -3,77 +3,77 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content>Ring of Protection,1</content>
+        <content>Ring of Protection@1</content>
         <upper>18</upper>
     </percentile>
     <percentile>
         <lower>19</lower>
-        <content>Ring of Feather Falling,0</content>
+        <content>Ring of Feather Falling@0</content>
         <upper>28</upper>
     </percentile>
     <percentile>
         <lower>29</lower>
-        <content>Ring of Sustenance,0</content>
+        <content>Ring of Sustenance@0</content>
         <upper>36</upper>
     </percentile>
     <percentile>
         <lower>37</lower>
-        <content>Ring of Climbing,0</content>
+        <content>Ring of Climbing@0</content>
         <upper>44</upper>
     </percentile>
     <percentile>
         <lower>45</lower>
-        <content>Ring of Jumping,0</content>
+        <content>Ring of Jumping@0</content>
         <upper>52</upper>
     </percentile>
     <percentile>
         <lower>53</lower>
-        <content>Ring of Swimming,0</content>
+        <content>Ring of Swimming@0</content>
         <upper>60</upper>
     </percentile>
     <percentile>
         <lower>61</lower>
-        <content>Ring of Counterspells,0</content>
+        <content>Ring of Counterspells@0</content>
         <upper>70</upper>
     </percentile>
     <percentile>
         <lower>71</lower>
-        <content>Ring of Mind Shielding,0</content>
+        <content>Ring of Mind Shielding@0</content>
         <upper>75</upper>
     </percentile>
     <percentile>
         <lower>76</lower>
-        <content>Ring of Protection,2</content>
+        <content>Ring of Protection@2</content>
         <upper>80</upper>
     </percentile>
     <percentile>
         <lower>81</lower>
-        <content>Ring of Force Shield,0</content>
+        <content>Ring of Force Shield@0</content>
         <upper>85</upper>
     </percentile>
     <percentile>
         <lower>86</lower>
-        <content>Ring of Ram,0</content>
+        <content>Ring of Ram@0</content>
         <upper>90</upper>
     </percentile>
     <percentile>
         <lower>91</lower>
-        <content>Ring of Animal Friendship,0</content>
+        <content>Ring of Animal Friendship@0</content>
         <upper>93</upper>
     </percentile>
     <percentile>
         <lower>94</lower>
-        <content>Ring of Minor ENERGY Resistance,0</content>
+        <content>Ring of Minor ENERGY Resistance@0</content>
         <upper>96</upper>
     </percentile>
     <percentile>
         <lower>97</lower>
-        <content>Ring of Chameleon Power,0</content>
+        <content>Ring of Chameleon Power@0</content>
         <upper>98</upper>
     </percentile>
     <percentile>
         <lower>99</lower>
-        <content>Ring of Water Walking,0</content>
+        <content>Ring of Water Walking@0</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

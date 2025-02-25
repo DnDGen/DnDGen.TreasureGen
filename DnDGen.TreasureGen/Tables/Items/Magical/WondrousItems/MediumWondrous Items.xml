@@ -3,502 +3,502 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content>Boots of Levitation,0</content>
+        <content>Boots of Levitation@0</content>
         <upper>1</upper>
     </percentile>
     <percentile>
         <lower>2</lower>
-        <content>Harp of Charming,0</content>
+        <content>Harp of Charming@0</content>
         <upper>2</upper>
     </percentile>
     <percentile>
         <lower>3</lower>
-        <content>Amulet of Natural Armor,2</content>
+        <content>Amulet of Natural Armor@2</content>
         <upper>3</upper>
     </percentile>
     <percentile>
         <lower>4</lower>
-        <content>Flesh Golem Manual,0</content>
+        <content>Flesh Golem Manual@0</content>
         <upper>4</upper>
     </percentile>
     <percentile>
         <lower>5</lower>
-        <content>Hand of Glory,0</content>
+        <content>Hand of Glory@0</content>
         <upper>5</upper>
     </percentile>
     <percentile>
         <lower>6</lower>
-        <content>Deep Red Sphere Ioun Stone,0</content>
+        <content>Deep Red Sphere Ioun Stone@0</content>
         <upper>6</upper>
     </percentile>
     <percentile>
         <lower>7</lower>
-        <content>Incandescent Blue Sphere Ioun Stone,0</content>
+        <content>Incandescent Blue Sphere Ioun Stone@0</content>
         <upper>7</upper>
     </percentile>
     <percentile>
         <lower>8</lower>
-        <content>Pale Blue Rhomboid Ioun Stone,0</content>
+        <content>Pale Blue Rhomboid Ioun Stone@0</content>
         <upper>8</upper>
     </percentile>
     <percentile>
         <lower>9</lower>
-        <content>Pink and Green Sphere Ioun Stone,0</content>
+        <content>Pink and Green Sphere Ioun Stone@0</content>
         <upper>9</upper>
     </percentile>
     <percentile>
         <lower>10</lower>
-        <content>Pink Rhomboid Ioun Stone,0</content>
+        <content>Pink Rhomboid Ioun Stone@0</content>
         <upper>10</upper>
     </percentile>
     <percentile>
         <lower>11</lower>
-        <content>Scarlet and Blue Sphere Ioun Stone,0</content>
+        <content>Scarlet and Blue Sphere Ioun Stone@0</content>
         <upper>11</upper>
     </percentile>
     <percentile>
         <lower>12</lower>
-        <content>Deck of Illusions,0</content>
+        <content>Deck of Illusions@0</content>
         <upper>12</upper>
     </percentile>
     <percentile>
         <lower>13</lower>
-        <content>Necklace of Fireballs Type VI,0</content>
+        <content>Necklace of Fireballs Type VI@0</content>
         <upper>13</upper>
     </percentile>
     <percentile>
         <lower>14</lower>
-        <content>Candle of Invocation,0</content>
+        <content>Candle of Invocation@0</content>
         <upper>14</upper>
     </percentile>
     <percentile>
         <lower>15</lower>
-        <content>Bracers of Armor,3</content>
+        <content>Bracers of Armor@3</content>
         <upper>15</upper>
     </percentile>
     <percentile>
         <lower>16</lower>
-        <content>Cloak of Resistance,3</content>
+        <content>Cloak of Resistance@3</content>
         <upper>16</upper>
     </percentile>
     <percentile>
         <lower>17</lower>
-        <content>Decanter of Endless Water,0</content>
+        <content>Decanter of Endless Water@0</content>
         <upper>17</upper>
     </percentile>
     <percentile>
         <lower>18</lower>
-        <content>Necklace of Adaptation,0</content>
+        <content>Necklace of Adaptation@0</content>
         <upper>18</upper>
     </percentile>
     <percentile>
         <lower>19</lower>
-        <content>3rd-level Spell Pearl of Power,0</content>
+        <content>3rd-level Spell Pearl of Power@0</content>
         <upper>19</upper>
     </percentile>
     <percentile>
         <lower>20</lower>
-        <content>Talisman of the Sphere,0</content>
+        <content>Talisman of the Sphere@0</content>
         <upper>20</upper>
     </percentile>
     <percentile>
         <lower>21</lower>
-        <content>Serpentine Owl Figurine of Wondrous Power,0</content>
+        <content>Serpentine Owl Figurine of Wondrous Power@0</content>
         <upper>21</upper>
     </percentile>
     <percentile>
         <lower>22</lower>
-        <content>Necklace of Fireballs Type VII,0</content>
+        <content>Necklace of Fireballs Type VII@0</content>
         <upper>22</upper>
     </percentile>
     <percentile>
         <lower>23</lower>
-        <content>Lesser Strand of Prayer Beads,0</content>
+        <content>Lesser Strand of Prayer Beads@0</content>
         <upper>23</upper>
     </percentile>
     <percentile>
         <lower>24</lower>
-        <content>Bag of Holding Type IV,0</content>
+        <content>Bag of Holding Type IV@0</content>
         <upper>24</upper>
     </percentile>
     <percentile>
         <lower>25</lower>
-        <content>Bronze Griffon Figurine of Wondrous Power,0</content>
+        <content>Bronze Griffon Figurine of Wondrous Power@0</content>
         <upper>25</upper>
     </percentile>
     <percentile>
         <lower>26</lower>
-        <content>Ebony Fly Figurine of Wondrous Power,0</content>
+        <content>Ebony Fly Figurine of Wondrous Power@0</content>
         <upper>26</upper>
     </percentile>
     <percentile>
         <lower>27</lower>
-        <content>Glove of Storing,0</content>
+        <content>Glove of Storing@0</content>
         <upper>27</upper>
     </percentile>
     <percentile>
         <lower>28</lower>
-        <content>Dark Blue Rhomboid Ioun Stone,0</content>
+        <content>Dark Blue Rhomboid Ioun Stone@0</content>
         <upper>28</upper>
     </percentile>
     <percentile>
         <lower>29</lower>
-        <content>Courser Stone Horse,0</content>
+        <content>Courser Stone Horse@0</content>
         <upper>29</upper>
     </percentile>
     <percentile>
         <lower>30</lower>
-        <content>Cape of the Mountebank,0</content>
+        <content>Cape of the Mountebank@0</content>
         <upper>30</upper>
     </percentile>
     <percentile>
         <lower>31</lower>
-        <content>Phylactery of Undead Turning,0</content>
+        <content>Phylactery of Undead Turning@0</content>
         <upper>31</upper>
     </percentile>
     <percentile>
         <lower>32</lower>
-        <content>Gauntlet of Rust,0</content>
+        <content>Gauntlet of Rust@0</content>
         <upper>32</upper>
     </percentile>
     <percentile>
         <lower>33</lower>
-        <content>Boots of Speed,0</content>
+        <content>Boots of Speed@0</content>
         <upper>33</upper>
     </percentile>
     <percentile>
         <lower>34</lower>
-        <content>Goggles of Night,0</content>
+        <content>Goggles of Night@0</content>
         <upper>34</upper>
     </percentile>
     <percentile>
         <lower>35</lower>
-        <content>Clay Golem Manual,0</content>
+        <content>Clay Golem Manual@0</content>
         <upper>35</upper>
     </percentile>
     <percentile>
         <lower>36</lower>
-        <content>Medallion of Thoughts,0</content>
+        <content>Medallion of Thoughts@0</content>
         <upper>36</upper>
     </percentile>
     <percentile>
         <lower>37</lower>
-        <content>Pipes of Pain,0</content>
+        <content>Pipes of Pain@0</content>
         <upper>37</upper>
     </percentile>
     <percentile>
         <lower>38</lower>
-        <content>Boccob's Blessed Book,0</content>
+        <content>Boccob's Blessed Book@0</content>
         <upper>38</upper>
     </percentile>
     <percentile>
         <lower>39</lower>
-        <content>Monk's Belt,0</content>
+        <content>Monk's Belt@0</content>
         <upper>39</upper>
     </percentile>
     <percentile>
         <lower>40</lower>
-        <content>Gem of Brightness,0</content>
+        <content>Gem of Brightness@0</content>
         <upper>40</upper>
     </percentile>
     <percentile>
         <lower>41</lower>
-        <content>Lyre of Building,0</content>
+        <content>Lyre of Building@0</content>
         <upper>41</upper>
     </percentile>
     <percentile>
         <lower>42</lower>
-        <content>Cloak of Arachnida,0</content>
+        <content>Cloak of Arachnida@0</content>
         <upper>42</upper>
     </percentile>
     <percentile>
         <lower>43</lower>
-        <content>Destrier Stone Horse,0</content>
+        <content>Destrier Stone Horse@0</content>
         <upper>43</upper>
     </percentile>
     <percentile>
         <lower>44</lower>
-        <content>Belt of Dwarvenkind,0</content>
+        <content>Belt of Dwarvenkind@0</content>
         <upper>44</upper>
     </percentile>
     <percentile>
         <lower>45</lower>
-        <content>Periapt of Wound-Closure,0</content>
+        <content>Periapt of Wound-Closure@0</content>
         <upper>45</upper>
     </percentile>
     <percentile>
         <lower>46</lower>
-        <content>Horn of the Tritons,0</content>
+        <content>Horn of the Tritons@0</content>
         <upper>46</upper>
     </percentile>
     <percentile>
         <lower>47</lower>
-        <content>Pearl of the Sirines,0</content>
+        <content>Pearl of the Sirines@0</content>
         <upper>47</upper>
     </percentile>
     <percentile>
         <lower>48</lower>
-        <content>Onyx Dog Figurine of Wondrous Power,0</content>
+        <content>Onyx Dog Figurine of Wondrous Power@0</content>
         <upper>48</upper>
     </percentile>
     <percentile>
         <lower>49</lower>
-        <content>Amulet of Health,4</content>
+        <content>Amulet of Health@4</content>
         <upper>49</upper>
     </percentile>
     <percentile>
         <lower>50</lower>
-        <content>Belt of Giant Strength,4</content>
+        <content>Belt of Giant Strength@4</content>
         <upper>50</upper>
     </percentile>
     <percentile>
         <lower>51</lower>
-        <content>Winged Boots,0</content>
+        <content>Winged Boots@0</content>
         <upper>51</upper>
     </percentile>
     <percentile>
         <lower>52</lower>
-        <content>Bracers of Armor,4</content>
+        <content>Bracers of Armor@4</content>
         <upper>52</upper>
     </percentile>
     <percentile>
         <lower>53</lower>
-        <content>Cloak of Charisma,4</content>
+        <content>Cloak of Charisma@4</content>
         <upper>53</upper>
     </percentile>
     <percentile>
         <lower>54</lower>
-        <content>Cloak of Resistance,4</content>
+        <content>Cloak of Resistance@4</content>
         <upper>54</upper>
     </percentile>
     <percentile>
         <lower>55</lower>
-        <content>Gloves of Dexterity,4</content>
+        <content>Gloves of Dexterity@4</content>
         <upper>55</upper>
     </percentile>
     <percentile>
         <lower>56</lower>
-        <content>Headband of Intellect,4</content>
+        <content>Headband of Intellect@4</content>
         <upper>56</upper>
     </percentile>
     <percentile>
         <lower>57</lower>
-        <content>4th-level Spell Pearl of Power,0</content>
+        <content>4th-level Spell Pearl of Power@0</content>
         <upper>57</upper>
     </percentile>
     <percentile>
         <lower>58</lower>
-        <content>Periapt of Wisdom,4</content>
+        <content>Periapt of Wisdom@4</content>
         <upper>58</upper>
     </percentile>
     <percentile>
         <lower>59</lower>
-        <content>Scabbard of Keen Edges,0</content>
+        <content>Scabbard of Keen Edges@0</content>
         <upper>59</upper>
     </percentile>
     <percentile>
         <lower>60</lower>
-        <content>Golden Lions Figurine of Wondrous Power,0</content>
+        <content>Golden Lions Figurine of Wondrous Power@0</content>
         <upper>60</upper>
     </percentile>
     <percentile>
         <lower>61</lower>
-        <content>Chime of Interruption,0</content>
+        <content>Chime of Interruption@0</content>
         <upper>61</upper>
     </percentile>
     <percentile>
         <lower>62</lower>
-        <content>Broom of Flying,0</content>
+        <content>Broom of Flying@0</content>
         <upper>62</upper>
     </percentile>
     <percentile>
         <lower>63</lower>
-        <content>Marble Elephant Figurine of Wondrous Power,0</content>
+        <content>Marble Elephant Figurine of Wondrous Power@0</content>
         <upper>63</upper>
     </percentile>
     <percentile>
         <lower>64</lower>
-        <content>Amulet of Natural Armor,3</content>
+        <content>Amulet of Natural Armor@3</content>
         <upper>64</upper>
     </percentile>
     <percentile>
         <lower>65</lower>
-        <content>Iridescent Spindle Ioun Stone,0</content>
+        <content>Iridescent Spindle Ioun Stone@0</content>
         <upper>65</upper>
     </percentile>
     <percentile>
         <lower>66</lower>
-        <content>Bracelet of Friends,0</content>
+        <content>Bracelet of Friends@0</content>
         <upper>66</upper>
     </percentile>
     <percentile>
         <lower>67</lower>
-        <content>5 ft. by 5 ft. Carpet of Flying,0</content>
+        <content>5 ft. by 5 ft. Carpet of Flying@0</content>
         <upper>67</upper>
     </percentile>
     <percentile>
         <lower>68</lower>
-        <content>Horn of Blasting,0</content>
+        <content>Horn of Blasting@0</content>
         <upper>68</upper>
     </percentile>
     <percentile>
         <lower>69</lower>
-        <content>Pale Lavender Ellipsoid Ioun Stone,0</content>
+        <content>Pale Lavender Ellipsoid Ioun Stone@0</content>
         <upper>69</upper>
     </percentile>
     <percentile>
         <lower>70</lower>
-        <content>Pearly White Spindle Ioun Stone,0</content>
+        <content>Pearly White Spindle Ioun Stone@0</content>
         <upper>70</upper>
     </percentile>
     <percentile>
         <lower>71</lower>
-        <content>Portable Hole,0</content>
+        <content>Portable Hole@0</content>
         <upper>71</upper>
     </percentile>
     <percentile>
         <lower>72</lower>
-        <content>Stone of Good Luck (Luckstone),0</content>
+        <content>Stone of Good Luck (Luckstone)@0</content>
         <upper>72</upper>
     </percentile>
     <percentile>
         <lower>73</lower>
-        <content>Ivory Goats Figurine of Wondrous Power,0</content>
+        <content>Ivory Goats Figurine of Wondrous Power@0</content>
         <upper>73</upper>
     </percentile>
     <percentile>
         <lower>74</lower>
-        <content>Rope of Entanglement,0</content>
+        <content>Rope of Entanglement@0</content>
         <upper>74</upper>
     </percentile>
     <percentile>
         <lower>75</lower>
-        <content>Stone Golem Manual,0</content>
+        <content>Stone Golem Manual@0</content>
         <upper>75</upper>
     </percentile>
     <percentile>
         <lower>76</lower>
-        <content>Mask of the Skull,0</content>
+        <content>Mask of the Skull@0</content>
         <upper>76</upper>
     </percentile>
     <percentile>
         <lower>77</lower>
-        <content>Mattock of the Titans,0</content>
+        <content>Mattock of the Titans@0</content>
         <upper>77</upper>
     </percentile>
     <percentile>
         <lower>78</lower>
-        <content>Major Circlet of Blasting,0</content>
+        <content>Major Circlet of Blasting@0</content>
         <upper>78</upper>
     </percentile>
     <percentile>
         <lower>79</lower>
-        <content>Amulet of Mighty Fists,2</content>
+        <content>Amulet of Mighty Fists@2</content>
         <upper>79</upper>
     </percentile>
     <percentile>
         <lower>80</lower>
-        <content>Minor Cloak of Displacement,0</content>
+        <content>Minor Cloak of Displacement@0</content>
         <upper>80</upper>
     </percentile>
     <percentile>
         <lower>81</lower>
-        <content>Helm of Underwater Action,0</content>
+        <content>Helm of Underwater Action@0</content>
         <upper>81</upper>
     </percentile>
     <percentile>
         <lower>82</lower>
-        <content>Greater Bracers of Archery,0</content>
+        <content>Greater Bracers of Archery@0</content>
         <upper>82</upper>
     </percentile>
     <percentile>
         <lower>83</lower>
-        <content>Bracers of Armor,5</content>
+        <content>Bracers of Armor@5</content>
         <upper>83</upper>
     </percentile>
     <percentile>
         <lower>84</lower>
-        <content>Cloak of Resistance,5</content>
+        <content>Cloak of Resistance@5</content>
         <upper>84</upper>
     </percentile>
     <percentile>
         <lower>85</lower>
-        <content>Eyes of Doom,0</content>
+        <content>Eyes of Doom@0</content>
         <upper>85</upper>
     </percentile>
     <percentile>
         <lower>86</lower>
-        <content>5th-level Spell Pearl of Power,0</content>
+        <content>5th-level Spell Pearl of Power@0</content>
         <upper>86</upper>
     </percentile>
     <percentile>
         <lower>87</lower>
-        <content>Maul of the Titans,0</content>
+        <content>Maul of the Titans@0</content>
         <upper>87</upper>
     </percentile>
     <percentile>
         <lower>88</lower>
-        <content>Strand of Prayer Beads,0</content>
+        <content>Strand of Prayer Beads@0</content>
         <upper>88</upper>
     </percentile>
     <percentile>
         <lower>89</lower>
-        <content>Cloak of the Bat,0</content>
+        <content>Cloak of the Bat@0</content>
         <upper>89</upper>
     </percentile>
     <percentile>
         <lower>90</lower>
-        <content>Iron Bands of Bilarro,0</content>
+        <content>Iron Bands of Bilarro@0</content>
         <upper>90</upper>
     </percentile>
     <percentile>
         <lower>91</lower>
-        <content>Cube of Frost Resistance,0</content>
+        <content>Cube of Frost Resistance@0</content>
         <upper>91</upper>
     </percentile>
     <percentile>
         <lower>92</lower>
-        <content>Helm of Telepathy,0</content>
+        <content>Helm of Telepathy@0</content>
         <upper>92</upper>
     </percentile>
     <percentile>
         <lower>93</lower>
-        <content>Periapt of Proof Against Poison,0</content>
+        <content>Periapt of Proof Against Poison@0</content>
         <upper>93</upper>
     </percentile>
     <percentile>
         <lower>94</lower>
-        <content>Robe of Scintillating Colors,0</content>
+        <content>Robe of Scintillating Colors@0</content>
         <upper>94</upper>
     </percentile>
     <percentile>
         <lower>95</lower>
-        <content>Manual of Bodily Health,1</content>
+        <content>Manual of Bodily Health@1</content>
         <upper>95</upper>
     </percentile>
     <percentile>
         <lower>96</lower>
-        <content>Manual of Gainful Exercise,1</content>
+        <content>Manual of Gainful Exercise@1</content>
         <upper>96</upper>
     </percentile>
     <percentile>
         <lower>97</lower>
-        <content>Manual of Quickness in Action,1</content>
+        <content>Manual of Quickness in Action@1</content>
         <upper>97</upper>
     </percentile>
     <percentile>
         <lower>98</lower>
-        <content>Tome of Clear Thought,1</content>
+        <content>Tome of Clear Thought@1</content>
         <upper>98</upper>
     </percentile>
     <percentile>
         <lower>99</lower>
-        <content>Tome of Leadership and Influence,1</content>
+        <content>Tome of Leadership and Influence@1</content>
         <upper>99</upper>
     </percentile>
     <percentile>
         <lower>100</lower>
-        <content>Tome of Understanding,1</content>
+        <content>Tome of Understanding@1</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

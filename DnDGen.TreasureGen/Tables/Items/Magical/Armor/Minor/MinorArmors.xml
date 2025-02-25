@@ -3,37 +3,37 @@
 <percentiles>
   <percentile>
     <lower>1</lower>
-    <content>1</content>
+    <content>Shield@1</content>
     <upper>60</upper>
   </percentile>
   <percentile>
     <lower>61</lower>
-    <content>1</content>
+    <content>Armor@1</content>
     <upper>80</upper>
   </percentile>
   <percentile>
     <lower>81</lower>
-    <content>2</content>
+    <content>Shield@2</content>
     <upper>85</upper>
   </percentile>
   <percentile>
     <lower>86</lower>
-    <content>2</content>
+    <content>Armor@2</content>
     <upper>87</upper>
   </percentile>
   <percentile>
     <lower>88</lower>
-    <content>Armor</content>
+    <content>Armor@-1</content>
     <upper>89</upper>
   </percentile>
   <percentile>
     <lower>90</lower>
-    <content>Armor</content>
+    <content>Shield@-1</content>
     <upper>91</upper>
   </percentile>
   <percentile>
     <lower>92</lower>
-    <content>SpecialAbility</content>
+    <content>SpecialAbility@0</content>
     <upper>100</upper>
   </percentile>
 </percentiles>

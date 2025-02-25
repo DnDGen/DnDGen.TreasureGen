@@ -21,14 +21,15 @@ namespace DnDGen.TreasureGen.Generators
 
         public Treasure GenerateAtLevel(int level)
         {
-            if (level < LevelLimits.Minimum || level > LevelLimits.Maximum)
+            if (level < LevelLimits.Minimum)
                 throw new ArgumentException($"Level {level} is not a valid level for treasure generation");
 
-            var treasure = new Treasure();
-
-            treasure.Coin = coinFactory.GenerateAtLevel(level);
-            treasure.Goods = goodsFactory.GenerateAtLevel(level);
-            treasure.Items = itemsFactory.GenerateRandomAtLevel(level);
+            var treasure = new Treasure
+            {
+                Coin = coinFactory.GenerateAtLevel(level),
+                Goods = goodsFactory.GenerateAtLevel(level),
+                Items = itemsFactory.GenerateRandomAtLevel(level)
+            };
 
             return treasure;
         }

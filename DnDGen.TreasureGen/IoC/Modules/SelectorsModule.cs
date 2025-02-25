@@ -1,5 +1,7 @@
-﻿using DnDGen.TreasureGen.Selectors.Collections;
+﻿using DnDGen.Infrastructure.IoC.Modules;
+using DnDGen.TreasureGen.Selectors.Collections;
 using DnDGen.TreasureGen.Selectors.Percentiles;
+using DnDGen.TreasureGen.Selectors.Selections;
 using Ninject.Modules;
 
 namespace DnDGen.TreasureGen.IoC.Modules
@@ -8,14 +10,16 @@ namespace DnDGen.TreasureGen.IoC.Modules
     {
         public override void Load()
         {
-            Bind<IIntelligenceDataSelector>().To<IntelligenceDataSelector>();
-            Bind<IRangeDataSelector>().To<RangeDataSelector>();
-            Bind<IArmorDataSelector>().To<ArmorDataSelector>();
-            Bind<IWeaponDataSelector>().To<WeaponDataSelector>();
             Bind<ITreasurePercentileSelector>().To<PercentileSelectorStringReplacementDecorator>();
+            Bind<ITreasurePercentileTypeAndAmountSelector>().To<PercentileTypeAndAmountSelectorStringReplacementDecorator>();
             Bind<IReplacementSelector>().To<ReplacementSelector>();
-            Bind<ITypeAndAmountPercentileSelector>().To<TypeAndAmountPercentileSelector>();
-            Bind<ISpecialAbilityDataSelector>().To<SpecialAbilityDataSelector>();
+            Bind<IWeaponDataSelector>().To<WeaponDataSelector>();
+
+            Kernel.BindDataSelection<ArmorDataSelection>();
+            Kernel.BindDataSelection<WeaponDataSelection>();
+            Kernel.BindDataSelection<DamageDataSelection>();
+            Kernel.BindDataSelection<SpecialAbilityDataSelection>();
+            Kernel.BindDataSelection<IntelligenceDataSelection>();
         }
     }
 }

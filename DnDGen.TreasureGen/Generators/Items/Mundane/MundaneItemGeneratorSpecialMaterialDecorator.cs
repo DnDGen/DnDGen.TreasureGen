@@ -43,7 +43,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
                 item.Traits.Add(material);
             }
 
-            var masterworkMaterials = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.SpecialMaterials, TraitConstants.Masterwork);
+            var masterworkMaterials = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.SpecialMaterials, TraitConstants.Masterwork);
             if (item.Traits.Intersect(masterworkMaterials).Any())
                 item.Traits.Add(TraitConstants.Masterwork);
 

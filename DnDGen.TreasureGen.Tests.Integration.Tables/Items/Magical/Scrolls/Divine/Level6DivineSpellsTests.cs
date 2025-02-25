@@ -8,7 +8,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Scrolls.Divi
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.LevelXSPELLTYPESpells, 6, "Divine"); }
+            get { return TableNameConstants.Percentiles.LevelXSPELLTYPESpells(6, "Divine"); }
         }
 
         [Test]
@@ -52,9 +52,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Scrolls.Divi
         [TestCase("Undeath to Death", 92, 94)]
         [TestCase("Windwalk", 95, 97)]
         [TestCase("Word of Recall", 98, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        public void Level6DivineSpellsPercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
+            AssertPercentile(content, lower, upper);
         }
 
         [TestCase("Create Undead", 25)]
@@ -64,9 +64,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Scrolls.Divi
         [TestCase("Liveoak", 62)]
         [TestCase("Symbol of Fear", 87)]
         [TestCase("Symbol of Persuasion", 88)]
-        public override void Percentile(string content, int roll)
+        public void Level6DivineSpellsPercentile(string content, int roll)
         {
-            base.Percentile(content, roll);
+            AssertPercentile(content, roll);
         }
     }
 }

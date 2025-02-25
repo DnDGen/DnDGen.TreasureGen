@@ -3,62 +3,62 @@
 <percentiles>
   <percentile>
     <lower>1</lower>
-    <content>1d10*10,10d10</content>
+    <content>1d10*10@10d10</content>
     <upper>10</upper>
   </percentile>
   <percentile>
     <lower>11</lower>
-    <content>3d6*10,30d6</content>
+    <content>3d6*10@30d6</content>
     <upper>25</upper>
   </percentile>
   <percentile>
     <lower>26</lower>
-    <content>1d6*100,100d6</content>
+    <content>1d6*100@100d6</content>
     <upper>40</upper>
   </percentile>
   <percentile>
     <lower>41</lower>
-    <content>1d10*100,100d10</content>
+    <content>1d10*100@100d10</content>
     <upper>50</upper>
   </percentile>
   <percentile>
     <lower>51</lower>
-    <content>2d6*100,200d6</content>
+    <content>2d6*100@200d6</content>
     <upper>60</upper>
   </percentile>
   <percentile>
     <lower>61</lower>
-    <content>3d6*100,300d6</content>
+    <content>3d6*100@300d6</content>
     <upper>70</upper>
   </percentile>
   <percentile>
     <lower>71</lower>
-    <content>4d6*100,400d6</content>
+    <content>4d6*100@400d6</content>
     <upper>80</upper>
   </percentile>
   <percentile>
     <lower>81</lower>
-    <content>5d6*100,500d6</content>
+    <content>5d6*100@500d6</content>
     <upper>85</upper>
   </percentile>
   <percentile>
     <lower>86</lower>
-    <content>1d4*1000,600d6+400</content>
+    <content>1d4*1000@600d6+400</content>
     <upper>90</upper>
   </percentile>
   <percentile>
     <lower>91</lower>
-    <content>1d6*1000,1000d6</content>
+    <content>1d6*1000@1000d6</content>
     <upper>95</upper>
   </percentile>
   <percentile>
     <lower>96</lower>
-    <content>2d4*1000,1200d6+800</content>
+    <content>2d4*1000@1200d6+800</content>
     <upper>99</upper>
   </percentile>
   <percentile>
     <lower>100</lower>
-    <content>2d6*1000,2000d6</content>
+    <content>2d6*1000@2000d6</content>
     <upper>100</upper>
   </percentile>
 </percentiles>

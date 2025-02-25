@@ -8,7 +8,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Scrolls.Divi
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.LevelXSPELLTYPESpells, 4, "Divine"); }
+            get { return TableNameConstants.Percentiles.LevelXSPELLTYPESpells(4, "Divine"); }
         }
 
         [Test]
@@ -56,9 +56,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Scrolls.Divi
         [TestCase("Summon Nature's Ally IV", 91, 93)]
         [TestCase("Tongues", 94, 98)]
         [TestCase("Tree Stride", 99, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        public void Level4DivineSpellsPercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
+            AssertPercentile(content, lower, upper);
         }
     }
 }

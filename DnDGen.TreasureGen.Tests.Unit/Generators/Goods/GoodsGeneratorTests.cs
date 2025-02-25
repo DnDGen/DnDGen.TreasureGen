@@ -1,8 +1,8 @@
-﻿using DnDGen.Infrastructure.Selectors.Collections;
+﻿using DnDGen.Infrastructure.Models;
+using DnDGen.Infrastructure.Selectors.Collections;
+using DnDGen.Infrastructure.Selectors.Percentiles;
 using DnDGen.TreasureGen.Generators.Goods;
 using DnDGen.TreasureGen.Goods;
-using DnDGen.TreasureGen.Selectors.Percentiles;
-using DnDGen.TreasureGen.Selectors.Selections;
 using DnDGen.TreasureGen.Tables;
 using Moq;
 using NUnit.Framework;
@@ -15,37 +15,37 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Goods
     [TestFixture]
     public class GoodsGeneratorTests
     {
-        private Mock<ITypeAndAmountPercentileSelector> mockTypeAndAmountPercentileSelector;
+        private Mock<IPercentileTypeAndAmountSelector> mockTypeAndAmountPercentileSelector;
         private Mock<ICollectionSelector> mockCollectionsSelector;
         private IGoodsGenerator generator;
 
-        private TypeAndAmountSelection selection;
-        private TypeAndAmountSelection valueSelection;
+        private TypeAndAmountDataSelection selection;
+        private TypeAndAmountDataSelection valueSelection;
         private List<string> descriptions;
 
         [SetUp]
         public void Setup()
         {
-            mockTypeAndAmountPercentileSelector = new Mock<ITypeAndAmountPercentileSelector>();
+            mockTypeAndAmountPercentileSelector = new Mock<IPercentileTypeAndAmountSelector>();
             mockCollectionsSelector = new Mock<ICollectionSelector>();
             generator = new GoodsGenerator(mockTypeAndAmountPercentileSelector.Object, mockCollectionsSelector.Object);
-            selection = new TypeAndAmountSelection();
-            valueSelection = new TypeAndAmountSelection();
+            selection = new TypeAndAmountDataSelection();
+            valueSelection = new TypeAndAmountDataSelection();
 
             selection.Type = "type";
-            selection.Amount = 2;
+            selection.AmountAsDouble = 2;
             valueSelection.Type = "first value";
-            valueSelection.Amount = 9266;
-            mockTypeAndAmountPercentileSelector.Setup(p => p.SelectFrom(It.IsAny<string>())).Returns(selection);
+            valueSelection.AmountAsDouble = 9266;
+            mockTypeAndAmountPercentileSelector.Setup(p => p.SelectFrom(Config.Name, It.IsAny<string>())).Returns(selection);
 
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.GOODTYPEValues, selection.Type);
-            mockTypeAndAmountPercentileSelector.Setup(p => p.SelectFrom(tableName)).Returns(valueSelection);
+            var tableName = TableNameConstants.Percentiles.GOODTYPEValues(selection.Type);
+            mockTypeAndAmountPercentileSelector.Setup(p => p.SelectFrom(Config.Name, tableName)).Returns(valueSelection);
 
-            descriptions = new List<string> { "description 1", "description 2" };
-            tableName = string.Format(TableNameConstants.Collections.Formattable.GOODTYPEDescriptions, selection.Type);
+            descriptions = ["description 1", "description 2"];
+            tableName = TableNameConstants.Collections.GOODTYPEDescriptions(selection.Type);
 
             var count = 0;
-            object testLock = new object();
+            object testLock = new();
             mockCollectionsSelector
                 .Setup(p => p.SelectRandomFrom(Config.Name, tableName, It.IsAny<string>()))
                 .Returns(() =>
@@ -64,39 +64,50 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Goods
                 Throws.ArgumentException.With.Message.EqualTo($"Level 0 is not a valid level for treasure generation"));
         }
 
-        [Test]
-        public void GenerateAtLevel_ThrowsException_LevelTooHigh()
-        {
-            Assert.That(() => generator.GenerateAtLevel(LevelLimits.Maximum + 1),
-                Throws.ArgumentException.With.Message.EqualTo($"Level 101 is not a valid level for treasure generation"));
-        }
-
         [TestCase(LevelLimits.Minimum)]
         [TestCase(LevelLimits.Minimum + 1)]
         [TestCase(10)]
         [TestCase(20)]
-        [TestCase(30)]
-        [TestCase(42)]
-        [TestCase(LevelLimits.Maximum - 1)]
-        [TestCase(LevelLimits.Maximum)]
+        [TestCase(LevelLimits.Maximum_Standard - 1)]
+        [TestCase(LevelLimits.Maximum_Standard)]
         public void GenerateAtLevel_GoodsAreGenerated(int level)
         {
             var goods = generator.GenerateAtLevel(level);
             Assert.That(goods, Is.Not.Null);
+
+            var tableName = TableNameConstants.Percentiles.LevelXGoods(level);
+            mockTypeAndAmountPercentileSelector.Verify(p => p.SelectFrom(Config.Name, tableName), Times.Once);
+        }
+
+        [TestCase(LevelLimits.Maximum_Standard + 1)]
+        [TestCase(LevelLimits.Maximum_Epic - 1)]
+        [TestCase(LevelLimits.Maximum_Epic)]
+        [TestCase(LevelLimits.Maximum_Epic + 1)]
+        [TestCase(42)]
+        [TestCase(9266)]
+        public void GenerateAtLevel_GoodsAreGenerated_HighLevel(int level)
+        {
+            var goods = generator.GenerateAtLevel(level);
+            Assert.That(goods, Is.Not.Null);
+
+            var tableName = TableNameConstants.Percentiles.LevelXGoods(LevelLimits.Maximum_Standard);
+            mockTypeAndAmountPercentileSelector.Verify(p => p.SelectFrom(Config.Name, tableName), Times.Once);
         }
 
         [Test]
         public void GenerateAtLevel_GetTypeAndAmountFromSelector()
         {
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.LevelXGoods, 1);
+            var tableName = TableNameConstants.Percentiles.LevelXGoods(1);
             generator.GenerateAtLevel(1);
-            mockTypeAndAmountPercentileSelector.Verify(p => p.SelectFrom(tableName), Times.Once);
+            mockTypeAndAmountPercentileSelector.Verify(p => p.SelectFrom(Config.Name, tableName), Times.Once);
         }
 
         [Test]
         public void GenerateAtLevel_EmptyGoodsIfNoGoodType()
         {
             selection.Type = string.Empty;
+            selection.AmountAsDouble = 0;
+
             var goods = generator.GenerateAtLevel(1);
             Assert.That(goods, Is.Empty);
         }
@@ -104,7 +115,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Goods
         [Test]
         public void GenerateAtLevel_ReturnsNumberOfGoods()
         {
-            selection.Amount = 9266;
+            selection.AmountAsDouble = 9266;
             var goods = generator.GenerateAtLevel(1);
             Assert.That(goods.Count(), Is.EqualTo(9266));
         }
@@ -112,12 +123,14 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Goods
         [Test]
         public void GenerateAtLevel_ValueDeterminedByValueResult()
         {
-            var secondValueResult = new TypeAndAmountSelection();
-            secondValueResult.Type = "second value";
-            secondValueResult.Amount = 90210;
+            var secondValueResult = new TypeAndAmountDataSelection
+            {
+                Type = "second value",
+                AmountAsDouble = 90210
+            };
 
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.GOODTYPEValues, selection.Type);
-            mockTypeAndAmountPercentileSelector.SetupSequence(p => p.SelectFrom(tableName)).Returns(valueSelection).Returns(secondValueResult);
+            var tableName = TableNameConstants.Percentiles.GOODTYPEValues(selection.Type);
+            mockTypeAndAmountPercentileSelector.SetupSequence(p => p.SelectFrom(Config.Name, tableName)).Returns(valueSelection).Returns(secondValueResult);
 
             var goods = generator.GenerateAtLevel(1);
             var firstGood = goods.First();
@@ -148,15 +161,17 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Goods
         [Test]
         public async Task GenerateAtLevelAsync_GetTypeAndAmountFromSelector()
         {
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.LevelXGoods, 1);
+            var tableName = TableNameConstants.Percentiles.LevelXGoods(1);
             await generator.GenerateAtLevelAsync(1);
-            mockTypeAndAmountPercentileSelector.Verify(p => p.SelectFrom(tableName), Times.Once);
+            mockTypeAndAmountPercentileSelector.Verify(p => p.SelectFrom(Config.Name, tableName), Times.Once);
         }
 
         [Test]
         public async Task GenerateAtLevelAsync_EmptyGoodsIfNoGoodType()
         {
             selection.Type = string.Empty;
+            selection.AmountAsDouble = 0;
+
             var goods = await generator.GenerateAtLevelAsync(1);
             Assert.That(goods, Is.Empty);
         }
@@ -164,7 +179,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Goods
         [Test]
         public async Task GenerateAtLevelAsync_ReturnsNumberOfGoods()
         {
-            selection.Amount = 9266;
+            selection.AmountAsDouble = 9266;
             var goods = await generator.GenerateAtLevelAsync(1);
             Assert.That(goods.Count(), Is.EqualTo(9266));
         }
@@ -172,12 +187,14 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Goods
         [Test]
         public async Task GenerateAtLevelAsync_ValueDeterminedByValueResult()
         {
-            var secondValueResult = new TypeAndAmountSelection();
-            secondValueResult.Type = "second value";
-            secondValueResult.Amount = 90210;
+            var secondValueResult = new TypeAndAmountDataSelection
+            {
+                Type = "second value",
+                AmountAsDouble = 90210
+            };
 
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.GOODTYPEValues, selection.Type);
-            mockTypeAndAmountPercentileSelector.SetupSequence(p => p.SelectFrom(tableName)).Returns(valueSelection).Returns(secondValueResult);
+            var tableName = TableNameConstants.Percentiles.GOODTYPEValues(selection.Type);
+            mockTypeAndAmountPercentileSelector.SetupSequence(p => p.SelectFrom(Config.Name, tableName)).Returns(valueSelection).Returns(secondValueResult);
 
             var goods = await generator.GenerateAtLevelAsync(1);
             var firstGood = goods.First();

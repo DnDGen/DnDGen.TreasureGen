@@ -1,65 +1,31 @@
 ﻿using DnDGen.Infrastructure.Selectors.Collections;
-using DnDGen.TreasureGen.Items;
-using DnDGen.TreasureGen.Selectors.Helpers;
 using DnDGen.TreasureGen.Selectors.Selections;
 using DnDGen.TreasureGen.Tables;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DnDGen.TreasureGen.Selectors.Collections
 {
     internal class WeaponDataSelector : IWeaponDataSelector
     {
-        private readonly ICollectionSelector collectionSelector;
-        private readonly DamageHelper damageHelper;
+        private readonly ICollectionDataSelector<DamageDataSelection> damageDataSelector;
+        private readonly ICollectionDataSelector<WeaponDataSelection> weaponDataSelector;
 
-        public WeaponDataSelector(ICollectionSelector collectionSelector)
+        public WeaponDataSelector(ICollectionDataSelector<DamageDataSelection> damageDataSelector, ICollectionDataSelector<WeaponDataSelection> weaponDataSelector)
         {
-            this.collectionSelector = collectionSelector;
-            damageHelper = new DamageHelper();
+            this.damageDataSelector = damageDataSelector;
+            this.weaponDataSelector = weaponDataSelector;
         }
 
-        public WeaponSelection Select(string name)
+        public WeaponDataSelection Select(string name, string size)
         {
-            var data = collectionSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.WeaponData, name).ToArray();
-            var damagesData = collectionSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.WeaponDamages, name).ToArray();
+            var weaponData = weaponDataSelector.SelectOneFrom(Config.Name, TableNameConstants.Collections.WeaponData, name);
+            var damagesData = damageDataSelector.SelectFrom(Config.Name, TableNameConstants.Collections.WeaponDamages, name + size).ToArray();
+            var critDamagesData = damageDataSelector.SelectFrom(Config.Name, TableNameConstants.Collections.WeaponCriticalDamages, name + size).ToArray();
 
-            var damages = new List<List<Damage>>();
-            foreach (var damageData in damagesData)
-            {
-                var sizeDamagesData = damageHelper.ParseEntries(damageData);
-                var sizeDamages = new List<Damage>();
+            weaponData.Damages.AddRange(damagesData);
+            weaponData.CriticalDamages.AddRange(critDamagesData);
 
-                foreach (var sizeDamageData in sizeDamagesData)
-                {
-                    sizeDamages.Add(new Damage
-                    {
-                        Roll = sizeDamageData[DataIndexConstants.Weapon.DamageData.RollIndex],
-                        Type = sizeDamageData[DataIndexConstants.Weapon.DamageData.TypeIndex],
-                        Condition = sizeDamageData[DataIndexConstants.Weapon.DamageData.ConditionIndex],
-                    });
-                }
-
-                damages.Add(sizeDamages);
-            }
-
-            var selection = new WeaponSelection();
-            selection.ThreatRange = Convert.ToInt32(data[DataIndexConstants.Weapon.ThreatRange]);
-            selection.Ammunition = data[DataIndexConstants.Weapon.Ammunition];
-            selection.CriticalMultiplier = data[DataIndexConstants.Weapon.CriticalMultiplier];
-            selection.SecondaryCriticalMultiplier = data[DataIndexConstants.Weapon.SecondaryCriticalMultiplier];
-
-            var sizes = TraitConstants.Sizes.All().ToArray();
-
-            for (var i = 0; i < sizes.Length; i++)
-            {
-                var critIndex = i + sizes.Length;
-                selection.DamagesBySize[sizes[i]] = damages[i];
-                selection.CriticalDamagesBySize[sizes[i]] = damages[critIndex];
-            }
-
-            return selection;
+            return weaponData;
         }
     }
 }

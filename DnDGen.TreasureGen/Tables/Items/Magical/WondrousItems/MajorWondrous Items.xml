@@ -3,502 +3,502 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content>Dimensional Shackles,0</content>
+        <content>Dimensional Shackles@0</content>
         <upper>1</upper>
     </percentile>
     <percentile>
         <lower>2</lower>
-        <content>Obsidian Steed Figurine of Wondrous Power,0</content>
+        <content>Obsidian Steed Figurine of Wondrous Power@0</content>
         <upper>2</upper>
     </percentile>
     <percentile>
         <lower>3</lower>
-        <content>Drums of Panic,0</content>
+        <content>Drums of Panic@0</content>
         <upper>3</upper>
     </percentile>
     <percentile>
         <lower>4</lower>
-        <content>Orange Prism Ioun Stone,0</content>
+        <content>Orange Prism Ioun Stone@0</content>
         <upper>4</upper>
     </percentile>
     <percentile>
         <lower>5</lower>
-        <content>Pale Green Prism Ioun Stone,0</content>
+        <content>Pale Green Prism Ioun Stone@0</content>
         <upper>5</upper>
     </percentile>
     <percentile>
         <lower>6</lower>
-        <content>Lantern of Revealing,0</content>
+        <content>Lantern of Revealing@0</content>
         <upper>6</upper>
     </percentile>
     <percentile>
         <lower>7</lower>
-        <content>Robe of Blending,0</content>
+        <content>Robe of Blending@0</content>
         <upper>7</upper>
     </percentile>
     <percentile>
         <lower>8</lower>
-        <content>Amulet of Natural Armor,4</content>
+        <content>Amulet of Natural Armor@4</content>
         <upper>8</upper>
     </percentile>
     <percentile>
         <lower>9</lower>
-        <content>Amulet of Proof Against Detection and Location,0</content>
+        <content>Amulet of Proof Against Detection and Location@0</content>
         <upper>9</upper>
     </percentile>
     <percentile>
         <lower>10</lower>
-        <content>5 ft. by 10 ft. Carpet of Flying,0</content>
+        <content>5 ft. by 10 ft. Carpet of Flying@0</content>
         <upper>10</upper>
     </percentile>
     <percentile>
         <lower>11</lower>
-        <content>Iron Golem Manual,0</content>
+        <content>Iron Golem Manual@0</content>
         <upper>11</upper>
     </percentile>
     <percentile>
         <lower>12</lower>
-        <content>Amulet of Health,6</content>
+        <content>Amulet of Health@6</content>
         <upper>12</upper>
     </percentile>
     <percentile>
         <lower>13</lower>
-        <content>Belt of Giant Strength,6</content>
+        <content>Belt of Giant Strength@6</content>
         <upper>13</upper>
     </percentile>
     <percentile>
         <lower>14</lower>
-        <content>Bracers of Armor,6</content>
+        <content>Bracers of Armor@6</content>
         <upper>14</upper>
     </percentile>
     <percentile>
         <lower>15</lower>
-        <content>Cloak of Charisma,6</content>
+        <content>Cloak of Charisma@6</content>
         <upper>15</upper>
     </percentile>
     <percentile>
         <lower>16</lower>
-        <content>Gloves of Dexterity,6</content>
+        <content>Gloves of Dexterity@6</content>
         <upper>16</upper>
     </percentile>
     <percentile>
         <lower>17</lower>
-        <content>Headband of Intellect,6</content>
+        <content>Headband of Intellect@6</content>
         <upper>17</upper>
     </percentile>
     <percentile>
         <lower>18</lower>
-        <content>Vibrant Purple Prism Ioun Stone,0</content>
+        <content>Vibrant Purple Prism Ioun Stone@0</content>
         <upper>18</upper>
     </percentile>
     <percentile>
         <lower>19</lower>
-        <content>6th-level Spell Pearl of Power,0</content>
+        <content>6th-level Spell Pearl of Power@0</content>
         <upper>19</upper>
     </percentile>
     <percentile>
         <lower>20</lower>
-        <content>Periapt of Wisdom,6</content>
+        <content>Periapt of Wisdom@6</content>
         <upper>20</upper>
     </percentile>
     <percentile>
         <lower>21</lower>
-        <content>Scarab of Protection,0</content>
+        <content>Scarab of Protection@0</content>
         <upper>21</upper>
     </percentile>
     <percentile>
         <lower>22</lower>
-        <content>Lavender and Green Ellipsoid Ioun Stone,0</content>
+        <content>Lavender and Green Ellipsoid Ioun Stone@0</content>
         <upper>22</upper>
     </percentile>
     <percentile>
         <lower>23</lower>
-        <content>Ring Gates,0</content>
+        <content>Ring Gates@0</content>
         <upper>23</upper>
     </percentile>
     <percentile>
         <lower>24</lower>
-        <content>Crystal Ball,0</content>
+        <content>Crystal Ball@0</content>
         <upper>24</upper>
     </percentile>
     <percentile>
         <lower>25</lower>
-        <content>Greater Stone Golem Manual,0</content>
+        <content>Greater Stone Golem Manual@0</content>
         <upper>25</upper>
     </percentile>
     <percentile>
         <lower>26</lower>
-        <content>Orb of Storms,0</content>
+        <content>Orb of Storms@0</content>
         <upper>26</upper>
     </percentile>
     <percentile>
         <lower>27</lower>
-        <content>Boots of Teleportation,0</content>
+        <content>Boots of Teleportation@0</content>
         <upper>27</upper>
     </percentile>
     <percentile>
         <lower>28</lower>
-        <content>Bracers of Armor,7</content>
+        <content>Bracers of Armor@7</content>
         <upper>28</upper>
     </percentile>
     <percentile>
         <lower>29</lower>
-        <content>7th-level Spell Pearl of Power,0</content>
+        <content>7th-level Spell Pearl of Power@0</content>
         <upper>29</upper>
     </percentile>
     <percentile>
         <lower>30</lower>
-        <content>Amulet of Natural Armor,5</content>
+        <content>Amulet of Natural Armor@5</content>
         <upper>30</upper>
     </percentile>
     <percentile>
         <lower>31</lower>
-        <content>Major Cloak of Displacement,0</content>
+        <content>Major Cloak of Displacement@0</content>
         <upper>31</upper>
     </percentile>
     <percentile>
         <lower>32</lower>
-        <content>Crystal Ball with See Invisibility,0</content>
+        <content>Crystal Ball with See Invisibility@0</content>
         <upper>32</upper>
     </percentile>
     <percentile>
         <lower>33</lower>
-        <content>Horn of Valhalla,0</content>
+        <content>Horn of Valhalla@0</content>
         <upper>33</upper>
     </percentile>
     <percentile>
         <lower>34</lower>
-        <content>Crystal Ball with Detect Thoughts,0</content>
+        <content>Crystal Ball with Detect Thoughts@0</content>
         <upper>34</upper>
     </percentile>
     <percentile>
         <lower>35</lower>
-        <content>6 ft. by 9 ft. Carpet of Flying,0</content>
+        <content>6 ft. by 9 ft. Carpet of Flying@0</content>
         <upper>35</upper>
     </percentile>
     <percentile>
         <lower>36</lower>
-        <content>Amulet of Mighty Fists,3</content>
+        <content>Amulet of Mighty Fists@3</content>
         <upper>36</upper>
     </percentile>
     <percentile>
         <lower>37</lower>
-        <content>Wings of Flying,0</content>
+        <content>Wings of Flying@0</content>
         <upper>37</upper>
     </percentile>
     <percentile>
         <lower>38</lower>
-        <content>Cloak of Etherealness,0</content>
+        <content>Cloak of Etherealness@0</content>
         <upper>38</upper>
     </percentile>
     <percentile>
         <lower>39</lower>
-        <content>Daern's Instant Fortress,0</content>
+        <content>Daern's Instant Fortress@0</content>
         <upper>39</upper>
     </percentile>
     <percentile>
         <lower>40</lower>
-        <content>Manual of Bodily Health,2</content>
+        <content>Manual of Bodily Health@2</content>
         <upper>40</upper>
     </percentile>
     <percentile>
         <lower>41</lower>
-        <content>Manual of Gainful Exercise,2</content>
+        <content>Manual of Gainful Exercise@2</content>
         <upper>41</upper>
     </percentile>
     <percentile>
         <lower>42</lower>
-        <content>Manual of Quickness in Action,2</content>
+        <content>Manual of Quickness in Action@2</content>
         <upper>42</upper>
     </percentile>
     <percentile>
         <lower>43</lower>
-        <content>Tome of Clear Thought,2</content>
+        <content>Tome of Clear Thought@2</content>
         <upper>43</upper>
     </percentile>
     <percentile>
         <lower>44</lower>
-        <content>Tome of Leadership and Influence,2</content>
+        <content>Tome of Leadership and Influence@2</content>
         <upper>44</upper>
     </percentile>
     <percentile>
         <lower>45</lower>
-        <content>Tome of Understanding,2</content>
+        <content>Tome of Understanding@2</content>
         <upper>45</upper>
     </percentile>
     <percentile>
         <lower>46</lower>
-        <content>Eyes of Charming,0</content>
+        <content>Eyes of Charming@0</content>
         <upper>46</upper>
     </percentile>
     <percentile>
         <lower>47</lower>
-        <content>Robe of Stars,0</content>
+        <content>Robe of Stars@0</content>
         <upper>47</upper>
     </percentile>
     <percentile>
         <lower>48</lower>
-        <content>10 ft. by 10 ft. Carpet of Flying,0</content>
+        <content>10 ft. by 10 ft. Carpet of Flying@0</content>
         <upper>48</upper>
     </percentile>
     <percentile>
         <lower>49</lower>
-        <content>Darkskull,0</content>
+        <content>Darkskull@0</content>
         <upper>49</upper>
     </percentile>
     <percentile>
         <lower>50</lower>
-        <content>Cube of Force,0</content>
+        <content>Cube of Force@0</content>
         <upper>50</upper>
     </percentile>
     <percentile>
         <lower>51</lower>
-        <content>Bracers of Armor,8</content>
+        <content>Bracers of Armor@8</content>
         <upper>51</upper>
     </percentile>
     <percentile>
         <lower>52</lower>
-        <content>8th-level Spell Pearl of Power,0</content>
+        <content>8th-level Spell Pearl of Power@0</content>
         <upper>52</upper>
     </percentile>
     <percentile>
         <lower>53</lower>
-        <content>Crystal Ball with Telepathy,0</content>
+        <content>Crystal Ball with Telepathy@0</content>
         <upper>53</upper>
     </percentile>
     <percentile>
         <lower>54</lower>
-        <content>Greater Horn of Blasting,0</content>
+        <content>Greater Horn of Blasting@0</content>
         <upper>54</upper>
     </percentile>
     <percentile>
         <lower>55</lower>
-        <content>Two Spells Pearl of Power,0</content>
+        <content>Two Spells Pearl of Power@0</content>
         <upper>55</upper>
     </percentile>
     <percentile>
         <lower>56</lower>
-        <content>Helm of Teleportation,0</content>
+        <content>Helm of Teleportation@0</content>
         <upper>56</upper>
     </percentile>
     <percentile>
         <lower>57</lower>
-        <content>Gem of Seeing,0</content>
+        <content>Gem of Seeing@0</content>
         <upper>57</upper>
     </percentile>
     <percentile>
         <lower>58</lower>
-        <content>Robe of the Archmagi,0</content>
+        <content>Robe of the Archmagi@0</content>
         <upper>58</upper>
     </percentile>
     <percentile>
         <lower>59</lower>
-        <content>Mantle of Faith,0</content>
+        <content>Mantle of Faith@0</content>
         <upper>59</upper>
     </percentile>
     <percentile>
         <lower>60</lower>
-        <content>Crystal Ball with True Seeing,0</content>
+        <content>Crystal Ball with True Seeing@0</content>
         <upper>60</upper>
     </percentile>
     <percentile>
         <lower>61</lower>
-        <content>9th-level Spell Pearl of Power,0</content>
+        <content>9th-level Spell Pearl of Power@0</content>
         <upper>61</upper>
     </percentile>
     <percentile>
         <lower>62</lower>
-        <content>Well of Many Worlds,0</content>
+        <content>Well of Many Worlds@0</content>
         <upper>62</upper>
     </percentile>
     <percentile>
         <lower>63</lower>
-        <content>Manual of Bodily Health,3</content>
+        <content>Manual of Bodily Health@3</content>
         <upper>63</upper>
     </percentile>
     <percentile>
         <lower>64</lower>
-        <content>Manual of Gainful Exercise,3</content>
+        <content>Manual of Gainful Exercise@3</content>
         <upper>64</upper>
     </percentile>
     <percentile>
         <lower>65</lower>
-        <content>Manual of Quickness in Action,3</content>
+        <content>Manual of Quickness in Action@3</content>
         <upper>65</upper>
     </percentile>
     <percentile>
         <lower>66</lower>
-        <content>Tome of Clear Thought,3</content>
+        <content>Tome of Clear Thought@3</content>
         <upper>66</upper>
     </percentile>
     <percentile>
         <lower>67</lower>
-        <content>Tome of Leadership and Influence,3</content>
+        <content>Tome of Leadership and Influence@3</content>
         <upper>67</upper>
     </percentile>
     <percentile>
         <lower>68</lower>
-        <content>Tome of Understanding,3</content>
+        <content>Tome of Understanding@3</content>
         <upper>68</upper>
     </percentile>
     <percentile>
         <lower>69</lower>
-        <content>Apparatus of Kwalish,0</content>
+        <content>Apparatus of Kwalish@0</content>
         <upper>69</upper>
     </percentile>
     <percentile>
         <lower>70</lower>
-        <content>Mantle of Spell Resistance,0</content>
+        <content>Mantle of Spell Resistance@0</content>
         <upper>70</upper>
     </percentile>
     <percentile>
         <lower>71</lower>
-        <content>Mirror of Opposition,0</content>
+        <content>Mirror of Opposition@0</content>
         <upper>71</upper>
     </percentile>
     <percentile>
         <lower>72</lower>
-        <content>Greater Strand of Prayer Beads,0</content>
+        <content>Greater Strand of Prayer Beads@0</content>
         <upper>72</upper>
     </percentile>
     <percentile>
         <lower>73</lower>
-        <content>Amulet of Mighty Fists,4</content>
+        <content>Amulet of Mighty Fists@4</content>
         <upper>73</upper>
     </percentile>
     <percentile>
         <lower>74</lower>
-        <content>Eyes of Petrification,0</content>
+        <content>Eyes of Petrification@0</content>
         <upper>74</upper>
     </percentile>
     <percentile>
         <lower>75</lower>
-        <content>Bowl of Commanding Water Elementals,0</content>
+        <content>Bowl of Commanding Water Elementals@0</content>
         <upper>75</upper>
     </percentile>
     <percentile>
         <lower>76</lower>
-        <content>Brazier of Commanding Fire Elementals,0</content>
+        <content>Brazier of Commanding Fire Elementals@0</content>
         <upper>76</upper>
     </percentile>
     <percentile>
         <lower>77</lower>
-        <content>Censer of Controlling Air Elementals,0</content>
+        <content>Censer of Controlling Air Elementals@0</content>
         <upper>77</upper>
     </percentile>
     <percentile>
         <lower>78</lower>
-        <content>Stone of Controlling Earth Elementals,0</content>
+        <content>Stone of Controlling Earth Elementals@0</content>
         <upper>78</upper>
     </percentile>
     <percentile>
         <lower>79</lower>
-        <content>Manual of Bodily Health,4</content>
+        <content>Manual of Bodily Health@4</content>
         <upper>79</upper>
     </percentile>
     <percentile>
         <lower>80</lower>
-        <content>Manual of Gainful Exercise,4</content>
+        <content>Manual of Gainful Exercise@4</content>
         <upper>80</upper>
     </percentile>
     <percentile>
         <lower>81</lower>
-        <content>Manual of Quickness in Action,4</content>
+        <content>Manual of Quickness in Action@4</content>
         <upper>81</upper>
     </percentile>
     <percentile>
         <lower>82</lower>
-        <content>Tome of Clear Thought,4</content>
+        <content>Tome of Clear Thought@4</content>
         <upper>82</upper>
     </percentile>
     <percentile>
         <lower>83</lower>
-        <content>Tome of Leadership and Influence,4</content>
+        <content>Tome of Leadership and Influence@4</content>
         <upper>83</upper>
     </percentile>
     <percentile>
         <lower>84</lower>
-        <content>Tome of Understanding,4</content>
+        <content>Tome of Understanding@4</content>
         <upper>84</upper>
     </percentile>
     <percentile>
         <lower>85</lower>
-        <content>Amulet of the Planes,0</content>
+        <content>Amulet of the Planes@0</content>
         <upper>85</upper>
     </percentile>
     <percentile>
         <lower>86</lower>
-        <content>Robe of Eyes,0</content>
+        <content>Robe of Eyes@0</content>
         <upper>86</upper>
     </percentile>
     <percentile>
         <lower>87</lower>
-        <content>Helm of Brilliance,0</content>
+        <content>Helm of Brilliance@0</content>
         <upper>87</upper>
     </percentile>
     <percentile>
         <lower>88</lower>
-        <content>Manual of Bodily Health,5</content>
+        <content>Manual of Bodily Health@5</content>
         <upper>88</upper>
     </percentile>
     <percentile>
         <lower>89</lower>
-        <content>Manual of Gainful Exercise,5</content>
+        <content>Manual of Gainful Exercise@5</content>
         <upper>89</upper>
     </percentile>
     <percentile>
         <lower>90</lower>
-        <content>Manual of Quickness in Action,5</content>
+        <content>Manual of Quickness in Action@5</content>
         <upper>90</upper>
     </percentile>
     <percentile>
         <lower>91</lower>
-        <content>Tome of Clear Thought,5</content>
+        <content>Tome of Clear Thought@5</content>
         <upper>91</upper>
     </percentile>
     <percentile>
         <lower>92</lower>
-        <content>Tome of Leadership and Influence,5</content>
+        <content>Tome of Leadership and Influence@5</content>
         <upper>92</upper>
     </percentile>
     <percentile>
         <lower>93</lower>
-        <content>Tome of Understanding,5</content>
+        <content>Tome of Understanding@5</content>
         <upper>93</upper>
     </percentile>
     <percentile>
         <lower>94</lower>
-        <content>Efreeti Bottle,0</content>
+        <content>Efreeti Bottle@0</content>
         <upper>94</upper>
     </percentile>
     <percentile>
         <lower>95</lower>
-        <content>Amulet of Mighty Fists,5</content>
+        <content>Amulet of Mighty Fists@5</content>
         <upper>95</upper>
     </percentile>
     <percentile>
         <lower>96</lower>
-        <content>Chaos Diamond,0</content>
+        <content>Chaos Diamond@0</content>
         <upper>96</upper>
     </percentile>
     <percentile>
         <lower>97</lower>
-        <content>Cubic Gate,0</content>
+        <content>Cubic Gate@0</content>
         <upper>97</upper>
     </percentile>
     <percentile>
         <lower>98</lower>
-        <content>Iron Flask,0</content>
+        <content>Iron Flask@0</content>
         <upper>98</upper>
     </percentile>
     <percentile>
         <lower>99</lower>
-        <content>Mirror of Mental Prowess,0</content>
+        <content>Mirror of Mental Prowess@0</content>
         <upper>99</upper>
     </percentile>
     <percentile>
         <lower>100</lower>
-        <content>Mirror of Life Trapping,0</content>
+        <content>Mirror of Life Trapping@0</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

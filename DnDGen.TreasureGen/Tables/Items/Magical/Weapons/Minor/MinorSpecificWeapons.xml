@@ -3,42 +3,42 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content>Sleep Arrow,1</content>
+        <content>Sleep Arrow@1</content>
         <upper>15</upper>
     </percentile>
     <percentile>
         <lower>16</lower>
-        <content>Screaming Bolt,2</content>
+        <content>Screaming Bolt@2</content>
         <upper>25</upper>
     </percentile>
     <percentile>
         <lower>26</lower>
-        <content>Silver Dagger,0</content>
+        <content>Silver Dagger@0</content>
         <upper>45</upper>
     </percentile>
     <percentile>
         <lower>46</lower>
-        <content>Longsword,0</content>
+        <content>Longsword@0</content>
         <upper>65</upper>
     </percentile>
     <percentile>
         <lower>66</lower>
-        <content>Javelin of Lightning,0</content>
+        <content>Javelin of Lightning@0</content>
         <upper>75</upper>
     </percentile>
     <percentile>
         <lower>76</lower>
-        <content>Slaying Arrow,1</content>
+        <content>Slaying Arrow@1</content>
         <upper>80</upper>
     </percentile>
     <percentile>
         <lower>81</lower>
-        <content>Adamantine Dagger,0</content>
+        <content>Adamantine Dagger@0</content>
         <upper>90</upper>
     </percentile>
     <percentile>
         <lower>91</lower>
-        <content>Adamantine Battleaxe,0</content>
+        <content>Adamantine Battleaxe@0</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

@@ -8,7 +8,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Curses
     [TestFixture]
     public class SpecificCursedItemAttributesTests : CollectionsTests
     {
-        protected override string tableName => TableNameConstants.Collections.Set.SpecificCursedItemAttributes;
+        protected override string tableName => TableNameConstants.Collections.SpecificCursedItemAttributes;
 
         [TestCase(ArmorConstants.ArmorOfArrowAttraction,
             AttributeConstants.Specific,
@@ -80,7 +80,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Curses
         [TestCase(WondrousItemConstants.VacousGrimoire, AttributeConstants.Specific)]
         public void SpecificCursedItemAttributes(string name, params string[] attributes)
         {
-            base.Collections(name, attributes);
+            base.AssertCollection(name, attributes);
         }
 
         [TestCase(WeaponConstants.BerserkingSword, WeaponConstants.Greatsword)]
@@ -92,7 +92,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Curses
         {
             var specificWeaponAttributes = table[specificWeapon];
 
-            var weaponAttributesTableName = string.Format(TableNameConstants.Collections.Formattable.ITEMTYPEAttributes, ItemTypeConstants.Weapon);
+            var weaponAttributesTableName = TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Weapon);
             var weaponAttributesTable = CollectionMapper.Map(Name, weaponAttributesTableName);
             var weaponAttributes = weaponAttributesTable[weapon];
 
@@ -106,12 +106,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Curses
         [TestCase(WeaponConstants.CursedMinus2Sword)]
         public void SpecificCursedWeaponMatchesAttributes(string item)
         {
-            var specificWeaponAttributesTable = string.Format(TableNameConstants.Collections.Formattable.SpecificITEMTYPEAttributes, ItemTypeConstants.Weapon);
-
+            var specificWeaponAttributesTable = TableNameConstants.Collections.SpecificITEMTYPEAttributes(ItemTypeConstants.Weapon);
             var specificWeaponAttributes = CollectionMapper.Map(Name, specificWeaponAttributesTable);
-            var specificCursedAttributes = GetCollection(item);
-
-            Assert.That(specificCursedAttributes, Is.EquivalentTo(specificWeaponAttributes[item]));
+            Assert.That(table[item], Is.EquivalentTo(specificWeaponAttributes[item]));
         }
     }
 }

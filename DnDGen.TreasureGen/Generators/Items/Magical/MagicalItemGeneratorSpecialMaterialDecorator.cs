@@ -37,7 +37,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
                 item.Traits.Add(material);
             }
 
-            var masterworkMaterials = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.SpecialMaterials, TraitConstants.Masterwork);
+            var masterworkMaterials = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.SpecialMaterials, TraitConstants.Masterwork);
             if (item.Traits.Intersect(masterworkMaterials).Any())
                 item.Traits.Add(TraitConstants.Masterwork);
 
@@ -56,7 +56,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
             if (item.Magic.Curse == CurseConstants.SpecificCursedItem)
             {
-                var specialMaterials = TraitConstants.SpecialMaterials.All();
+                var specialMaterials = TraitConstants.SpecialMaterials.GetAll();
                 foreach (var specialMaterial in specialMaterials)
                 {
                     item.Traits.Remove(specialMaterial);
@@ -76,7 +76,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
             if (item.Magic.Curse == CurseConstants.SpecificCursedItem)
             {
-                var specialMaterials = TraitConstants.SpecialMaterials.All();
+                var specialMaterials = TraitConstants.SpecialMaterials.GetAll();
                 foreach (var specialMaterial in specialMaterials)
                 {
                     item.Traits.Remove(specialMaterial);

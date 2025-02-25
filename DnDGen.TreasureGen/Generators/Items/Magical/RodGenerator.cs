@@ -1,10 +1,11 @@
-﻿using DnDGen.Infrastructure.Generators;
+﻿using DnDGen.Infrastructure.Factories;
+using DnDGen.Infrastructure.Models;
 using DnDGen.Infrastructure.Selectors.Collections;
+using DnDGen.Infrastructure.Selectors.Percentiles;
 using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
 using DnDGen.TreasureGen.Items.Mundane;
 using DnDGen.TreasureGen.Selectors.Percentiles;
-using DnDGen.TreasureGen.Selectors.Selections;
 using DnDGen.TreasureGen.Tables;
 using System;
 using System.Collections.Generic;
@@ -14,14 +15,14 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
     internal class RodGenerator : MagicalItemGenerator
     {
-        private readonly ITypeAndAmountPercentileSelector typeAndAmountPercentileSelector;
+        private readonly IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
         private readonly ICollectionSelector collectionsSelector;
         private readonly IChargesGenerator chargesGenerator;
         private readonly ITreasurePercentileSelector percentileSelector;
         private readonly ISpecialAbilitiesGenerator specialAbilitiesGenerator;
         private readonly JustInTimeFactory justInTimeFactory;
 
-        public RodGenerator(ITypeAndAmountPercentileSelector typeAndAmountPercentileSelector,
+        public RodGenerator(IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
             ICollectionSelector collectionsSelector,
             IChargesGenerator chargesGenerator,
             ITreasurePercentileSelector percentileSelector,
@@ -38,34 +39,32 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
         public Item GenerateRandom(string power)
         {
-            var rodPowers = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.PowerGroups, ItemTypeConstants.Rod);
+            var rodPowers = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.PowerGroups, ItemTypeConstants.Rod);
             var adjustedPower = PowerHelper.AdjustPower(power, rodPowers);
-
-            var tablename = string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, adjustedPower, ItemTypeConstants.Rod);
-            var result = typeAndAmountPercentileSelector.SelectFrom(tablename);
+            var result = typeAndAmountPercentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.POWERITEMTYPEs(adjustedPower, ItemTypeConstants.Rod));
 
             return GenerateRod(result.Type, result.Amount);
         }
 
         private Item GenerateRod(string name, int bonus, params string[] traits)
         {
-            var rod = new Item();
-            rod.ItemType = ItemTypeConstants.Rod;
-            rod.Name = name;
-            rod.BaseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.ItemGroups, name);
-            rod.IsMagical = true;
+            var rod = new Item
+            {
+                ItemType = ItemTypeConstants.Rod,
+                Name = name,
+                BaseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, name),
+                IsMagical = true
+            };
             rod.Magic.Bonus = bonus;
             rod.Traits = new HashSet<string>(traits);
-
-            var tablename = string.Format(TableNameConstants.Collections.Formattable.ITEMTYPEAttributes, ItemTypeConstants.Rod);
-            rod.Attributes = collectionsSelector.SelectFrom(Config.Name, tablename, name);
+            rod.Attributes = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Rod), name);
 
             if (rod.Attributes.Contains(AttributeConstants.Charged))
                 rod.Magic.Charges = chargesGenerator.GenerateFor(ItemTypeConstants.Rod, name);
 
             if (name == RodConstants.Absorption)
             {
-                var containsSpellLevels = percentileSelector.SelectFrom<bool>(Config.Name, TableNameConstants.Percentiles.Set.RodOfAbsorptionContainsSpellLevels);
+                var containsSpellLevels = percentileSelector.SelectFrom<bool>(Config.Name, TableNameConstants.Percentiles.RodOfAbsorptionContainsSpellLevels);
                 if (containsSpellLevels)
                 {
                     var maxCharges = chargesGenerator.GenerateFor(ItemTypeConstants.Rod, RodConstants.Absorption_Full);
@@ -83,11 +82,10 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
         {
             var rodName = GetRodName(itemName);
 
-            var powers = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.PowerGroups, rodName);
+            var powers = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.PowerGroups, rodName);
             var adjustedPower = PowerHelper.AdjustPower(power, powers);
 
-            var tablename = string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, adjustedPower, ItemTypeConstants.Rod);
-            var results = typeAndAmountPercentileSelector.SelectAllFrom(tablename);
+            var results = typeAndAmountPercentileSelector.SelectAllFrom(Config.Name, TableNameConstants.Percentiles.POWERITEMTYPEs(adjustedPower, ItemTypeConstants.Rod));
             var matches = results.Where(r => r.Type == rodName).ToList();
 
             var match = collectionsSelector.SelectRandomFrom(matches);
@@ -103,95 +101,29 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
             var weaponName = weaponBaseNames.First();
 
-            var mundaneWeaponGenerator = justInTimeFactory.Build<MundaneItemGenerator>(ItemTypeConstants.Weapon);
-            var mundaneWeapon = mundaneWeaponGenerator.Generate(weaponName, rod.Traits.ToArray()) as Weapon;
+            var weaponGenerator = justInTimeFactory.Build<MundaneItemGenerator>(ItemTypeConstants.Weapon);
+            var weapon = weaponGenerator.Generate(weaponName, [.. rod.Traits]) as Weapon;
 
-            rod.Attributes = rod.Attributes.Union(mundaneWeapon.Attributes);
-            rod.CloneInto(mundaneWeapon);
+            rod.Attributes = rod.Attributes.Union(weapon.Attributes);
+            rod.CloneInto(weapon);
 
-            if (mundaneWeapon.IsMagical)
-                mundaneWeapon.Traits.Add(TraitConstants.Masterwork);
+            if (weapon.IsMagical)
+                weapon.Traits.Add(TraitConstants.Masterwork);
 
-            if (mundaneWeapon.IsDoubleWeapon)
+            if (weapon.IsDoubleWeapon)
             {
-                mundaneWeapon.SecondaryHasAbilities = true;
-                mundaneWeapon.SecondaryMagicBonus = rod.Magic.Bonus;
+                weapon.SecondaryHasAbilities = true;
+                weapon.SecondaryMagicBonus = rod.Magic.Bonus;
             }
 
-            foreach (var specialAbility in mundaneWeapon.Magic.SpecialAbilities)
-            {
-                if (specialAbility.Damages.Any())
-                {
-                    var damages = specialAbility.Damages.Select(d => d.Clone()).ToArray();
-                    var damageType = mundaneWeapon.Damages[0].Type;
-
-                    foreach (var damage in damages)
-                    {
-                        if (string.IsNullOrEmpty(damage.Type))
-                        {
-                            damage.Type = damageType;
-                        }
-                    }
-
-                    mundaneWeapon.Damages.AddRange(damages);
-
-                    if (mundaneWeapon.SecondaryHasAbilities)
-                    {
-                        var secondaryDamages = specialAbility.Damages.Select(d => d.Clone()).ToArray();
-                        var secondaryDamageType = mundaneWeapon.SecondaryDamages[0].Type;
-
-                        foreach (var damage in secondaryDamages)
-                        {
-                            if (string.IsNullOrEmpty(damage.Type))
-                            {
-                                damage.Type = secondaryDamageType;
-                            }
-                        }
-
-                        mundaneWeapon.SecondaryDamages.AddRange(secondaryDamages);
-                    }
-                }
-
-                if (specialAbility.CriticalDamages.Any())
-                {
-                    var damageType = mundaneWeapon.CriticalDamages[0].Type;
-                    foreach (var damage in specialAbility.CriticalDamages[mundaneWeapon.CriticalMultiplier])
-                    {
-                        if (string.IsNullOrEmpty(damage.Type))
-                        {
-                            damage.Type = damageType;
-                        }
-                    }
-
-                    mundaneWeapon.CriticalDamages.AddRange(specialAbility.CriticalDamages[mundaneWeapon.CriticalMultiplier]);
-
-                    if (mundaneWeapon.SecondaryHasAbilities)
-                    {
-                        foreach (var damage in specialAbility.CriticalDamages[mundaneWeapon.SecondaryCriticalMultiplier])
-                        {
-                            if (string.IsNullOrEmpty(damage.Type))
-                            {
-                                damage.Type = damageType;
-                            }
-                        }
-
-                        mundaneWeapon.SecondaryCriticalDamages.AddRange(specialAbility.CriticalDamages[mundaneWeapon.SecondaryCriticalMultiplier]);
-                    }
-                }
-
-                if (specialAbility.Name == SpecialAbilityConstants.Keen)
-                {
-                    mundaneWeapon.ThreatRange *= 2;
-                }
-            }
-
-            return mundaneWeapon;
+            weapon = specialAbilitiesGenerator.ApplyAbilitiesToWeapon(weapon);
+            return weapon;
         }
 
         public Item Generate(Item template, bool allowRandomDecoration = false)
         {
             var rod = template.Clone();
-            rod.BaseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.ItemGroups, rod.Name);
+            rod.BaseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, rod.Name);
             rod.IsMagical = true;
             rod.Quantity = 1;
             rod.ItemType = ItemTypeConstants.Rod;
@@ -199,11 +131,18 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             var results = GetAllResults();
             var result = results.First(r => rod.NameMatches(r.Type));
             rod.Magic.Bonus = result.Amount;
+            rod.Attributes = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Rod), rod.Name);
 
-            var tablename = string.Format(TableNameConstants.Collections.Formattable.ITEMTYPEAttributes, ItemTypeConstants.Rod);
-            rod.Attributes = collectionsSelector.SelectFrom(Config.Name, tablename, rod.Name);
+            var weapons = WeaponConstants.GetAllMelee(false, false);
+            var weaponBaseNames = weapons.Intersect(rod.BaseNames);
+            if (weaponBaseNames.Any())
+            {
+                var weaponName = weaponBaseNames.First();
+                var mundaneWeaponGenerator = justInTimeFactory.Build<MundaneItemGenerator>(ItemTypeConstants.Weapon);
+                var mundaneWeapon = mundaneWeaponGenerator.Generate(weaponName, [.. rod.Traits]) as Weapon;
 
-            rod.Magic.SpecialAbilities = specialAbilitiesGenerator.GenerateFor(rod.Magic.SpecialAbilities);
+                rod.Magic.SpecialAbilities = specialAbilitiesGenerator.GenerateFor(rod.Magic.SpecialAbilities, mundaneWeapon.CriticalMultiplier);
+            }
 
             foreach (var trait in template.Traits)
             {
@@ -215,13 +154,13 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return rod.SmartClone();
         }
 
-        private IEnumerable<TypeAndAmountSelection> GetAllResults()
+        private IEnumerable<TypeAndAmountDataSelection> GetAllResults()
         {
-            var tablename = string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, PowerConstants.Medium, ItemTypeConstants.Rod);
-            var mediumResults = typeAndAmountPercentileSelector.SelectAllFrom(tablename);
+            var tablename = TableNameConstants.Percentiles.POWERITEMTYPEs(PowerConstants.Medium, ItemTypeConstants.Rod);
+            var mediumResults = typeAndAmountPercentileSelector.SelectAllFrom(Config.Name, tablename);
 
-            tablename = string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, PowerConstants.Major, ItemTypeConstants.Rod);
-            var majorResults = typeAndAmountPercentileSelector.SelectAllFrom(tablename);
+            tablename = TableNameConstants.Percentiles.POWERITEMTYPEs(PowerConstants.Major, ItemTypeConstants.Rod);
+            var majorResults = typeAndAmountPercentileSelector.SelectAllFrom(Config.Name, tablename);
 
             return mediumResults.Union(majorResults);
         }
@@ -232,7 +171,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             if (rods.Contains(itemName))
                 return itemName;
 
-            var rodFromBaseName = collectionsSelector.FindCollectionOf(Config.Name, TableNameConstants.Collections.Set.ItemGroups, itemName, rods.ToArray());
+            var rodFromBaseName = collectionsSelector.FindCollectionOf(Config.Name, TableNameConstants.Collections.ItemGroups, itemName, rods.ToArray());
 
             return rodFromBaseName;
         }

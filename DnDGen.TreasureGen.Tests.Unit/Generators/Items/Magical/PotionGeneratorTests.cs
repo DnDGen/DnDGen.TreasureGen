@@ -1,9 +1,10 @@
-﻿using DnDGen.Infrastructure.Selectors.Collections;
+﻿using DnDGen.Infrastructure.Models;
+using DnDGen.Infrastructure.Selectors.Collections;
+using DnDGen.Infrastructure.Selectors.Percentiles;
 using DnDGen.TreasureGen.Generators.Items.Magical;
 using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
 using DnDGen.TreasureGen.Selectors.Percentiles;
-using DnDGen.TreasureGen.Selectors.Selections;
 using DnDGen.TreasureGen.Tables;
 using Moq;
 using NUnit.Framework;
@@ -17,7 +18,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
     public class PotionGeneratorTests
     {
         private MagicalItemGenerator potionGenerator;
-        private Mock<ITypeAndAmountPercentileSelector> mockTypeAndAmountPercentileSelector;
+        private Mock<IPercentileTypeAndAmountSelector> mockTypeAndAmountPercentileSelector;
         private string power;
         private ItemVerifier itemVerifier;
         private Mock<ICollectionSelector> mockCollectionsSelector;
@@ -26,7 +27,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
         [SetUp]
         public void Setup()
         {
-            mockTypeAndAmountPercentileSelector = new Mock<ITypeAndAmountPercentileSelector>();
+            mockTypeAndAmountPercentileSelector = new Mock<IPercentileTypeAndAmountSelector>();
             mockCollectionsSelector = new Mock<ICollectionSelector>();
             mockReplacementSelector = new Mock<IReplacementSelector>();
             potionGenerator = new PotionGenerator(
@@ -35,13 +36,15 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
                 mockReplacementSelector.Object);
             itemVerifier = new ItemVerifier();
 
-            var result = new TypeAndAmountSelection();
-            result.Amount = 9266;
-            result.Type = "potion";
+            var result = new TypeAndAmountDataSelection
+            {
+                AmountAsDouble = 9266,
+                Type = "potion"
+            };
             power = "power";
 
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, power, ItemTypeConstants.Potion);
-            mockTypeAndAmountPercentileSelector.Setup(s => s.SelectFrom(tableName)).Returns(result);
+            var tableName = TableNameConstants.Percentiles.POWERITEMTYPEs(power, ItemTypeConstants.Potion);
+            mockTypeAndAmountPercentileSelector.Setup(s => s.SelectFrom(Config.Name, tableName)).Returns(result);
         }
 
         [Test]
@@ -90,20 +93,20 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
         [Test]
         public void GenerateFromName()
         {
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, power, ItemTypeConstants.Potion);
-            mockTypeAndAmountPercentileSelector.Setup(s => s.SelectAllFrom(tableName)).Returns(new[]
-            {
-                new TypeAndAmountSelection { Amount = 666, Type = "wrong potion" },
-                new TypeAndAmountSelection { Amount = 90210, Type = "potion" },
-                new TypeAndAmountSelection { Amount = 42, Type = "other potion" },
-            });
+            var tableName = TableNameConstants.Percentiles.POWERITEMTYPEs(power, ItemTypeConstants.Potion);
+            mockTypeAndAmountPercentileSelector.Setup(s => s.SelectAllFrom(Config.Name, tableName)).Returns(
+            [
+                new TypeAndAmountDataSelection { AmountAsDouble = 666, Type = "wrong potion" },
+                new TypeAndAmountDataSelection { AmountAsDouble = 90210, Type = "potion" },
+                new TypeAndAmountDataSelection { AmountAsDouble = 42, Type = "other potion" },
+            ]);
 
             mockCollectionsSelector
-                .Setup(s => s.SelectRandomFrom(It.IsAny<IEnumerable<TypeAndAmountSelection>>()))
-                .Returns((IEnumerable<TypeAndAmountSelection> c) => c.Last());
+                .Setup(s => s.SelectRandomFrom(It.IsAny<IEnumerable<TypeAndAmountDataSelection>>()))
+                .Returns((IEnumerable<TypeAndAmountDataSelection> c) => c.Last());
 
             mockCollectionsSelector
-                .Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.Set.PowerGroups, "potion"))
+                .Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.PowerGroups, "potion"))
                 .Returns(new[] { "wrong power", power, "other power" });
 
             var potion = potionGenerator.Generate(power, "potion");
@@ -119,20 +122,20 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
         [Test]
         public void GenerateFromName_WithTraits()
         {
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, power, ItemTypeConstants.Potion);
-            mockTypeAndAmountPercentileSelector.Setup(s => s.SelectAllFrom(tableName)).Returns(new[]
-            {
-                new TypeAndAmountSelection { Amount = 666, Type = "wrong potion" },
-                new TypeAndAmountSelection { Amount = 90210, Type = "potion" },
-                new TypeAndAmountSelection { Amount = 42, Type = "other potion" },
-            });
+            var tableName = TableNameConstants.Percentiles.POWERITEMTYPEs(power, ItemTypeConstants.Potion);
+            mockTypeAndAmountPercentileSelector.Setup(s => s.SelectAllFrom(Config.Name, tableName)).Returns(
+            [
+                new TypeAndAmountDataSelection { AmountAsDouble = 666, Type = "wrong potion" },
+                new TypeAndAmountDataSelection { AmountAsDouble = 90210, Type = "potion" },
+                new TypeAndAmountDataSelection { AmountAsDouble = 42, Type = "other potion" },
+            ]);
 
             mockCollectionsSelector
-                .Setup(s => s.SelectRandomFrom(It.IsAny<IEnumerable<TypeAndAmountSelection>>()))
-                .Returns((IEnumerable<TypeAndAmountSelection> c) => c.Last());
+                .Setup(s => s.SelectRandomFrom(It.IsAny<IEnumerable<TypeAndAmountDataSelection>>()))
+                .Returns((IEnumerable<TypeAndAmountDataSelection> c) => c.Last());
 
             mockCollectionsSelector
-                .Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.Set.PowerGroups, "potion"))
+                .Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.PowerGroups, "potion"))
                 .Returns(new[] { "wrong power", power, "other power" });
 
             var potion = potionGenerator.Generate(power, "potion", "trait 1", "trait 2");
@@ -151,21 +154,21 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
         [Test]
         public void GenerateFromName_MultipleOfPower()
         {
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, power, ItemTypeConstants.Potion);
-            mockTypeAndAmountPercentileSelector.Setup(s => s.SelectAllFrom(tableName)).Returns(new[]
-            {
-                new TypeAndAmountSelection { Amount = 666, Type = "wrong potion" },
-                new TypeAndAmountSelection { Amount = 90210, Type = "potion" },
-                new TypeAndAmountSelection { Amount = 42, Type = "potion" },
-            });
+            var tableName = TableNameConstants.Percentiles.POWERITEMTYPEs(power, ItemTypeConstants.Potion);
+            mockTypeAndAmountPercentileSelector.Setup(s => s.SelectAllFrom(Config.Name, tableName)).Returns(
+            [
+                new TypeAndAmountDataSelection { AmountAsDouble = 666, Type = "wrong potion" },
+                new TypeAndAmountDataSelection { AmountAsDouble = 90210, Type = "potion" },
+                new TypeAndAmountDataSelection { AmountAsDouble = 42, Type = "potion" },
+            ]);
 
             mockCollectionsSelector
-                .Setup(s => s.SelectRandomFrom(It.IsAny<IEnumerable<TypeAndAmountSelection>>()))
-                .Returns((IEnumerable<TypeAndAmountSelection> c) => c.Last());
+                .Setup(s => s.SelectRandomFrom(It.IsAny<IEnumerable<TypeAndAmountDataSelection>>()))
+                .Returns((IEnumerable<TypeAndAmountDataSelection> c) => c.Last());
 
             mockCollectionsSelector
-                .Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.Set.PowerGroups, "potion"))
-                .Returns(new[] { "wrong power", power, "other power" });
+                .Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.PowerGroups, "potion"))
+                .Returns(["wrong power", power, "other power"]);
 
             var potion = potionGenerator.Generate(power, "potion");
             Assert.That(potion.Attributes, Contains.Item(AttributeConstants.OneTimeUse));
@@ -180,21 +183,21 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
         [Test]
         public void GenerateFromName_NoneOfPower()
         {
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, power, ItemTypeConstants.Potion);
-            mockTypeAndAmountPercentileSelector.Setup(s => s.SelectAllFrom(tableName)).Returns(new[]
-            {
-                new TypeAndAmountSelection { Amount = 666, Type = "wrong potion" },
-                new TypeAndAmountSelection { Amount = 90210, Type = "potion" },
-                new TypeAndAmountSelection { Amount = 42, Type = "other potion" },
-            });
+            var tableName = TableNameConstants.Percentiles.POWERITEMTYPEs(power, ItemTypeConstants.Potion);
+            mockTypeAndAmountPercentileSelector.Setup(s => s.SelectAllFrom(Config.Name, tableName)).Returns(
+            [
+                new TypeAndAmountDataSelection { AmountAsDouble = 666, Type = "wrong potion" },
+                new TypeAndAmountDataSelection { AmountAsDouble = 90210, Type = "potion" },
+                new TypeAndAmountDataSelection { AmountAsDouble = 42, Type = "other potion" },
+            ]);
 
             mockCollectionsSelector
-                .Setup(s => s.SelectRandomFrom(It.IsAny<IEnumerable<TypeAndAmountSelection>>()))
-                .Returns((IEnumerable<TypeAndAmountSelection> c) => c.Last());
+                .Setup(s => s.SelectRandomFrom(It.IsAny<IEnumerable<TypeAndAmountDataSelection>>()))
+                .Returns((IEnumerable<TypeAndAmountDataSelection> c) => c.Last());
 
             mockCollectionsSelector
-                .Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.Set.PowerGroups, "potion"))
-                .Returns(new[] { power, "wrong power" });
+                .Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.PowerGroups, "potion"))
+                .Returns([power, "wrong power"]);
 
             var potion = potionGenerator.Generate("other power", "potion");
             Assert.That(potion.Attributes, Contains.Item(AttributeConstants.OneTimeUse));
@@ -209,29 +212,29 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
         [Test]
         public void BUG_GenerateFromName_NeedsReplacement()
         {
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, power, ItemTypeConstants.Potion);
-            mockTypeAndAmountPercentileSelector.Setup(s => s.SelectAllFrom(tableName)).Returns(new[]
-            {
-                new TypeAndAmountSelection { Amount = 666, Type = "wrong potion" },
-                new TypeAndAmountSelection { Amount = 90210, Type = "potion" },
-                new TypeAndAmountSelection { Amount = 42, Type = "other potion" },
-            });
+            var tableName = TableNameConstants.Percentiles.POWERITEMTYPEs(power, ItemTypeConstants.Potion);
+            mockTypeAndAmountPercentileSelector.Setup(s => s.SelectAllFrom(Config.Name, tableName)).Returns(
+            [
+                new TypeAndAmountDataSelection { AmountAsDouble = 666, Type = "wrong potion" },
+                new TypeAndAmountDataSelection { AmountAsDouble = 90210, Type = "potion" },
+                new TypeAndAmountDataSelection { AmountAsDouble = 42, Type = "other potion" },
+            ]);
 
             mockCollectionsSelector
-                .Setup(s => s.SelectRandomFrom(It.IsAny<IEnumerable<TypeAndAmountSelection>>()))
-                .Returns((IEnumerable<TypeAndAmountSelection> c) => c.Last());
+                .Setup(s => s.SelectRandomFrom(It.IsAny<IEnumerable<TypeAndAmountDataSelection>>()))
+                .Returns((IEnumerable<TypeAndAmountDataSelection> c) => c.Last());
 
             mockReplacementSelector
                 .Setup(s => s.SelectAll("needs replacement", false))
-                .Returns(new[]
-                {
+                .Returns(
+                [
                     "other wrong potion",
                     "potion",
-                });
+                ]);
 
             mockCollectionsSelector
-                .Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.Set.PowerGroups, "needs replacement"))
-                .Returns(new[] { "wrong power", power, "other power" });
+                .Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.PowerGroups, "needs replacement"))
+                .Returns(["wrong power", power, "other power"]);
 
             var potion = potionGenerator.Generate(power, "needs replacement");
             Assert.That(potion.Attributes, Contains.Item(AttributeConstants.OneTimeUse));

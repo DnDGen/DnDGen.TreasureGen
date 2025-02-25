@@ -3,37 +3,37 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content>Chain shirt,0</content>
+        <content>Chain shirt@0</content>
         <upper>25</upper>
     </percentile>
     <percentile>
         <lower>26</lower>
-        <content>Full plate,0</content>
+        <content>Full plate@0</content>
         <upper>45</upper>
     </percentile>
     <percentile>
         <lower>46</lower>
-        <content>Elven Chain,0</content>
+        <content>Elven Chain@0</content>
         <upper>57</upper>
     </percentile>
     <percentile>
         <lower>58</lower>
-        <content>Rhino Hide,2</content>
+        <content>Rhino Hide@2</content>
         <upper>67</upper>
     </percentile>
     <percentile>
         <lower>68</lower>
-        <content>Breastplate,0</content>
+        <content>Breastplate@0</content>
         <upper>82</upper>
     </percentile>
     <percentile>
         <lower>83</lower>
-        <content>Dwarven Plate,0</content>
+        <content>Dwarven Plate@0</content>
         <upper>97</upper>
     </percentile>
     <percentile>
         <lower>98</lower>
-        <content>Banded Mail of Luck,3</content>
+        <content>Banded Mail of Luck@3</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

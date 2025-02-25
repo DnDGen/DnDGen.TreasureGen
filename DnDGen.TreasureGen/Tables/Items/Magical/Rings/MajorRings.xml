@@ -3,147 +3,147 @@
 <percentiles>
   <percentile>
     <lower>1</lower>
-    <content>Ring of Minor ENERGY Resistance,0</content>
+    <content>Ring of Minor ENERGY Resistance@0</content>
     <upper>2</upper>
   </percentile>
   <percentile>
     <lower>3</lower>
-    <content>Ring of Protection,3</content>
+    <content>Ring of Protection@3</content>
     <upper>7</upper>
   </percentile>
   <percentile>
     <lower>8</lower>
-    <content>Ring of Minor Spell Storing,0</content>
+    <content>Ring of Minor Spell Storing@0</content>
     <upper>10</upper>
   </percentile>
   <percentile>
     <lower>11</lower>
-    <content>Ring of Invisibility,0</content>
+    <content>Ring of Invisibility@0</content>
     <upper>15</upper>
   </percentile>
   <percentile>
     <lower>16</lower>
-    <content>Ring of Wizardry (I),0</content>
+    <content>Ring of Wizardry (I)@0</content>
     <upper>19</upper>
   </percentile>
   <percentile>
     <lower>20</lower>
-    <content>Ring of Evasion,0</content>
+    <content>Ring of Evasion@0</content>
     <upper>25</upper>
   </percentile>
   <percentile>
     <lower>26</lower>
-    <content>Ring of X-ray Vision,0</content>
+    <content>Ring of X-ray Vision@0</content>
     <upper>28</upper>
   </percentile>
   <percentile>
     <lower>29</lower>
-    <content>Ring of Blinking,0</content>
+    <content>Ring of Blinking@0</content>
     <upper>32</upper>
   </percentile>
   <percentile>
     <lower>33</lower>
-    <content>Ring of Major ENERGY Resistance,0</content>
+    <content>Ring of Major ENERGY Resistance@0</content>
     <upper>39</upper>
   </percentile>
   <percentile>
     <lower>40</lower>
-    <content>Ring of Protection,4</content>
+    <content>Ring of Protection@4</content>
     <upper>49</upper>
   </percentile>
   <percentile>
     <lower>50</lower>
-    <content>Ring of Wizardry (II),0</content>
+    <content>Ring of Wizardry (II)@0</content>
     <upper>55</upper>
   </percentile>
   <percentile>
     <lower>56</lower>
-    <content>Ring of Freedom of Movement,0</content>
+    <content>Ring of Freedom of Movement@0</content>
     <upper>60</upper>
   </percentile>
   <percentile>
     <lower>61</lower>
-    <content>Ring of Greater ENERGY Resistance,0</content>
+    <content>Ring of Greater ENERGY Resistance@0</content>
     <upper>63</upper>
   </percentile>
   <percentile>
     <lower>64</lower>
-    <content>Ring of Friend Shield (pair),0</content>
+    <content>Ring of Friend Shield (pair)@0</content>
     <upper>65</upper>
   </percentile>
   <percentile>
     <lower>66</lower>
-    <content>Ring of Protection,5</content>
+    <content>Ring of Protection@5</content>
     <upper>70</upper>
   </percentile>
   <percentile>
     <lower>71</lower>
-    <content>Ring of Shooting Stars,0</content>
+    <content>Ring of Shooting Stars@0</content>
     <upper>74</upper>
   </percentile>
   <percentile>
     <lower>75</lower>
-    <content>Ring of Spell Storing,0</content>
+    <content>Ring of Spell Storing@0</content>
     <upper>79</upper>
   </percentile>
   <percentile>
     <lower>80</lower>
-    <content>Ring of Wizardry (III),0</content>
+    <content>Ring of Wizardry (III)@0</content>
     <upper>83</upper>
   </percentile>
   <percentile>
     <lower>84</lower>
-    <content>Ring of Telekinesis,0</content>
+    <content>Ring of Telekinesis@0</content>
     <upper>86</upper>
   </percentile>
   <percentile>
     <lower>87</lower>
-    <content>Ring of Regeneration,0</content>
+    <content>Ring of Regeneration@0</content>
     <upper>88</upper>
   </percentile>
   <percentile>
     <lower>89</lower>
-    <content>Ring of Three Wishes,0</content>
+    <content>Ring of Three Wishes@0</content>
     <upper>89</upper>
   </percentile>
   <percentile>
     <lower>90</lower>
-    <content>Ring of Spell Turning,0</content>
+    <content>Ring of Spell Turning@0</content>
     <upper>92</upper>
   </percentile>
   <percentile>
     <lower>93</lower>
-    <content>Ring of Wizardry (IV),0</content>
+    <content>Ring of Wizardry (IV)@0</content>
     <upper>94</upper>
   </percentile>
     <percentile>
         <lower>95</lower>
-        <content>Ring of Djinni Calling,0</content>
+        <content>Ring of Djinni Calling@0</content>
         <upper>95</upper>
     </percentile>
     <percentile>
         <lower>96</lower>
-        <content>Ring of Elemental Command (Air),0</content>
+        <content>Ring of Elemental Command (Air)@0</content>
         <upper>96</upper>
     </percentile>
     <percentile>
         <lower>97</lower>
-        <content>Ring of Elemental Command (Earth),0</content>
+        <content>Ring of Elemental Command (Earth)@0</content>
         <upper>97</upper>
     </percentile>
     <percentile>
         <lower>98</lower>
-        <content>Ring of Elemental Command (Fire),0</content>
+        <content>Ring of Elemental Command (Fire)@0</content>
         <upper>98</upper>
     </percentile>
     <percentile>
         <lower>99</lower>
-        <content>Ring of Elemental Command (Water),0</content>
+        <content>Ring of Elemental Command (Water)@0</content>
         <upper>99</upper>
     </percentile>
     <percentile>
         <lower>100</lower>
-        <content>Ring of Major Spell Storing,0</content>
+        <content>Ring of Major Spell Storing@0</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

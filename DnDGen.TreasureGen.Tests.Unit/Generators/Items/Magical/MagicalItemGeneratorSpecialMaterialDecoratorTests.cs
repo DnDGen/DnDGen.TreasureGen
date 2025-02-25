@@ -34,7 +34,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
 
             mockInnerGenerator.Setup(g => g.GenerateRandom("power")).Returns(item);
             mockCollectionsSelector
-                .Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.Set.SpecialMaterials, TraitConstants.Masterwork))
+                .Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.SpecialMaterials, TraitConstants.Masterwork))
                 .Returns(masterworkMaterials);
         }
 

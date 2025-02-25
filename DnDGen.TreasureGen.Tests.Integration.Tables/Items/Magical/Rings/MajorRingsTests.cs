@@ -1,7 +1,7 @@
-﻿using NUnit.Framework;
-using DnDGen.TreasureGen.Tables;
-using DnDGen.TreasureGen.Items;
+﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
+using DnDGen.TreasureGen.Tables;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Rings
 {
@@ -10,7 +10,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Rings
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, PowerConstants.Major, ItemTypeConstants.Ring); }
+            get { return TableNameConstants.Percentiles.POWERITEMTYPEs(PowerConstants.Major, ItemTypeConstants.Ring); }
         }
 
         [Test]
@@ -45,23 +45,18 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Rings
         [TestCase(RingConstants.Wizardry_III, 0, 80, 83)]
         [TestCase(RingConstants.Telekinesis, 0, 84, 86)]
         [TestCase(RingConstants.Regeneration, 0, 87, 88)]
+        [TestCase(RingConstants.ThreeWishes, 0, 89, 89)]
         [TestCase(RingConstants.SpellTurning, 0, 90, 92)]
         [TestCase(RingConstants.Wizardry_IV, 0, 93, 94)]
-        public override void TypeAndAmountPercentile(string type, int amount, int lower, int upper)
+        [TestCase(RingConstants.DjinniCalling, 0, 95, 95)]
+        [TestCase(RingConstants.ElementalCommand_Air, 0, 96, 96)]
+        [TestCase(RingConstants.ElementalCommand_Earth, 0, 97, 97)]
+        [TestCase(RingConstants.ElementalCommand_Fire, 0, 98, 98)]
+        [TestCase(RingConstants.ElementalCommand_Water, 0, 99, 99)]
+        [TestCase(RingConstants.SpellStoring_Major, 0, 100, 100)]
+        public void MajorRingsPercentile(string type, int amount, int lower, int upper)
         {
-            base.TypeAndAmountPercentile(type, amount, lower, upper);
-        }
-
-        [TestCase(RingConstants.ThreeWishes, 0, 89)]
-        [TestCase(RingConstants.DjinniCalling, 0, 95)]
-        [TestCase(RingConstants.ElementalCommand_Air, 0, 96)]
-        [TestCase(RingConstants.ElementalCommand_Earth, 0, 97)]
-        [TestCase(RingConstants.ElementalCommand_Fire, 0, 98)]
-        [TestCase(RingConstants.ElementalCommand_Water, 0, 99)]
-        [TestCase(RingConstants.SpellStoring_Major, 0, 100)]
-        public override void TypeAndAmountPercentile(string type, int amount, int roll)
-        {
-            base.TypeAndAmountPercentile(type, amount, roll);
+            AssertTypeAndAmountPercentile(type, amount, lower, upper);
         }
     }
 }

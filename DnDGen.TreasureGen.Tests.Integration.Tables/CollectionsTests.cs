@@ -1,7 +1,6 @@
 ﻿using DnDGen.Infrastructure.Mappers.Collections;
 using NUnit.Framework;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables
 {
@@ -18,35 +17,18 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables
             table = CollectionMapper.Map(Name, tableName);
         }
 
-        protected IEnumerable<string> GetKeys()
-        {
-            return table.Keys;
-        }
-
-        protected IEnumerable<string> GetCollection(string name)
-        {
-            return table[name];
-        }
-
-        public virtual void Collections(string name, params string[] items)
+        protected void AssertCollection(string name, params string[] items)
         {
             Assert.That(table.Keys, Contains.Item(name), tableName);
-            AssertCollection(table[name], items);
+            AssertCollection(table[name], items, name);
         }
 
-        protected void AssertCollection(IEnumerable<string> actual, IEnumerable<string> expected)
+        protected void AssertCollection(IEnumerable<string> actual, IEnumerable<string> expected, string message = null)
         {
-            Assert.That(actual, Is.EquivalentTo(expected));
-
-            foreach (var item in expected)
-            {
-                var actualCount = actual.Count(a => a == item);
-                var expectedCount = expected.Count(a => a == item);
-                Assert.That(actualCount, Is.EqualTo(expectedCount), item);
-            }
+            Assert.That(actual, Is.EquivalentTo(expected), message);
         }
 
-        public virtual void OrderedCollections(string name, params string[] items)
+        protected void AssertOrderedCollections(string name, params string[] items)
         {
             Assert.That(table.Keys, Contains.Item(name), tableName);
             AssertOrderedCollection(table[name], items);
@@ -55,20 +37,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables
         protected void AssertOrderedCollection(IEnumerable<string> actual, IEnumerable<string> expected)
         {
             AssertCollection(actual, expected);
-
-            if (actual.Count() <= 10 && expected.Count() <= 10)
-            {
-                Assert.That(actual, Is.EqualTo(expected));
-                return;
-            }
-
-            var expectedArray = expected.ToArray();
-            var actualArray = actual.ToArray();
-
-            for (var i = 0; i < expectedArray.Length; i++)
-            {
-                Assert.That(actualArray[i], Is.EqualTo(expectedArray[i]), $"Index {i}");
-            }
+            Assert.That(actual, Is.EqualTo(expected));
         }
     }
 }

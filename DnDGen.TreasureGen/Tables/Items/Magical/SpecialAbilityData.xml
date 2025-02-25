@@ -1,0 +1,420 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<collections>
+    <collection>
+        <name>Acid Resistance</name>
+        <entry>0@Acid Resistance@1</entry>
+    </collection>
+    <collection>
+        <name>Anarchic</name>
+        <entry>2@Anarchic@0</entry>
+    </collection>
+    <collection>
+        <name>Animated</name>
+        <entry>2@Animated@0</entry>
+    </collection>
+    <collection>
+        <name>Arrow Catching</name>
+        <entry>1@Arrow Catching@0</entry>
+    </collection>
+    <collection>
+        <name>Arrow Deflection</name>
+        <entry>2@Arrow Deflection@0</entry>
+    </collection>
+    <collection>
+        <name>Axiomatic</name>
+        <entry>2@Axiomatic@0</entry>
+    </collection>
+    <collection>
+        <name>Aberrationbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+  <collection>
+    <name>Shapeshifterbane</name>
+    <entry>1@Bane@0</entry>
+  </collection>
+    <collection>
+        <name>Animalbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Constructbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Dragonbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Elementalbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Feybane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Giantbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Aquatic-humanoidbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Dwarfbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Elfbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Gnollbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Gnomebane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Goblinoidbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Halflingbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Humanbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Reptilian-humanoidbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Orcbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Magical-beastbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Monstrous-humanoidbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Oozebane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Air-outsiderbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Chaotic-outsiderbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Earth-outsiderbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Fire-outsiderbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Lawful-outsiderbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Good-outsiderbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Evil-outsiderbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Water-outsiderbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Plantbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Undeadbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Verminbane</name>
+        <entry>1@Bane@0</entry>
+    </collection>
+    <collection>
+        <name>Bashing</name>
+        <entry>1@Bashing@0</entry>
+    </collection>
+    <collection>
+        <name>Blinding</name>
+        <entry>1@Blinding@0</entry>
+    </collection>
+    <collection>
+        <name>Brilliant Energy</name>
+        <entry>4@Brilliant Energy@0</entry>
+    </collection>
+    <collection>
+        <name>Cold Resistance</name>
+        <entry>0@Cold Resistance@1</entry>
+    </collection>
+    <collection>
+        <name>Dancing</name>
+        <entry>4@Dancing@0</entry>
+    </collection>
+    <collection>
+        <name>Defending</name>
+        <entry>1@Defending@0</entry>
+    </collection>
+    <collection>
+        <name>Disruption</name>
+        <entry>2@Disruption@0</entry>
+    </collection>
+    <collection>
+        <name>Distance</name>
+        <entry>1@Distance@0</entry>
+    </collection>
+    <collection>
+        <name>Electricity Resistance</name>
+        <entry>0@Electricity Resistance@1</entry>
+    </collection>
+    <collection>
+        <name>Etherealness</name>
+        <entry>0@Etherealness@0</entry>
+    </collection>
+    <collection>
+        <name>Fire Resistance</name>
+        <entry>0@Fire Resistance@1</entry>
+    </collection>
+    <collection>
+        <name>Flaming Burst</name>
+        <entry>2@Flaming@2</entry>
+    </collection>
+    <collection>
+        <name>Flaming</name>
+        <entry>1@Flaming@1</entry>
+    </collection>
+    <collection>
+        <name>Frost</name>
+        <entry>1@Frost@1</entry>
+    </collection>
+    <collection>
+        <name>Ghost Touch (armor)</name>
+        <entry>3@Ghost Touch@0</entry>
+    </collection>
+    <collection>
+        <name>Ghost Touch (weapon)</name>
+        <entry>1@Ghost Touch@0</entry>
+    </collection>
+    <collection>
+        <name>Glamered</name>
+        <entry>0@Glamered@0</entry>
+    </collection>
+    <collection>
+        <name>Greater Acid Resistance</name>
+        <entry>0@Acid Resistance@3</entry>
+    </collection>
+    <collection>
+        <name>Greater Cold Resistance</name>
+        <entry>0@Cold Resistance@3</entry>
+    </collection>
+    <collection>
+        <name>Greater Electricity Resistance</name>
+        <entry>0@Electricity Resistance@3</entry>
+    </collection>
+    <collection>
+        <name>Greater Fire Resistance</name>
+        <entry>0@Fire Resistance@3</entry>
+    </collection>
+    <collection>
+        <name>Greater Slick</name>
+        <entry>0@Slick@3</entry>
+    </collection>
+    <collection>
+        <name>Greater Shadow</name>
+        <entry>0@Shadow@3</entry>
+    </collection>
+    <collection>
+        <name>Greater Silent Moves</name>
+        <entry>0@Silent Moves@3</entry>
+    </collection>
+    <collection>
+        <name>Greater Sonic Resistance</name>
+        <entry>0@Sonic Resistance@3</entry>
+    </collection>
+    <collection>
+        <name>Heavy Fortification</name>
+        <entry>5@Fortification@3</entry>
+    </collection>
+    <collection>
+        <name>Holy</name>
+        <entry>2@Holy@0</entry>
+    </collection>
+    <collection>
+        <name>Icy Burst</name>
+        <entry>2@Frost@2</entry>
+    </collection>
+    <collection>
+        <name>Improved Acid Resistance</name>
+        <entry>0@Acid Resistance@2</entry>
+    </collection>
+    <collection>
+        <name>Improved Cold Resistance</name>
+        <entry>0@Cold Resistance@2</entry>
+    </collection>
+    <collection>
+        <name>Improved Electricity Resistance</name>
+        <entry>0@Electricity Resistance@2</entry>
+    </collection>
+    <collection>
+        <name>Improved Fire Resistance</name>
+        <entry>0@Fire Resistance@2</entry>
+    </collection>
+    <collection>
+        <name>Improved Slick</name>
+        <entry>0@Slick@2</entry>
+    </collection>
+    <collection>
+        <name>Improved Shadow</name>
+        <entry>0@Shadow@2</entry>
+    </collection>
+    <collection>
+        <name>Improved Silent Moves</name>
+        <entry>0@Silent Moves@2</entry>
+    </collection>
+    <collection>
+        <name>Improved Sonic Resistance</name>
+        <entry>0@Sonic Resistance@2</entry>
+    </collection>
+    <collection>
+        <name>Invulnerability</name>
+        <entry>3@Invulnerability@0</entry>
+    </collection>
+    <collection>
+        <name>Keen</name>
+        <entry>1@Keen@0</entry>
+    </collection>
+    <collection>
+        <name>Ki Focus</name>
+        <entry>1@Ki Focus@0</entry>
+    </collection>
+    <collection>
+        <name>Light Fortification</name>
+        <entry>1@Fortification@1</entry>
+    </collection>
+    <collection>
+        <name>Merciful</name>
+        <entry>1@Merciful@0</entry>
+    </collection>
+    <collection>
+        <name>Mighty Cleaving</name>
+        <entry>1@Mighty Cleaving@0</entry>
+    </collection>
+    <collection>
+        <name>Moderate Fortification</name>
+        <entry>3@Fortification@2</entry>
+    </collection>
+    <collection>
+        <name>Reflecting</name>
+        <entry>5@Reflecting@0</entry>
+    </collection>
+    <collection>
+        <name>Returning</name>
+        <entry>1@Returning@0</entry>
+    </collection>
+    <collection>
+        <name>Seeking</name>
+        <entry>1@Seeking@0</entry>
+    </collection>
+    <collection>
+        <name>Shadow</name>
+        <entry>0@Shadow@1</entry>
+    </collection>
+    <collection>
+        <name>Shock</name>
+        <entry>1@Shock@1</entry>
+    </collection>
+    <collection>
+        <name>Shocking Burst</name>
+        <entry>2@Shock@2</entry>
+    </collection>
+    <collection>
+        <name>Silent Moves</name>
+        <entry>0@Silent Moves@1</entry>
+    </collection>
+    <collection>
+        <name>Slick</name>
+        <entry>0@Slick@1</entry>
+    </collection>
+    <collection>
+        <name>Sonic Resistance</name>
+        <entry>0@Sonic Resistance@1</entry>
+    </collection>
+    <collection>
+        <name>Speed</name>
+        <entry>3@Speed@0</entry>
+    </collection>
+    <collection>
+        <name>Spell Resistance (13)</name>
+        <entry>2@Spell Resistance@13</entry>
+    </collection>
+    <collection>
+        <name>Spell Resistance (15)</name>
+        <entry>3@Spell Resistance@15</entry>
+    </collection>
+    <collection>
+        <name>Spell Resistance (17)</name>
+        <entry>4@Spell Resistance@17</entry>
+    </collection>
+    <collection>
+        <name>Spell Resistance (19)</name>
+        <entry>5@Spell Resistance@19</entry>
+    </collection>
+    <collection>
+        <name>Spell Storing</name>
+        <entry>1@Spell Storing@0</entry>
+    </collection>
+    <collection>
+        <name>Throwing</name>
+        <entry>1@Throwing@0</entry>
+    </collection>
+    <collection>
+        <name>Thundering</name>
+        <entry>1@Thundering@0</entry>
+    </collection>
+    <collection>
+        <name>Undead Controlling</name>
+        <entry>0@Undead Controlling@0</entry>
+    </collection>
+    <collection>
+        <name>Unholy</name>
+        <entry>2@Unholy@0</entry>
+    </collection>
+    <collection>
+        <name>Vicious</name>
+        <entry>1@Vicious@0</entry>
+    </collection>
+    <collection>
+        <name>Vorpal</name>
+        <entry>5@Vorpal@0</entry>
+    </collection>
+    <collection>
+        <name>Wild</name>
+        <entry>3@Wild@0</entry>
+    </collection>
+    <collection>
+        <name>Wounding</name>
+        <entry>2@Wounding@0</entry>
+    </collection>
+</collections>

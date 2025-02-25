@@ -4,6 +4,6 @@ namespace DnDGen.TreasureGen.Selectors.Collections
 {
     internal interface IWeaponDataSelector
     {
-        WeaponSelection Select(string name);
+        WeaponDataSelection Select(string name, string size);
     }
 }

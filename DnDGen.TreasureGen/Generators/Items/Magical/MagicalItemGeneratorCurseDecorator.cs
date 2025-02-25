@@ -24,9 +24,9 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
                 var canBeSpecific = curseGenerator.ItemTypeCanBeSpecificCursedItem(item.ItemType);
 
                 do item.Magic.Curse = curseGenerator.GenerateCurse();
-                while (item.Magic.Curse == TableNameConstants.Percentiles.Set.SpecificCursedItems && !canBeSpecific);
+                while (item.Magic.Curse == TableNameConstants.Percentiles.SpecificCursedItems && !canBeSpecific);
 
-                if (item.Magic.Curse == TableNameConstants.Percentiles.Set.SpecificCursedItems && canBeSpecific)
+                if (item.Magic.Curse == TableNameConstants.Percentiles.SpecificCursedItems && canBeSpecific)
                 {
                     return curseGenerator.GenerateSpecificCursedItem(item.ItemType);
                 }
@@ -47,9 +47,9 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
                 var canBeSpecific = curseGenerator.CanBeSpecificCursedItem(itemName);
 
                 do item.Magic.Curse = curseGenerator.GenerateCurse();
-                while (item.Magic.Curse == TableNameConstants.Percentiles.Set.SpecificCursedItems && !canBeSpecific);
+                while (item.Magic.Curse == TableNameConstants.Percentiles.SpecificCursedItems && !canBeSpecific);
 
-                if (item.Magic.Curse == TableNameConstants.Percentiles.Set.SpecificCursedItems && canBeSpecific)
+                if (item.Magic.Curse == TableNameConstants.Percentiles.SpecificCursedItems && canBeSpecific)
                 {
                     var cursedItem = curseGenerator.Generate(itemName, traits);
                     return cursedItem;
@@ -69,7 +69,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             if (allowRandomDecoration && curseGenerator.HasCurse(item))
             {
                 do item.Magic.Curse = curseGenerator.GenerateCurse();
-                while (item.Magic.Curse == TableNameConstants.Percentiles.Set.SpecificCursedItems);
+                while (item.Magic.Curse == TableNameConstants.Percentiles.SpecificCursedItems);
             }
 
             return item;

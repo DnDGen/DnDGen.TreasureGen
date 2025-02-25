@@ -21,7 +21,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             var result = percentileSelector.SelectFrom(Config.Name, tableName);
 
             if (string.IsNullOrEmpty(result))
-                return Enumerable.Empty<string>();
+                return [];
 
             return result.Split(',');
         }
@@ -29,12 +29,12 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
         private string GetTableName(string itemType, IEnumerable<string> attributes)
         {
             if (attributes.Contains(AttributeConstants.Melee))
-                return string.Format(TableNameConstants.Percentiles.Formattable.ITEMTYPETraits, AttributeConstants.Melee);
+                return TableNameConstants.Percentiles.ITEMTYPETraits(AttributeConstants.Melee);
 
             if (attributes.Contains(AttributeConstants.Ranged))
-                return string.Format(TableNameConstants.Percentiles.Formattable.ITEMTYPETraits, AttributeConstants.Ranged);
+                return TableNameConstants.Percentiles.ITEMTYPETraits(AttributeConstants.Ranged);
 
-            return string.Format(TableNameConstants.Percentiles.Formattable.ITEMTYPETraits, itemType);
+            return TableNameConstants.Percentiles.ITEMTYPETraits(itemType);
         }
     }
 }

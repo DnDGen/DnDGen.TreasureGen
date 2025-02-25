@@ -1,6 +1,6 @@
-﻿using NUnit.Framework;
+﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Tables;
-using DnDGen.TreasureGen.Items;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical
 {
@@ -9,7 +9,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.POWERItems, PowerConstants.Medium); }
+            get { return TableNameConstants.Percentiles.POWERItems(PowerConstants.Medium); }
         }
 
         [Test]
@@ -33,9 +33,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical
         [TestCase(ItemTypeConstants.Staff, 66, 68)]
         [TestCase(ItemTypeConstants.Wand, 69, 83)]
         [TestCase(ItemTypeConstants.WondrousItem, 84, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        public void MediumItemsPercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
+            AssertPercentile(content, lower, upper);
         }
     }
 }

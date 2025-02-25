@@ -3,22 +3,22 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content>Buckler,0</content>
+        <content>Buckler@0</content>
         <upper>30</upper>
     </percentile>
     <percentile>
         <lower>31</lower>
-        <content>Heavy wooden shield,0</content>
+        <content>Heavy wooden shield@0</content>
         <upper>80</upper>
     </percentile>
     <percentile>
         <lower>81</lower>
-        <content>Heavy steel shield,0</content>
+        <content>Heavy steel shield@0</content>
         <upper>95</upper>
     </percentile>
     <percentile>
         <lower>96</lower>
-        <content>Caster's Shield,1</content>
+        <content>Caster's Shield@1</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

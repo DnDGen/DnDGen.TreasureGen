@@ -3,17 +3,17 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content></content>
+		<content>@0</content>
         <upper>2</upper>
     </percentile>
     <percentile>
         <lower>3</lower>
-        <content>Gem,4d10</content>
+        <content>Gem@4d10</content>
         <upper>38</upper>
     </percentile>
     <percentile>
         <lower>39</lower>
-        <content>Art,7d6</content>
+        <content>Art@7d6</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

@@ -3,47 +3,47 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content>3</content>
+        <content>Shield@3</content>
         <upper>8</upper>
     </percentile>
     <percentile>
         <lower>9</lower>
-        <content>3</content>
+        <content>Armor@3</content>
         <upper>16</upper>
     </percentile>
     <percentile>
         <lower>17</lower>
-        <content>4</content>
+        <content>Shield@4</content>
         <upper>27</upper>
     </percentile>
     <percentile>
         <lower>28</lower>
-        <content>4</content>
+        <content>Armor@4</content>
         <upper>38</upper>
     </percentile>
     <percentile>
         <lower>39</lower>
-        <content>5</content>
+        <content>Shield@5</content>
         <upper>49</upper>
     </percentile>
     <percentile>
         <lower>50</lower>
-        <content>5</content>
+        <content>Armor@5</content>
         <upper>57</upper>
     </percentile>
     <percentile>
         <lower>58</lower>
-        <content>Armor</content>
+        <content>Armor@-1</content>
         <upper>60</upper>
     </percentile>
     <percentile>
         <lower>61</lower>
-        <content>Armor</content>
+        <content>Shield@-1</content>
         <upper>63</upper>
     </percentile>
     <percentile>
         <lower>64</lower>
-        <content>SpecialAbility</content>
+        <content>SpecialAbility@0</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

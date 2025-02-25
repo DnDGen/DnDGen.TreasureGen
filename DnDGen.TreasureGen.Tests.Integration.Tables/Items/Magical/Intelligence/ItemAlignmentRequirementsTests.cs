@@ -10,7 +10,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
     {
         protected override string tableName
         {
-            get { return TableNameConstants.Collections.Set.ItemAlignmentRequirements; }
+            get { return TableNameConstants.Collections.ItemAlignmentRequirements; }
         }
 
         [TestCase(ArmorConstants.CelestialArmor, AlignmentConstants.Good)]
@@ -42,23 +42,23 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
         [TestCase(WondrousItemConstants.StoneOfWeight_Loadstone, AlignmentConstants.Evil)]
         [TestCase(WondrousItemConstants.VacousGrimoire, AlignmentConstants.Evil)]
         [TestCase(WeaponConstants.CursedMinus2Sword, AlignmentConstants.Evil)]
-        public override void Collections(string name, params string[] attributes)
+        public void Collection(string name, params string[] attributes)
         {
-            base.Collections(name, attributes);
+            base.AssertCollection(name, attributes);
         }
 
         [Test]
         public void HolyAvengerAlignmentRequirement()
         {
             var attributes = new[] { AlignmentConstants.LawfulGood };
-            base.Collections(WeaponConstants.HolyAvenger, attributes);
+            base.AssertCollection(WeaponConstants.HolyAvenger, attributes);
         }
 
         [Test]
         public void MaceOfBloodAlignmentRequirement()
         {
             var attributes = new[] { AlignmentConstants.ChaoticEvil };
-            base.Collections(WeaponConstants.MaceOfBlood, attributes);
+            base.AssertCollection(WeaponConstants.MaceOfBlood, attributes);
         }
 
         [Test]
@@ -99,7 +99,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
                 WeaponConstants.CursedMinus2Sword
             };
 
-            base.Collections("Items", items);
+            base.AssertCollection("Items", items);
         }
     }
 }

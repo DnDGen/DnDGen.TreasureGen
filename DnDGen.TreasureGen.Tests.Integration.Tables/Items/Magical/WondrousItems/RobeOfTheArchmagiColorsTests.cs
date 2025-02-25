@@ -8,7 +8,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.WondrousItem
     {
         protected override string tableName
         {
-            get { return TableNameConstants.Percentiles.Set.RobeOfTheArchmagiColors; }
+            get { return TableNameConstants.Percentiles.RobeOfTheArchmagiColors; }
         }
 
         [Test]
@@ -26,9 +26,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.WondrousItem
         [TestCase("White (Good)", 1, 45)]
         [TestCase("Gray (Neutral)", 46, 75)]
         [TestCase("Black (Evil)", 76, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        public void Percentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
+            base.AssertPercentile(content, lower, upper);
         }
     }
 }

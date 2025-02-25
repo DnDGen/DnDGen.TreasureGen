@@ -8,7 +8,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Scrolls.Arca
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.LevelXSPELLTYPESpells, 0, "Arcane"); }
+            get { return TableNameConstants.Percentiles.LevelXSPELLTYPESpells(0, "Arcane"); }
         }
 
         [Test]
@@ -45,9 +45,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Scrolls.Arca
         [TestCase("Resistance", 88, 94)]
         [TestCase("Summon Instrument", 95, 96)]
         [TestCase("Touch of Fatigue", 97, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        public void Level0ArcaneSpellsPercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
+            AssertPercentile(content, lower, upper);
         }
     }
 }

@@ -3,252 +3,252 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content>Potion of Blur,0</content>
+        <content>Potion of Blur@0</content>
         <upper>2</upper>
     </percentile>
     <percentile>
         <lower>3</lower>
-        <content>Potion of Cure Moderate Wounds,0</content>
+        <content>Potion of Cure Moderate Wounds@0</content>
         <upper>7</upper>
     </percentile>
     <percentile>
         <lower>8</lower>
-        <content>Potion of Darkvision,0</content>
+        <content>Potion of Darkvision@0</content>
         <upper>9</upper>
     </percentile>
     <percentile>
         <lower>10</lower>
-        <content>Potion of Invisibility,0</content>
+        <content>Potion of Invisibility@0</content>
         <upper>10</upper>
     </percentile>
     <percentile>
         <lower>11</lower>
-        <content>Oil of Invisibility,0</content>
+        <content>Oil of Invisibility@0</content>
         <upper>11</upper>
     </percentile>
     <percentile>
         <lower>12</lower>
-        <content>Potion of Lesser Restoration,0</content>
+        <content>Potion of Lesser Restoration@0</content>
         <upper>12</upper>
     </percentile>
     <percentile>
         <lower>13</lower>
-        <content>Potion of Remove Paralysis,0</content>
+        <content>Potion of Remove Paralysis@0</content>
         <upper>13</upper>
     </percentile>
     <percentile>
         <lower>14</lower>
-        <content>Potion of Shield of Faith,3</content>
+        <content>Potion of Shield of Faith@3</content>
         <upper>14</upper>
     </percentile>
     <percentile>
         <lower>15</lower>
-        <content>Potion of Undetectable Alignment,0</content>
+        <content>Potion of Undetectable Alignment@0</content>
         <upper>15</upper>
     </percentile>
     <percentile>
         <lower>16</lower>
-        <content>Potion of Barkskin,3</content>
+        <content>Potion of Barkskin@3</content>
         <upper>16</upper>
     </percentile>
     <percentile>
         <lower>17</lower>
-        <content>Potion of Shield of Faith,4</content>
+        <content>Potion of Shield of Faith@4</content>
         <upper>18</upper>
     </percentile>
     <percentile>
         <lower>19</lower>
-        <content>Potion of Resist ENERGY 20,0</content>
+        <content>Potion of Resist ENERGY 20@0</content>
         <upper>20</upper>
     </percentile>
     <percentile>
         <lower>21</lower>
-        <content>Potion of Cure Serious Wounds,0</content>
+        <content>Potion of Cure Serious Wounds@0</content>
         <upper>28</upper>
     </percentile>
     <percentile>
         <lower>29</lower>
-        <content>Oil of Daylight,0</content>
+        <content>Oil of Daylight@0</content>
         <upper>29</upper>
     </percentile>
     <percentile>
         <lower>30</lower>
-        <content>Potion of Displacement,0</content>
+        <content>Potion of Displacement@0</content>
         <upper>32</upper>
     </percentile>
     <percentile>
         <lower>33</lower>
-        <content>Oil of Flame Arrow,0</content>
+        <content>Oil of Flame Arrow@0</content>
         <upper>33</upper>
     </percentile>
     <percentile>
         <lower>34</lower>
-        <content>Potion of Fly,0</content>
+        <content>Potion of Fly@0</content>
         <upper>38</upper>
     </percentile>
     <percentile>
         <lower>39</lower>
-        <content>Potion of Gaseous Form,0</content>
+        <content>Potion of Gaseous Form@0</content>
         <upper>39</upper>
     </percentile>
     <percentile>
         <lower>40</lower>
-        <content>Potion of Haste,0</content>
+        <content>Potion of Haste@0</content>
         <upper>41</upper>
     </percentile>
     <percentile>
         <lower>42</lower>
-        <content>Potion of Heroism,0</content>
+        <content>Potion of Heroism@0</content>
         <upper>44</upper>
     </percentile>
     <percentile>
         <lower>45</lower>
-        <content>Oil of Keen Edge,0</content>
+        <content>Oil of Keen Edge@0</content>
         <upper>46</upper>
     </percentile>
     <percentile>
         <lower>47</lower>
-        <content>Potion of Magic Circle Against PARTIALALIGNMENT,0</content>
+        <content>Potion of Magic Circle Against PARTIALALIGNMENT@0</content>
         <upper>47</upper>
     </percentile>
     <percentile>
         <lower>48</lower>
-        <content>Potion of Neutralize Poison,0</content>
+        <content>Potion of Neutralize Poison@0</content>
         <upper>50</upper>
     </percentile>
     <percentile>
         <lower>51</lower>
-        <content>Potion of Nondetection,0</content>
+        <content>Potion of Nondetection@0</content>
         <upper>52</upper>
     </percentile>
     <percentile>
         <lower>53</lower>
-        <content>Potion of Protection from ENERGY,0</content>
+        <content>Potion of Protection from ENERGY@0</content>
         <upper>54</upper>
     </percentile>
     <percentile>
         <lower>55</lower>
-        <content>Potion of Rage,0</content>
+        <content>Potion of Rage@0</content>
         <upper>55</upper>
     </percentile>
     <percentile>
         <lower>56</lower>
-        <content>Potion of Remove Blindness/Deafness,0</content>
+        <content>Potion of Remove Blindness/Deafness@0</content>
         <upper>56</upper>
     </percentile>
     <percentile>
         <lower>57</lower>
-        <content>Potion of Remove Curse,0</content>
+        <content>Potion of Remove Curse@0</content>
         <upper>57</upper>
     </percentile>
     <percentile>
         <lower>58</lower>
-        <content>Potion of Remove Disease,0</content>
+        <content>Potion of Remove Disease@0</content>
         <upper>58</upper>
     </percentile>
     <percentile>
         <lower>59</lower>
-        <content>Potion of Tongues,0</content>
+        <content>Potion of Tongues@0</content>
         <upper>59</upper>
     </percentile>
     <percentile>
         <lower>60</lower>
-        <content>Potion of Water Breathing,0</content>
+        <content>Potion of Water Breathing@0</content>
         <upper>60</upper>
     </percentile>
     <percentile>
         <lower>61</lower>
-        <content>Potion of Water Walk,0</content>
+        <content>Potion of Water Walk@0</content>
         <upper>61</upper>
     </percentile>
     <percentile>
         <lower>62</lower>
-        <content>Potion of Barkskin,4</content>
+        <content>Potion of Barkskin@4</content>
         <upper>63</upper>
     </percentile>
     <percentile>
         <lower>64</lower>
-        <content>Potion of Shield of Faith,5</content>
+        <content>Potion of Shield of Faith@5</content>
         <upper>64</upper>
     </percentile>
     <percentile>
         <lower>65</lower>
-        <content>Potion of Good Hope,0</content>
+        <content>Potion of Good Hope@0</content>
         <upper>65</upper>
     </percentile>
     <percentile>
         <lower>66</lower>
-        <content>Potion of Resist ENERGY 30,0</content>
+        <content>Potion of Resist ENERGY 30@0</content>
         <upper>68</upper>
     </percentile>
     <percentile>
         <lower>69</lower>
-        <content>Potion of Barkskin,5</content>
+        <content>Potion of Barkskin@5</content>
         <upper>69</upper>
     </percentile>
     <percentile>
         <lower>70</lower>
-        <content>Potion of Greater Magic Fang,2</content>
+        <content>Potion of Greater Magic Fang@2</content>
         <upper>73</upper>
     </percentile>
     <percentile>
         <lower>74</lower>
-        <content>Oil of Greater Magic Weapon,2</content>
+        <content>Oil of Greater Magic Weapon@2</content>
         <upper>77</upper>
     </percentile>
     <percentile>
         <lower>78</lower>
-        <content>Oil of Magic Vestment,2</content>
+        <content>Oil of Magic Vestment@2</content>
         <upper>81</upper>
     </percentile>
     <percentile>
         <lower>82</lower>
-        <content>Potion of Protection from Arrows 15/magic,0</content>
+        <content>Potion of Protection from Arrows 15/magic@0</content>
         <upper>82</upper>
     </percentile>
     <percentile>
         <lower>83</lower>
-        <content>Potion of Greater Magic Fang,3</content>
+        <content>Potion of Greater Magic Fang@3</content>
         <upper>85</upper>
     </percentile>
     <percentile>
         <lower>86</lower>
-        <content>Oil of Greater Magic Weapon,3</content>
+        <content>Oil of Greater Magic Weapon@3</content>
         <upper>88</upper>
     </percentile>
     <percentile>
         <lower>89</lower>
-        <content>Oil of Magic Vestment,3</content>
+        <content>Oil of Magic Vestment@3</content>
         <upper>91</upper>
     </percentile>
     <percentile>
         <lower>92</lower>
-        <content>Potion of Greater Magic Fang,4</content>
+        <content>Potion of Greater Magic Fang@4</content>
         <upper>93</upper>
     </percentile>
     <percentile>
         <lower>94</lower>
-        <content>Oil of Greater Magic Weapon,4</content>
+        <content>Oil of Greater Magic Weapon@4</content>
         <upper>95</upper>
     </percentile>
     <percentile>
         <lower>96</lower>
-        <content>Oil of Magic Vestment,4</content>
+        <content>Oil of Magic Vestment@4</content>
         <upper>97</upper>
     </percentile>
     <percentile>
         <lower>98</lower>
-        <content>Potion of Greater Magic Fang,5</content>
+        <content>Potion of Greater Magic Fang@5</content>
         <upper>98</upper>
     </percentile>
     <percentile>
         <lower>99</lower>
-        <content>Oil of Greater Magic Weapon,5</content>
+        <content>Oil of Greater Magic Weapon@5</content>
         <upper>99</upper>
     </percentile>
     <percentile>
         <lower>100</lower>
-        <content>Oil of Magic Vestment,5</content>
+        <content>Oil of Magic Vestment@5</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

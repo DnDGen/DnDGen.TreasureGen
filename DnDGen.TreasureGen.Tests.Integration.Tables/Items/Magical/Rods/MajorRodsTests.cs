@@ -1,7 +1,7 @@
-﻿using NUnit.Framework;
-using DnDGen.TreasureGen.Tables;
-using DnDGen.TreasureGen.Items;
+﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
+using DnDGen.TreasureGen.Tables;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Rods
 {
@@ -10,7 +10,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Rods
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, PowerConstants.Major, ItemTypeConstants.Rod); }
+            get { return TableNameConstants.Percentiles.POWERITEMTYPEs(PowerConstants.Major, ItemTypeConstants.Rod); }
         }
 
         [Test]
@@ -52,16 +52,11 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Rods
         [TestCase(RodConstants.Metamagic_Empower_Greater, 0, 93, 94)]
         [TestCase(RodConstants.Metamagic_Quicken, 0, 95, 96)]
         [TestCase(RodConstants.Alertness, 1, 97, 98)]
-        public override void TypeAndAmountPercentile(string type, int amount, int lower, int upper)
+        [TestCase(RodConstants.Metamagic_Maximize_Greater, 0, 99, 99)]
+        [TestCase(RodConstants.Metamagic_Quicken_Greater, 0, 100, 100)]
+        public void MajorRodsPercentile(string type, int amount, int lower, int upper)
         {
-            base.TypeAndAmountPercentile(type, amount, lower, upper);
-        }
-
-        [TestCase(RodConstants.Metamagic_Maximize_Greater, 0, 99)]
-        [TestCase(RodConstants.Metamagic_Quicken_Greater, 0, 100)]
-        public override void TypeAndAmountPercentile(string type, int amount, int roll)
-        {
-            base.TypeAndAmountPercentile(type, amount, roll);
+            AssertTypeAndAmountPercentile(type, amount, lower, upper);
         }
     }
 }

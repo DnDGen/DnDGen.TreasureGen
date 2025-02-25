@@ -19,7 +19,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
         public Item GenerateRandom(string power)
         {
-            var tablename = string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, power, ItemTypeConstants.Wand);
+            var tablename = TableNameConstants.Percentiles.POWERITEMTYPEs(power, ItemTypeConstants.Wand);
             var spell = percentileSelector.SelectFrom(Config.Name, tablename);
             var name = $"Wand of {spell}";
 
@@ -50,8 +50,8 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             var wand = template.Clone();
             wand.IsMagical = true;
             wand.Quantity = 1;
-            wand.BaseNames = new[] { ItemTypeConstants.Wand };
-            wand.Attributes = new[] { AttributeConstants.Charged, AttributeConstants.OneTimeUse };
+            wand.BaseNames = [ItemTypeConstants.Wand];
+            wand.Attributes = [AttributeConstants.Charged, AttributeConstants.OneTimeUse];
             wand.ItemType = ItemTypeConstants.Wand;
 
             return wand.SmartClone();

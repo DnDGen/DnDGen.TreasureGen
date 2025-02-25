@@ -11,15 +11,15 @@ namespace DnDGen.TreasureGen.Items.Magical
         public IEnumerable<string> AttributeRequirements { get; set; }
         public int BonusEquivalent { get; set; }
         public List<Damage> Damages { get; set; }
-        public Dictionary<string, List<Damage>> CriticalDamages { get; set; }
+        public List<Damage> CriticalDamages { get; set; }
 
         public SpecialAbility()
         {
-            AttributeRequirements = Enumerable.Empty<string>();
+            AttributeRequirements = [];
             Name = string.Empty;
             BaseName = string.Empty;
-            Damages = new List<Damage>();
-            CriticalDamages = new Dictionary<string, List<Damage>>();
+            Damages = [];
+            CriticalDamages = [];
         }
 
         public bool RequirementsMet(Item targetItem)
@@ -48,10 +48,7 @@ namespace DnDGen.TreasureGen.Items.Magical
             if (targetItem is Armor)
             {
                 var armor = targetItem as Armor;
-                attributes = attributes.Union(new[]
-                {
-                    armor.Size
-                });
+                attributes = attributes.Union([armor.Size]);
             }
             else if (targetItem is Weapon)
             {
@@ -60,11 +57,11 @@ namespace DnDGen.TreasureGen.Items.Magical
 
                 attributes = attributes
                     .Union(damageTypes)
-                    .Union(new[]
-                    {
+                    .Union(
+                    [
                         weapon.Size,
-                        weapon.ThreatRangeDescription,
-                    });
+                        weapon.ThreatRangeSummary,
+                    ]);
             }
 
             return attributes;
@@ -72,13 +69,13 @@ namespace DnDGen.TreasureGen.Items.Magical
 
         private bool AndRequirementsMet(IEnumerable<string> itemAttributes)
         {
-            var andRequirements = AttributeRequirements.Where(r => !r.Contains("/") && !r.Contains("!"));
+            var andRequirements = AttributeRequirements.Where(r => !r.Contains('/') && !r.Contains('!'));
             return !andRequirements.Any() || andRequirements.All(r => itemAttributes.Any(a => a.Contains(r)));
         }
 
         private bool OrRequirementsMet(IEnumerable<string> itemAttributes)
         {
-            var orRequirements = AttributeRequirements.Where(r => r.Contains("/"));
+            var orRequirements = AttributeRequirements.Where(r => r.Contains('/'));
 
             foreach (var orRequirement in orRequirements)
             {
@@ -92,7 +89,7 @@ namespace DnDGen.TreasureGen.Items.Magical
 
         private bool NotRequirementsMet(IEnumerable<string> itemAttributes)
         {
-            var notRequirements = AttributeRequirements.Where(r => r.StartsWith("!"));
+            var notRequirements = AttributeRequirements.Where(r => r.StartsWith('!'));
 
             foreach (var notRequirement in notRequirements)
             {

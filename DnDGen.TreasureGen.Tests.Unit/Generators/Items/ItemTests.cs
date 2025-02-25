@@ -987,7 +987,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             Assert.That(item.Summary, Is.EqualTo(name));
         }
 
-        public static IEnumerable Materials => TraitConstants.SpecialMaterials.All().Select(a => new TestCaseData(a));
+        public static IEnumerable Materials => TraitConstants.SpecialMaterials.GetAll().Select(a => new TestCaseData(a));
 
         [TestCaseSource(nameof(Materials))]
         public void Summary_MundaneItem_SpecialMaterial(string material)

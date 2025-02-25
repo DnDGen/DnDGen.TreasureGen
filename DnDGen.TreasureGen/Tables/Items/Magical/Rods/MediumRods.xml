@@ -3,87 +3,87 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content>Rod of Lesser Metamagic: Enlarge,0</content>
+        <content>Rod of Lesser Metamagic: Enlarge@0</content>
         <upper>7</upper>
     </percentile>
     <percentile>
         <lower>8</lower>
-        <content>Rod of Lesser Metamagic: Extend,0</content>
+        <content>Rod of Lesser Metamagic: Extend@0</content>
         <upper>14</upper>
     </percentile>
     <percentile>
         <lower>15</lower>
-        <content>Rod of Lesser Metamagic: Silent,0</content>
+        <content>Rod of Lesser Metamagic: Silent@0</content>
         <upper>21</upper>
     </percentile>
     <percentile>
         <lower>22</lower>
-        <content>Immovable Rod,0</content>
+        <content>Immovable Rod@0</content>
         <upper>28</upper>
     </percentile>
     <percentile>
         <lower>29</lower>
-        <content>Rod of Lesser Metamagic: Empower,0</content>
+        <content>Rod of Lesser Metamagic: Empower@0</content>
         <upper>35</upper>
     </percentile>
     <percentile>
         <lower>36</lower>
-        <content>Rod of Metal and Mineral Detection,0</content>
+        <content>Rod of Metal and Mineral Detection@0</content>
         <upper>42</upper>
     </percentile>
     <percentile>
         <lower>43</lower>
-        <content>Rod of Cancellation,0</content>
+        <content>Rod of Cancellation@0</content>
         <upper>53</upper>
     </percentile>
     <percentile>
         <lower>54</lower>
-        <content>Rod of Metamagic: Enlarge,0</content>
+        <content>Rod of Metamagic: Enlarge@0</content>
         <upper>57</upper>
     </percentile>
     <percentile>
         <lower>58</lower>
-        <content>Rod of Metamagic: Extend,0</content>
+        <content>Rod of Metamagic: Extend@0</content>
         <upper>61</upper>
     </percentile>
     <percentile>
         <lower>62</lower>
-        <content>Rod of Metamagic: Silent,0</content>
+        <content>Rod of Metamagic: Silent@0</content>
         <upper>65</upper>
     </percentile>
     <percentile>
         <lower>66</lower>
-        <content>Rod of Wonder,0</content>
+        <content>Rod of Wonder@0</content>
         <upper>71</upper>
     </percentile>
     <percentile>
         <lower>72</lower>
-        <content>Rod of the Python,1</content>
+        <content>Rod of the Python@1</content>
         <upper>79</upper>
     </percentile>
     <percentile>
         <lower>80</lower>
-        <content>Rod of Lesser Metamagic: Maximize,0</content>
+        <content>Rod of Lesser Metamagic: Maximize@0</content>
         <upper>83</upper>
     </percentile>
     <percentile>
         <lower>84</lower>
-        <content>Rod of Flame Extinguishing,0</content>
+        <content>Rod of Flame Extinguishing@0</content>
         <upper>89</upper>
     </percentile>
     <percentile>
         <lower>90</lower>
-        <content>Rod of the Viper,2</content>
+        <content>Rod of the Viper@2</content>
         <upper>97</upper>
     </percentile>
     <percentile>
         <lower>98</lower>
-        <content>Rod of Metamagic: Empower,0</content>
+        <content>Rod of Metamagic: Empower@0</content>
         <upper>99</upper>
     </percentile>
     <percentile>
         <lower>100</lower>
-        <content>Rod of Lesser Metamagic: Quicken,0</content>
+        <content>Rod of Lesser Metamagic: Quicken@0</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

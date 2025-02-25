@@ -1,15 +1,12 @@
-﻿using NUnit.Framework;
-using DnDGen.TreasureGen.Tables;
+﻿using DnDGen.TreasureGen.Tables;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Curses
 {
     [TestFixture]
     public class GenderTests : PercentileTests
     {
-        protected override string tableName
-        {
-            get { return TableNameConstants.Percentiles.Set.Gender; }
-        }
+        protected override string tableName => TableNameConstants.Percentiles.Gender;
 
         [Test]
         public override void ReplacementStringsAreValid()
@@ -25,9 +22,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Curses
 
         [TestCase("Male", 1, 50)]
         [TestCase("Female", 51, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        public void GenderPercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
+            AssertPercentile(content, lower, upper);
         }
     }
 }

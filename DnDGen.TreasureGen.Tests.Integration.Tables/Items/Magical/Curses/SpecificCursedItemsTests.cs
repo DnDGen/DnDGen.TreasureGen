@@ -1,17 +1,14 @@
-﻿using NUnit.Framework;
-using DnDGen.TreasureGen.Tables;
-using DnDGen.TreasureGen.Items;
+﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
+using DnDGen.TreasureGen.Tables;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Curses
 {
     [TestFixture]
     public class SpecificCursedItemsTests : PercentileTests
     {
-        protected override string tableName
-        {
-            get { return TableNameConstants.Percentiles.Set.SpecificCursedItems; }
-        }
+        protected override string tableName => TableNameConstants.Percentiles.SpecificCursedItems;
 
         [Test]
         public override void ReplacementStringsAreValid()
@@ -36,8 +33,11 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Curses
         [TestCase(WondrousItemConstants.MedallionOfThoughtProjection, 44, 46)]
         [TestCase(WondrousItemConstants.FlaskOfCurses, 47, 52)]
         [TestCase(WondrousItemConstants.DustOfSneezingAndChoking, 53, 54)]
+        [TestCase(WondrousItemConstants.HelmOfOppositeAlignment, 55, 55)]
         [TestCase(PotionConstants.Poison, 56, 60)]
+        [TestCase(WondrousItemConstants.BroomOfAnimatedAttack, 61, 61)]
         [TestCase(WondrousItemConstants.RobeOfPowerlessness, 62, 63)]
+        [TestCase(WondrousItemConstants.VacousGrimoire, 64, 64)]
         [TestCase(WeaponConstants.CursedBackbiterSpear, 65, 68)]
         [TestCase(ArmorConstants.ArmorOfArrowAttraction, 69, 70)]
         [TestCase(WeaponConstants.NetOfSnaring, 71, 72)]
@@ -47,21 +47,13 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Curses
         [TestCase(WondrousItemConstants.PeriaptOfFoulRotting, 86, 88)]
         [TestCase(WeaponConstants.BerserkingSword, 89, 92)]
         [TestCase(WondrousItemConstants.BootsOfDancing, 93, 96)]
-        public override void Percentile(string content, int lower, int upper)
+        [TestCase(WondrousItemConstants.CrystalBall_Hypnosis, 97, 97)]
+        [TestCase(WondrousItemConstants.NecklaceOfStrangulation, 98, 98)]
+        [TestCase(WondrousItemConstants.CloakOfPoisonousness, 99, 99)]
+        [TestCase(WondrousItemConstants.ScarabOfDeath, 100, 100)]
+        public void SpecificCursedItemsPercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
-        }
-
-        [TestCase(WondrousItemConstants.HelmOfOppositeAlignment, 55)]
-        [TestCase(WondrousItemConstants.BroomOfAnimatedAttack, 61)]
-        [TestCase(WondrousItemConstants.VacousGrimoire, 64)]
-        [TestCase(WondrousItemConstants.CrystalBall_Hypnosis, 97)]
-        [TestCase(WondrousItemConstants.NecklaceOfStrangulation, 98)]
-        [TestCase(WondrousItemConstants.CloakOfPoisonousness, 99)]
-        [TestCase(WondrousItemConstants.ScarabOfDeath, 100)]
-        public override void Percentile(string content, int roll)
-        {
-            base.Percentile(content, roll);
+            AssertPercentile(content, lower, upper);
         }
     }
 }

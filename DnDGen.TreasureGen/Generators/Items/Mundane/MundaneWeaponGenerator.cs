@@ -51,8 +51,8 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
 
         private string GetRandomName()
         {
-            var type = percentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.Set.MundaneWeaponTypes);
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.WEAPONTYPEWeapons, type);
+            var type = percentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.MundaneWeaponTypes);
+            var tableName = TableNameConstants.Percentiles.WEAPONTYPEWeapons(type);
             var weaponName = percentileSelector.SelectFrom(Config.Name, tableName);
 
             return weaponName;
@@ -62,7 +62,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
         {
             var weapon = new Weapon();
             weapon.Name = name;
-            weapon.BaseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.ItemGroups, name);
+            weapon.BaseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, name);
             weapon.Quantity = 0;
 
             return weapon;
@@ -75,7 +75,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
 
             if (allowDecoration)
             {
-                var isMasterwork = percentileSelector.SelectFrom<bool>(Config.Name, TableNameConstants.Percentiles.Set.IsMasterwork);
+                var isMasterwork = percentileSelector.SelectFrom<bool>(Config.Name, TableNameConstants.Percentiles.IsMasterwork);
                 if (isMasterwork)
                     weapon.Traits.Add(TraitConstants.Masterwork);
             }
@@ -103,21 +103,21 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
                     weapon.Traits.Add(compositeStrengthBonus);
             }
 
-            var tableName = string.Format(TableNameConstants.Collections.Formattable.ITEMTYPEAttributes, ItemTypeConstants.Weapon);
+            var tableName = TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Weapon);
             weapon.Attributes = collectionsSelector.SelectFrom(Config.Name, tableName, weapon.Name);
 
-            var weaponSelection = weaponDataSelector.Select(weapon.Name);
+            var weaponSelection = weaponDataSelector.Select(weapon.Name, weapon.Size);
             if (!weapon.Damages.Any())
-                weapon.Damages.Add(weaponSelection.DamagesBySize[weapon.Size][0]);
+                weapon.Damages.Add(Damage.From(weaponSelection.Damages[0]));
 
             if (!weapon.CriticalDamages.Any())
-                weapon.CriticalDamages.Add(weaponSelection.CriticalDamagesBySize[weapon.Size][0]);
+                weapon.CriticalDamages.Add(Damage.From(weaponSelection.CriticalDamages[0]));
 
             if (weapon.IsDoubleWeapon && !weapon.SecondaryDamages.Any())
-                weapon.SecondaryDamages.Add(weaponSelection.DamagesBySize[weapon.Size][1]);
+                weapon.SecondaryDamages.Add(Damage.From(weaponSelection.Damages[1]));
 
             if (weapon.IsDoubleWeapon && !weapon.SecondaryCriticalDamages.Any())
-                weapon.SecondaryCriticalDamages.Add(weaponSelection.CriticalDamagesBySize[weapon.Size][1]);
+                weapon.SecondaryCriticalDamages.Add(Damage.From(weaponSelection.CriticalDamages[1]));
 
             weapon.ThreatRange = weaponSelection.ThreatRange;
             weapon.Ammunition = weaponSelection.Ammunition;
@@ -171,7 +171,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
 
         public Item Generate(Item template, bool allowRandomDecoration = false)
         {
-            template.BaseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.ItemGroups, template.Name);
+            template.BaseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, template.Name);
 
             var weapon = new Weapon();
 
@@ -193,7 +193,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
             if (!template.Traits.Any())
                 return GetRandomSize();
 
-            var allSizes = percentileSelector.SelectAllFrom(Config.Name, TableNameConstants.Percentiles.Set.MundaneGearSizes);
+            var allSizes = percentileSelector.SelectAllFrom(Config.Name, TableNameConstants.Percentiles.MundaneGearSizes);
             var sizeTraits = template.Traits.Intersect(allSizes);
 
             if (sizeTraits.Any())
@@ -204,7 +204,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
 
         private string GetRandomSize()
         {
-            return percentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.Set.MundaneGearSizes);
+            return percentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.MundaneGearSizes);
         }
     }
 }

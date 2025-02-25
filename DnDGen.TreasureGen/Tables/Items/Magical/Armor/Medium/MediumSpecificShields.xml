@@ -3,37 +3,37 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content>Buckler,0</content>
+        <content>Buckler@0</content>
         <upper>20</upper>
     </percentile>
     <percentile>
         <lower>21</lower>
-        <content>Heavy wooden shield,0</content>
+        <content>Heavy wooden shield@0</content>
         <upper>45</upper>
     </percentile>
     <percentile>
         <lower>46</lower>
-        <content>Heavy steel shield,0</content>
+        <content>Heavy steel shield@0</content>
         <upper>70</upper>
     </percentile>
     <percentile>
         <lower>71</lower>
-        <content>Caster's Shield,1</content>
+        <content>Caster's Shield@1</content>
         <upper>85</upper>
     </percentile>
     <percentile>
         <lower>86</lower>
-        <content>Spined Shield,1</content>
+        <content>Spined Shield@1</content>
         <upper>90</upper>
     </percentile>
     <percentile>
         <lower>91</lower>
-        <content>Lion's Shield,2</content>
+        <content>Lion's Shield@2</content>
         <upper>95</upper>
     </percentile>
     <percentile>
         <lower>96</lower>
-        <content>Winged Shield,3</content>
+        <content>Winged Shield@3</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

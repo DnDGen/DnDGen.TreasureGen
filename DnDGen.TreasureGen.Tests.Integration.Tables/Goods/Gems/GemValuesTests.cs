@@ -7,10 +7,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Goods.Gems
     [TestFixture]
     public class GemValuesTests : TypeAndAmountPercentileTests
     {
-        protected override string tableName
-        {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.GOODTYPEValues, GoodsConstants.Gem); }
-        }
+        protected override string tableName => TableNameConstants.Percentiles.GOODTYPEValues(GoodsConstants.Gem);
 
         [Test]
         public override void ReplacementStringsAreValid()
@@ -30,9 +27,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Goods.Gems
         [TestCase("2d4*100", AmountConstants.Range2d4x100, 71, 90)]
         [TestCase("4d4*100", AmountConstants.Range4d4x100, 91, 99)]
         [TestCase("2d4*1000", AmountConstants.Range2d4x1000, 100, 100)]
-        public override void TypeAndAmountPercentile(string type, string value, int lower, int upper)
+        public void GemValuePercentile(string type, string value, int lower, int upper)
         {
-            base.TypeAndAmountPercentile(type, value, lower, upper);
+            AssertTypeAndAmountPercentile(type, value, lower, upper);
         }
     }
 }

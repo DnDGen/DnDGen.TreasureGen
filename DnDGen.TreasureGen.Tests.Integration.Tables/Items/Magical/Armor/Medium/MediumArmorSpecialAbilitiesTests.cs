@@ -1,17 +1,14 @@
-﻿using NUnit.Framework;
-using DnDGen.TreasureGen.Tables;
-using DnDGen.TreasureGen.Items;
+﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
+using DnDGen.TreasureGen.Tables;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Armor.Medium
 {
     [TestFixture]
     public class MediumArmorSpecialAbilitiesTests : PercentileTests
     {
-        protected override string tableName
-        {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.POWERATTRIBUTESpecialAbilities, PowerConstants.Medium, ItemTypeConstants.Armor); }
-        }
+        protected override string tableName => TableNameConstants.Percentiles.POWERATTRIBUTESpecialAbilities(PowerConstants.Medium, ItemTypeConstants.Armor);
 
         [Test]
         public override void ReplacementStringsAreValid()
@@ -44,15 +41,10 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Armor.Medium
         [TestCase(SpecialAbilityConstants.ModerateFortification, 85, 89)]
         [TestCase(SpecialAbilityConstants.SpellResistance15, 90, 94)]
         [TestCase(SpecialAbilityConstants.Wild, 95, 99)]
-        public override void Percentile(string content, int lower, int upper)
+        [TestCase("BonusSpecialAbility", 100, 100)]
+        public void MediumArmorSpecialAbilitiesPercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
-        }
-
-        [TestCase("BonusSpecialAbility", 100)]
-        public override void Percentile(string content, int roll)
-        {
-            base.Percentile(content, roll);
+            AssertPercentile(content, lower, upper);
         }
     }
 }

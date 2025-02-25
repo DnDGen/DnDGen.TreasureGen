@@ -1,8 +1,8 @@
-﻿using DnDGen.TreasureGen.Generators.Items.Mundane;
+﻿using DnDGen.Infrastructure.Models;
+using DnDGen.Infrastructure.Selectors.Percentiles;
+using DnDGen.TreasureGen.Generators.Items.Mundane;
 using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Mundane;
-using DnDGen.TreasureGen.Selectors.Percentiles;
-using DnDGen.TreasureGen.Selectors.Selections;
 using DnDGen.TreasureGen.Tables;
 using Moq;
 using NUnit.Framework;
@@ -15,16 +15,16 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
     public class AlchemicalItemGeneratorTests
     {
         private MundaneItemGenerator alchemicalItemGenerator;
-        private Mock<ITypeAndAmountPercentileSelector> mockTypeAndAmountPercentileSelector;
-        private TypeAndAmountSelection selection;
+        private Mock<IPercentileTypeAndAmountSelector> mockTypeAndAmountPercentileSelector;
+        private TypeAndAmountDataSelection selection;
         private ItemVerifier itemVerifier;
 
         [SetUp]
         public void Setup()
         {
-            mockTypeAndAmountPercentileSelector = new Mock<ITypeAndAmountPercentileSelector>();
+            mockTypeAndAmountPercentileSelector = new Mock<IPercentileTypeAndAmountSelector>();
             alchemicalItemGenerator = new AlchemicalItemGenerator(mockTypeAndAmountPercentileSelector.Object);
-            selection = new TypeAndAmountSelection();
+            selection = new TypeAndAmountDataSelection();
             itemVerifier = new ItemVerifier();
         }
 
@@ -32,17 +32,17 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         public void GenerateAlchemicalItem()
         {
             selection.Type = "alchemical item";
-            selection.Amount = 9266;
+            selection.AmountAsDouble = 9266;
             mockTypeAndAmountPercentileSelector
-                .Setup(p => p.SelectFrom(TableNameConstants.Percentiles.Set.AlchemicalItems))
+                .Setup(p => p.SelectFrom(Config.Name, TableNameConstants.Percentiles.AlchemicalItems))
                 .Returns(selection);
             mockTypeAndAmountPercentileSelector
-                .Setup(p => p.SelectAllFrom(TableNameConstants.Percentiles.Set.AlchemicalItems))
-                .Returns(new[]
-                {
-                    new TypeAndAmountSelection { Type = "wrong item", Amount = 666 },
+                .Setup(p => p.SelectAllFrom(Config.Name, TableNameConstants.Percentiles.AlchemicalItems))
+                .Returns(
+                [
+                    new TypeAndAmountDataSelection { Type = "wrong item", AmountAsDouble = 666 },
                     selection
-                });
+                ]);
 
             var item = alchemicalItemGenerator.GenerateRandom();
             Assert.That(item.Name, Is.EqualTo(selection.Type));
@@ -83,14 +83,14 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         public void GenerateFromName()
         {
             selection.Type = "alchemical item";
-            selection.Amount = 9266;
+            selection.AmountAsDouble = 9266;
             mockTypeAndAmountPercentileSelector
-                .SetupSequence(p => p.SelectAllFrom(TableNameConstants.Percentiles.Set.AlchemicalItems))
+                .SetupSequence(p => p.SelectAllFrom(Config.Name, TableNameConstants.Percentiles.AlchemicalItems))
                 .Returns(new[]
                 {
-                    new TypeAndAmountSelection { Type = "wrong alchemical item", Amount = 666 },
+                    new TypeAndAmountDataSelection { Type = "wrong alchemical item", AmountAsDouble = 666 },
                     selection,
-                    new TypeAndAmountSelection { Type = "other alchemical item", Amount = 42 }
+                    new TypeAndAmountDataSelection { Type = "other alchemical item", AmountAsDouble = 42 }
                 });
 
             var item = alchemicalItemGenerator.Generate("alchemical item");
@@ -108,11 +108,11 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         public void GenerateFromName_IfNoneMatching_SetQuantityTo1()
         {
             mockTypeAndAmountPercentileSelector
-                .SetupSequence(p => p.SelectAllFrom(TableNameConstants.Percentiles.Set.AlchemicalItems))
+                .SetupSequence(p => p.SelectAllFrom(Config.Name, TableNameConstants.Percentiles.AlchemicalItems))
                 .Returns(new[]
                 {
-                    new TypeAndAmountSelection { Type = "wrong alchemical item", Amount = 9266 },
-                    new TypeAndAmountSelection { Type = "other alchemical item", Amount = 42 }
+                    new TypeAndAmountDataSelection { Type = "wrong alchemical item", AmountAsDouble = 9266 },
+                    new TypeAndAmountDataSelection { Type = "other alchemical item", AmountAsDouble = 42 }
                 });
 
             var item = alchemicalItemGenerator.Generate("alchemical item");
@@ -130,14 +130,14 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         public void GenerateFromNameWithTraits()
         {
             selection.Type = "alchemical item";
-            selection.Amount = 9266;
+            selection.AmountAsDouble = 9266;
             mockTypeAndAmountPercentileSelector
-                .SetupSequence(p => p.SelectAllFrom(TableNameConstants.Percentiles.Set.AlchemicalItems))
+                .SetupSequence(p => p.SelectAllFrom(Config.Name, TableNameConstants.Percentiles.AlchemicalItems))
                 .Returns(new[]
                 {
-                    new TypeAndAmountSelection { Type = "wrong alchemical item", Amount = 666 },
+                    new TypeAndAmountDataSelection { Type = "wrong alchemical item", AmountAsDouble = 666 },
                     selection,
-                    new TypeAndAmountSelection { Type = "other alchemical item", Amount = 42 }
+                    new TypeAndAmountDataSelection { Type = "other alchemical item", AmountAsDouble = 42 }
                 });
 
             var item = alchemicalItemGenerator.Generate("alchemical item", "my trait", "my other trait");
@@ -157,14 +157,14 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         public void GenerateFromNameWithDuplicateTraits()
         {
             selection.Type = "alchemical item";
-            selection.Amount = 9266;
+            selection.AmountAsDouble = 9266;
             mockTypeAndAmountPercentileSelector
-                .SetupSequence(p => p.SelectAllFrom(TableNameConstants.Percentiles.Set.AlchemicalItems))
+                .SetupSequence(p => p.SelectAllFrom(Config.Name, TableNameConstants.Percentiles.AlchemicalItems))
                 .Returns(new[]
                 {
-                    new TypeAndAmountSelection { Type = "wrong alchemical item", Amount = 666 },
+                    new TypeAndAmountDataSelection { Type = "wrong alchemical item", AmountAsDouble = 666 },
                     selection,
-                    new TypeAndAmountSelection { Type = "other alchemical item", Amount = 42 }
+                    new TypeAndAmountDataSelection { Type = "other alchemical item", AmountAsDouble = 42 }
                 });
 
             var item = alchemicalItemGenerator.Generate("alchemical item", "my trait", "my trait");

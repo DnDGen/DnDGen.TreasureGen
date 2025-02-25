@@ -1,4 +1,6 @@
-﻿using DnDGen.TreasureGen.Items;
+﻿using DnDGen.Infrastructure.Helpers;
+using DnDGen.TreasureGen.Items;
+using DnDGen.TreasureGen.Selectors.Selections;
 using DnDGen.TreasureGen.Tables;
 using NUnit.Framework;
 using System.Linq;
@@ -8,7 +10,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane.Weapons
     [TestFixture]
     public class WeaponDataTests : CollectionsTests
     {
-        protected override string tableName => TableNameConstants.Collections.Set.WeaponData;
+        protected override string tableName => TableNameConstants.Collections.WeaponData;
 
         [TestCase(WeaponConstants.Gauntlet, 1, "x2", "", "")]
         [TestCase(WeaponConstants.Dagger, 2, "x2", "", "")]
@@ -83,12 +85,6 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane.Weapons
         [TestCase(WeaponConstants.PincerStaff, 1, "x2", "", "")]
         public void WeaponData(string weapon, int threatRange, string criticalMultiplier, string ammunition, string secondaryCriticalMultiplier)
         {
-            var collection = new string[4];
-            collection[DataIndexConstants.Weapon.CriticalMultiplier] = criticalMultiplier;
-            collection[DataIndexConstants.Weapon.SecondaryCriticalMultiplier] = secondaryCriticalMultiplier;
-            collection[DataIndexConstants.Weapon.ThreatRange] = threatRange.ToString();
-            collection[DataIndexConstants.Weapon.Ammunition] = ammunition;
-
             Assert.That(criticalMultiplier, Is.EqualTo("x2").Or.EqualTo("x3").Or.EqualTo("x4"));
 
             var doubleWeapons = WeaponConstants.GetAllDouble(false, false);
@@ -101,15 +97,21 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane.Weapons
                 Assert.That(secondaryCriticalMultiplier, Is.Empty);
             }
 
-            base.OrderedCollections(weapon, collection);
+            var data = DataHelper.Parse(new WeaponDataSelection
+            {
+                CriticalMultiplier = criticalMultiplier,
+                SecondaryCriticalMultiplier = secondaryCriticalMultiplier,
+                ThreatRange = threatRange,
+                Ammunition = ammunition,
+            });
+            AssertOrderedCollections(weapon, data);
         }
 
         [Test]
         public void AllWeaponsAreInTable()
         {
             var weapons = WeaponConstants.GetAllWeapons(false, false);
-            var keys = GetKeys();
-            AssertCollection(keys, weapons);
+            AssertCollection(table.Keys, weapons);
         }
     }
 }

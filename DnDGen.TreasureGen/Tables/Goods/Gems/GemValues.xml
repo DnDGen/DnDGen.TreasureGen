@@ -3,32 +3,32 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content>4d4,4d4</content>
+        <content>4d4@4d4</content>
         <upper>25</upper>
     </percentile>
     <percentile>
         <lower>26</lower>
-        <content>2d4*10,12d6+8</content>
+        <content>2d4*10@12d6+8</content>
         <upper>50</upper>
     </percentile>
     <percentile>
         <lower>51</lower>
-        <content>4d4*10,24d6+16</content>
+        <content>4d4*10@24d6+16</content>
         <upper>70</upper>
     </percentile>
     <percentile>
         <lower>71</lower>
-        <content>2d4*100,120d6+80</content>
+        <content>2d4*100@120d6+80</content>
         <upper>90</upper>
     </percentile>
     <percentile>
         <lower>91</lower>
-        <content>4d4*100,240d6+160</content>
+        <content>4d4*100@240d6+160</content>
         <upper>99</upper>
     </percentile>
     <percentile>
         <lower>100</lower>
-        <content>2d4*1000,1200d6+800</content>
+        <content>2d4*1000@1200d6+800</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

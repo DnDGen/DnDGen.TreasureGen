@@ -20,7 +20,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         {
             Assert.That(damage.Roll, Is.Empty);
             Assert.That(damage.Type, Is.Empty);
-            Assert.That(damage.Description, Is.Empty);
+            Assert.That(damage.Summary, Is.Empty);
             Assert.That(damage.Condition, Is.Empty);
             Assert.That(damage.IsConditional, Is.False);
         }
@@ -36,41 +36,41 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         }
 
         [Test]
-        public void Description_WithoutType()
+        public void Summary_WithoutType()
         {
             damage.Roll = "9266d90210";
             damage.Type = string.Empty;
 
-            Assert.That(damage.Description, Is.EqualTo("9266d90210"));
+            Assert.That(damage.Summary, Is.EqualTo("9266d90210"));
         }
 
         [Test]
-        public void Description_WithType()
+        public void Summary_WithType()
         {
             damage.Roll = "9266d90210";
             damage.Type = "emotional";
 
-            Assert.That(damage.Description, Is.EqualTo("9266d90210 emotional"));
+            Assert.That(damage.Summary, Is.EqualTo("9266d90210 emotional"));
         }
 
         [Test]
-        public void Description_WithoutType_WithCondition()
+        public void Summary_WithoutType_WithCondition()
         {
             damage.Roll = "9266d90210";
             damage.Type = string.Empty;
             damage.Condition = "my condition";
 
-            Assert.That(damage.Description, Is.EqualTo("9266d90210 (my condition)"));
+            Assert.That(damage.Summary, Is.EqualTo("9266d90210 (my condition)"));
         }
 
         [Test]
-        public void Description_WithType_WithCondition()
+        public void Summary_WithType_WithCondition()
         {
             damage.Roll = "9266d90210";
             damage.Type = "emotional";
             damage.Condition = "my condition";
 
-            Assert.That(damage.Description, Is.EqualTo("9266d90210 emotional (my condition)"));
+            Assert.That(damage.Summary, Is.EqualTo("9266d90210 emotional (my condition)"));
         }
 
         [Test]

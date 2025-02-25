@@ -1,7 +1,6 @@
 ﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Mundane;
 using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Stress.Items.Mundane
 {
@@ -9,13 +8,6 @@ namespace DnDGen.TreasureGen.Tests.Integration.Stress.Items.Mundane
     public abstract class MundaneItemGeneratorStressTests : ItemStressTests
     {
         protected MundaneItemGenerator mundaneItemGenerator;
-        private IEnumerable<string> materials;
-
-        [SetUp]
-        public void MundaneItemGeneratorStressSetup()
-        {
-            materials = TraitConstants.SpecialMaterials.All();
-        }
 
         protected void GenerateAndAssertItem()
         {
@@ -41,8 +33,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Stress.Items.Mundane
 
         protected void GenerateAndAssertItemFromName()
         {
-            var names = GetItemNames();
-            var name = GetRandom(names);
+            var name = GetRandomName();
             var item = GenerateItemFromName(name);
             AssertItem(item);
             Assert.That(item.NameMatches(name), Is.True, $"{item.Name} ({string.Join(", ", item.BaseNames)}) from '{name}'");

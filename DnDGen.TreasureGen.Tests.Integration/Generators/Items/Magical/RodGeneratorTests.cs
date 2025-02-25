@@ -1,7 +1,6 @@
 ﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
 using DnDGen.TreasureGen.Tests.Unit.Generators.Items;
-using Ninject;
 using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
@@ -9,21 +8,20 @@ namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
     [TestFixture]
     public class RodGeneratorTests : IntegrationTests
     {
-        [Inject, Named(ItemTypeConstants.Rod)]
-        public MagicalItemGenerator RodGenerator { get; set; }
-
+        private MagicalItemGenerator rodGenerator;
         private ItemVerifier itemVerifier;
 
         [SetUp]
         public void Setup()
         {
             itemVerifier = new ItemVerifier();
+            rodGenerator = GetNewInstanceOf<MagicalItemGenerator>(ItemTypeConstants.Rod);
         }
 
         [TestCaseSource(typeof(ItemPowerTestData), nameof(ItemPowerTestData.Rods))]
         public void GenerateRod(string itemName, string power)
         {
-            var item = RodGenerator.Generate(power, itemName);
+            var item = rodGenerator.Generate(power, itemName);
             itemVerifier.AssertItem(item);
         }
 
@@ -43,7 +41,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
         [TestCase(RodConstants.Python, PowerConstants.Major, TraitConstants.Sizes.Tiny)]
         public void GenerateRodOfSize(string itemName, string power, string size)
         {
-            var item = RodGenerator.Generate(power, itemName, "my trait", size);
+            var item = rodGenerator.Generate(power, itemName, "my trait", size);
             itemVerifier.AssertItem(item);
             Assert.That(item, Is.InstanceOf<Weapon>());
 

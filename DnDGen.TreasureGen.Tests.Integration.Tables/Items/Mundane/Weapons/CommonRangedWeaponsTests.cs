@@ -1,6 +1,6 @@
-﻿using NUnit.Framework;
+﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Tables;
-using DnDGen.TreasureGen.Items;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane.Weapons
 {
@@ -9,7 +9,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane.Weapons
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.WEAPONTYPEWeapons, "CommonRanged"); }
+            get { return TableNameConstants.Percentiles.WEAPONTYPEWeapons("CommonRanged"); }
         }
 
         [Test]
@@ -37,9 +37,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane.Weapons
         [TestCase(WeaponConstants.CompositeLongbow_StrengthPlus2, 86, 90)]
         [TestCase(WeaponConstants.CompositeLongbow_StrengthPlus3, 91, 95)]
         [TestCase(WeaponConstants.CompositeLongbow_StrengthPlus4, 96, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        public void Percentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
+            base.AssertPercentile(content, lower, upper);
         }
 
         [Test]

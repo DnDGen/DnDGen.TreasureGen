@@ -9,7 +9,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Curses
     {
         protected override string tableName
         {
-            get { return TableNameConstants.Percentiles.Set.IsItemCursed; }
+            get { return TableNameConstants.Percentiles.IsItemCursed; }
         }
 
         [Test]

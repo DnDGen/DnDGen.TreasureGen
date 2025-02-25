@@ -3,107 +3,107 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content>Staff of Charming,0</content>
+        <content>Staff of Charming@0</content>
         <upper>3</upper>
     </percentile>
     <percentile>
         <lower>4</lower>
-        <content>Staff of Fire,0</content>
+        <content>Staff of Fire@0</content>
         <upper>9</upper>
     </percentile>
     <percentile>
         <lower>10</lower>
-        <content>Staff of Swarming Insects,0</content>
+        <content>Staff of Swarming Insects@0</content>
         <upper>11</upper>
     </percentile>
     <percentile>
         <lower>12</lower>
-        <content>Staff of Healing,0</content>
+        <content>Staff of Healing@0</content>
         <upper>17</upper>
     </percentile>
     <percentile>
         <lower>18</lower>
-        <content>Staff of Size Alteration,0</content>
+        <content>Staff of Size Alteration@0</content>
         <upper>19</upper>
     </percentile>
     <percentile>
         <lower>20</lower>
-        <content>Staff of Illumination,0</content>
+        <content>Staff of Illumination@0</content>
         <upper>24</upper>
     </percentile>
     <percentile>
         <lower>25</lower>
-        <content>Staff of Frost,0</content>
+        <content>Staff of Frost@0</content>
         <upper>31</upper>
     </percentile>
     <percentile>
         <lower>32</lower>
-        <content>Staff of Defense,0</content>
+        <content>Staff of Defense@0</content>
         <upper>38</upper>
     </percentile>
     <percentile>
         <lower>39</lower>
-        <content>Staff of Abjuration,0</content>
+        <content>Staff of Abjuration@0</content>
         <upper>43</upper>
     </percentile>
     <percentile>
         <lower>44</lower>
-        <content>Staff of Conjuration,0</content>
+        <content>Staff of Conjuration@0</content>
         <upper>48</upper>
     </percentile>
     <percentile>
         <lower>49</lower>
-        <content>Staff of Enchantment,0</content>
+        <content>Staff of Enchantment@0</content>
         <upper>53</upper>
     </percentile>
     <percentile>
         <lower>54</lower>
-        <content>Staff of Evocation,0</content>
+        <content>Staff of Evocation@0</content>
         <upper>58</upper>
     </percentile>
     <percentile>
         <lower>59</lower>
-        <content>Staff of Illusion,0</content>
+        <content>Staff of Illusion@0</content>
         <upper>63</upper>
     </percentile>
     <percentile>
         <lower>64</lower>
-        <content>Staff of Necromancy,0</content>
+        <content>Staff of Necromancy@0</content>
         <upper>68</upper>
     </percentile>
     <percentile>
         <lower>69</lower>
-        <content>Staff of Transmutation,0</content>
+        <content>Staff of Transmutation@0</content>
         <upper>73</upper>
     </percentile>
     <percentile>
         <lower>74</lower>
-        <content>Staff of Divination,0</content>
+        <content>Staff of Divination@0</content>
         <upper>77</upper>
     </percentile>
     <percentile>
         <lower>78</lower>
-        <content>Staff of Earth and Stone,0</content>
+        <content>Staff of Earth and Stone@0</content>
         <upper>82</upper>
     </percentile>
     <percentile>
         <lower>83</lower>
-        <content>Staff of Woodlands,2</content>
+        <content>Staff of Woodlands@2</content>
         <upper>87</upper>
     </percentile>
     <percentile>
         <lower>88</lower>
-        <content>Staff of Life,0</content>
+        <content>Staff of Life@0</content>
         <upper>92</upper>
     </percentile>
     <percentile>
         <lower>93</lower>
-        <content>Staff of Passage,0</content>
+        <content>Staff of Passage@0</content>
         <upper>97</upper>
     </percentile>
     <percentile>
         <lower>98</lower>
-        <content>Staff of Power,2</content>
+        <content>Staff of Power@2</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

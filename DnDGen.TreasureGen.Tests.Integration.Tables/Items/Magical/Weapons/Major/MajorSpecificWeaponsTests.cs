@@ -1,6 +1,6 @@
-﻿using NUnit.Framework;
+﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Tables;
-using DnDGen.TreasureGen.Items;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Weapons.Major
 {
@@ -9,7 +9,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Weapons.Majo
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.POWERSpecificITEMTYPEs, PowerConstants.Major, ItemTypeConstants.Weapon); }
+            get { return TableNameConstants.Percentiles.POWERSpecificITEMTYPEs(PowerConstants.Major, ItemTypeConstants.Weapon); }
         }
 
         [Test]
@@ -45,15 +45,15 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Weapons.Majo
         [TestCase(WeaponConstants.MaceOfSmiting, 3, 92, 95)]
         [TestCase(WeaponConstants.LuckBlade2, 2, 96, 97)]
         [TestCase(WeaponConstants.HolyAvenger, 2, 98, 99)]
-        public override void TypeAndAmountPercentile(string type, int amount, int lower, int upper)
+        public void TypeAndAmountPercentile(string type, int amount, int lower, int upper)
         {
-            base.TypeAndAmountPercentile(type, amount, lower, upper);
+            AssertTypeAndAmountPercentile(type, amount, lower, upper);
         }
 
         [TestCase(WeaponConstants.LuckBlade3, 2, 100)]
-        public override void TypeAndAmountPercentile(string type, int amount, int roll)
+        public void TypeAndAmountPercentile(string type, int amount, int roll)
         {
-            base.TypeAndAmountPercentile(type, amount, roll);
+            AssertTypeAndAmountPercentile(type, amount, roll);
         }
     }
 }

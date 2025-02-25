@@ -1,7 +1,7 @@
-﻿using DnDGen.TreasureGen.Coins;
+﻿using DnDGen.Infrastructure.Models;
+using DnDGen.Infrastructure.Selectors.Percentiles;
+using DnDGen.TreasureGen.Coins;
 using DnDGen.TreasureGen.Generators.Coins;
-using DnDGen.TreasureGen.Selectors.Percentiles;
-using DnDGen.TreasureGen.Selectors.Selections;
 using DnDGen.TreasureGen.Tables;
 using Moq;
 using NUnit.Framework;
@@ -11,21 +11,22 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Coins
     [TestFixture]
     public class CoinGeneratorTests
     {
-        private Mock<ITypeAndAmountPercentileSelector> mockTypeAndAmountPercentileSelector;
+        private Mock<IPercentileTypeAndAmountSelector> mockTypeAndAmountPercentileSelector;
         private ICoinGenerator generator;
 
-        private TypeAndAmountSelection selection;
+        private TypeAndAmountDataSelection selection;
 
         [SetUp]
         public void Setup()
         {
-            mockTypeAndAmountPercentileSelector = new Mock<ITypeAndAmountPercentileSelector>();
+            mockTypeAndAmountPercentileSelector = new Mock<IPercentileTypeAndAmountSelector>();
             generator = new CoinGenerator(mockTypeAndAmountPercentileSelector.Object);
-            selection = new TypeAndAmountSelection();
-
-            selection.Type = "coin type";
-            selection.Amount = 9266;
-            mockTypeAndAmountPercentileSelector.Setup(p => p.SelectFrom(It.IsAny<string>())).Returns(selection);
+            selection = new TypeAndAmountDataSelection
+            {
+                Type = "coin type",
+                AmountAsDouble = 9266
+            };
+            mockTypeAndAmountPercentileSelector.Setup(p => p.SelectFrom(Config.Name, It.IsAny<string>())).Returns(selection);
 
         }
 
@@ -36,36 +37,40 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Coins
                 Throws.ArgumentException.With.Message.EqualTo($"Level 0 is not a valid level for treasure generation"));
         }
 
-        [Test]
-        public void GenerateAtLevel_ThrowsException_LevelTooHigh()
-        {
-            Assert.That(() => generator.GenerateAtLevel(LevelLimits.Maximum + 1),
-                Throws.ArgumentException.With.Message.EqualTo($"Level 101 is not a valid level for treasure generation"));
-        }
-
         [TestCase(LevelLimits.Minimum)]
         [TestCase(LevelLimits.Minimum + 1)]
         [TestCase(10)]
-        [TestCase(20)]
-        [TestCase(30)]
-        [TestCase(42)]
-        [TestCase(LevelLimits.Maximum - 1)]
-        [TestCase(LevelLimits.Maximum)]
+        [TestCase(LevelLimits.Maximum_Standard - 1)]
+        [TestCase(LevelLimits.Maximum_Standard)]
         public void ReturnCoinFromSelector(int level)
         {
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.LevelXCoins, level);
+            var tableName = TableNameConstants.Percentiles.LevelXCoins(level);
             generator.GenerateAtLevel(level);
-            mockTypeAndAmountPercentileSelector.Verify(p => p.SelectFrom(tableName), Times.Once);
+            mockTypeAndAmountPercentileSelector.Verify(p => p.SelectFrom(Config.Name, tableName), Times.Once);
+        }
+
+        [TestCase(LevelLimits.Maximum_Standard + 1)]
+        [TestCase(LevelLimits.Maximum_Epic - 1)]
+        [TestCase(LevelLimits.Maximum_Epic)]
+        [TestCase(LevelLimits.Maximum_Epic + 1)]
+        [TestCase(42)]
+        [TestCase(9266)]
+        public void ReturnCoinFromSelector_HighLevel(int level)
+        {
+            var tableName = TableNameConstants.Percentiles.LevelXCoins(LevelLimits.Maximum_Standard);
+            generator.GenerateAtLevel(level);
+            mockTypeAndAmountPercentileSelector.Verify(p => p.SelectFrom(Config.Name, tableName), Times.Once);
         }
 
         [Test]
         public void CoinIsEmptyIfResultIsEmpty()
         {
             selection.Type = string.Empty;
+            selection.AmountAsDouble = 0;
 
             var coin = generator.GenerateAtLevel(1);
-            Assert.That(coin.Currency, Is.EqualTo(string.Empty));
-            Assert.That(coin.Quantity, Is.EqualTo(0));
+            Assert.That(coin.Currency, Is.Empty);
+            Assert.That(coin.Quantity, Is.Zero);
         }
 
         [Test]

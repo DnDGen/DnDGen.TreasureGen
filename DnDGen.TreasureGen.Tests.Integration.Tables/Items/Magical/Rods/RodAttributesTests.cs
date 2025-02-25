@@ -10,7 +10,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Rods
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Collections.Formattable.ITEMTYPEAttributes, ItemTypeConstants.Rod); }
+            get { return TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Rod); }
         }
 
         [TestCase(RodConstants.Metamagic_Enlarge_Lesser)]
@@ -92,7 +92,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Rods
             AttributeConstants.Specific)]
         public void RodAttributes(string name, params string[] attributes)
         {
-            base.Collections(name, attributes);
+            base.AssertCollection(name, attributes);
         }
 
         [TestCase(RodConstants.Alertness, WeaponConstants.LightMace)]
@@ -106,7 +106,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Rods
         {
             var rodAttributes = table[rod];
 
-            var weaponAttributesTableName = string.Format(TableNameConstants.Collections.Formattable.ITEMTYPEAttributes, ItemTypeConstants.Weapon);
+            var weaponAttributesTableName = TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Weapon);
             var weaponAttributesTable = CollectionMapper.Map(Name, weaponAttributesTableName);
             var weaponAttributes = weaponAttributesTable[weapon];
 

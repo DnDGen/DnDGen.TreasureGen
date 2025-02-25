@@ -8,7 +8,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Scrolls.Arca
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.LevelXSPELLTYPESpells, 3, "Arcane"); }
+            get { return TableNameConstants.Percentiles.LevelXSPELLTYPESpells(3, "Arcane"); }
         }
 
         [Test]
@@ -60,9 +60,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Scrolls.Arca
         [TestCase("Vampiric Touch", 94, 95)]
         [TestCase("Water Breathing", 96, 98)]
         [TestCase("Wind Wall", 99, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        public void Level3ArcaneSpellsPercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
+            AssertPercentile(content, lower, upper);
         }
 
         [TestCase("Cure Serious Wounds", 7)]
@@ -75,9 +75,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Scrolls.Arca
         [TestCase("Sepia Snake Sigil", 78)]
         [TestCase("Shrink Item", 79)]
         [TestCase("Speak with Animals", 84)]
-        public override void Percentile(string content, int roll)
+        public void Level3ArcaneSpellsPercentile(string content, int roll)
         {
-            base.Percentile(content, roll);
+            AssertPercentile(content, roll);
         }
     }
 }

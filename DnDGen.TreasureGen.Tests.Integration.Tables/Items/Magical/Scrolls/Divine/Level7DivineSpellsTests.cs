@@ -8,7 +8,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Scrolls.Divi
     {
         protected override string tableName
         {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.LevelXSPELLTYPESpells, 7, "Divine"); }
+            get { return TableNameConstants.Percentiles.LevelXSPELLTYPESpells(7, "Divine"); }
         }
 
         [Test]
@@ -43,18 +43,13 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Scrolls.Divi
         [TestCase("Summon Monster VII", 77, 81)]
         [TestCase("Summon Nature's Ally VII", 82, 85)]
         [TestCase("Sunbeam", 86, 90)]
+        [TestCase("Symbol of Stunning", 91, 91)]
+        [TestCase("Symbol of Weakness", 92, 92)]
         [TestCase("Transmute Metal to Wood", 93, 97)]
         [TestCase("Word of Chaos", 98, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        public void Level7DivineSpellsPercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
-        }
-
-        [TestCase("Symbol of Stunning", 91)]
-        [TestCase("Symbol of Weakness", 92)]
-        public override void Percentile(string content, int roll)
-        {
-            base.Percentile(content, roll);
+            AssertPercentile(content, lower, upper);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane
     {
         protected override string tableName
         {
-            get { return TableNameConstants.Collections.Set.SpecialMaterials; }
+            get { return TableNameConstants.Collections.SpecialMaterials; }
         }
 
         [TestCase(TraitConstants.SpecialMaterials.Adamantine, AttributeConstants.Metal)]
@@ -27,15 +27,15 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane
             TraitConstants.SpecialMaterials.Darkwood,
             TraitConstants.SpecialMaterials.Dragonhide,
             TraitConstants.SpecialMaterials.Mithral)]
-        public override void Collections(string name, params string[] attributes)
+        public void Collection(string name, params string[] attributes)
         {
-            base.Collections(name, attributes);
+            base.AssertCollection(name, attributes);
         }
 
         [Test]
         public void TableContainsAllSpecialMaterials()
         {
-            var materials = TraitConstants.SpecialMaterials.All();
+            var materials = TraitConstants.SpecialMaterials.GetAll();
             var table = CollectionMapper.Map(Name, tableName);
             Assert.That(table.Keys, Is.SupersetOf(materials));
         }

@@ -3,42 +3,42 @@
 <percentiles>
   <percentile>
     <lower>1</lower>
-    <content>Alchemist's fire,1d4</content>
+    <content>Alchemist's fire@1d4</content>
     <upper>12</upper>
   </percentile>
     <percentile>
         <lower>13</lower>
-        <content>Acid,2d4</content>
+        <content>Acid@2d4</content>
         <upper>24</upper>
     </percentile>
     <percentile>
         <lower>25</lower>
-        <content>Smokestick,1d4</content>
+        <content>Smokestick@1d4</content>
         <upper>36</upper>
     </percentile>
     <percentile>
         <lower>37</lower>
-        <content>Holy water,1d4</content>
+        <content>Holy water@1d4</content>
         <upper>48</upper>
     </percentile>
     <percentile>
         <lower>49</lower>
-        <content>Antitoxin,1d4</content>
+        <content>Antitoxin@1d4</content>
         <upper>62</upper>
     </percentile>
     <percentile>
         <lower>63</lower>
-        <content>Everburning torch,1</content>
+        <content>Everburning torch@1</content>
         <upper>74</upper>
     </percentile>
     <percentile>
         <lower>75</lower>
-        <content>Tanglefoot bag,1d4</content>
+        <content>Tanglefoot bag@1d4</content>
         <upper>88</upper>
     </percentile>
     <percentile>
         <lower>89</lower>
-        <content>Thunderstone,1d4</content>
+        <content>Thunderstone@1d4</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

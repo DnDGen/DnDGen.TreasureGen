@@ -1,16 +1,15 @@
-﻿using NUnit.Framework;
-using DnDGen.TreasureGen.Tables;
+﻿using DnDGen.Infrastructure.Helpers;
 using DnDGen.TreasureGen.Items;
+using DnDGen.TreasureGen.Selectors.Selections;
+using DnDGen.TreasureGen.Tables;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane.Armors
 {
     [TestFixture]
     public class ArmorDataTests : CollectionsTests
     {
-        protected override string tableName
-        {
-            get { return TableNameConstants.Collections.Set.ArmorData; }
-        }
+        protected override string tableName => TableNameConstants.Collections.ArmorData;
 
         [TestCase(ArmorConstants.Buckler, 1, -1, int.MaxValue)]
         [TestCase(ArmorConstants.LightWoodenShield, 1, -1, int.MaxValue)]
@@ -32,12 +31,14 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Mundane.Armors
         [TestCase(ArmorConstants.FullPlate, 8, -6, 1)]
         public void ArmorData(string name, int armorBonus, int armorCheckPenalty, int maxDexterityBonus)
         {
-            var data = new string[3];
-            data[DataIndexConstants.Armor.ArmorBonus] = armorBonus.ToString();
-            data[DataIndexConstants.Armor.ArmorCheckPenalty] = armorCheckPenalty.ToString();
-            data[DataIndexConstants.Armor.MaxDexterityBonus] = maxDexterityBonus.ToString();
+            var data = DataHelper.Parse(new ArmorDataSelection
+            {
+                ArmorBonus = armorBonus,
+                ArmorCheckPenalty = armorCheckPenalty,
+                MaxDexterityBonus = maxDexterityBonus,
+            });
 
-            base.OrderedCollections(name, data);
+            AssertOrderedCollections(name, data);
         }
     }
 }

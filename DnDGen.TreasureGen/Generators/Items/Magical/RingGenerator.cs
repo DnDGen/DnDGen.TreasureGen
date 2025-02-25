@@ -14,14 +14,14 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
         private readonly ICollectionSelector collectionsSelector;
         private readonly ISpellGenerator spellGenerator;
         private readonly IChargesGenerator chargesGenerator;
-        private readonly ITypeAndAmountPercentileSelector typeAndAmountPercentileSelector;
+        private readonly ITreasurePercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
         private readonly IReplacementSelector replacementSelector;
 
         public RingGenerator(
             ICollectionSelector collectionsSelector,
             ISpellGenerator spellGenerator,
             IChargesGenerator chargesGenerator,
-            ITypeAndAmountPercentileSelector typeAndAmountPercentileSelector,
+            ITreasurePercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
             IReplacementSelector replacementSelector)
         {
             this.collectionsSelector = collectionsSelector;
@@ -33,8 +33,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
         public Item GenerateRandom(string power)
         {
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, power, ItemTypeConstants.Ring);
-            var result = typeAndAmountPercentileSelector.SelectFrom(tableName);
+            var result = typeAndAmountPercentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.POWERITEMTYPEs(power, ItemTypeConstants.Ring));
 
             var ring = BuildRing(result.Type, power);
             ring.Magic.Bonus = result.Amount;
@@ -44,11 +43,11 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
         public Item Generate(string power, string itemName, params string[] traits)
         {
-            var possiblePowers = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.Set.PowerGroups, itemName);
+            var possiblePowers = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.PowerGroups, itemName);
             var adjustedPower = PowerHelper.AdjustPower(power, possiblePowers);
 
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERITEMTYPEs, adjustedPower, ItemTypeConstants.Ring);
-            var results = typeAndAmountPercentileSelector.SelectAllFrom(tableName);
+            var tableName = TableNameConstants.Percentiles.POWERITEMTYPEs(adjustedPower, ItemTypeConstants.Ring);
+            var results = typeAndAmountPercentileSelector.SelectAllFrom(Config.Name, tableName);
             var matches = results.Where(r => NameMatches(r.Type, itemName));
 
             var result = collectionsSelector.SelectRandomFrom(matches);
@@ -71,15 +70,16 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
         private Item BuildRing(string name, string power, params string[] traits)
         {
-            var ring = new Item();
-            ring.Name = name;
-            ring.BaseNames = new[] { name };
-            ring.IsMagical = true;
-            ring.ItemType = ItemTypeConstants.Ring;
-            ring.Traits = new HashSet<string>(traits);
+            var ring = new Item
+            {
+                Name = name,
+                BaseNames = [name],
+                IsMagical = true,
+                ItemType = ItemTypeConstants.Ring,
+                Traits = new HashSet<string>(traits)
+            };
 
-            var tableName = string.Format(TableNameConstants.Collections.Formattable.ITEMTYPEAttributes, ring.ItemType);
-            ring.Attributes = collectionsSelector.SelectFrom(Config.Name, tableName, name);
+            ring.Attributes = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ITEMTYPEAttributes(ring.ItemType), name);
 
             if (ring.Attributes.Contains(AttributeConstants.Charged))
                 ring.Magic.Charges = chargesGenerator.GenerateFor(ItemTypeConstants.Ring, name);
@@ -136,13 +136,11 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
         public Item Generate(Item template, bool allowRandomDecoration = false)
         {
             var ring = template.Clone();
-            ring.BaseNames = new[] { ring.Name };
+            ring.BaseNames = [ring.Name];
             ring.ItemType = ItemTypeConstants.Ring;
             ring.Quantity = 1;
             ring.IsMagical = true;
-
-            var tableName = string.Format(TableNameConstants.Collections.Formattable.ITEMTYPEAttributes, ItemTypeConstants.Ring);
-            ring.Attributes = collectionsSelector.SelectFrom(Config.Name, tableName, ring.Name);
+            ring.Attributes = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Ring), ring.Name);
 
             return ring.SmartClone();
         }

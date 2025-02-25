@@ -24,8 +24,9 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
         [Test]
         public void ReturnSpellLevel()
         {
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.POWERSpellLevels, power);
-            mockPercentileSelector.Setup(p => p.SelectFrom(Config.Name, tableName)).Returns("9266");
+            var tableName = TableNameConstants.Percentiles.POWERSpellLevels(power);
+            mockPercentileSelector.Setup(p => p.SelectFrom<int>(Config.Name, tableName)).Returns(9266);
+
             var level = generator.GenerateLevel(power);
             Assert.That(level, Is.EqualTo(9266));
         }
@@ -33,7 +34,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
         [Test]
         public void ReturnSpellType()
         {
-            mockPercentileSelector.Setup(p => p.SelectFrom(Config.Name, TableNameConstants.Percentiles.Set.SpellTypes)).Returns("spell type");
+            mockPercentileSelector.Setup(p => p.SelectFrom(Config.Name, TableNameConstants.Percentiles.SpellTypes)).Returns("spell type");
             var type = generator.GenerateType();
             Assert.That(type, Is.EqualTo("spell type"));
         }
@@ -41,8 +42,9 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
         [Test]
         public void ReturnSpell()
         {
-            var tableName = string.Format(TableNameConstants.Percentiles.Formattable.LevelXSPELLTYPESpells, 9266, "spell type");
+            var tableName = TableNameConstants.Percentiles.LevelXSPELLTYPESpells(9266, "spell type");
             mockPercentileSelector.Setup(p => p.SelectFrom(Config.Name, tableName)).Returns("this is my spell");
+
             var spell = generator.Generate("spell type", 9266);
             Assert.That(spell, Is.EqualTo("this is my spell"));
         }

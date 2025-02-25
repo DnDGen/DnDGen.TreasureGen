@@ -3,17 +3,17 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content>Minor,2d4</content>
+        <content>Minor@2d4</content>
         <upper>25</upper>
     </percentile>
     <percentile>
         <lower>26</lower>
-        <content>Medium,1d4</content>
+        <content>Medium@1d4</content>
         <upper>65</upper>
     </percentile>
     <percentile>
         <lower>66</lower>
-        <content>Major,1d3</content>
+        <content>Major@1d3</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

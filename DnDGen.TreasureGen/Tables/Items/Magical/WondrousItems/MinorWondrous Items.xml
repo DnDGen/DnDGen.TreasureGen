@@ -3,502 +3,502 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content>Quaal's Anchor Feather Token,0</content>
+        <content>Quaal's Anchor Feather Token@0</content>
         <upper>1</upper>
     </percentile>
     <percentile>
         <lower>2</lower>
-        <content>Universal Solvent,0</content>
+        <content>Universal Solvent@0</content>
         <upper>2</upper>
     </percentile>
     <percentile>
         <lower>3</lower>
-        <content>Elixer of Love,0</content>
+        <content>Elixer of Love@0</content>
         <upper>3</upper>
     </percentile>
     <percentile>
         <lower>4</lower>
-        <content>Unguent of Timelessness,0</content>
+        <content>Unguent of Timelessness@0</content>
         <upper>4</upper>
     </percentile>
     <percentile>
         <lower>5</lower>
-        <content>Quaal's Fan Feather Token,0</content>
+        <content>Quaal's Fan Feather Token@0</content>
         <upper>5</upper>
     </percentile>
     <percentile>
         <lower>6</lower>
-        <content>Dust of Tracelessness,0</content>
+        <content>Dust of Tracelessness@0</content>
         <upper>6</upper>
     </percentile>
     <percentile>
         <lower>7</lower>
-        <content>Elixer of Hiding,0</content>
+        <content>Elixer of Hiding@0</content>
         <upper>7</upper>
     </percentile>
     <percentile>
         <lower>8</lower>
-        <content>Elixer of Sneaking,0</content>
+        <content>Elixer of Sneaking@0</content>
         <upper>8</upper>
     </percentile>
     <percentile>
         <lower>9</lower>
-        <content>Elixer of Swimming,0</content>
+        <content>Elixer of Swimming@0</content>
         <upper>9</upper>
     </percentile>
     <percentile>
         <lower>10</lower>
-        <content>Elixer of Vision,0</content>
+        <content>Elixer of Vision@0</content>
         <upper>10</upper>
     </percentile>
     <percentile>
         <lower>11</lower>
-        <content>Silversheen,0</content>
+        <content>Silversheen@0</content>
         <upper>11</upper>
     </percentile>
     <percentile>
         <lower>12</lower>
-        <content>Quaal's Bird Feather Token,0</content>
+        <content>Quaal's Bird Feather Token@0</content>
         <upper>12</upper>
     </percentile>
     <percentile>
         <lower>13</lower>
-        <content>Quaal's Tree Feather Token,0</content>
+        <content>Quaal's Tree Feather Token@0</content>
         <upper>13</upper>
     </percentile>
     <percentile>
         <lower>14</lower>
-        <content>Quaal's Swan Boat Feather Token,0</content>
+        <content>Quaal's Swan Boat Feather Token@0</content>
         <upper>14</upper>
     </percentile>
     <percentile>
         <lower>15</lower>
-        <content>Elixer of Truth,0</content>
+        <content>Elixer of Truth@0</content>
         <upper>15</upper>
     </percentile>
     <percentile>
         <lower>16</lower>
-        <content>Quaal's Whip Feather Token,0</content>
+        <content>Quaal's Whip Feather Token@0</content>
         <upper>16</upper>
     </percentile>
     <percentile>
         <lower>17</lower>
-        <content>Dust of Dryness,0</content>
+        <content>Dust of Dryness@0</content>
         <upper>17</upper>
     </percentile>
     <percentile>
         <lower>18</lower>
-        <content>Gray Bag of Tricks,0</content>
+        <content>Gray Bag of Tricks@0</content>
         <upper>18</upper>
     </percentile>
     <percentile>
         <lower>19</lower>
-        <content>Hand of the Mage,0</content>
+        <content>Hand of the Mage@0</content>
         <upper>19</upper>
     </percentile>
     <percentile>
         <lower>20</lower>
-        <content>Bracers of Armor,1</content>
+        <content>Bracers of Armor@1</content>
         <upper>20</upper>
     </percentile>
     <percentile>
         <lower>21</lower>
-        <content>Cloak of Resistance,1</content>
+        <content>Cloak of Resistance@1</content>
         <upper>21</upper>
     </percentile>
     <percentile>
         <lower>22</lower>
-        <content>1st-level Spell Pearl of Power,0</content>
+        <content>1st-level Spell Pearl of Power@0</content>
         <upper>22</upper>
     </percentile>
     <percentile>
         <lower>23</lower>
-        <content>Phylactery of Faithfulness,0</content>
+        <content>Phylactery of Faithfulness@0</content>
         <upper>23</upper>
     </percentile>
     <percentile>
         <lower>24</lower>
-        <content>Salve of Slipperiness,0</content>
+        <content>Salve of Slipperiness@0</content>
         <upper>24</upper>
     </percentile>
     <percentile>
         <lower>25</lower>
-        <content>Elixer of Fire Breath,0</content>
+        <content>Elixer of Fire Breath@0</content>
         <upper>25</upper>
     </percentile>
     <percentile>
         <lower>26</lower>
-        <content>Pipes of the Sewers,0</content>
+        <content>Pipes of the Sewers@0</content>
         <upper>26</upper>
     </percentile>
     <percentile>
         <lower>27</lower>
-        <content>Dust of Illusion,0</content>
+        <content>Dust of Illusion@0</content>
         <upper>27</upper>
     </percentile>
     <percentile>
         <lower>28</lower>
-        <content>Goggles of Minute Seeing,0</content>
+        <content>Goggles of Minute Seeing@0</content>
         <upper>28</upper>
     </percentile>
     <percentile>
         <lower>29</lower>
-        <content>Brooch of Shielding,0</content>
+        <content>Brooch of Shielding@0</content>
         <upper>29</upper>
     </percentile>
     <percentile>
         <lower>30</lower>
-        <content>Necklace of Fireballs Type I,0</content>
+        <content>Necklace of Fireballs Type I@0</content>
         <upper>30</upper>
     </percentile>
     <percentile>
         <lower>31</lower>
-        <content>Dust of Appearance,0</content>
+        <content>Dust of Appearance@0</content>
         <upper>31</upper>
     </percentile>
     <percentile>
         <lower>32</lower>
-        <content>Hat of Disguise,0</content>
+        <content>Hat of Disguise@0</content>
         <upper>32</upper>
     </percentile>
     <percentile>
         <lower>33</lower>
-        <content>Pipes of Sounding,0</content>
+        <content>Pipes of Sounding@0</content>
         <upper>33</upper>
     </percentile>
     <percentile>
         <lower>34</lower>
-        <content>Quiver of Ehlonna,0</content>
+        <content>Quiver of Ehlonna@0</content>
         <upper>34</upper>
     </percentile>
     <percentile>
         <lower>35</lower>
-        <content>Amulet of Natural Armor,1</content>
+        <content>Amulet of Natural Armor@1</content>
         <upper>35</upper>
     </percentile>
     <percentile>
         <lower>36</lower>
-        <content>Heward's Handy Haversack,0</content>
+        <content>Heward's Handy Haversack@0</content>
         <upper>36</upper>
     </percentile>
     <percentile>
         <lower>37</lower>
-        <content>Horn of Fog,0</content>
+        <content>Horn of Fog@0</content>
         <upper>37</upper>
     </percentile>
     <percentile>
         <lower>38</lower>
-        <content>Elemental Gem,0</content>
+        <content>Elemental Gem@0</content>
         <upper>38</upper>
     </percentile>
     <percentile>
         <lower>39</lower>
-        <content>Robe of Bones,0</content>
+        <content>Robe of Bones@0</content>
         <upper>39</upper>
     </percentile>
     <percentile>
         <lower>40</lower>
-        <content>Sovereign Glue,0</content>
+        <content>Sovereign Glue@0</content>
         <upper>40</upper>
     </percentile>
     <percentile>
         <lower>41</lower>
-        <content>Bag of Holding Type I,0</content>
+        <content>Bag of Holding Type I@0</content>
         <upper>41</upper>
     </percentile>
     <percentile>
         <lower>42</lower>
-        <content>Boots of Elvenkind,0</content>
+        <content>Boots of Elvenkind@0</content>
         <upper>42</upper>
     </percentile>
     <percentile>
         <lower>43</lower>
-        <content>Boots of the Winterlands,0</content>
+        <content>Boots of the Winterlands@0</content>
         <upper>43</upper>
     </percentile>
     <percentile>
         <lower>44</lower>
-        <content>Candle of Truth,0</content>
+        <content>Candle of Truth@0</content>
         <upper>44</upper>
     </percentile>
     <percentile>
         <lower>45</lower>
-        <content>Cloak of Elvenkind,0</content>
+        <content>Cloak of Elvenkind@0</content>
         <upper>45</upper>
     </percentile>
     <percentile>
         <lower>46</lower>
-        <content>Eyes of the Eagle,0</content>
+        <content>Eyes of the Eagle@0</content>
         <upper>46</upper>
     </percentile>
     <percentile>
         <lower>47</lower>
-        <content>Golembane Scarab,0</content>
+        <content>Golembane Scarab@0</content>
         <upper>47</upper>
     </percentile>
     <percentile>
         <lower>48</lower>
-        <content>Necklace of Fireballs Type II,0</content>
+        <content>Necklace of Fireballs Type II@0</content>
         <upper>48</upper>
     </percentile>
     <percentile>
         <lower>49</lower>
-        <content>Stone of Alarm,0</content>
+        <content>Stone of Alarm@0</content>
         <upper>49</upper>
     </percentile>
     <percentile>
         <lower>50</lower>
-        <content>Rust Bag of Tricks,0</content>
+        <content>Rust Bag of Tricks@0</content>
         <upper>50</upper>
     </percentile>
     <percentile>
         <lower>51</lower>
-        <content>Bead of Force,0</content>
+        <content>Bead of Force@0</content>
         <upper>51</upper>
     </percentile>
     <percentile>
         <lower>52</lower>
-        <content>Chime of Opening,0</content>
+        <content>Chime of Opening@0</content>
         <upper>52</upper>
     </percentile>
     <percentile>
         <lower>53</lower>
-        <content>Horseshoes of Speed,0</content>
+        <content>Horseshoes of Speed@0</content>
         <upper>53</upper>
     </percentile>
     <percentile>
         <lower>54</lower>
-        <content>Rope of Climbing,0</content>
+        <content>Rope of Climbing@0</content>
         <upper>54</upper>
     </percentile>
     <percentile>
         <lower>55</lower>
-        <content>Dust of Disappearance,0</content>
+        <content>Dust of Disappearance@0</content>
         <upper>55</upper>
     </percentile>
     <percentile>
         <lower>56</lower>
-        <content>Lens of Detection,0</content>
+        <content>Lens of Detection@0</content>
         <upper>56</upper>
     </percentile>
     <percentile>
         <lower>57</lower>
-        <content>Druid's Vestments,0</content>
+        <content>Druid's Vestments@0</content>
         <upper>57</upper>
     </percentile>
     <percentile>
         <lower>58</lower>
-        <content>Silver Raven Figurine of Wondrous Power,0</content>
+        <content>Silver Raven Figurine of Wondrous Power@0</content>
         <upper>58</upper>
     </percentile>
     <percentile>
         <lower>59</lower>
-        <content>Amulet of Health,2</content>
+        <content>Amulet of Health@2</content>
         <upper>59</upper>
     </percentile>
     <percentile>
         <lower>60</lower>
-        <content>Bracers of Armor,2</content>
+        <content>Bracers of Armor@2</content>
         <upper>60</upper>
     </percentile>
     <percentile>
         <lower>61</lower>
-        <content>Cloak of Charisma,2</content>
+        <content>Cloak of Charisma@2</content>
         <upper>61</upper>
     </percentile>
     <percentile>
         <lower>62</lower>
-        <content>Cloak of Resistance,2</content>
+        <content>Cloak of Resistance@2</content>
         <upper>62</upper>
     </percentile>
     <percentile>
         <lower>63</lower>
-        <content>Gauntlets of Ogre Power,0</content>
+        <content>Gauntlets of Ogre Power@0</content>
         <upper>63</upper>
     </percentile>
     <percentile>
         <lower>64</lower>
-        <content>Gloves of Arrow Snaring,0</content>
+        <content>Gloves of Arrow Snaring@0</content>
         <upper>64</upper>
     </percentile>
     <percentile>
         <lower>65</lower>
-        <content>Gloves of Dexterity,2</content>
+        <content>Gloves of Dexterity@2</content>
         <upper>65</upper>
     </percentile>
     <percentile>
         <lower>66</lower>
-        <content>Headband of Intellect,2</content>
+        <content>Headband of Intellect@2</content>
         <upper>66</upper>
     </percentile>
     <percentile>
         <lower>67</lower>
-        <content>Clear Spindle Ioun Stone,0</content>
+        <content>Clear Spindle Ioun Stone@0</content>
         <upper>67</upper>
     </percentile>
     <percentile>
         <lower>68</lower>
-        <content>Keoghtom's Ointment,0</content>
+        <content>Keoghtom's Ointment@0</content>
         <upper>68</upper>
     </percentile>
     <percentile>
         <lower>69</lower>
-        <content>Nolzur's Marvelous Pigments,0</content>
+        <content>Nolzur's Marvelous Pigments@0</content>
         <upper>69</upper>
     </percentile>
     <percentile>
         <lower>70</lower>
-        <content>2nd-level Spell Pearl of Power,0</content>
+        <content>2nd-level Spell Pearl of Power@0</content>
         <upper>70</upper>
     </percentile>
     <percentile>
         <lower>71</lower>
-        <content>Periapt of Wisdom,2</content>
+        <content>Periapt of Wisdom@2</content>
         <upper>71</upper>
     </percentile>
     <percentile>
         <lower>72</lower>
-        <content>Stone Salve,0</content>
+        <content>Stone Salve@0</content>
         <upper>72</upper>
     </percentile>
     <percentile>
         <lower>73</lower>
-        <content>Necklace of Fireballs Type III,0</content>
+        <content>Necklace of Fireballs Type III@0</content>
         <upper>73</upper>
     </percentile>
     <percentile>
         <lower>74</lower>
-        <content>Circlet of Persuasion,0</content>
+        <content>Circlet of Persuasion@0</content>
         <upper>74</upper>
     </percentile>
     <percentile>
         <lower>75</lower>
-        <content>Slippers of Spider Climbing,0</content>
+        <content>Slippers of Spider Climbing@0</content>
         <upper>75</upper>
     </percentile>
     <percentile>
         <lower>76</lower>
-        <content>Incense of Meditation,0</content>
+        <content>Incense of Meditation@0</content>
         <upper>76</upper>
     </percentile>
     <percentile>
         <lower>77</lower>
-        <content>Bag of Holding Type II,0</content>
+        <content>Bag of Holding Type II@0</content>
         <upper>77</upper>
     </percentile>
     <percentile>
         <lower>78</lower>
-        <content>Lesser Bracers of Archery,0</content>
+        <content>Lesser Bracers of Archery@0</content>
         <upper>78</upper>
     </percentile>
     <percentile>
         <lower>79</lower>
-        <content>Dusty Rose Prism Ioun Stone,0</content>
+        <content>Dusty Rose Prism Ioun Stone@0</content>
         <upper>79</upper>
     </percentile>
     <percentile>
         <lower>80</lower>
-        <content>Helm of Comprehend Languages and Read Magic,0</content>
+        <content>Helm of Comprehend Languages and Read Magic@0</content>
         <upper>80</upper>
     </percentile>
     <percentile>
         <lower>81</lower>
-        <content>Vest of Escape,0</content>
+        <content>Vest of Escape@0</content>
         <upper>81</upper>
     </percentile>
     <percentile>
         <lower>82</lower>
-        <content>Eversmoking Bottle,0</content>
+        <content>Eversmoking Bottle@0</content>
         <upper>82</upper>
     </percentile>
     <percentile>
         <lower>83</lower>
-        <content>Murlynd's Spoon,0</content>
+        <content>Murlynd's Spoon@0</content>
         <upper>83</upper>
     </percentile>
     <percentile>
         <lower>84</lower>
-        <content>Necklace of Fireballs Type IV,0</content>
+        <content>Necklace of Fireballs Type IV@0</content>
         <upper>84</upper>
     </percentile>
     <percentile>
         <lower>85</lower>
-        <content>Boots of Striding and Springing,0</content>
+        <content>Boots of Striding and Springing@0</content>
         <upper>85</upper>
     </percentile>
     <percentile>
         <lower>86</lower>
-        <content>Wind Fan,0</content>
+        <content>Wind Fan@0</content>
         <upper>86</upper>
     </percentile>
     <percentile>
         <lower>87</lower>
-        <content>Amulet of Mighty Fists,1</content>
+        <content>Amulet of Mighty Fists@1</content>
         <upper>87</upper>
     </percentile>
     <percentile>
         <lower>88</lower>
-        <content>Horseshoes of a Zephyr,0</content>
+        <content>Horseshoes of a Zephyr@0</content>
         <upper>88</upper>
     </percentile>
     <percentile>
         <lower>89</lower>
-        <content>Pipes of Haunting,0</content>
+        <content>Pipes of Haunting@0</content>
         <upper>89</upper>
     </percentile>
     <percentile>
         <lower>90</lower>
-        <content>Necklace of Fireballs Type V,0</content>
+        <content>Necklace of Fireballs Type V@0</content>
         <upper>90</upper>
     </percentile>
     <percentile>
         <lower>91</lower>
-        <content>Gloves of Swimming and Climbing,0</content>
+        <content>Gloves of Swimming and Climbing@0</content>
         <upper>91</upper>
     </percentile>
     <percentile>
         <lower>92</lower>
-        <content>Tan Bag of Tricks,0</content>
+        <content>Tan Bag of Tricks@0</content>
         <upper>92</upper>
     </percentile>
     <percentile>
         <lower>93</lower>
-        <content>Minor Circlet of Blasting,0</content>
+        <content>Minor Circlet of Blasting@0</content>
         <upper>93</upper>
     </percentile>
     <percentile>
         <lower>94</lower>
-        <content>Horn of Goodness/Evil,0</content>
+        <content>Horn of Goodness/Evil@0</content>
         <upper>94</upper>
     </percentile>
     <percentile>
         <lower>95</lower>
-        <content>Robe of Useful Items,0</content>
+        <content>Robe of Useful Items@0</content>
         <upper>95</upper>
     </percentile>
     <percentile>
         <lower>96</lower>
-        <content>Folding Boat,0</content>
+        <content>Folding Boat@0</content>
         <upper>96</upper>
     </percentile>
     <percentile>
         <lower>97</lower>
-        <content>Cloak of the Manta Ray,0</content>
+        <content>Cloak of the Manta Ray@0</content>
         <upper>97</upper>
     </percentile>
     <percentile>
         <lower>98</lower>
-        <content>Bottle of Air,0</content>
+        <content>Bottle of Air@0</content>
         <upper>98</upper>
     </percentile>
     <percentile>
         <lower>99</lower>
-        <content>Bag of Holding Type III,0</content>
+        <content>Bag of Holding Type III@0</content>
         <upper>99</upper>
     </percentile>
     <percentile>
         <lower>100</lower>
-        <content>Periapt of Health,0</content>
+        <content>Periapt of Health@0</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

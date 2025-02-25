@@ -11,11 +11,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables
     public abstract class PercentileTests : TableTests
     {
         protected PercentileMapper PercentileMapper;
-
-        protected const string EmptyContent = "";
-
         protected Dictionary<int, string> table;
-        private Regex allCapsRegex;
+
+        private readonly Regex allCapsRegex;
         private readonly IEnumerable<string> replacementStrings;
 
         public PercentileTests()
@@ -57,13 +55,13 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables
                 Assert.That(replacementStrings, Contains.Item(match.ToString()));
         }
 
-        public virtual void Percentile(string content, int lower, int upper)
+        protected void AssertPercentile(string content, int lower, int upper)
         {
             for (var roll = lower; roll <= upper; roll++)
-                Percentile(content, roll);
+                AssertPercentile(content, roll);
         }
 
-        public virtual void Percentile(string content, int roll)
+        protected void AssertPercentile(string content, int roll)
         {
             Assert.That(table.Keys, Contains.Item(roll), tableName);
 

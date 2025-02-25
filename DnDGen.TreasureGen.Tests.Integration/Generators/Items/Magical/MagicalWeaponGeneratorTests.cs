@@ -1,7 +1,6 @@
 ﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
 using DnDGen.TreasureGen.Tests.Unit.Generators.Items;
-using Ninject;
 using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
@@ -9,21 +8,20 @@ namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
     [TestFixture]
     public class MagicalWeaponGeneratorTests : IntegrationTests
     {
-        [Inject, Named(ItemTypeConstants.Weapon)]
-        public MagicalItemGenerator WeaponGenerator { get; set; }
-
+        private MagicalItemGenerator weaponGenerator;
         private ItemVerifier itemVerifier;
 
         [SetUp]
         public void Setup()
         {
             itemVerifier = new ItemVerifier();
+            weaponGenerator = GetNewInstanceOf<MagicalItemGenerator>(ItemTypeConstants.Weapon);
         }
 
         [TestCaseSource(typeof(ItemPowerTestData), nameof(ItemPowerTestData.Weapons))]
         public void GenerateWeapon(string itemName, string power)
         {
-            var item = WeaponGenerator.Generate(power, itemName);
+            var item = weaponGenerator.Generate(power, itemName);
             itemVerifier.AssertItem(item);
         }
 
@@ -50,7 +48,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
         [TestCase(WeaponConstants.Longsword, PowerConstants.Major, TraitConstants.Sizes.Tiny)]
         public void GenerateWeaponOfSize(string itemName, string power, string size)
         {
-            var item = WeaponGenerator.Generate(power, itemName, "my trait", size);
+            var item = weaponGenerator.Generate(power, itemName, "my trait", size);
             itemVerifier.AssertItem(item);
             Assert.That(item, Is.InstanceOf<Weapon>());
 
@@ -118,7 +116,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
         [TestCase(PowerConstants.Major, WeaponConstants.Sling, WeaponConstants.SlingBullet)]
         public void GenerateWeaponWithAmmunition(string power, string weaponName, string ammunition)
         {
-            var item = WeaponGenerator.Generate(power, weaponName);
+            var item = weaponGenerator.Generate(power, weaponName);
             itemVerifier.AssertItem(item);
             Assert.That(item, Is.InstanceOf<Weapon>(), item.Name);
 
@@ -135,18 +133,18 @@ namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
         [TestCase(WeaponConstants.ShiftersSorrow)]
         public void GenerateMagicalDoubleWeapon(string weaponName)
         {
-            var item = WeaponGenerator.Generate(PowerConstants.Major, weaponName);
+            var item = weaponGenerator.Generate(PowerConstants.Major, weaponName);
             itemVerifier.AssertItem(item);
             Assert.That(item.Attributes, Contains.Item(AttributeConstants.DoubleWeapon));
             Assert.That(item, Is.InstanceOf<Weapon>(), item.Name);
 
             var weapon = item as Weapon;
             Assert.That(weapon.IsDoubleWeapon, Is.True);
-            Assert.That(weapon.SecondaryCriticalDamageDescription, Is.Not.Empty);
+            Assert.That(weapon.SecondaryCriticalDamageSummary, Is.Not.Empty);
             Assert.That(weapon.SecondaryCriticalDamageRoll, Is.Not.Empty);
             Assert.That(weapon.SecondaryCriticalDamages, Is.Not.Empty);
             Assert.That(weapon.SecondaryCriticalMultiplier, Is.Not.Empty);
-            Assert.That(weapon.SecondaryDamageDescription, Is.Not.Empty);
+            Assert.That(weapon.SecondaryDamageSummary, Is.Not.Empty);
             Assert.That(weapon.SecondaryDamageRoll, Is.Not.Empty);
             Assert.That(weapon.SecondaryDamages, Is.Not.Empty);
             Assert.That(weapon.SecondaryMagicBonus, Is.Positive);
@@ -155,18 +153,18 @@ namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
         [TestCase(WeaponConstants.ShiftersSorrow)]
         public void GenerateSpecificMagicalDoubleWeapon(string weaponName)
         {
-            var item = WeaponGenerator.Generate(PowerConstants.Major, weaponName);
+            var item = weaponGenerator.Generate(PowerConstants.Major, weaponName);
             itemVerifier.AssertItem(item);
             Assert.That(item.Attributes, Contains.Item(AttributeConstants.DoubleWeapon));
             Assert.That(item, Is.InstanceOf<Weapon>(), item.Name);
 
             var weapon = item as Weapon;
             Assert.That(weapon.IsDoubleWeapon, Is.True);
-            Assert.That(weapon.SecondaryCriticalDamageDescription, Is.Not.Empty);
+            Assert.That(weapon.SecondaryCriticalDamageSummary, Is.Not.Empty);
             Assert.That(weapon.SecondaryCriticalDamageRoll, Is.Not.Empty);
             Assert.That(weapon.SecondaryCriticalDamages, Is.Not.Empty);
             Assert.That(weapon.SecondaryCriticalMultiplier, Is.Not.Empty);
-            Assert.That(weapon.SecondaryDamageDescription, Is.Not.Empty);
+            Assert.That(weapon.SecondaryDamageSummary, Is.Not.Empty);
             Assert.That(weapon.SecondaryDamageRoll, Is.Not.Empty);
             Assert.That(weapon.SecondaryDamages, Is.Not.Empty);
             Assert.That(weapon.SecondaryMagicBonus, Is.EqualTo(1).And.EqualTo(weapon.Magic.Bonus));
@@ -177,19 +175,19 @@ namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
         [TestCase(WeaponConstants.FrostBrand)]
         public void GenerateSpecificMagicalWeaponWithExtraDamage(string weaponName)
         {
-            var item = WeaponGenerator.Generate(PowerConstants.Major, weaponName);
+            var item = weaponGenerator.Generate(PowerConstants.Major, weaponName);
             itemVerifier.AssertItem(item);
             Assert.That(item, Is.InstanceOf<Weapon>(), item.Name);
 
             var weapon = item as Weapon;
-            Assert.That(weapon.Damages, Has.Count.GreaterThan(1), weapon.DamageDescription);
-            Assert.That(weapon.CriticalDamages, Has.Count.GreaterThan(1), weapon.CriticalDamageDescription);
+            Assert.That(weapon.Damages, Has.Count.GreaterThan(1), weapon.DamageSummary);
+            Assert.That(weapon.CriticalDamages, Has.Count.GreaterThan(1), weapon.CriticalDamageSummary);
         }
 
         [TestCaseSource(typeof(ItemPowerTestData), nameof(ItemPowerTestData.SpecificWeapons))]
         public void BUG_GenerateWeapon_SpecificWeaponHasQuantity(string itemName, string power)
         {
-            var item = WeaponGenerator.Generate(power, itemName);
+            var item = weaponGenerator.Generate(power, itemName);
             itemVerifier.AssertItem(item);
             Assert.That(item, Is.InstanceOf<Weapon>(), item.Name);
             Assert.That(item.Quantity, Is.AtLeast(1), item.Name);

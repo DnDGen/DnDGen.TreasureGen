@@ -3,27 +3,27 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content>Caster's Shield,1</content>
+        <content>Caster's Shield@1</content>
         <upper>20</upper>
     </percentile>
     <percentile>
         <lower>21</lower>
-        <content>Spined Shield,1</content>
+        <content>Spined Shield@1</content>
         <upper>40</upper>
     </percentile>
     <percentile>
         <lower>41</lower>
-        <content>Lion's Shield,2</content>
+        <content>Lion's Shield@2</content>
         <upper>60</upper>
     </percentile>
     <percentile>
         <lower>61</lower>
-        <content>Winged Shield,3</content>
+        <content>Winged Shield@3</content>
         <upper>90</upper>
     </percentile>
     <percentile>
         <lower>91</lower>
-        <content>Absorbing Shield,1</content>
+        <content>Absorbing Shield@1</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

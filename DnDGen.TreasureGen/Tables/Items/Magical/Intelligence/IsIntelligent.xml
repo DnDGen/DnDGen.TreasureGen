@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<collections>
+	<collection>
+		<name>Armor</name>
+		<entry>Armor@100</entry>
+	</collection>
+	<collection>
+		<name>Ring</name>
+		<entry>Ring@100</entry>
+	</collection>
+	<collection>
+		<name>Rod</name>
+		<entry>Rod@100</entry>
+	</collection>
+	<collection>
+		<name>Wondrous Item</name>
+		<entry>Wondrous Item@100</entry>
+	</collection>
+	<collection>
+		<name>Melee</name>
+		<entry>Melee@86</entry>
+	</collection>
+	<collection>
+		<name>Ranged</name>
+		<entry>Ranged@96</entry>
+	</collection>
+</collections>

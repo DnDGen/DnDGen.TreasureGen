@@ -9,7 +9,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
     {
         protected override string tableName
         {
-            get { return TableNameConstants.Collections.Set.IntelligenceCommunication; }
+            get { return TableNameConstants.Collections.IntelligenceCommunication; }
         }
 
         [TestCase(12,
@@ -39,7 +39,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
         public void IntelligenceCommunications(int highStat, params string[] attributes)
         {
             var name = Convert.ToString(highStat);
-            base.Collections(name, attributes);
+            base.AssertCollection(name, attributes);
         }
     }
 }

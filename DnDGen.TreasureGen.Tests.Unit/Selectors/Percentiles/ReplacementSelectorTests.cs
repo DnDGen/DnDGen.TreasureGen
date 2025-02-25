@@ -27,7 +27,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Selectors.Percentiles
             replacements["SINGLE"] = new[] { "the only one" };
 
             mockCollectionSelector
-                .Setup(s => s.SelectAllFrom(Config.Name, TableNameConstants.Collections.Set.ReplacementStrings))
+                .Setup(s => s.SelectAllFrom(Config.Name, TableNameConstants.Collections.ReplacementStrings))
                 .Returns(replacements);
 
             var index = 0;

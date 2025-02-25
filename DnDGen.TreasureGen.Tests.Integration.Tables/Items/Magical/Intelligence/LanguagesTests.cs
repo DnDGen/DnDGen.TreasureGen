@@ -1,15 +1,12 @@
-﻿using NUnit.Framework;
-using DnDGen.TreasureGen.Tables;
+﻿using DnDGen.TreasureGen.Tables;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
 {
     [TestFixture]
     public class LanguagesTests : PercentileTests
     {
-        protected override string tableName
-        {
-            get { return TableNameConstants.Percentiles.Set.Languages; }
-        }
+        protected override string tableName => TableNameConstants.Percentiles.Languages;
 
         [Test]
         public override void ReplacementStringsAreValid()
@@ -43,9 +40,9 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Intelligence
         [TestCase("Terran", 86, 90)]
         [TestCase("Undercommon", 91, 95)]
         [TestCase("Druidic", 96, 100)]
-        public override void Percentile(string content, int lower, int upper)
+        public void LanguagesPercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
+            AssertPercentile(content, lower, upper);
         }
     }
 }

@@ -1,17 +1,14 @@
-﻿using NUnit.Framework;
-using DnDGen.TreasureGen.Tables;
-using DnDGen.TreasureGen.Items;
+﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
+using DnDGen.TreasureGen.Tables;
+using NUnit.Framework;
 
 namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Armor.Major
 {
     [TestFixture]
     public class MajorShieldSpecialAbilitiesTests : PercentileTests
     {
-        protected override string tableName
-        {
-            get { return string.Format(TableNameConstants.Percentiles.Formattable.POWERATTRIBUTESpecialAbilities, PowerConstants.Major, AttributeConstants.Shield); }
-        }
+        protected override string tableName => TableNameConstants.Percentiles.POWERATTRIBUTESpecialAbilities(PowerConstants.Major, AttributeConstants.Shield);
 
         [Test]
         public override void ReplacementStringsAreValid()
@@ -39,31 +36,26 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables.Items.Magical.Armor.Major
         [TestCase(SpecialAbilityConstants.GhostTouchArmor, 41, 46)]
         [TestCase(SpecialAbilityConstants.ModerateFortification, 47, 56)]
         [TestCase(SpecialAbilityConstants.SpellResistance15, 57, 58)]
+        [TestCase(SpecialAbilityConstants.Wild, 59, 59)]
         [TestCase(SpecialAbilityConstants.ImprovedAcidResistance, 60, 64)]
         [TestCase(SpecialAbilityConstants.ImprovedColdResistance, 65, 69)]
         [TestCase(SpecialAbilityConstants.ImprovedElectricityResistance, 70, 74)]
         [TestCase(SpecialAbilityConstants.ImprovedFireResistance, 75, 79)]
         [TestCase(SpecialAbilityConstants.ImprovedSonicResistance, 80, 84)]
         [TestCase(SpecialAbilityConstants.SpellResistance17, 85, 86)]
+        [TestCase(SpecialAbilityConstants.UndeadControlling, 87, 87)]
         [TestCase(SpecialAbilityConstants.HeavyFortification, 88, 91)]
         [TestCase(SpecialAbilityConstants.Reflecting, 92, 93)]
-        public override void Percentile(string content, int lower, int upper)
+        [TestCase(SpecialAbilityConstants.SpellResistance19, 94, 94)]
+        [TestCase(SpecialAbilityConstants.GreaterAcidResistance, 95, 95)]
+        [TestCase(SpecialAbilityConstants.GreaterColdResistance, 96, 96)]
+        [TestCase(SpecialAbilityConstants.GreaterElectricityResistance, 97, 97)]
+        [TestCase(SpecialAbilityConstants.GreaterFireResistance, 98, 98)]
+        [TestCase(SpecialAbilityConstants.GreaterSonicResistance, 99, 99)]
+        [TestCase("BonusSpecialAbility", 100, 100)]
+        public void MajorShieldSpecialAbilitiesPercentile(string content, int lower, int upper)
         {
-            base.Percentile(content, lower, upper);
-        }
-
-        [TestCase(SpecialAbilityConstants.Wild, 59)]
-        [TestCase(SpecialAbilityConstants.UndeadControlling, 87)]
-        [TestCase(SpecialAbilityConstants.SpellResistance19, 94)]
-        [TestCase(SpecialAbilityConstants.GreaterAcidResistance, 95)]
-        [TestCase(SpecialAbilityConstants.GreaterColdResistance, 96)]
-        [TestCase(SpecialAbilityConstants.GreaterElectricityResistance, 97)]
-        [TestCase(SpecialAbilityConstants.GreaterFireResistance, 98)]
-        [TestCase(SpecialAbilityConstants.GreaterSonicResistance, 99)]
-        [TestCase("BonusSpecialAbility", 100)]
-        public override void Percentile(string content, int roll)
-        {
-            base.Percentile(content, roll);
+            AssertPercentile(content, lower, upper);
         }
     }
 }

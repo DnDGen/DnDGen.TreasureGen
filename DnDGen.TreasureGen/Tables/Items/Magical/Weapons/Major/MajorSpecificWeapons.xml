@@ -3,112 +3,112 @@
 <percentiles>
     <percentile>
         <lower>1</lower>
-        <content>Assassin's Dagger,2</content>
+        <content>Assassin's Dagger@2</content>
         <upper>4</upper>
     </percentile>
     <percentile>
         <lower>5</lower>
-        <content>Shifter's Sorrow,1</content>
+        <content>Shifter's Sorrow@1</content>
         <upper>7</upper>
     </percentile>
     <percentile>
         <lower>8</lower>
-        <content>Trident of Fish Command,1</content>
+        <content>Trident of Fish Command@1</content>
         <upper>9</upper>
     </percentile>
     <percentile>
         <lower>10</lower>
-        <content>Flame Tongue,1</content>
+        <content>Flame Tongue@1</content>
         <upper>13</upper>
     </percentile>
     <percentile>
         <lower>14</lower>
-        <content>Luck Blade (0 wishes),2</content>
+        <content>Luck Blade (0 wishes)@2</content>
         <upper>17</upper>
     </percentile>
     <percentile>
         <lower>18</lower>
-        <content>Sword of Subtlety,1</content>
+        <content>Sword of Subtlety@1</content>
         <upper>24</upper>
     </percentile>
     <percentile>
         <lower>25</lower>
-        <content>Sword of the Planes,1</content>
+        <content>Sword of the Planes@1</content>
         <upper>31</upper>
     </percentile>
     <percentile>
         <lower>32</lower>
-        <content>Nine Lives Stealer,2</content>
+        <content>Nine Lives Stealer@2</content>
         <upper>37</upper>
     </percentile>
     <percentile>
         <lower>38</lower>
-        <content>Sword of Life Stealing,2</content>
+        <content>Sword of Life Stealing@2</content>
         <upper>42</upper>
     </percentile>
     <percentile>
         <lower>43</lower>
-        <content>Oathbow,2</content>
+        <content>Oathbow@2</content>
         <upper>46</upper>
     </percentile>
     <percentile>
         <lower>47</lower>
-        <content>Mace of Terror,2</content>
+        <content>Mace of Terror@2</content>
         <upper>51</upper>
     </percentile>
     <percentile>
         <lower>52</lower>
-        <content>Life-Drinker,1</content>
+        <content>Life-Drinker@1</content>
         <upper>57</upper>
     </percentile>
     <percentile>
         <lower>58</lower>
-        <content>Sylvan Scimitar,3</content>
+        <content>Sylvan Scimitar@3</content>
         <upper>62</upper>
     </percentile>
     <percentile>
         <lower>63</lower>
-        <content>Rapier of Puncturing,2</content>
+        <content>Rapier of Puncturing@2</content>
         <upper>67</upper>
     </percentile>
     <percentile>
         <lower>68</lower>
-        <content>Sun Blade,2</content>
+        <content>Sun Blade@2</content>
         <upper>73</upper>
     </percentile>
     <percentile>
         <lower>74</lower>
-        <content>Frost Brand,3</content>
+        <content>Frost Brand@3</content>
         <upper>79</upper>
     </percentile>
     <percentile>
         <lower>80</lower>
-        <content>Dwarven Thrower,2</content>
+        <content>Dwarven Thrower@2</content>
         <upper>84</upper>
     </percentile>
     <percentile>
         <lower>85</lower>
-        <content>Luck Blade (1 wish),2</content>
+        <content>Luck Blade (1 wish)@2</content>
         <upper>91</upper>
     </percentile>
     <percentile>
         <lower>92</lower>
-        <content>Mace of Smiting,3</content>
+        <content>Mace of Smiting@3</content>
         <upper>95</upper>
     </percentile>
     <percentile>
         <lower>96</lower>
-        <content>Luck Blade (2 wishes),2</content>
+        <content>Luck Blade (2 wishes)@2</content>
         <upper>97</upper>
     </percentile>
     <percentile>
         <lower>98</lower>
-        <content>Holy Avenger,2</content>
+        <content>Holy Avenger@2</content>
         <upper>99</upper>
     </percentile>
     <percentile>
         <lower>100</lower>
-        <content>Luck Blade (3 wishes),2</content>
+        <content>Luck Blade (3 wishes)@2</content>
         <upper>100</upper>
     </percentile>
 </percentiles>

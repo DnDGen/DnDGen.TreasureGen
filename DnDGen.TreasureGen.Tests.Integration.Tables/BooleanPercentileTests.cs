@@ -4,16 +4,16 @@ namespace DnDGen.TreasureGen.Tests.Integration.Tables
 {
     public abstract class BooleanPercentileTests : PercentileTests
     {
-        public virtual void BooleanPercentile(Boolean isTrue, int lower, int upper)
+        public virtual void BooleanPercentile(bool isTrue, int lower, int upper)
         {
             var content = Convert.ToString(isTrue);
-            base.Percentile(content, lower, upper);
+            AssertPercentile(content, lower, upper);
         }
 
-        public virtual void BooleanPercentile(Boolean isTrue, int roll)
+        public virtual void BooleanPercentile(bool isTrue, int roll)
         {
             var content = Convert.ToString(isTrue);
-            base.Percentile(content, roll);
+            AssertPercentile(content, roll);
         }
     }
 }
