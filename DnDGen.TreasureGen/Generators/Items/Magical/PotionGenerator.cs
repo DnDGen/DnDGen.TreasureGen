@@ -4,7 +4,6 @@ using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
 using DnDGen.TreasureGen.Selectors.Percentiles;
 using DnDGen.TreasureGen.Tables;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
@@ -43,7 +42,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             potion.Magic.Bonus = bonus;
             potion.IsMagical = true;
             potion.Attributes = [AttributeConstants.OneTimeUse];
-            potion.Traits = new HashSet<string>(traits);
+            potion.Traits = [.. traits];
 
             return potion;
         }
@@ -54,10 +53,11 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             var adjustedPower = PowerHelper.AdjustPower(power, possiblePowers);
 
             var results = typeAndAmountPercentileSelector.SelectAllFrom(Config.Name, TableNameConstants.Percentiles.POWERITEMTYPEs(adjustedPower, ItemTypeConstants.Potion));
-            var matches = results.Where(r => NameMatches(r.Type, itemName));
+            var matches = results.Where(r => NameMatches(itemName, r.Type));
             var result = collectionSelector.SelectRandomFrom(matches);
+            var potionName = GetName(itemName, result.Type);
 
-            return GeneratePotion(result.Type, result.Amount, traits);
+            return GeneratePotion(potionName, result.Amount, traits);
         }
 
         private bool NameMatches(string source, string target)
@@ -68,6 +68,16 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return source == target
                 || sourceReplacements.Any(s => s == target)
                 || targetReplacements.Any(t => t == source);
+        }
+
+        private string GetName(string source, string target)
+        {
+            var targetReplacements = replacementSelector.SelectAll(target);
+
+            if (source == target || targetReplacements.Contains(source))
+                return source;
+
+            return target;
         }
 
         public Item Generate(Item template, bool allowRandomDecoration = false)

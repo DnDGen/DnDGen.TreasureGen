@@ -24,5 +24,17 @@ namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Magical
             var item = potionGenerator.Generate(power, itemName);
             itemVerifier.AssertItem(item);
         }
+
+        [TestCase(PotionConstants.MagicCircleAgainstChaos, PowerConstants.Medium)]
+        [TestCase(PotionConstants.MagicCircleAgainstEvil, PowerConstants.Medium)]
+        [TestCase(PotionConstants.MagicCircleAgainstGood, PowerConstants.Medium)]
+        [TestCase(PotionConstants.MagicCircleAgainstLaw, PowerConstants.Medium)]
+        public void BUG_GeneratePotion_ReturnsNonTemplatesPotion(string itemName, string power)
+        {
+            var item = potionGenerator.Generate(power, itemName);
+            itemVerifier.AssertItem(item);
+
+            Assert.That(item.Name, Is.EqualTo(itemName));
+        }
     }
 }
