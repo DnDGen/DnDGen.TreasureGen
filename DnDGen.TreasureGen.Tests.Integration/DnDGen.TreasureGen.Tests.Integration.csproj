@@ -5,7 +5,7 @@
 	  <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DnDGen.Infrastructure" Version="7.0.1" />
+    <PackageReference Include="DnDGen.Infrastructure" Version="7.0.3" />
     <PackageReference Include="DnDGen.RollGen" Version="16.0.1" />
     <PackageReference Include="Ninject" Version="3.3.6" />
     <PackageReference Include="nunit" Version="4.3.2" />
