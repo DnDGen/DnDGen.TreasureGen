@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
-    <Version>12.0.3</Version>
+    <Version>12.0.4</Version>
     <Authors>Karl M. Speer</Authors>
     <Company>DnDGen</Company>
     <Product>TreasureGen</Product>
     <Description>This generates items for the Dungeons and Dragons 3.5 system. One can generate treasure or individual items such as coins, goods, weapons, armor, and magical items.</Description>
-    <PackageReleaseNotes>Update default branch to main</PackageReleaseNotes>
+    <PackageReleaseNotes>Dependabot updates</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/DnDGen/TreasureGen</PackageProjectUrl>
     <RepositoryUrl>https://github.com/DnDGen/TreasureGen</RepositoryUrl>
     <PackageTags>item equipment treasure generator dice dungeons dragons d20 dnd 3.5 equip gen</PackageTags>
