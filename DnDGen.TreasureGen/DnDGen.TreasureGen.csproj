@@ -490,6 +490,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DnDGen.Infrastructure" Version="7.0.1" />
-    <PackageReference Include="DnDGen.RollGen" Version="16.0.1" />
+    <PackageReference Include="DnDGen.RollGen" Version="16.0.3" />
   </ItemGroup>
 </Project>
