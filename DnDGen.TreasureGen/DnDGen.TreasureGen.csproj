@@ -489,7 +489,7 @@
     <EmbeddedResource Include="Tables\ReplacementStrings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DnDGen.Infrastructure" Version="7.0.3" />
-    <PackageReference Include="DnDGen.RollGen" Version="16.0.3" />
+    <PackageReference Include="DnDGen.Infrastructure" Version="7.0.4" />
+    <PackageReference Include="DnDGen.RollGen" Version="16.0.4" />
   </ItemGroup>
 </Project>
