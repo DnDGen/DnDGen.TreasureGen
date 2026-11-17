@@ -7,19 +7,11 @@ using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
-    internal class MagicalItemGeneratorSpecialMaterialDecorator : MagicalItemGenerator
+    internal class MagicalItemGeneratorSpecialMaterialDecorator(
+        MagicalItemGenerator innerGenerator,
+        ISpecialMaterialGenerator specialMaterialGenerator,
+        ICollectionSelector collectionsSelector) : MagicalItemGenerator
     {
-        private readonly MagicalItemGenerator innerGenerator;
-        private readonly ISpecialMaterialGenerator specialMaterialGenerator;
-        private readonly ICollectionSelector collectionsSelector;
-
-        public MagicalItemGeneratorSpecialMaterialDecorator(MagicalItemGenerator innerGenerator, ISpecialMaterialGenerator specialMaterialGenerator, ICollectionSelector collectionsSelector)
-        {
-            this.innerGenerator = innerGenerator;
-            this.specialMaterialGenerator = specialMaterialGenerator;
-            this.collectionsSelector = collectionsSelector;
-        }
-
         public Item Generate(Item template, bool allowRandomDecoration = false)
         {
             var item = innerGenerator.Generate(template, allowRandomDecoration);

@@ -12,21 +12,12 @@ using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
-    internal class CurseGenerator : ICurseGenerator
+    internal class CurseGenerator(
+        Dice dice,
+        ITreasurePercentileSelector percentileSelector,
+        ICollectionSelector collectionsSelector,
+        JustInTimeFactory justInTimeFactory) : ICurseGenerator
     {
-        private readonly Dice dice;
-        private readonly ITreasurePercentileSelector percentileSelector;
-        private readonly ICollectionSelector collectionsSelector;
-        private readonly JustInTimeFactory justInTimeFactory;
-
-        public CurseGenerator(Dice dice, ITreasurePercentileSelector percentileSelector, ICollectionSelector collectionsSelector, JustInTimeFactory justInTimeFactory)
-        {
-            this.dice = dice;
-            this.percentileSelector = percentileSelector;
-            this.collectionsSelector = collectionsSelector;
-            this.justInTimeFactory = justInTimeFactory;
-        }
-
         public bool HasCurse(Item item)
         {
             return item.IsMagical && percentileSelector.SelectFrom<bool>(Config.Name, TableNameConstants.Percentiles.IsItemCursed);
@@ -75,7 +66,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
             var cursedName = GetCursedName(itemName);
             var prototype = GeneratePrototype(cursedName);
-            prototype.Traits = new HashSet<string>(traits);
+            prototype.Traits = [.. traits];
 
             var specificCursedItem = GenerateFromPrototype(prototype);
 
@@ -131,12 +122,12 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return specificCursedItem;
         }
 
-        private Item GetArmor(Item cursedItem)
+        private Armor GetArmor(Item cursedItem)
         {
             var name = cursedItem.BaseNames.First();
 
             var mundaneArmorGenerator = justInTimeFactory.Build<MundaneItemGenerator>(ItemTypeConstants.Armor);
-            var armor = mundaneArmorGenerator.Generate(name, cursedItem.Traits.ToArray()) as Armor;
+            var armor = mundaneArmorGenerator.Generate(name, [.. cursedItem.Traits]) as Armor;
 
             cursedItem.CloneInto(armor);
 
@@ -148,12 +139,12 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return armor;
         }
 
-        private Item GetWeapon(Item cursedItem)
+        private Weapon GetWeapon(Item cursedItem)
         {
             var name = cursedItem.BaseNames.First();
 
             var mundaneWeaponGenerator = justInTimeFactory.Build<MundaneItemGenerator>(ItemTypeConstants.Weapon);
-            var weapon = mundaneWeaponGenerator.Generate(name, cursedItem.Traits.ToArray()) as Weapon;
+            var weapon = mundaneWeaponGenerator.Generate(name, [.. cursedItem.Traits]) as Weapon;
 
             cursedItem.Quantity = weapon.Quantity;
             cursedItem.CloneInto(weapon);
@@ -205,7 +196,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             prototype.BaseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, prototype.Name);
             prototype.Magic.Curse = CurseConstants.SpecificCursedItem;
             prototype.Quantity = 1;
-            prototype.Magic.SpecialAbilities = Enumerable.Empty<SpecialAbility>();
+            prototype.Magic.SpecialAbilities = [];
 
             var cursedItem = GenerateFromPrototype(prototype);
 

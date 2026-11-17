@@ -11,29 +11,14 @@ using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
-    internal class IntelligenceGenerator : IIntelligenceGenerator
+    internal class IntelligenceGenerator(
+        Dice dice,
+        ITreasurePercentileSelector percentileSelector,
+        ICollectionSelector collectionsSelector,
+        ICollectionDataSelector<IntelligenceDataSelection> intelligenceDataSelector,
+        ICollectionTypeAndAmountSelector typeAndAmountSelector) : IIntelligenceGenerator
     {
-        private readonly Dice dice;
-        private readonly ITreasurePercentileSelector percentileSelector;
-        private readonly ICollectionSelector collectionsSelector;
-        private readonly ICollectionDataSelector<IntelligenceDataSelection> intelligenceDataSelector;
-        private readonly ICollectionTypeAndAmountSelector typeAndAmountSelector;
-
         private const int MaxGreaterPowers = 3;
-
-        public IntelligenceGenerator(
-            Dice dice,
-            ITreasurePercentileSelector percentileSelector,
-            ICollectionSelector collectionsSelector,
-            ICollectionDataSelector<IntelligenceDataSelection> intelligenceDataSelector,
-            ICollectionTypeAndAmountSelector typeAndAmountSelector)
-        {
-            this.dice = dice;
-            this.percentileSelector = percentileSelector;
-            this.collectionsSelector = collectionsSelector;
-            this.intelligenceDataSelector = intelligenceDataSelector;
-            this.typeAndAmountSelector = typeAndAmountSelector;
-        }
 
         public bool CanBeIntelligent(IEnumerable<string> attributes, bool isMagical)
         {
@@ -99,7 +84,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             var threshold = MaxGreaterPowers + 2 - intelligenceAttributesResult.GreaterPowersCount;
             var hasSpecialPurpose = dice.Roll().d(MaxGreaterPowers + 1).AsTrueOrFalse(threshold);
 
-            if (greaterPowers.Any() && hasSpecialPurpose)
+            if (greaterPowers.Count != 0 && hasSpecialPurpose)
             {
                 greaterPowers.RemoveAt(greaterPowers.Count - 1);
                 intelligence.SpecialPurpose = percentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.IntelligenceSpecialPurposes);
@@ -115,7 +100,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return intelligence;
         }
 
-        private int BoostEgoByCommunication(IEnumerable<string> communication, string communicationType)
+        private static int BoostEgoByCommunication(IEnumerable<string> communication, string communicationType)
         {
             var containsCommunicationType = communication.Contains(communicationType);
             return Convert.ToInt32(containsCommunicationType);
@@ -189,7 +174,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return string.Empty;
         }
 
-        private bool AlignmentIsAllowed(string alignment, IEnumerable<string> abilityNames, string specificAlignmentRequirement)
+        private static bool AlignmentIsAllowed(string alignment, IEnumerable<string> abilityNames, string specificAlignmentRequirement)
         {
             if (alignment == AlignmentConstants.TrueNeutral)
                 return true;
@@ -209,7 +194,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return alignment == specificAlignmentRequirement || PartialAlignmentRequirementMet(alignment, specificAlignmentRequirement);
         }
 
-        private bool PartialAlignmentRequirementMet(string alignment, string specificAlignmentRequirement)
+        private static bool PartialAlignmentRequirementMet(string alignment, string specificAlignmentRequirement)
         {
             if (specificAlignmentRequirement == AlignmentConstants.Neutral)
                 return alignment.EndsWith(specificAlignmentRequirement);

@@ -8,19 +8,8 @@ using System;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
-    internal class ChargesGenerator : IChargesGenerator
+    internal class ChargesGenerator(Dice dice, ICollectionTypeAndAmountSelector typeAndAmountSelector, ITreasurePercentileSelector percentileSelector) : IChargesGenerator
     {
-        private readonly Dice dice;
-        private readonly ICollectionTypeAndAmountSelector typeAndAmountSelector;
-        private readonly ITreasurePercentileSelector percentileSelector;
-
-        public ChargesGenerator(Dice dice, ICollectionTypeAndAmountSelector typeAndAmountSelector, ITreasurePercentileSelector percentileSelector)
-        {
-            this.dice = dice;
-            this.typeAndAmountSelector = typeAndAmountSelector;
-            this.percentileSelector = percentileSelector;
-        }
-
         public int GenerateFor(string itemType, string name)
         {
             if (itemType == ItemTypeConstants.Wand || itemType == ItemTypeConstants.Staff)

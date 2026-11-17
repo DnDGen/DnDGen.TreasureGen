@@ -3,15 +3,8 @@ using DnDGen.TreasureGen.Tables;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
-    internal class SpellGenerator : ISpellGenerator
+    internal class SpellGenerator(ITreasurePercentileSelector percentileSelector) : ISpellGenerator
     {
-        private readonly ITreasurePercentileSelector percentileSelector;
-
-        public SpellGenerator(ITreasurePercentileSelector percentileSelector)
-        {
-            this.percentileSelector = percentileSelector;
-        }
-
         public string GenerateType()
         {
             return percentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.SpellTypes);

@@ -13,30 +13,13 @@ using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
-    internal class RodGenerator : MagicalItemGenerator
+    internal class RodGenerator(IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
+        ICollectionSelector collectionsSelector,
+        IChargesGenerator chargesGenerator,
+        ITreasurePercentileSelector percentileSelector,
+        ISpecialAbilitiesGenerator specialAbilitiesGenerator,
+        JustInTimeFactory justInTimeFactory) : MagicalItemGenerator
     {
-        private readonly IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
-        private readonly ICollectionSelector collectionsSelector;
-        private readonly IChargesGenerator chargesGenerator;
-        private readonly ITreasurePercentileSelector percentileSelector;
-        private readonly ISpecialAbilitiesGenerator specialAbilitiesGenerator;
-        private readonly JustInTimeFactory justInTimeFactory;
-
-        public RodGenerator(IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
-            ICollectionSelector collectionsSelector,
-            IChargesGenerator chargesGenerator,
-            ITreasurePercentileSelector percentileSelector,
-            ISpecialAbilitiesGenerator specialAbilitiesGenerator,
-            JustInTimeFactory justInTimeFactory)
-        {
-            this.typeAndAmountPercentileSelector = typeAndAmountPercentileSelector;
-            this.collectionsSelector = collectionsSelector;
-            this.chargesGenerator = chargesGenerator;
-            this.percentileSelector = percentileSelector;
-            this.specialAbilitiesGenerator = specialAbilitiesGenerator;
-            this.justInTimeFactory = justInTimeFactory;
-        }
-
         public Item GenerateRandom(string power)
         {
             var rodPowers = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.PowerGroups, ItemTypeConstants.Rod);
@@ -56,7 +39,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
                 IsMagical = true
             };
             rod.Magic.Bonus = bonus;
-            rod.Traits = new HashSet<string>(traits);
+            rod.Traits = [.. traits];
             rod.Attributes = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Rod), name);
 
             if (rod.Attributes.Contains(AttributeConstants.Charged))
@@ -171,7 +154,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             if (rods.Contains(itemName))
                 return itemName;
 
-            var rodFromBaseName = collectionsSelector.FindCollectionOf(Config.Name, TableNameConstants.Collections.ItemGroups, itemName, rods.ToArray());
+            var rodFromBaseName = collectionsSelector.FindCollectionOf(Config.Name, TableNameConstants.Collections.ItemGroups, itemName, [.. rods]);
 
             return rodFromBaseName;
         }

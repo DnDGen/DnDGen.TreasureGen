@@ -5,25 +5,16 @@ using System;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
-    internal class ScrollGenerator : MagicalItemGenerator
+    internal class ScrollGenerator(Dice dice, ISpellGenerator spellGenerator) : MagicalItemGenerator
     {
-        private readonly Dice dice;
-        private readonly ISpellGenerator spellGenerator;
-
-        public ScrollGenerator(Dice dice, ISpellGenerator spellGenerator)
-        {
-            this.dice = dice;
-            this.spellGenerator = spellGenerator;
-        }
-
         public Item Generate(Item template, bool allowRandomDecoration = false)
         {
             var scroll = template.Clone();
             scroll.IsMagical = true;
             scroll.Quantity = 1;
             scroll.ItemType = ItemTypeConstants.Scroll;
-            scroll.Attributes = new[] { AttributeConstants.OneTimeUse };
-            scroll.BaseNames = new[] { ItemTypeConstants.Scroll };
+            scroll.Attributes = [AttributeConstants.OneTimeUse];
+            scroll.BaseNames = [ItemTypeConstants.Scroll];
 
             return scroll.SmartClone();
         }
@@ -31,12 +22,14 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
         public Item GenerateRandom(string power)
         {
             var spellType = spellGenerator.GenerateType();
-            var scroll = new Item();
-            scroll.Name = ItemTypeConstants.Scroll;
-            scroll.BaseNames = new[] { ItemTypeConstants.Scroll };
-            scroll.ItemType = ItemTypeConstants.Scroll;
-            scroll.IsMagical = true;
-            scroll.Attributes = new[] { AttributeConstants.OneTimeUse };
+            var scroll = new Item
+            {
+                Name = ItemTypeConstants.Scroll,
+                BaseNames = [ItemTypeConstants.Scroll],
+                ItemType = ItemTypeConstants.Scroll,
+                IsMagical = true,
+                Attributes = [AttributeConstants.OneTimeUse]
+            };
             scroll.Traits.Add(spellType);
 
             var quantity = GetQuantity(power);
@@ -64,13 +57,13 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
         private int GetQuantity(string power)
         {
-            switch (power)
+            return power switch
             {
-                case PowerConstants.Minor: return dice.Roll().d3().AsSum();
-                case PowerConstants.Medium: return dice.Roll().d4().AsSum();
-                case PowerConstants.Major: return dice.Roll().d6().AsSum();
-                default: throw new ArgumentException();
-            }
+                PowerConstants.Minor => dice.Roll().d3().AsSum(),
+                PowerConstants.Medium => dice.Roll().d4().AsSum(),
+                PowerConstants.Major => dice.Roll().d6().AsSum(),
+                _ => throw new ArgumentException($"Cannot generate scroll of power '{power}'"),
+            };
         }
     }
 }

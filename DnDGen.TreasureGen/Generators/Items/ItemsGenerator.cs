@@ -13,27 +13,18 @@ using System.Threading.Tasks;
 
 namespace DnDGen.TreasureGen.Generators.Items
 {
-    internal class ItemsGenerator : IItemsGenerator
+    internal class ItemsGenerator(
+        IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
+        JustInTimeFactory justInTimeFactory,
+        ITreasurePercentileSelector percentileSelector,
+        ICollectionSelector collectionSelector,
+        ICollectionTypeAndAmountSelector typeAndAmountCollectionSelector) : IItemsGenerator
     {
-        private readonly IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
-        private readonly ITreasurePercentileSelector percentileSelector;
-        private readonly JustInTimeFactory justInTimeFactory;
-        private readonly ICollectionSelector collectionSelector;
-        private readonly ICollectionTypeAndAmountSelector typeAndAmountCollectionSelector;
-
-        public ItemsGenerator(
-            IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
-            JustInTimeFactory justInTimeFactory,
-            ITreasurePercentileSelector percentileSelector,
-            ICollectionSelector collectionSelector,
-            ICollectionTypeAndAmountSelector typeAndAmountCollectionSelector)
-        {
-            this.typeAndAmountPercentileSelector = typeAndAmountPercentileSelector;
-            this.justInTimeFactory = justInTimeFactory;
-            this.percentileSelector = percentileSelector;
-            this.collectionSelector = collectionSelector;
-            this.typeAndAmountCollectionSelector = typeAndAmountCollectionSelector;
-        }
+        private readonly IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector = typeAndAmountPercentileSelector;
+        private readonly ITreasurePercentileSelector percentileSelector = percentileSelector;
+        private readonly JustInTimeFactory justInTimeFactory = justInTimeFactory;
+        private readonly ICollectionSelector collectionSelector = collectionSelector;
+        private readonly ICollectionTypeAndAmountSelector typeAndAmountCollectionSelector = typeAndAmountCollectionSelector;
 
         public IEnumerable<Item> GenerateRandomAtLevel(int level)
         {
@@ -60,7 +51,7 @@ namespace DnDGen.TreasureGen.Generators.Items
             return items;
         }
 
-        private int GetValidPercentileLevel(int level)
+        private static int GetValidPercentileLevel(int level)
         {
             if (level < LevelLimits.Minimum)
                 throw new ArgumentException($"Level {level} is not a valid level for treasure generation");
@@ -71,7 +62,7 @@ namespace DnDGen.TreasureGen.Generators.Items
             return level;
         }
 
-        private int GetValidExtraItemLevel(int level)
+        private static int GetValidExtraItemLevel(int level)
         {
             if (level < LevelLimits.Minimum)
                 throw new ArgumentException($"Level {level} is not a valid level for treasure generation");

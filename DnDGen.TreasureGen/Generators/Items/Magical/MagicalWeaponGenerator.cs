@@ -6,35 +6,19 @@ using DnDGen.TreasureGen.Items.Mundane;
 using DnDGen.TreasureGen.Selectors.Percentiles;
 using DnDGen.TreasureGen.Tables;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
-    internal class MagicalWeaponGenerator : MagicalItemGenerator
+    internal class MagicalWeaponGenerator(
+        ICollectionSelector collectionsSelector,
+        ITreasurePercentileSelector percentileSelector,
+        ISpecialAbilitiesGenerator specialAbilitiesGenerator,
+        ISpecificGearGenerator specificGearGenerator,
+        JustInTimeFactory justInTimeFactory) : MagicalItemGenerator
     {
-        private readonly ICollectionSelector collectionsSelector;
-        private readonly ITreasurePercentileSelector percentileSelector;
-        private readonly ISpecialAbilitiesGenerator specialAbilitiesGenerator;
-        private readonly ISpecificGearGenerator specificGearGenerator;
-        private readonly JustInTimeFactory justInTimeFactory;
-
         public const string SpecialAbility = "SpecialAbility";
         public const string SpecificWeapon = ItemTypeConstants.Weapon;
-
-        public MagicalWeaponGenerator(
-            ICollectionSelector collectionsSelector,
-            ITreasurePercentileSelector percentileSelector,
-            ISpecialAbilitiesGenerator specialAbilitiesGenerator,
-            ISpecificGearGenerator specificGearGenerator,
-            JustInTimeFactory justInTimeFactory)
-        {
-            this.collectionsSelector = collectionsSelector;
-            this.percentileSelector = percentileSelector;
-            this.specialAbilitiesGenerator = specialAbilitiesGenerator;
-            this.specificGearGenerator = specificGearGenerator;
-            this.justInTimeFactory = justInTimeFactory;
-        }
 
         public Item GenerateRandom(string power)
         {
@@ -48,7 +32,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return GenerateWeapon(power, itemName, isSpecific, traits);
         }
 
-        private Item GenerateWeapon(string power, string name, bool isSpecific, params string[] traits)
+        private Weapon GenerateWeapon(string power, string name, bool isSpecific, params string[] traits)
         {
             var prototype = GeneratePrototype(power, name, isSpecific, traits);
             var weapon = GenerateFromPrototype(prototype, true);
@@ -97,7 +81,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
                 while (!canBeSpecific && bonus == SpecificWeapon);
             }
 
-            prototype.Traits = new HashSet<string>(traits);
+            prototype.Traits = [.. traits];
 
             if (bonus == SpecificWeapon && canBeSpecific)
             {

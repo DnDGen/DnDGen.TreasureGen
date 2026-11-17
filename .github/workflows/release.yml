@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: build
+    uses: DnDGen/.github/.github/workflows/nuget-build.yml@v1
+    with:
+      project: DnDGen.RollGen
+
+  # Defined here, not in a shared workflow: nuget.org only accepts a Trusted Publishing token
+  # from a job in this repository's own workflows.
+  publish:
+    name: publish
+    needs: build
+    if: github.repository_owner == 'DnDGen'
+    runs-on: ubuntu-latest
+    environment: Prod
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Publish to NuGet.org
+        uses: DnDGen/.github/actions/nuget-publish@v1
+
+  release:
+    name: release
+    needs: [build, publish]
+    uses: DnDGen/.github/.github/workflows/nuget-release.yml@v1
+    with:
+      version: ${{ needs.build.outputs.version }}
+    permissions:
+      contents: write

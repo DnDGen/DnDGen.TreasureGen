@@ -1,259 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
-    <Version>12.0.6</Version>
+    <TargetFrameworks>net10.0</TargetFrameworks>
+    <Version>13.0.0</Version>
     <Authors>Karl M. Speer</Authors>
     <Company>DnDGen</Company>
     <Product>TreasureGen</Product>
     <Description>This generates items for the Dungeons and Dragons 3.5 system. One can generate treasure or individual items such as coins, goods, weapons, armor, and magical items.</Description>
-    <PackageReleaseNotes>Dependabot updates</PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/DnDGen/TreasureGen</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/DnDGen/TreasureGen</RepositoryUrl>
+    <PackageReleaseNotes>.Net 10 upgrade, GitHub workflows, updated package icon, bug fixes</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/DnDGen/DnDGen.TreasureGen</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/DnDGen/DnDGen.TreasureGen</RepositoryUrl>
     <PackageTags>item equipment treasure generator dice dungeons dragons d20 dnd 3.5 equip gen</PackageTags>
-    <PackageIcon>18531-twenty-sided-dice-vector-thumb.png</PackageIcon>
-    <PackageIconUrl />
+    <PackageIcon>avatar-128.png</PackageIcon>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	  <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Tables\Coins\Level10Coins.xml" />
-    <None Remove="Tables\Coins\Level11Coins.xml" />
-    <None Remove="Tables\Coins\Level12Coins.xml" />
-    <None Remove="Tables\Coins\Level13Coins.xml" />
-    <None Remove="Tables\Coins\Level14Coins.xml" />
-    <None Remove="Tables\Coins\Level15Coins.xml" />
-    <None Remove="Tables\Coins\Level16Coins.xml" />
-    <None Remove="Tables\Coins\Level17Coins.xml" />
-    <None Remove="Tables\Coins\Level18Coins.xml" />
-    <None Remove="Tables\Coins\Level19Coins.xml" />
-    <None Remove="Tables\Coins\Level1Coins.xml" />
-    <None Remove="Tables\Coins\Level20Coins.xml" />
-    <None Remove="Tables\Coins\Level2Coins.xml" />
-    <None Remove="Tables\Coins\Level3Coins.xml" />
-    <None Remove="Tables\Coins\Level4Coins.xml" />
-    <None Remove="Tables\Coins\Level5Coins.xml" />
-    <None Remove="Tables\Coins\Level6Coins.xml" />
-    <None Remove="Tables\Coins\Level7Coins.xml" />
-    <None Remove="Tables\Coins\Level8Coins.xml" />
-    <None Remove="Tables\Coins\Level9Coins.xml" />
-    <None Remove="Tables\Goods\Art\ArtDescriptions.xml" />
-    <None Remove="Tables\Goods\Art\ArtValues.xml" />
-    <None Remove="Tables\Goods\Gems\GemDescriptions.xml" />
-    <None Remove="Tables\Goods\Gems\GemValues.xml" />
-    <None Remove="Tables\Goods\Level10Goods.xml" />
-    <None Remove="Tables\Goods\Level11Goods.xml" />
-    <None Remove="Tables\Goods\Level12Goods.xml" />
-    <None Remove="Tables\Goods\Level13Goods.xml" />
-    <None Remove="Tables\Goods\Level14Goods.xml" />
-    <None Remove="Tables\Goods\Level15Goods.xml" />
-    <None Remove="Tables\Goods\Level16Goods.xml" />
-    <None Remove="Tables\Goods\Level17Goods.xml" />
-    <None Remove="Tables\Goods\Level18Goods.xml" />
-    <None Remove="Tables\Goods\Level19Goods.xml" />
-    <None Remove="Tables\Goods\Level1Goods.xml" />
-    <None Remove="Tables\Goods\Level20Goods.xml" />
-    <None Remove="Tables\Goods\Level21Goods.xml" />
-    <None Remove="Tables\Goods\Level22Goods.xml" />
-    <None Remove="Tables\Goods\Level23Goods.xml" />
-    <None Remove="Tables\Goods\Level24Goods.xml" />
-    <None Remove="Tables\Goods\Level25Goods.xml" />
-    <None Remove="Tables\Goods\Level26Goods.xml" />
-    <None Remove="Tables\Goods\Level27Goods.xml" />
-    <None Remove="Tables\Goods\Level28Goods.xml" />
-    <None Remove="Tables\Goods\Level29Goods.xml" />
-    <None Remove="Tables\Goods\Level2Goods.xml" />
-    <None Remove="Tables\Goods\Level30Goods.xml" />
-    <None Remove="Tables\Goods\Level3Goods.xml" />
-    <None Remove="Tables\Goods\Level4Goods.xml" />
-    <None Remove="Tables\Goods\Level5Goods.xml" />
-    <None Remove="Tables\Goods\Level6Goods.xml" />
-    <None Remove="Tables\Goods\Level7Goods.xml" />
-    <None Remove="Tables\Goods\Level8Goods.xml" />
-    <None Remove="Tables\Goods\Level9Goods.xml" />
-    <None Remove="Tables\Items\HasSpecialMaterial.xml" />
-    <None Remove="Tables\Items\ItemGroups.xml" />
-    <None Remove="Tables\Items\Level10Items.xml" />
-    <None Remove="Tables\Items\Level11Items.xml" />
-    <None Remove="Tables\Items\Level12Items.xml" />
-    <None Remove="Tables\Items\Level13Items.xml" />
-    <None Remove="Tables\Items\Level14Items.xml" />
-    <None Remove="Tables\Items\Level15Items.xml" />
-    <None Remove="Tables\Items\Level16Items.xml" />
-    <None Remove="Tables\Items\Level17Items.xml" />
-    <None Remove="Tables\Items\Level18Items.xml" />
-    <None Remove="Tables\Items\Level19Items.xml" />
-    <None Remove="Tables\Items\Level1Items.xml" />
-    <None Remove="Tables\Items\Level20Items.xml" />
-    <None Remove="Tables\Items\Level21Items.xml" />
-    <None Remove="Tables\Items\Level22Items.xml" />
-    <None Remove="Tables\Items\Level23Items.xml" />
-    <None Remove="Tables\Items\Level24Items.xml" />
-    <None Remove="Tables\Items\Level25Items.xml" />
-    <None Remove="Tables\Items\Level26Items.xml" />
-    <None Remove="Tables\Items\Level27Items.xml" />
-    <None Remove="Tables\Items\Level28Items.xml" />
-    <None Remove="Tables\Items\Level29Items.xml" />
-    <None Remove="Tables\Items\Level2Items.xml" />
-    <None Remove="Tables\Items\Level30Items.xml" />
-    <None Remove="Tables\Items\Level3Items.xml" />
-    <None Remove="Tables\Items\Level4Items.xml" />
-    <None Remove="Tables\Items\Level5Items.xml" />
-    <None Remove="Tables\Items\Level6Items.xml" />
-    <None Remove="Tables\Items\Level7Items.xml" />
-    <None Remove="Tables\Items\Level8Items.xml" />
-    <None Remove="Tables\Items\Level9Items.xml" />
-    <None Remove="Tables\Items\Magical\Armor\ArmorTraits.xml" />
-    <None Remove="Tables\Items\Magical\Armor\ArmorTypes.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Major\MajorArmors.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Major\MajorArmorSpecialAbilities.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Major\MajorShieldSpecialAbilities.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Major\MajorSpecificArmors.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Major\MajorSpecificShields.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Medium\MediumArmors.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Medium\MediumArmorSpecialAbilities.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Medium\MediumShieldSpecialAbilities.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Medium\MediumSpecificArmors.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Medium\MediumSpecificShields.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Minor\MinorArmors.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Minor\MinorArmorSpecialAbilities.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Minor\MinorShieldSpecialAbilities.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Minor\MinorSpecificArmors.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Minor\MinorSpecificShields.xml" />
-    <None Remove="Tables\Items\Magical\Armor\ShieldTypes.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Specific\CastersShieldContainsSpell.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Specific\CastersShieldSpellTypes.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Specific\SpecificArmorAttributes.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Specific\SpecificArmorSpecialAbilities.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Specific\SpecificArmorTraits.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Specific\SpecificShieldAttributes.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Specific\SpecificShieldSpecialAbilities.xml" />
-    <None Remove="Tables\Items\Magical\Armor\Specific\SpecificShieldTraits.xml" />
-    <None Remove="Tables\Items\Magical\ChargeLimits.xml" />
-    <None Remove="Tables\Items\Magical\Curses\CursedDependentSituations.xml" />
-    <None Remove="Tables\Items\Magical\Curses\CurseDrawbacks.xml" />
-    <None Remove="Tables\Items\Magical\Curses\Curses.xml" />
-    <None Remove="Tables\Items\Magical\Curses\Gender.xml" />
-    <None Remove="Tables\Items\Magical\Curses\IsItemCursed.xml" />
-    <None Remove="Tables\Items\Magical\Curses\SpecificCursedItemAttributes.xml" />
-    <None Remove="Tables\Items\Magical\Curses\SpecificCursedItemItemTypes.xml" />
-    <None Remove="Tables\Items\Magical\Curses\SpecificCursedItems.xml" />
-    <None Remove="Tables\Items\Magical\Intelligence\IntelligenceAlignments.xml" />
-    <None Remove="Tables\Items\Magical\Intelligence\IntelligenceCommunication.xml" />
-    <None Remove="Tables\Items\Magical\Intelligence\IntelligenceData.xml" />
-    <None Remove="Tables\Items\Magical\Intelligence\IntelligenceDedicatedPowers.xml" />
-    <None Remove="Tables\Items\Magical\Intelligence\IntelligenceGreaterPowers.xml" />
-    <None Remove="Tables\Items\Magical\Intelligence\IntelligenceLesserPowers.xml" />
-    <None Remove="Tables\Items\Magical\Intelligence\IntelligenceSpecialPurposes.xml" />
-    <None Remove="Tables\Items\Magical\Intelligence\IntelligenceStrongStats.xml" />
-    <None Remove="Tables\Items\Magical\Intelligence\ItemAlignmentRequirements.xml" />
-    <None Remove="Tables\Items\Magical\Intelligence\Languages.xml" />
-    <None Remove="Tables\Items\Magical\Intelligence\PersonalityTraits.xml" />
-    <None Remove="Tables\Items\Magical\MajorItems.xml" />
-    <None Remove="Tables\Items\Magical\MediumItems.xml" />
-    <None Remove="Tables\Items\Magical\MinorItems.xml" />
-    <None Remove="Tables\Items\Magical\Potions\MajorPotions.xml" />
-    <None Remove="Tables\Items\Magical\Potions\MediumPotions.xml" />
-    <None Remove="Tables\Items\Magical\Potions\MinorPotions.xml" />
-    <None Remove="Tables\Items\Magical\Potions\PotionTraits.xml" />
-    <None Remove="Tables\Items\Magical\Rings\MajorRings.xml" />
-    <None Remove="Tables\Items\Magical\Rings\MediumRings.xml" />
-    <None Remove="Tables\Items\Magical\Rings\MinorRings.xml" />
-    <None Remove="Tables\Items\Magical\Rings\RingAttributes.xml" />
-    <None Remove="Tables\Items\Magical\Rings\RingTraits.xml" />
-    <None Remove="Tables\Items\Magical\Rods\MajorRods.xml" />
-    <None Remove="Tables\Items\Magical\Rods\MediumRods.xml" />
-    <None Remove="Tables\Items\Magical\Rods\RodAttributes.xml" />
-    <None Remove="Tables\Items\Magical\Rods\RodOfAbsorptionContainsSpellLevels.xml" />
-    <None Remove="Tables\Items\Magical\Rods\RodTraits.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Arcane\Level0ArcaneSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Arcane\Level1ArcaneSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Arcane\Level2ArcaneSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Arcane\Level3ArcaneSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Arcane\Level4ArcaneSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Arcane\Level5ArcaneSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Arcane\Level6ArcaneSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Arcane\Level7ArcaneSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Arcane\Level8ArcaneSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Arcane\Level9ArcaneSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Divine\Level0DivineSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Divine\Level1DivineSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Divine\Level2DivineSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Divine\Level3DivineSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Divine\Level4DivineSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Divine\Level5DivineSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Divine\Level6DivineSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Divine\Level7DivineSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Divine\Level8DivineSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\Divine\Level9DivineSpells.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\MajorSpellLevels.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\MediumSpellLevels.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\MinorSpellLevels.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\ScrollTraits.xml" />
-    <None Remove="Tables\Items\Magical\Scrolls\SpellTypes.xml" />
-    <None Remove="Tables\Items\Magical\SpecialAbilityAttributeRequirements.xml" />
-    <None Remove="Tables\Items\Magical\Staffs\MajorStaffs.xml" />
-    <None Remove="Tables\Items\Magical\Staffs\MediumStaffs.xml" />
-    <None Remove="Tables\Items\Magical\Staffs\StaffTraits.xml" />
-    <None Remove="Tables\Items\Magical\Wands\MajorWands.xml" />
-    <None Remove="Tables\Items\Magical\Wands\MediumWands.xml" />
-    <None Remove="Tables\Items\Magical\Wands\MinorWands.xml" />
-    <None Remove="Tables\Items\Magical\Wands\WandTraits.xml" />
-    <None Remove="Tables\Items\Magical\Weapons\MagicalWeaponTypes.xml" />
-    <None Remove="Tables\Items\Magical\Weapons\Major\MajorMeleeSpecialAbilities.xml" />
-    <None Remove="Tables\Items\Magical\Weapons\Major\MajorRangedSpecialAbilities.xml" />
-    <None Remove="Tables\Items\Magical\Weapons\Major\MajorSpecificWeapons.xml" />
-    <None Remove="Tables\Items\Magical\Weapons\Major\MajorWeapons.xml" />
-    <None Remove="Tables\Items\Magical\Weapons\Medium\MediumMeleeSpecialAbilities.xml" />
-    <None Remove="Tables\Items\Magical\Weapons\Medium\MediumRangedSpecialAbilities.xml" />
-    <None Remove="Tables\Items\Magical\Weapons\Medium\MediumSpecificWeapons.xml" />
-    <None Remove="Tables\Items\Magical\Weapons\Medium\MediumWeapons.xml" />
-    <None Remove="Tables\Items\Magical\Weapons\MeleeTraits.xml" />
-    <None Remove="Tables\Items\Magical\Weapons\Minor\MinorMeleeSpecialAbilities.xml" />
-    <None Remove="Tables\Items\Magical\Weapons\Minor\MinorRangedSpecialAbilities.xml" />
-    <None Remove="Tables\Items\Magical\Weapons\Minor\MinorSpecificWeapons.xml" />
-    <None Remove="Tables\Items\Magical\Weapons\Minor\MinorWeapons.xml" />
-    <None Remove="Tables\Items\Magical\Weapons\RangedTraits.xml" />
-    <None Remove="Tables\Items\Magical\Weapons\Specific\SpecificWeaponAttributes.xml" />
-    <None Remove="Tables\Items\Magical\Weapons\Specific\SpecificWeaponSpecialAbilities.xml" />
-    <None Remove="Tables\Items\Magical\Weapons\Specific\SpecificWeaponTraits.xml" />
-    <None Remove="Tables\Items\Magical\Weapons\SpellStoringContainsSpell.xml" />
-    <None Remove="Tables\Items\Magical\WondrousItems\BalorOrPitFiend.xml" />
-    <None Remove="Tables\Items\Magical\WondrousItems\HornOfValhallaTypes.xml" />
-    <None Remove="Tables\Items\Magical\WondrousItems\IronFlaskContents.xml" />
-    <None Remove="Tables\Items\Magical\WondrousItems\IsDeckOfIllusionsFullyCharged.xml" />
-    <None Remove="Tables\Items\Magical\WondrousItems\MajorWondrous Items.xml" />
-    <None Remove="Tables\Items\Magical\WondrousItems\MediumWondrous Items.xml" />
-    <None Remove="Tables\Items\Magical\WondrousItems\MinorWondrous Items.xml" />
-    <None Remove="Tables\Items\Magical\WondrousItems\Planes.xml" />
-    <None Remove="Tables\Items\Magical\WondrousItems\RobeOfTheArchmagiColors.xml" />
-    <None Remove="Tables\Items\Magical\WondrousItems\RobeOfUsefulItemsExtraItems.xml" />
-    <None Remove="Tables\Items\Magical\WondrousItems\Wondrous ItemAttributes.xml" />
-    <None Remove="Tables\Items\Magical\WondrousItems\Wondrous ItemTraits.xml" />
-    <None Remove="Tables\Items\Magical\WondrousItems\WondrousItemContents.xml" />
-    <None Remove="Tables\Items\Mundane\Alchemical\AlchemicalItems.xml" />
-    <None Remove="Tables\Items\Mundane\Armors\ArmorAttributes.xml" />
-    <None Remove="Tables\Items\Mundane\Armors\ArmorData.xml" />
-    <None Remove="Tables\Items\Mundane\Armors\MundaneArmors.xml" />
-    <None Remove="Tables\Items\Mundane\Armors\MundaneShields.xml" />
-    <None Remove="Tables\Items\Mundane\IsMasterwork.xml" />
-    <None Remove="Tables\Items\Mundane\MundaneGearSizes.xml" />
-    <None Remove="Tables\Items\Mundane\MundaneItems.xml" />
-    <None Remove="Tables\Items\Mundane\SpecialMaterials.xml" />
-    <None Remove="Tables\Items\Mundane\Tools\Tools.xml" />
-    <None Remove="Tables\Items\Mundane\Weapons\CommonMeleeWeapons.xml" />
-    <None Remove="Tables\Items\Mundane\Weapons\CommonRangedWeapons.xml" />
-    <None Remove="Tables\Items\Mundane\Weapons\MundaneWeaponTypes.xml" />
-    <None Remove="Tables\Items\Mundane\Weapons\UncommonWeapons.xml" />
-    <None Remove="Tables\Items\Mundane\Weapons\WeaponAttributes.xml" />
-    <None Remove="Tables\Items\Mundane\Weapons\WeaponDamages.xml" />
-    <None Remove="Tables\Items\Mundane\Weapons\WeaponData.xml" />
-    <None Remove="Tables\Items\PowerGroups.xml" />
-    <None Remove="Tables\ReplacementStrings.xml" />
-    <None Include="18531-twenty-sided-dice-vector-thumb.png">
+    <None Include="avatar-128.png">
       <Pack>True</Pack>
       <PackagePath>
       </PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -489,7 +259,7 @@
     <EmbeddedResource Include="Tables\ReplacementStrings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DnDGen.Infrastructure" Version="7.0.5" />
-    <PackageReference Include="DnDGen.RollGen" Version="16.0.5" />
+    <PackageReference Include="DnDGen.Infrastructure" Version="8.0.0" />
+    <PackageReference Include="DnDGen.RollGen" Version="18.0.3" />
   </ItemGroup>
 </Project>

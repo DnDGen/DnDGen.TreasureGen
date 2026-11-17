@@ -10,17 +10,8 @@ using System.Threading.Tasks;
 
 namespace DnDGen.TreasureGen.Generators.Goods
 {
-    internal class GoodsGenerator : IGoodsGenerator
+    internal class GoodsGenerator(IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector, ICollectionSelector collectionSelector) : IGoodsGenerator
     {
-        private readonly IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
-        private readonly ICollectionSelector collectionSelector;
-
-        public GoodsGenerator(IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector, ICollectionSelector collectionSelector)
-        {
-            this.typeAndAmountPercentileSelector = typeAndAmountPercentileSelector;
-            this.collectionSelector = collectionSelector;
-        }
-
         public IEnumerable<Good> GenerateAtLevel(int level)
         {
             var validLevel = GetValidLevel(level);
@@ -36,7 +27,7 @@ namespace DnDGen.TreasureGen.Generators.Goods
             return goods;
         }
 
-        private int GetValidLevel(int level)
+        private static int GetValidLevel(int level)
         {
             if (level < LevelLimits.Minimum)
                 throw new ArgumentException($"Level {level} is not a valid level for treasure generation");

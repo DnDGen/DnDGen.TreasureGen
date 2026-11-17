@@ -8,22 +8,11 @@ using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
-    internal class PotionGenerator : MagicalItemGenerator
+    internal class PotionGenerator(
+        IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
+        ICollectionSelector collectionSelector,
+        IReplacementSelector replacementSelector) : MagicalItemGenerator
     {
-        private readonly IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
-        private readonly ICollectionSelector collectionSelector;
-        private readonly IReplacementSelector replacementSelector;
-
-        public PotionGenerator(
-            IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
-            ICollectionSelector collectionSelector,
-            IReplacementSelector replacementSelector)
-        {
-            this.typeAndAmountPercentileSelector = typeAndAmountPercentileSelector;
-            this.collectionSelector = collectionSelector;
-            this.replacementSelector = replacementSelector;
-        }
-
         public Item GenerateRandom(string power)
         {
             var result = typeAndAmountPercentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.POWERITEMTYPEs(power, ItemTypeConstants.Potion));
@@ -31,7 +20,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return GeneratePotion(result.Type, result.Amount);
         }
 
-        private Item GeneratePotion(string itemName, int bonus, params string[] traits)
+        private static Item GeneratePotion(string itemName, int bonus, params string[] traits)
         {
             var potion = new Item
             {

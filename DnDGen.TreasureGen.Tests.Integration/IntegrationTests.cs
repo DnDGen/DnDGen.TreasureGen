@@ -14,7 +14,7 @@ namespace DnDGen.TreasureGen.Tests.Integration
             kernel = new StandardKernel(new NinjectSettings() { InjectNonPublic = true });
 
             var treasureGenModuleLoader = new TreasureGenModuleLoader();
-            treasureGenModuleLoader.LoadModules(kernel);
+            TreasureGenModuleLoader.LoadModules(kernel);
         }
 
         [SetUp]

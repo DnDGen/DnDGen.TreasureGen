@@ -6,33 +6,17 @@ using DnDGen.TreasureGen.Selectors.Collections;
 using DnDGen.TreasureGen.Selectors.Percentiles;
 using DnDGen.TreasureGen.Tables;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items.Mundane
 {
-    internal class MundaneWeaponGenerator : MundaneItemGenerator
+    internal class MundaneWeaponGenerator(
+        ITreasurePercentileSelector percentileSelector,
+        ICollectionSelector collectionsSelector,
+        Dice dice,
+        IWeaponDataSelector weaponDataSelector,
+        IReplacementSelector replacementSelector) : MundaneItemGenerator
     {
-        private readonly ITreasurePercentileSelector percentileSelector;
-        private readonly ICollectionSelector collectionsSelector;
-        private readonly Dice dice;
-        private readonly IWeaponDataSelector weaponDataSelector;
-        private readonly IReplacementSelector replacementSelector;
-
-        public MundaneWeaponGenerator(
-            ITreasurePercentileSelector percentileSelector,
-            ICollectionSelector collectionsSelector,
-            Dice dice,
-            IWeaponDataSelector weaponDataSelector,
-            IReplacementSelector replacementSelector)
-        {
-            this.percentileSelector = percentileSelector;
-            this.collectionsSelector = collectionsSelector;
-            this.dice = dice;
-            this.weaponDataSelector = weaponDataSelector;
-            this.replacementSelector = replacementSelector;
-        }
-
         public Item GenerateRandom()
         {
             var name = GetRandomName();
@@ -42,7 +26,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
         public Item Generate(string itemName, params string[] traits)
         {
             var weapon = GeneratePrototype(itemName);
-            weapon.Traits = new HashSet<string>(traits);
+            weapon.Traits = [.. traits];
 
             weapon = GenerateFromPrototype(weapon, true);
 
@@ -60,10 +44,12 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
 
         private Weapon GeneratePrototype(string name)
         {
-            var weapon = new Weapon();
-            weapon.Name = name;
-            weapon.BaseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, name);
-            weapon.Quantity = 0;
+            var weapon = new Weapon
+            {
+                Name = name,
+                BaseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, name),
+                Quantity = 0
+            };
 
             return weapon;
         }
@@ -107,16 +93,16 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
             weapon.Attributes = collectionsSelector.SelectFrom(Config.Name, tableName, weapon.Name);
 
             var weaponSelection = weaponDataSelector.Select(weapon.Name, weapon.Size);
-            if (!weapon.Damages.Any())
+            if (weapon.Damages.Count == 0)
                 weapon.Damages.Add(Damage.From(weaponSelection.Damages[0]));
 
-            if (!weapon.CriticalDamages.Any())
+            if (weapon.CriticalDamages.Count == 0)
                 weapon.CriticalDamages.Add(Damage.From(weaponSelection.CriticalDamages[0]));
 
-            if (weapon.IsDoubleWeapon && !weapon.SecondaryDamages.Any())
+            if (weapon.IsDoubleWeapon && weapon.SecondaryDamages.Count == 0)
                 weapon.SecondaryDamages.Add(Damage.From(weaponSelection.Damages[1]));
 
-            if (weapon.IsDoubleWeapon && !weapon.SecondaryCriticalDamages.Any())
+            if (weapon.IsDoubleWeapon && weapon.SecondaryCriticalDamages.Count == 0)
                 weapon.SecondaryCriticalDamages.Add(Damage.From(weaponSelection.CriticalDamages[1]));
 
             weapon.ThreatRange = weaponSelection.ThreatRange;
@@ -159,7 +145,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
             return 1;
         }
 
-        private string GetCompositeBowBonus(string weaponName)
+        private static string GetCompositeBowBonus(string weaponName)
         {
             var compositeBonusStartIndex = weaponName.IndexOf('+');
             if (compositeBonusStartIndex == -1)
@@ -190,7 +176,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
             if (!string.IsNullOrEmpty(template.Size))
                 return template.Size;
 
-            if (!template.Traits.Any())
+            if (template.Traits.Count == 0)
                 return GetRandomSize();
 
             var allSizes = percentileSelector.SelectAllFrom(Config.Name, TableNameConstants.Percentiles.MundaneGearSizes);

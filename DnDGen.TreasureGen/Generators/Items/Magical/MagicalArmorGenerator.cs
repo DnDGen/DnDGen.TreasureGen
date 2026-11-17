@@ -7,38 +7,20 @@ using DnDGen.TreasureGen.Items.Mundane;
 using DnDGen.TreasureGen.Selectors.Percentiles;
 using DnDGen.TreasureGen.Tables;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
-    internal class MagicalArmorGenerator : MagicalItemGenerator
+    internal class MagicalArmorGenerator(
+        ITreasurePercentileSelector percentileSelector,
+        ICollectionSelector collectionsSelector,
+        ISpecialAbilitiesGenerator specialAbilitiesGenerator,
+        ISpecificGearGenerator specificGearGenerator,
+        JustInTimeFactory justInTimeFactory,
+        IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector) : MagicalItemGenerator
     {
-        private readonly IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
-        private readonly ITreasurePercentileSelector percentileSelector;
-        private readonly ICollectionSelector collectionsSelector;
-        private readonly ISpecialAbilitiesGenerator specialAbilitiesGenerator;
-        private readonly ISpecificGearGenerator specificGearGenerator;
-        private readonly JustInTimeFactory justInTimeFactory;
-
         public const string SpecialAbility = "SpecialAbility";
         public const int SpecificBonus = -1;
-
-        public MagicalArmorGenerator(
-            ITreasurePercentileSelector percentileSelector,
-            ICollectionSelector collectionsSelector,
-            ISpecialAbilitiesGenerator specialAbilitiesGenerator,
-            ISpecificGearGenerator specificGearGenerator,
-            JustInTimeFactory justInTimeFactory,
-            IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector)
-        {
-            this.percentileSelector = percentileSelector;
-            this.collectionsSelector = collectionsSelector;
-            this.specialAbilitiesGenerator = specialAbilitiesGenerator;
-            this.specificGearGenerator = specificGearGenerator;
-            this.justInTimeFactory = justInTimeFactory;
-            this.typeAndAmountPercentileSelector = typeAndAmountPercentileSelector;
-        }
 
         public Item GenerateRandom(string power)
         {
@@ -76,7 +58,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return ItemTypeConstants.Armor;
         }
 
-        private Item GenerateArmor(string power, string itemName = "", string armorType = "", bool isSpecific = false, params string[] traits)
+        private Armor GenerateArmor(string power, string itemName = "", string armorType = "", bool isSpecific = false, params string[] traits)
         {
             var prototype = GeneratePrototype(power, itemName, armorType, isSpecific, traits);
             var armor = GenerateFromPrototype(prototype);
@@ -118,7 +100,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             }
             while (bonus == 0);
 
-            prototype.Traits = new HashSet<string>(traits);
+            prototype.Traits = [.. traits];
             var isRandomSpecific = string.IsNullOrEmpty(itemName) && bonus == SpecificBonus;
             var isRandomGeneral = string.IsNullOrEmpty(itemName) && bonus != SpecificBonus;
             var isSetSpecific = !string.IsNullOrEmpty(itemName) && bonus == SpecificBonus && specificGearGenerator.CanBeSpecific(power, armorType, itemName);

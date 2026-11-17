@@ -1,0 +1,15 @@
+name: Build
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: build
+    uses: DnDGen/.github/.github/workflows/nuget-build.yml@v1
+    with:
+      project: DnDGen.RollGen

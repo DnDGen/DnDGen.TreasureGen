@@ -5,15 +5,8 @@ using System;
 
 namespace DnDGen.TreasureGen.Generators.Coins
 {
-    internal class CoinGenerator : ICoinGenerator
+    internal class CoinGenerator(IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector) : ICoinGenerator
     {
-        private readonly IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
-
-        public CoinGenerator(IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector)
-        {
-            this.typeAndAmountPercentileSelector = typeAndAmountPercentileSelector;
-        }
-
         public Coin GenerateAtLevel(int level)
         {
             if (level < LevelLimits.Minimum)

@@ -2,21 +2,11 @@
 using DnDGen.TreasureGen.Items.Magical;
 using DnDGen.TreasureGen.Selectors.Percentiles;
 using DnDGen.TreasureGen.Tables;
-using System.Collections.Generic;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
-    internal class WandGenerator : MagicalItemGenerator
+    internal class WandGenerator(ITreasurePercentileSelector percentileSelector, IChargesGenerator chargesGenerator) : MagicalItemGenerator
     {
-        private readonly ITreasurePercentileSelector percentileSelector;
-        private readonly IChargesGenerator chargesGenerator;
-
-        public WandGenerator(ITreasurePercentileSelector percentileSelector, IChargesGenerator chargesGenerator)
-        {
-            this.percentileSelector = percentileSelector;
-            this.chargesGenerator = chargesGenerator;
-        }
-
         public Item GenerateRandom(string power)
         {
             var tablename = TableNameConstants.Percentiles.POWERITEMTYPEs(power, ItemTypeConstants.Wand);
@@ -28,14 +18,16 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
         private Item GenerateWand(string name, params string[] traits)
         {
-            var wand = new Item();
-            wand.ItemType = ItemTypeConstants.Wand;
-            wand.IsMagical = true;
-            wand.Name = name;
+            var wand = new Item
+            {
+                ItemType = ItemTypeConstants.Wand,
+                IsMagical = true,
+                Name = name
+            };
             wand.Magic.Charges = chargesGenerator.GenerateFor(ItemTypeConstants.Wand, name);
-            wand.BaseNames = new[] { ItemTypeConstants.Wand };
-            wand.Attributes = new[] { AttributeConstants.Charged, AttributeConstants.OneTimeUse };
-            wand.Traits = new HashSet<string>(traits);
+            wand.BaseNames = [ItemTypeConstants.Wand];
+            wand.Attributes = [AttributeConstants.Charged, AttributeConstants.OneTimeUse];
+            wand.Traits = [.. traits];
 
             return wand;
         }

@@ -9,23 +9,14 @@ using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items.Mundane
 {
-    internal class SpecialMaterialGenerator : ISpecialMaterialGenerator
+    internal class SpecialMaterialGenerator(ICollectionSelector collectionsSelector, ITreasurePercentileSelector percentileSelector) : ISpecialMaterialGenerator
     {
-        private readonly ICollectionSelector collectionsSelector;
-        private readonly ITreasurePercentileSelector percentileSelector;
-
-        public SpecialMaterialGenerator(ICollectionSelector collectionsSelector, ITreasurePercentileSelector percentileSelector)
-        {
-            this.percentileSelector = percentileSelector;
-            this.collectionsSelector = collectionsSelector;
-        }
-
         public bool CanHaveSpecialMaterial(string itemType, IEnumerable<string> attributes, IEnumerable<string> traits)
         {
             if (itemType != ItemTypeConstants.Weapon && itemType != ItemTypeConstants.Armor)
                 return false;
 
-            var attributesWithType = attributes.Union(new[] { itemType });
+            var attributesWithType = attributes.Union([itemType]);
             return percentileSelector.SelectFrom<bool>(Config.Name, TableNameConstants.Percentiles.HasSpecialMaterial)
                    && AttributesAllowForSpecialMaterials(attributesWithType)
                    && TraitsAllowForSpecialMaterials(attributesWithType, traits);
@@ -78,7 +69,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
             return allowedMaterialEntries.Select(kvp => kvp.Key);
         }
 
-        private bool AllAttributeRequirementsMet(IEnumerable<string> attributes, IEnumerable<string> requirements)
+        private static bool AllAttributeRequirementsMet(IEnumerable<string> attributes, IEnumerable<string> requirements)
         {
             var missingRequirements = requirements.Except(attributes);
             return !missingRequirements.Any();

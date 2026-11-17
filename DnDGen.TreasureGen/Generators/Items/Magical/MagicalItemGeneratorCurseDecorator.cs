@@ -4,17 +4,8 @@ using DnDGen.TreasureGen.Tables;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
-    internal class MagicalItemGeneratorCurseDecorator : MagicalItemGenerator
+    internal class MagicalItemGeneratorCurseDecorator(MagicalItemGenerator innerGenerator, ICurseGenerator curseGenerator) : MagicalItemGenerator
     {
-        private readonly MagicalItemGenerator innerGenerator;
-        private readonly ICurseGenerator curseGenerator;
-
-        public MagicalItemGeneratorCurseDecorator(MagicalItemGenerator innerGenerator, ICurseGenerator curseGenerator)
-        {
-            this.innerGenerator = innerGenerator;
-            this.curseGenerator = curseGenerator;
-        }
-
         public Item GenerateRandom(string power)
         {
             var item = innerGenerator.GenerateRandom(power);
