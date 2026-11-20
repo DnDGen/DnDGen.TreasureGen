@@ -3,20 +3,12 @@ using DnDGen.Infrastructure.Selectors.Percentiles;
 using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Mundane;
 using DnDGen.TreasureGen.Tables;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items.Mundane
 {
-    internal class AlchemicalItemGenerator : MundaneItemGenerator
+    internal class AlchemicalItemGenerator(IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector) : MundaneItemGenerator
     {
-        private readonly IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
-
-        public AlchemicalItemGenerator(IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector)
-        {
-            this.typeAndAmountPercentileSelector = typeAndAmountPercentileSelector;
-        }
-
         public Item GenerateRandom()
         {
             var result = typeAndAmountPercentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.AlchemicalItems);
@@ -39,7 +31,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
                 Quantity = selection.Amount,
                 ItemType = ItemTypeConstants.AlchemicalItem,
                 BaseNames = [itemName],
-                Traits = new HashSet<string>(traits)
+                Traits = [.. traits]
             };
 
             return item;

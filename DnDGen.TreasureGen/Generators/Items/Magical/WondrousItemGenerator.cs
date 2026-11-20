@@ -11,31 +11,14 @@ using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
-    internal class WondrousItemGenerator : MagicalItemGenerator
+    internal class WondrousItemGenerator(
+        ITreasurePercentileSelector percentileSelector,
+        ICollectionSelector collectionsSelector,
+        IChargesGenerator chargesGenerator,
+        Dice dice,
+        ISpellGenerator spellGenerator,
+        IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector) : MagicalItemGenerator
     {
-        private readonly ITreasurePercentileSelector percentileSelector;
-        private readonly ICollectionSelector collectionsSelector;
-        private readonly IChargesGenerator chargesGenerator;
-        private readonly Dice dice;
-        private readonly ISpellGenerator spellGenerator;
-        private readonly IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
-
-        public WondrousItemGenerator(
-            ITreasurePercentileSelector percentileSelector,
-            ICollectionSelector collectionsSelector,
-            IChargesGenerator chargesGenerator,
-            Dice dice,
-            ISpellGenerator spellGenerator,
-            IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector)
-        {
-            this.percentileSelector = percentileSelector;
-            this.collectionsSelector = collectionsSelector;
-            this.chargesGenerator = chargesGenerator;
-            this.dice = dice;
-            this.spellGenerator = spellGenerator;
-            this.typeAndAmountPercentileSelector = typeAndAmountPercentileSelector;
-        }
-
         public Item GenerateRandom(string power)
         {
             var tableName = TableNameConstants.Percentiles.POWERITEMTYPEs(power, ItemTypeConstants.WondrousItem);
@@ -71,7 +54,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
                 BaseNames = [name],
                 IsMagical = true,
                 ItemType = ItemTypeConstants.WondrousItem,
-                Traits = new HashSet<string>(traits)
+                Traits = [.. traits]
             };
 
             var tableName = TableNameConstants.Collections.ITEMTYPEAttributes(item.ItemType);
@@ -80,7 +63,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             if (item.Attributes.Contains(AttributeConstants.Charged))
                 item.Magic.Charges = chargesGenerator.GenerateFor(item.ItemType, name);
 
-            if (!item.Traits.Any())
+            if (item.Traits.Count == 0)
             {
                 var trait = GetTraitFor(name);
                 if (!string.IsNullOrEmpty(trait))
@@ -95,13 +78,13 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
 
         private string GetTraitFor(string name)
         {
-            switch (name)
+            return name switch
             {
-                case WondrousItemConstants.HornOfValhalla: return percentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.HornOfValhallaTypes);
-                case WondrousItemConstants.CandleOfInvocation: return percentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.IntelligenceAlignments);
-                case WondrousItemConstants.RobeOfTheArchmagi: return percentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.RobeOfTheArchmagiColors);
-                default: return string.Empty;
-            }
+                WondrousItemConstants.HornOfValhalla => percentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.HornOfValhallaTypes),
+                WondrousItemConstants.CandleOfInvocation => percentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.IntelligenceAlignments),
+                WondrousItemConstants.RobeOfTheArchmagi => percentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.RobeOfTheArchmagiColors),
+                _ => string.Empty,
+            };
         }
 
         private IEnumerable<string> GetContentsFor(string name)
@@ -132,7 +115,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return [contents];
         }
 
-        private IEnumerable<string> GetRobeOfUsefulItemsItems()
+        private List<string> GetRobeOfUsefulItemsItems()
         {
             var baseItems = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.WondrousItemContents, WondrousItemConstants.RobeOfUsefulItems);
             var extraItems = GenerateExtraItemsInRobeOfUsefulItems();
@@ -145,7 +128,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return items;
         }
 
-        private IEnumerable<string> GetPartialContents(string name)
+        private List<string> GetPartialContents(string name)
         {
             var quantity = chargesGenerator.GenerateFor(ItemTypeConstants.WondrousItem, name);
             var fullContents = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.WondrousItemContents, name).ToList();
@@ -166,7 +149,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return contents;
         }
 
-        private bool ItemHasPartialContents(string name)
+        private static bool ItemHasPartialContents(string name)
         {
             if (name == WondrousItemConstants.RobeOfBones)
                 return true;
@@ -180,7 +163,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return false;
         }
 
-        private IEnumerable<string> GenerateExtraItemsInRobeOfUsefulItems()
+        private List<string> GenerateExtraItemsInRobeOfUsefulItems()
         {
             var extraItems = new List<string>();
             var quantity = dice.Roll(4).d4().AsSum();
@@ -204,7 +187,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return extraItems;
         }
 
-        private IEnumerable<string> GeneratePlanesForCubicGate()
+        private HashSet<string> GeneratePlanesForCubicGate()
         {
             var planes = new HashSet<string>
             {

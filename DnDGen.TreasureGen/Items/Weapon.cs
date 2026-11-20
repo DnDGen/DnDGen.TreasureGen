@@ -30,7 +30,7 @@ namespace DnDGen.TreasureGen.Items
         private string GetRoll(List<Damage> damages, bool secondary)
         {
             var roll = string.Empty;
-            if (!damages.Any())
+            if (damages.Count == 0)
             {
                 if (Magic.Bonus > 0 && !secondary)
                     return Magic.Bonus.ToString();
@@ -60,7 +60,7 @@ namespace DnDGen.TreasureGen.Items
         private string GetDamageSummary(List<Damage> damages, bool secondary)
         {
             var summary = string.Empty;
-            if (!damages.Any())
+            if (damages.Count == 0)
             {
                 if (Magic.Bonus > 0 && !secondary)
                     return Magic.Bonus.ToString();
@@ -100,14 +100,14 @@ namespace DnDGen.TreasureGen.Items
         {
             Ammunition = string.Empty;
             Size = string.Empty;
-            Damages = new List<Damage>();
-            CriticalDamages = new List<Damage>();
-            SecondaryDamages = new List<Damage>();
-            SecondaryCriticalDamages = new List<Damage>();
+            Damages = [];
+            CriticalDamages = [];
+            SecondaryDamages = [];
+            SecondaryCriticalDamages = [];
             CriticalMultiplier = string.Empty;
             SecondaryCriticalMultiplier = string.Empty;
 
-            combatTypes = new[] { AttributeConstants.Ranged, AttributeConstants.Melee };
+            combatTypes = [AttributeConstants.Ranged, AttributeConstants.Melee];
         }
 
         public override Item Clone()
@@ -123,16 +123,16 @@ namespace DnDGen.TreasureGen.Items
         {
             target.Ammunition = !string.IsNullOrEmpty(Ammunition) ? Ammunition : target.Ammunition;
 
-            if (CriticalDamages.Any())
+            if (CriticalDamages.Count != 0)
                 target.CriticalDamages = CriticalDamages.Select(d => d.Clone()).ToList();
 
-            if (Damages.Any())
+            if (Damages.Count != 0)
                 target.Damages = Damages.Select(d => d.Clone()).ToList();
 
-            if (SecondaryCriticalDamages.Any())
+            if (SecondaryCriticalDamages.Count != 0)
                 target.SecondaryCriticalDamages = SecondaryCriticalDamages.Select(d => d.Clone()).ToList();
 
-            if (SecondaryDamages.Any())
+            if (SecondaryDamages.Count != 0)
                 target.SecondaryDamages = SecondaryDamages.Select(d => d.Clone()).ToList();
 
             target.Size = !string.IsNullOrEmpty(Size) ? Size : target.Size;

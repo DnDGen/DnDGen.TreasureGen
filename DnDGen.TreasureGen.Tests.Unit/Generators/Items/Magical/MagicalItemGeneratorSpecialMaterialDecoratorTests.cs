@@ -5,9 +5,9 @@ using DnDGen.TreasureGen.Items.Magical;
 using DnDGen.TreasureGen.Items.Mundane;
 using DnDGen.TreasureGen.Tables;
 using Moq;
-using Newtonsoft.Json;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Text.Json;
 
 namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
 {
@@ -30,7 +30,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             decorator = new MagicalItemGeneratorSpecialMaterialDecorator(mockInnerGenerator.Object, mockMaterialGenerator.Object, mockCollectionsSelector.Object);
 
             item = new Item();
-            masterworkMaterials = new List<string>();
+            masterworkMaterials = [];
 
             mockInnerGenerator.Setup(g => g.GenerateRandom("power")).Returns(item);
             mockCollectionsSelector
@@ -120,7 +120,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
         [Test]
         public void DragonhideIsNotMetal()
         {
-            item.Attributes = new[] { AttributeConstants.Metal };
+            item.Attributes = [AttributeConstants.Metal];
 
             mockMaterialGenerator.SetupSequence(g => g.CanHaveSpecialMaterial(It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()))
                 .Returns(true)
@@ -135,7 +135,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
         [Test]
         public void DragonhideIsNotWood()
         {
-            item.Attributes = new[] { AttributeConstants.Wood };
+            item.Attributes = [AttributeConstants.Wood];
 
             mockMaterialGenerator.SetupSequence(g => g.CanHaveSpecialMaterial(It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()))
                 .Returns(true)
@@ -175,7 +175,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
                 .Returns(false);
             mockMaterialGenerator.Setup(g => g.GenerateFor(It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>())).Returns(TraitConstants.SpecialMaterials.Dragonhide);
 
-            item.Attributes = new[] { "my attribute", AttributeConstants.Wood, AttributeConstants.Metal };
+            item.Attributes = ["my attribute", AttributeConstants.Wood, AttributeConstants.Metal];
 
             var decoratedItem = decorator.Generate(template, allowRandomDecoration: true);
             Assert.That(decoratedItem, Is.Not.EqualTo(template));
@@ -199,7 +199,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
 
             var decoratedItem = decorator.Generate(template);
             Assert.That(decoratedItem, Is.Not.SameAs(template));
-            Assert.That(JsonConvert.SerializeObject(decoratedItem), Is.EqualTo(JsonConvert.SerializeObject(template)));
+            Assert.That(JsonSerializer.Serialize(decoratedItem), Is.EqualTo(JsonSerializer.Serialize(template)));
             Assert.That(decoratedItem, Is.EqualTo(item));
             Assert.That(decoratedItem.Traits, Is.Empty);
         }
@@ -301,7 +301,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
         {
             mockInnerGenerator.Setup(g => g.Generate("power", "item name", "trait 1", "trait 2")).Returns(item);
 
-            item.Attributes = new[] { AttributeConstants.Metal };
+            item.Attributes = [AttributeConstants.Metal];
 
             mockMaterialGenerator.SetupSequence(g => g.CanHaveSpecialMaterial(It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()))
                 .Returns(true)
@@ -318,7 +318,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
         {
             mockInnerGenerator.Setup(g => g.Generate("power", "item name", "trait 1", "trait 2")).Returns(item);
 
-            item.Attributes = new[] { AttributeConstants.Wood };
+            item.Attributes = [AttributeConstants.Wood];
 
             mockMaterialGenerator.SetupSequence(g => g.CanHaveSpecialMaterial(It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()))
                 .Returns(true)
@@ -335,7 +335,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
         {
             mockInnerGenerator.Setup(g => g.Generate("power", "item name", "trait 1", "trait 2")).Returns(item);
 
-            item.Attributes = new[] { "my attribute", AttributeConstants.Wood, AttributeConstants.Metal };
+            item.Attributes = ["my attribute", AttributeConstants.Wood, AttributeConstants.Metal];
             item.Traits.Add(TraitConstants.SpecialMaterials.Dragonhide);
 
             mockMaterialGenerator

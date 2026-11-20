@@ -6,15 +6,8 @@ using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
-    internal class MagicalItemTraitsGenerator : IMagicalItemTraitsGenerator
+    internal class MagicalItemTraitsGenerator(ITreasurePercentileSelector percentileSelector) : IMagicalItemTraitsGenerator
     {
-        private readonly ITreasurePercentileSelector percentileSelector;
-
-        public MagicalItemTraitsGenerator(ITreasurePercentileSelector percentileSelector)
-        {
-            this.percentileSelector = percentileSelector;
-        }
-
         public IEnumerable<string> GenerateFor(string itemType, IEnumerable<string> attributes)
         {
             var tableName = GetTableName(itemType, attributes);
@@ -26,7 +19,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return result.Split(',');
         }
 
-        private string GetTableName(string itemType, IEnumerable<string> attributes)
+        private static string GetTableName(string itemType, IEnumerable<string> attributes)
         {
             if (attributes.Contains(AttributeConstants.Melee))
                 return TableNameConstants.Percentiles.ITEMTYPETraits(AttributeConstants.Melee);

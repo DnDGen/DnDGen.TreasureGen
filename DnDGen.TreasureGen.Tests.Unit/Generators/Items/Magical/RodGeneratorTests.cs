@@ -309,7 +309,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             ]);
 
             var rod = rodGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(rod, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(rod, template);
             Assert.That(rod.Attributes, Is.EquivalentTo(attributes));
             Assert.That(rod.IsMagical, Is.True);
             Assert.That(rod.ItemType, Is.EqualTo(ItemTypeConstants.Rod));
@@ -349,7 +349,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             ]);
 
             var rod = rodGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(rod, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(rod, template);
             Assert.That(rod.Attributes, Is.EquivalentTo(attributes));
             Assert.That(rod.IsMagical, Is.True);
             Assert.That(rod.ItemType, Is.EqualTo(ItemTypeConstants.Rod));
@@ -398,7 +398,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             mockSpecialAbilitiesGenerator.Setup(p => p.GenerateFor(template.Magic.SpecialAbilities, mundaneWeapon.CriticalMultiplier)).Returns(abilities);
 
             var rod = rodGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(rod, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(rod, template);
             Assert.That(rod.Attributes, Is.SupersetOf(attributes));
             Assert.That(rod.IsMagical, Is.True);
             Assert.That(rod.ItemType, Is.EqualTo(ItemTypeConstants.Rod));
@@ -462,7 +462,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             mockSpecialAbilitiesGenerator.Setup(p => p.GenerateFor(template.Magic.SpecialAbilities, mundaneWeapon.CriticalMultiplier)).Returns(abilities);
 
             var rod = rodGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(rod, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(rod, template);
             Assert.That(rod.Attributes, Is.SupersetOf(attributes));
             Assert.That(rod.IsMagical, Is.True);
             Assert.That(rod.ItemType, Is.EqualTo(ItemTypeConstants.Rod));
@@ -582,7 +582,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             mockSpecialAbilitiesGenerator.Setup(p => p.GenerateFor(template.Magic.SpecialAbilities, mundaneWeapon.CriticalMultiplier)).Returns(abilities);
 
             var rod = rodGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(rod, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(rod, template);
             Assert.That(rod.Attributes, Is.SupersetOf(attributes));
             Assert.That(rod.IsMagical, Is.True);
             Assert.That(rod.ItemType, Is.EqualTo(ItemTypeConstants.Rod));
@@ -635,7 +635,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             ]);
 
             var rod = rodGenerator.Generate(template, true);
-            itemVerifier.AssertMagicalItemFromTemplate(rod, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(rod, template);
             Assert.That(rod.Attributes, Is.EquivalentTo(attributes));
             Assert.That(rod.IsMagical, Is.True);
             Assert.That(rod.ItemType, Is.EqualTo(ItemTypeConstants.Rod));
@@ -674,7 +674,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             ]);
 
             var rod = rodGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(rod, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(rod, template);
             Assert.That(rod.Attributes, Is.EquivalentTo(attributes));
             Assert.That(rod.IsMagical, Is.True);
             Assert.That(rod.ItemType, Is.EqualTo(ItemTypeConstants.Rod));

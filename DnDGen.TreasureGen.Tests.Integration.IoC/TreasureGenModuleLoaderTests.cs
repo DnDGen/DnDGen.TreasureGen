@@ -17,7 +17,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.IoC
         {
             //INFO: First time was in the IntegrationTest one-time setup
             var treasureGenLoader = new TreasureGenModuleLoader();
-            treasureGenLoader.LoadModules(kernel);
+            TreasureGenModuleLoader.LoadModules(kernel);
 
             var treasureGenerator = GetNewInstanceOf<ITreasureGenerator>();
             Assert.That(treasureGenerator, Is.Not.Null);

@@ -9,31 +9,15 @@ using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
-    internal class SpecialAbilitiesGenerator : ISpecialAbilitiesGenerator
+    internal class SpecialAbilitiesGenerator(
+        ICollectionSelector collectionsSelector,
+        ITreasurePercentileSelector percentileSelector,
+        ICollectionDataSelector<SpecialAbilityDataSelection> specialAbilityDataSelector,
+        ICollectionDataSelector<DamageDataSelection> damageDataSelector,
+        ISpellGenerator spellGenerator) : ISpecialAbilitiesGenerator
     {
         private const int MaxBonus = 10;
-
-        private readonly ICollectionSelector collectionsSelector;
-        private readonly ICollectionDataSelector<DamageDataSelection> damageDataSelector;
-        private readonly ICollectionDataSelector<SpecialAbilityDataSelection> specialAbilityDataSelector;
-        private readonly ITreasurePercentileSelector percentileSelector;
-        private readonly ISpellGenerator spellGenerator;
-
         public const string BonusSpecialAbility = "BonusSpecialAbility";
-
-        public SpecialAbilitiesGenerator(
-            ICollectionSelector collectionsSelector,
-            ITreasurePercentileSelector percentileSelector,
-            ICollectionDataSelector<SpecialAbilityDataSelection> specialAbilityDataSelector,
-            ICollectionDataSelector<DamageDataSelection> damageDataSelector,
-            ISpellGenerator spellGenerator)
-        {
-            this.collectionsSelector = collectionsSelector;
-            this.percentileSelector = percentileSelector;
-            this.specialAbilityDataSelector = specialAbilityDataSelector;
-            this.damageDataSelector = damageDataSelector;
-            this.spellGenerator = spellGenerator;
-        }
 
         public IEnumerable<SpecialAbility> GenerateFor(Item targetItem, string power, int quantity)
         {
@@ -50,8 +34,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
                 if (CanHaveAllAvailableAbilities(quantity, bonusSum, availableAbilities))
                 {
                     var strongestAbilities = GetStrongestAvailableAbilities(availableAbilities);
-                    var duplicates = abilities.Where(a => strongestAbilities.Any(sA => sA.BaseName == a.BaseName));
-                    abilities = abilities.Except(duplicates).ToList();
+                    abilities.RemoveAll(a => strongestAbilities.Any(sA => sA.BaseName == a.BaseName));
 
                     abilities.AddRange(strongestAbilities);
                     availableAbilities.Clear();
@@ -77,17 +60,14 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
                 abilities.Add(ability);
                 availableAbilities.Remove(ability);
 
-                var weakerAbilities = availableAbilities.Where(a => a.BaseName == ability.BaseName && a.Power < ability.Power);
-                availableAbilities = availableAbilities.Except(weakerAbilities).ToList();
-
-                var tooStrongAbilities = availableAbilities.Where(a => a.BonusEquivalent + bonusSum > 10);
-                availableAbilities = availableAbilities.Except(tooStrongAbilities).ToList();
+                availableAbilities.RemoveAll(a => a.BaseName == ability.BaseName && a.Power < ability.Power);
+                availableAbilities.RemoveAll(a => a.BonusEquivalent + bonusSum > 10);
             }
 
             return abilities;
         }
 
-        private IEnumerable<string> GetTableNames(Item targetItem, string power)
+        private static List<string> GetTableNames(Item targetItem, string power)
         {
             var tableNames = new List<string>();
 
@@ -166,12 +146,12 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return ability;
         }
 
-        private bool CanHaveAllAvailableAbilities(int quantity, int bonusSum, IEnumerable<SpecialAbility> availableAbilities)
+        private static bool CanHaveAllAvailableAbilities(int quantity, int bonusSum, IEnumerable<SpecialAbility> availableAbilities)
         {
             return quantity >= availableAbilities.Count() && availableAbilities.Sum(a => a.BonusEquivalent) + bonusSum <= MaxBonus;
         }
 
-        private IEnumerable<SpecialAbility> GetStrongestAvailableAbilities(IEnumerable<SpecialAbility> availableAbilities)
+        private List<SpecialAbility> GetStrongestAvailableAbilities(IEnumerable<SpecialAbility> availableAbilities)
         {
             var strongestAbilities = new List<SpecialAbility>();
 
@@ -285,7 +265,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return weapon;
         }
 
-        private IEnumerable<Damage> GetWeaponDamages(IEnumerable<Damage> abilityDamages, string weaponDamageType)
+        private static Damage[] GetWeaponDamages(IEnumerable<Damage> abilityDamages, string weaponDamageType)
         {
             if (!abilityDamages.Any())
                 return [];

@@ -6,19 +6,11 @@ using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items.Mundane
 {
-    internal class MundaneItemGeneratorSpecialMaterialDecorator : MundaneItemGenerator
+    internal class MundaneItemGeneratorSpecialMaterialDecorator(
+        MundaneItemGenerator innerGenerator,
+        ISpecialMaterialGenerator specialMaterialGenerator,
+        ICollectionSelector collectionsSelector) : MundaneItemGenerator
     {
-        private readonly MundaneItemGenerator innerGenerator;
-        private readonly ISpecialMaterialGenerator specialMaterialGenerator;
-        private readonly ICollectionSelector collectionsSelector;
-
-        public MundaneItemGeneratorSpecialMaterialDecorator(MundaneItemGenerator innerGenerator, ISpecialMaterialGenerator specialMaterialGenerator, ICollectionSelector collectionsSelector)
-        {
-            this.innerGenerator = innerGenerator;
-            this.specialMaterialGenerator = specialMaterialGenerator;
-            this.collectionsSelector = collectionsSelector;
-        }
-
         public Item GenerateRandom()
         {
             var item = innerGenerator.GenerateRandom();

@@ -6,19 +6,8 @@ using System.Threading.Tasks;
 
 namespace DnDGen.TreasureGen.Generators
 {
-    internal class TreasureGenerator : ITreasureGenerator
+    internal class TreasureGenerator(ICoinGenerator coinFactory, IGoodsGenerator goodsFactory, IItemsGenerator itemsFactory) : ITreasureGenerator
     {
-        private readonly ICoinGenerator coinFactory;
-        private readonly IGoodsGenerator goodsFactory;
-        private readonly IItemsGenerator itemsFactory;
-
-        public TreasureGenerator(ICoinGenerator coinFactory, IGoodsGenerator goodsFactory, IItemsGenerator itemsFactory)
-        {
-            this.coinFactory = coinFactory;
-            this.goodsFactory = goodsFactory;
-            this.itemsFactory = itemsFactory;
-        }
-
         public Treasure GenerateAtLevel(int level)
         {
             if (level < LevelLimits.Minimum)

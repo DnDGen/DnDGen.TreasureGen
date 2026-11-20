@@ -126,8 +126,8 @@ namespace DnDGen.TreasureGen.Items
 
         public static IEnumerable<string> GetAllSpecific()
         {
-            return new[]
-            {
+            return
+            [
                 AssassinsDagger,
                 Battleaxe_Adamantine,
                 BerserkingSword,
@@ -167,13 +167,13 @@ namespace DnDGen.TreasureGen.Items
                 SylvanScimitar,
                 TridentOfFishCommand,
                 TridentOfWarning,
-            };
+            ];
         }
 
         public static IEnumerable<string> GetAllTemplates()
         {
-            return new[]
-            {
+            return
+            [
                 Battleaxe_Adamantine,
                 CompositeLongbow_StrengthPlus0,
                 CompositeLongbow_StrengthPlus1,
@@ -189,7 +189,7 @@ namespace DnDGen.TreasureGen.Items
                 LuckBlade1,
                 LuckBlade2,
                 LuckBlade3,
-            };
+            ];
         }
 
         public static IEnumerable<string> GetAllWeapons(bool includeSpecific, bool includeTemplates)

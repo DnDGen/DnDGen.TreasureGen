@@ -4,9 +4,9 @@ using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Mundane;
 using DnDGen.TreasureGen.Tables;
 using Moq;
-using Newtonsoft.Json;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Text.Json;
 
 namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
 {
@@ -29,7 +29,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             decorator = new MundaneItemGeneratorSpecialMaterialDecorator(mockInnerGenerator.Object, mockMaterialGenerator.Object, mockCollectionsSelector.Object);
 
             item = new Item();
-            masterworkMaterials = new List<string>();
+            masterworkMaterials = [];
 
             mockInnerGenerator.Setup(g => g.GenerateRandom()).Returns(item);
             mockCollectionsSelector
@@ -87,7 +87,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         [Test]
         public void DragonhideIsNotMetal()
         {
-            item.Attributes = new[] { AttributeConstants.Metal };
+            item.Attributes = [AttributeConstants.Metal];
 
             mockMaterialGenerator.SetupSequence(g => g.CanHaveSpecialMaterial(It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()))
                 .Returns(true).Returns(false);
@@ -102,7 +102,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         [Test]
         public void DragonhideIsNotWood()
         {
-            item.Attributes = new[] { AttributeConstants.Wood };
+            item.Attributes = [AttributeConstants.Wood];
 
             mockMaterialGenerator.SetupSequence(g => g.CanHaveSpecialMaterial(It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()))
                 .Returns(true).Returns(false);
@@ -145,7 +145,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
 
             var decoratedItem = decorator.Generate(template);
             Assert.That(decoratedItem, Is.Not.SameAs(template));
-            Assert.That(JsonConvert.SerializeObject(decoratedItem), Is.EqualTo(JsonConvert.SerializeObject(template)));
+            Assert.That(JsonSerializer.Serialize(decoratedItem), Is.EqualTo(JsonSerializer.Serialize(template)));
             Assert.That(decoratedItem, Is.EqualTo(item));
             Assert.That(decoratedItem.Traits, Is.Empty);
         }
@@ -198,7 +198,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         [Test]
         public void DragonhideFromNameIsNotMetal()
         {
-            item.Attributes = new[] { AttributeConstants.Metal };
+            item.Attributes = [AttributeConstants.Metal];
 
             mockMaterialGenerator.SetupSequence(g => g.CanHaveSpecialMaterial(It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()))
                 .Returns(true).Returns(false);
@@ -215,7 +215,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         [Test]
         public void DragonhideFromNameIsNotWood()
         {
-            item.Attributes = new[] { AttributeConstants.Wood };
+            item.Attributes = [AttributeConstants.Wood];
 
             mockMaterialGenerator.SetupSequence(g => g.CanHaveSpecialMaterial(It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()))
                 .Returns(true).Returns(false);

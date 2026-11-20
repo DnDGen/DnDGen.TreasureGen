@@ -72,7 +72,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             var template = itemVerifier.CreateRandomTemplate(name);
 
             var wand = wandGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(wand, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(wand, template);
             Assert.That(wand.Name, Is.EqualTo(name));
             Assert.That(wand.BaseNames.Single(), Is.EqualTo(ItemTypeConstants.Wand));
             Assert.That(wand.ItemType, Is.EqualTo(ItemTypeConstants.Wand));
@@ -90,7 +90,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             var template = itemVerifier.CreateRandomTemplate(name);
 
             var wand = wandGenerator.Generate(template, true);
-            itemVerifier.AssertMagicalItemFromTemplate(wand, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(wand, template);
             Assert.That(wand.Name, Is.EqualTo(name));
             Assert.That(wand.BaseNames.Single(), Is.EqualTo(ItemTypeConstants.Wand));
             Assert.That(wand.ItemType, Is.EqualTo(ItemTypeConstants.Wand));

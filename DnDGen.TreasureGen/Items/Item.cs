@@ -104,7 +104,7 @@ namespace DnDGen.TreasureGen.Items
             clone.Magic.Charges = Magic.Charges;
             clone.Magic.Curse = Magic.Curse;
             clone.Magic.Intelligence = Magic.Intelligence.Clone();
-            clone.Magic.SpecialAbilities = Magic.SpecialAbilities.ToArray();
+            clone.Magic.SpecialAbilities = [.. Magic.SpecialAbilities];
             clone.IsMagical = isMagical;
 
             return clone;
@@ -134,7 +134,7 @@ namespace DnDGen.TreasureGen.Items
             clone.IsMagical = isMagical;
 
             if (clone.CanBeUsedAsWeaponOrArmor)
-                clone.Magic.SpecialAbilities = Magic.SpecialAbilities.ToArray();
+                clone.Magic.SpecialAbilities = [.. Magic.SpecialAbilities];
 
             if (ItemType == ItemTypeConstants.Wand)
                 clone.Contents.Clear();
@@ -165,11 +165,11 @@ namespace DnDGen.TreasureGen.Items
             if (target == null)
                 throw new ArgumentException("Clone target cannot be null");
 
-            target.Attributes = Attributes.ToArray();
+            target.Attributes = [.. Attributes];
             target.Contents.AddRange(Contents);
             target.ItemType = ItemType;
             target.Name = Name;
-            target.BaseNames = BaseNames.ToArray();
+            target.BaseNames = [.. BaseNames];
 
             if (target is Weapon)
             {

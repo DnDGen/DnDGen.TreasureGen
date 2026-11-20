@@ -42,10 +42,8 @@ namespace DnDGen.TreasureGen.Items.Magical
         public const string Withering = "Rod of Withering";
         public const string Wonder = "Rod of Wonder";
 
-        public static IEnumerable<string> GetAllRods()
-        {
-            return new[]
-            {
+        public static IEnumerable<string> GetAllRods() =>
+            [
                 Absorption,
                 Alertness,
                 Cancellation,
@@ -82,7 +80,6 @@ namespace DnDGen.TreasureGen.Items.Magical
                 Viper,
                 Withering,
                 Wonder
-            };
-        }
+            ];
     }
 }

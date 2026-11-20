@@ -288,7 +288,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             var item = mundaneArmorGenerator.Generate(template);
             var armor = item as Armor;
 
-            itemVerifier.AssertMundaneItemFromTemplate(armor, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(armor, template);
             Assert.That(armor.ItemType, Is.EqualTo(ItemTypeConstants.Armor));
             Assert.That(armor.Attributes, Is.EquivalentTo(attributes));
             Assert.That(armor.Traits, Is.All.Not.EqualTo("size"));
@@ -324,7 +324,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             var item = mundaneArmorGenerator.Generate(template);
             var armor = item as Armor;
 
-            itemVerifier.AssertMundaneItemFromTemplate(armor, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(armor, template);
             Assert.That(armor.ItemType, Is.EqualTo(ItemTypeConstants.Armor));
             Assert.That(armor.Attributes, Is.EquivalentTo(attributes));
             Assert.That(armor.Traits, Is.All.Not.EqualTo("size"));
@@ -360,7 +360,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             var item = mundaneArmorGenerator.Generate(template, true);
             var armor = item as Armor;
 
-            itemVerifier.AssertMundaneItemFromTemplate(armor, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(armor, template);
             Assert.That(armor.ItemType, Is.EqualTo(ItemTypeConstants.Armor));
             Assert.That(armor.Attributes, Is.EquivalentTo(attributes));
             Assert.That(armor.Traits, Is.All.Not.EqualTo("size"));
@@ -400,7 +400,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             var item = mundaneArmorGenerator.Generate(template);
             var armor = item as Armor;
 
-            itemVerifier.AssertMundaneItemFromTemplate(armor, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(armor, template);
             Assert.That(armor.ItemType, Is.EqualTo(ItemTypeConstants.Armor));
             Assert.That(armor.Attributes, Is.EquivalentTo(attributes));
             Assert.That(armor.Traits, Is.All.Not.EqualTo("size"));
@@ -442,7 +442,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             var item = mundaneArmorGenerator.Generate(template);
             var armor = item as Armor;
 
-            itemVerifier.AssertMundaneItemFromTemplate(armor, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(armor, template);
             Assert.That(armor.ItemType, Is.EqualTo(ItemTypeConstants.Armor));
             Assert.That(armor.Attributes, Is.EquivalentTo(attributes));
             Assert.That(armor.Traits, Is.All.Not.EqualTo("size"));

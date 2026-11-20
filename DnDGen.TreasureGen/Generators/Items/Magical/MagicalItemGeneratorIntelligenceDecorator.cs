@@ -3,17 +3,8 @@ using DnDGen.TreasureGen.Items.Magical;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
-    internal class MagicalItemGeneratorIntelligenceDecorator : MagicalItemGenerator
+    internal class MagicalItemGeneratorIntelligenceDecorator(MagicalItemGenerator innerGenerator, IIntelligenceGenerator intelligenceGenerator) : MagicalItemGenerator
     {
-        private readonly MagicalItemGenerator innerGenerator;
-        private readonly IIntelligenceGenerator intelligenceGenerator;
-
-        public MagicalItemGeneratorIntelligenceDecorator(MagicalItemGenerator innerGenerator, IIntelligenceGenerator intelligenceGenerator)
-        {
-            this.innerGenerator = innerGenerator;
-            this.intelligenceGenerator = intelligenceGenerator;
-        }
-
         public Item Generate(Item template, bool allowRandomDecoration = false)
         {
             var item = innerGenerator.Generate(template, allowRandomDecoration);

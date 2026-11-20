@@ -9,28 +9,13 @@ using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
-    internal class RingGenerator : MagicalItemGenerator
+    internal class RingGenerator(
+        ICollectionSelector collectionsSelector,
+        ISpellGenerator spellGenerator,
+        IChargesGenerator chargesGenerator,
+        ITreasurePercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
+        IReplacementSelector replacementSelector) : MagicalItemGenerator
     {
-        private readonly ICollectionSelector collectionsSelector;
-        private readonly ISpellGenerator spellGenerator;
-        private readonly IChargesGenerator chargesGenerator;
-        private readonly ITreasurePercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
-        private readonly IReplacementSelector replacementSelector;
-
-        public RingGenerator(
-            ICollectionSelector collectionsSelector,
-            ISpellGenerator spellGenerator,
-            IChargesGenerator chargesGenerator,
-            ITreasurePercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
-            IReplacementSelector replacementSelector)
-        {
-            this.collectionsSelector = collectionsSelector;
-            this.spellGenerator = spellGenerator;
-            this.chargesGenerator = chargesGenerator;
-            this.typeAndAmountPercentileSelector = typeAndAmountPercentileSelector;
-            this.replacementSelector = replacementSelector;
-        }
-
         public Item GenerateRandom(string power)
         {
             var result = typeAndAmountPercentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.POWERITEMTYPEs(power, ItemTypeConstants.Ring));
@@ -76,7 +61,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
                 BaseNames = [name],
                 IsMagical = true,
                 ItemType = ItemTypeConstants.Ring,
-                Traits = new HashSet<string>(traits)
+                Traits = [.. traits]
             };
 
             ring.Attributes = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ITEMTYPEAttributes(ring.ItemType), name);
@@ -113,7 +98,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             return ring;
         }
 
-        private IEnumerable<string> GenerateSpells(string power, int levelCap)
+        private List<string> GenerateSpells(string power, int levelCap)
         {
             var level = spellGenerator.GenerateLevel(power);
             var levelSum = level;

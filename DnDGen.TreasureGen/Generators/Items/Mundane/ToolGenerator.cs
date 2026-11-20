@@ -2,19 +2,11 @@
 using DnDGen.TreasureGen.Items.Mundane;
 using DnDGen.TreasureGen.Selectors.Percentiles;
 using DnDGen.TreasureGen.Tables;
-using System.Collections.Generic;
 
 namespace DnDGen.TreasureGen.Generators.Items.Mundane
 {
-    internal class ToolGenerator : MundaneItemGenerator
+    internal class ToolGenerator(ITreasurePercentileSelector percentileSelector) : MundaneItemGenerator
     {
-        private readonly ITreasurePercentileSelector percentileSelector;
-
-        public ToolGenerator(ITreasurePercentileSelector percentileSelector)
-        {
-            this.percentileSelector = percentileSelector;
-        }
-
         public Item GenerateRandom()
         {
             var name = percentileSelector.SelectFrom(Config.Name, TableNameConstants.Percentiles.Tools);
@@ -28,7 +20,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
                 Name = itemName,
                 ItemType = ItemTypeConstants.Tool,
                 BaseNames = [itemName],
-                Traits = new HashSet<string>(traits)
+                Traits = [.. traits]
             };
 
             return tool;

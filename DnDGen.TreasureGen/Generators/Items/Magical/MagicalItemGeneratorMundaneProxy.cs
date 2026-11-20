@@ -4,15 +4,8 @@ using System;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
-    internal class MagicalItemGeneratorMundaneProxy : MagicalItemGenerator
+    internal class MagicalItemGeneratorMundaneProxy(MagicalItemGenerator innerGenerator) : MagicalItemGenerator
     {
-        private readonly MagicalItemGenerator innerGenerator;
-
-        public MagicalItemGeneratorMundaneProxy(MagicalItemGenerator innerGenerator)
-        {
-            this.innerGenerator = innerGenerator;
-        }
-
         public Item Generate(Item template, bool allowRandomDecoration = false)
         {
             return innerGenerator.Generate(template, allowRandomDecoration);
@@ -21,7 +14,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
         public Item GenerateRandom(string power)
         {
             if (power == PowerConstants.Mundane)
-                throw new ArgumentException();
+                throw new ArgumentException("Cannot generate a magical item of mundane power");
 
             return innerGenerator.GenerateRandom(power);
         }
@@ -29,7 +22,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
         public Item Generate(string power, string itemName, params string[] traits)
         {
             if (power == PowerConstants.Mundane)
-                throw new ArgumentException();
+                throw new ArgumentException("Cannot generate a magical item of mundane power");
 
             return innerGenerator.Generate(power, itemName, traits);
         }

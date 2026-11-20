@@ -195,5 +195,19 @@ namespace DnDGen.TreasureGen.Tests.Integration.Generators.Items.Mundane
                 .And.Contains(AttributeConstants.Melee), thrownWeapon.Summary);
             Assert.That(thrownWeapon.Quantity, Is.EqualTo(1), thrownWeapon.Summary);
         }
+
+        [TestCase(WeaponConstants.CompositeLongbow)]
+        [TestCase(WeaponConstants.CompositeShortbow)]
+        [Repeat(100)]
+        public void BUG_CompositeBowHasStrengthTrait(string name)
+        {
+            var compositeBow = weaponGenerator.Generate(name);
+
+            itemVerifier.AssertItem(compositeBow);
+            Assert.That(compositeBow.Quantity, Is.EqualTo(1), compositeBow.Summary);
+            Assert.That(compositeBow.Attributes, Contains.Item(AttributeConstants.Ranged), compositeBow.Summary);
+            Assert.That(compositeBow.Traits, Is.Not.Empty);
+            Assert.That(compositeBow.Traits, Has.Some.Contain("Strength"));
+        }
     }
 }

@@ -292,7 +292,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, name)).Returns(baseNames);
 
             var cursedItem = curseGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(cursedItem, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(cursedItem, template);
             Assert.That(cursedItem.Name, Is.EqualTo(name));
             Assert.That(cursedItem.BaseNames, Is.EquivalentTo(baseNames));
             Assert.That(cursedItem.IsMagical, Is.True);
@@ -319,7 +319,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, name)).Returns(baseNames);
 
             var cursedItem = curseGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(cursedItem, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(cursedItem, template);
             Assert.That(cursedItem.Name, Is.EqualTo(name));
             Assert.That(cursedItem.BaseNames, Is.EquivalentTo(baseNames));
             Assert.That(cursedItem.IsMagical, Is.True);
@@ -352,7 +352,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             mockMundaneArmorGenerator.Setup(g => g.Generate("base name")).Returns(mundaneArmor);
 
             var cursedItem = curseGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(cursedItem, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(cursedItem, template);
             Assert.That(cursedItem.Name, Is.EqualTo(name));
             Assert.That(cursedItem.BaseNames, Is.EquivalentTo(itemGroups[name]));
             Assert.That(cursedItem.IsMagical, Is.True);
@@ -394,7 +394,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
                 .Returns(mundaneArmor);
 
             var cursedItem = curseGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(cursedItem, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(cursedItem, template);
             Assert.That(cursedItem.Name, Is.EqualTo(name));
             Assert.That(cursedItem.BaseNames, Is.EquivalentTo(itemGroups[name]));
             Assert.That(cursedItem.IsMagical, Is.True);
@@ -447,7 +447,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
                 .Returns(mundaneArmor);
 
             var cursedItem = curseGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(cursedItem, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(cursedItem, template);
             Assert.That(cursedItem.Name, Is.EqualTo(name));
             Assert.That(cursedItem.BaseNames, Is.EquivalentTo(itemGroups[name]));
             Assert.That(cursedItem.IsMagical, Is.True);
@@ -490,7 +490,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             mockMundaneWeaponGenerator.Setup(g => g.Generate("base name")).Returns(mundaneWeapon);
 
             var cursedItem = curseGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(cursedItem, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(cursedItem, template);
             Assert.That(cursedItem.Name, Is.EqualTo(name));
             Assert.That(cursedItem.BaseNames, Is.EquivalentTo(itemGroups[name]));
             Assert.That(cursedItem.Quantity, Is.EqualTo(9266));
@@ -535,7 +535,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
                 .Returns(mundaneWeapon);
 
             var cursedItem = curseGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(cursedItem, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(cursedItem, template);
             Assert.That(cursedItem.Name, Is.EqualTo(name));
             Assert.That(cursedItem.BaseNames, Is.EquivalentTo(itemGroups[name]));
             Assert.That(cursedItem.Quantity, Is.EqualTo(9266));
@@ -591,7 +591,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
                 .Returns(mundaneWeapon);
 
             var cursedItem = curseGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(cursedItem, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(cursedItem, template);
             Assert.That(cursedItem.Name, Is.EqualTo(name));
             Assert.That(cursedItem.BaseNames, Is.EquivalentTo(itemGroups[name]));
             Assert.That(cursedItem.Quantity, Is.EqualTo(9266));
@@ -630,7 +630,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             itemGroups[name] = new[] { "base name", "other base name" };
 
             var cursedItem = curseGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(cursedItem, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(cursedItem, template);
             Assert.That(cursedItem.Name, Is.EqualTo(name));
             Assert.That(cursedItem.BaseNames, Is.EquivalentTo(itemGroups[name]));
             Assert.That(cursedItem.IsMagical, Is.True);

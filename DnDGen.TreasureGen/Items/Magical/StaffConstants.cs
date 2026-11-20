@@ -26,10 +26,8 @@ namespace DnDGen.TreasureGen.Items.Magical
         public const string Passage = "Staff of Passage";
         public const string Power = "Staff of Power";
 
-        public static IEnumerable<string> GetAllStaffs()
-        {
-            return new[]
-            {
+        public static IEnumerable<string> GetAllStaffs() =>
+            [
                 Charming,
                 Fire,
                 SwarmingInsects,
@@ -51,7 +49,6 @@ namespace DnDGen.TreasureGen.Items.Magical
                 Life,
                 Passage,
                 Power
-            };
-        }
+            ];
     }
 }

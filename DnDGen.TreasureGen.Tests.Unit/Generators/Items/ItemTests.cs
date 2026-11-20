@@ -1,11 +1,11 @@
 ﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
 using DnDGen.TreasureGen.Items.Mundane;
-using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Linq;
+using System.Text.Json;
 
 namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
 {
@@ -83,7 +83,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         [Test]
         public void IsMagicalTrueIfThereAreSpecialAbilities()
         {
-            item.Magic.SpecialAbilities = new[] { new SpecialAbility() };
+            item.Magic.SpecialAbilities = [new SpecialAbility()];
             Assert.That(item.IsMagical, Is.True);
         }
 
@@ -94,10 +94,10 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             var template = itemVerifier.CreateRandomTemplate(name);
             template.ItemType = Guid.NewGuid().ToString();
 
-            template.Attributes = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+            template.Attributes = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()];
 
             var copy = template.SmartClone();
-            itemVerifier.AssertMagicalItemFromTemplate(copy, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(copy, template);
             Assert.That(copy.ItemType, Is.EqualTo(template.ItemType));
             Assert.That(copy.Attributes, Is.EquivalentTo(template.Attributes));
         }
@@ -110,11 +110,11 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             var template = itemVerifier.CreateRandomTemplate(name);
             template.ItemType = Guid.NewGuid().ToString();
 
-            template.Attributes = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+            template.Attributes = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()];
 
             var newClone = template.SmartCloneInto(clone);
             Assert.That(newClone, Is.EqualTo(clone));
-            itemVerifier.AssertMagicalItemFromTemplate(clone, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(clone, template);
             Assert.That(clone.ItemType, Is.EqualTo(template.ItemType));
             Assert.That(clone.Attributes, Is.EquivalentTo(template.Attributes));
         }
@@ -125,17 +125,17 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomTemplate(name);
             template.ItemType = ItemTypeConstants.Scroll;
-            template.Magic.SpecialAbilities = new[]
-            {
+            template.Magic.SpecialAbilities =
+            [
                 new SpecialAbility { Name = Guid.NewGuid().ToString() },
                 new SpecialAbility { Name = Guid.NewGuid().ToString() }
-            };
+            ];
 
             //INFO: All scrolls have a one-time use attribute, so this is appropriate for the use case
-            template.Attributes = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), AttributeConstants.OneTimeUse };
+            template.Attributes = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), AttributeConstants.OneTimeUse];
 
             var copy = template.SmartClone();
-            itemVerifier.AssertMagicalItemFromTemplate(copy, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(copy, template);
             Assert.That(copy.ItemType, Is.EqualTo(ItemTypeConstants.Scroll));
             Assert.That(copy.Attributes, Is.EquivalentTo(template.Attributes));
             Assert.That(copy.Magic.Bonus, Is.EqualTo(0));
@@ -161,16 +161,16 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomTemplate(name);
             template.ItemType = Guid.NewGuid().ToString();
-            template.Magic.SpecialAbilities = new[]
-            {
+            template.Magic.SpecialAbilities =
+            [
                 new SpecialAbility { Name = Guid.NewGuid().ToString() },
                 new SpecialAbility { Name = Guid.NewGuid().ToString() }
-            };
+            ];
 
-            template.Attributes = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), AttributeConstants.OneTimeUse };
+            template.Attributes = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), AttributeConstants.OneTimeUse];
 
             var copy = template.SmartClone();
-            itemVerifier.AssertMagicalItemFromTemplate(copy, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(copy, template);
             Assert.That(copy.ItemType, Is.EqualTo(template.ItemType));
             Assert.That(copy.Attributes, Is.EquivalentTo(template.Attributes));
             Assert.That(copy.Magic.Intelligence.Alignment, Is.Empty);
@@ -193,16 +193,16 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomTemplate(name);
             template.ItemType = ItemTypeConstants.Weapon;
-            template.Magic.SpecialAbilities = new[]
-            {
+            template.Magic.SpecialAbilities =
+            [
                 new SpecialAbility { Name = Guid.NewGuid().ToString() },
                 new SpecialAbility { Name = Guid.NewGuid().ToString() }
-            };
+            ];
 
-            template.Attributes = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), AttributeConstants.Ammunition };
+            template.Attributes = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), AttributeConstants.Ammunition];
 
             var clone = template.SmartClone();
-            itemVerifier.AssertMagicalItemFromTemplate(clone, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(clone, template);
             Assert.That(clone.ItemType, Is.EqualTo(template.ItemType));
             Assert.That(clone.Attributes, Is.EquivalentTo(template.Attributes));
             Assert.That(clone.Magic.Intelligence.Alignment, Is.Empty);
@@ -226,17 +226,17 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomTemplate(name);
             template.ItemType = ItemTypeConstants.Potion;
-            template.Magic.SpecialAbilities = new[]
-            {
+            template.Magic.SpecialAbilities =
+            [
                 new SpecialAbility { Name = Guid.NewGuid().ToString() },
                 new SpecialAbility { Name = Guid.NewGuid().ToString() }
-            };
+            ];
 
             //INFO: All potions have a one-time use attribute, so this is appropriate for the use case
-            template.Attributes = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), AttributeConstants.OneTimeUse };
+            template.Attributes = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), AttributeConstants.OneTimeUse];
 
             var copy = template.SmartClone();
-            itemVerifier.AssertMagicalItemFromTemplate(copy, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(copy, template);
             Assert.That(copy.ItemType, Is.EqualTo(ItemTypeConstants.Potion));
             Assert.That(copy.Attributes, Is.EquivalentTo(template.Attributes));
             Assert.That(copy.Magic.Intelligence.Alignment, Is.Empty);
@@ -259,17 +259,17 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomTemplate(name);
             template.ItemType = ItemTypeConstants.Wand;
-            template.Magic.SpecialAbilities = new[]
-            {
+            template.Magic.SpecialAbilities =
+            [
                 new SpecialAbility { Name = Guid.NewGuid().ToString() },
                 new SpecialAbility { Name = Guid.NewGuid().ToString() }
-            };
+            ];
 
             //INFO: All potions have a one-time use attribute, so this is appropriate for the use case
-            template.Attributes = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), AttributeConstants.OneTimeUse };
+            template.Attributes = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), AttributeConstants.OneTimeUse];
 
             var copy = template.SmartClone();
-            itemVerifier.AssertMagicalItemFromTemplate(copy, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(copy, template);
             Assert.That(copy.ItemType, Is.EqualTo(ItemTypeConstants.Wand));
             Assert.That(copy.Attributes, Is.EquivalentTo(template.Attributes));
             Assert.That(copy.Contents, Is.Empty);
@@ -295,16 +295,16 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomTemplate(name);
             template.ItemType = Guid.NewGuid().ToString();
-            template.Magic.SpecialAbilities = new[]
-            {
+            template.Magic.SpecialAbilities =
+            [
                 new SpecialAbility { Name = Guid.NewGuid().ToString() },
                 new SpecialAbility { Name = Guid.NewGuid().ToString() }
-            };
+            ];
 
-            template.Attributes = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+            template.Attributes = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()];
 
             var copy = template.MundaneClone();
-            itemVerifier.AssertMundaneItemFromTemplate(copy, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(copy, template);
             Assert.That(copy.ItemType, Is.EqualTo(template.ItemType));
             Assert.That(copy.Attributes, Is.EquivalentTo(template.Attributes));
             Assert.That(copy.Magic.SpecialAbilities, Is.Empty);
@@ -317,18 +317,18 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomTemplate(name);
             template.ItemType = Guid.NewGuid().ToString();
-            template.Magic.SpecialAbilities = new[]
-            {
+            template.Magic.SpecialAbilities =
+            [
                 new SpecialAbility { Name = Guid.NewGuid().ToString() },
                 new SpecialAbility { Name = Guid.NewGuid().ToString() }
-            };
+            ];
 
-            template.Attributes = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+            template.Attributes = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()];
 
             var newClone = template.MundaneCloneInto(clone);
 
             Assert.That(newClone, Is.EqualTo(clone));
-            itemVerifier.AssertMundaneItemFromTemplate(clone, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(clone, template);
             Assert.That(clone.ItemType, Is.EqualTo(template.ItemType));
             Assert.That(clone.Attributes, Is.EquivalentTo(template.Attributes));
             Assert.That(clone.Magic.SpecialAbilities, Is.Empty);
@@ -340,13 +340,13 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomTemplate(name);
             template.ItemType = Guid.NewGuid().ToString();
-            template.Magic.SpecialAbilities = new[]
-            {
+            template.Magic.SpecialAbilities =
+            [
                 new SpecialAbility { Name = Guid.NewGuid().ToString() },
                 new SpecialAbility { Name = Guid.NewGuid().ToString() }
-            };
+            ];
 
-            template.Attributes = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+            template.Attributes = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()];
 
             Assert.That(() => template.MundaneCloneInto(null),
                 Throws.ArgumentException.With.Message.EqualTo("Clone target cannot be null"));
@@ -382,7 +382,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             foreach (var weapon in allWeapons)
             {
                 item.Name = weapon;
-                item.BaseNames = new[] { "base name", "other base name" };
+                item.BaseNames = ["base name", "other base name"];
                 Assert.That(item.CanBeUsedAsWeaponOrArmor, Is.True, weapon);
             }
         }
@@ -394,7 +394,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             foreach (var armor in allArmors)
             {
                 item.Name = armor;
-                item.BaseNames = new[] { "base name", "other base name" };
+                item.BaseNames = ["base name", "other base name"];
                 Assert.That(item.CanBeUsedAsWeaponOrArmor, Is.True, armor);
             }
         }
@@ -413,7 +413,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             foreach (var weapon in allWeapons)
             {
                 item.Name = "random name";
-                item.BaseNames = new[] { "base name", weapon, "other base name" };
+                item.BaseNames = ["base name", weapon, "other base name"];
                 Assert.That(item.CanBeUsedAsWeaponOrArmor, Is.True, weapon);
             }
         }
@@ -425,7 +425,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             foreach (var armor in allArmors)
             {
                 item.Name = "random name";
-                item.BaseNames = new[] { "base name", armor, "other base name" };
+                item.BaseNames = ["base name", armor, "other base name"];
                 Assert.That(item.CanBeUsedAsWeaponOrArmor, Is.True, armor);
             }
         }
@@ -434,7 +434,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         public void RandomBaseNameCannotBeUsedAsWeaponOrArmor()
         {
             item.Name = "random name";
-            item.BaseNames = new[] { "base name", "other base name" };
+            item.BaseNames = ["base name", "other base name"];
             Assert.That(item.CanBeUsedAsWeaponOrArmor, Is.False);
         }
 
@@ -448,7 +448,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
 
             var clone = template.SmartClone();
             Assert.That(clone, Is.Not.SameAs(template));
-            Assert.That(JsonConvert.SerializeObject(clone), Is.EqualTo(JsonConvert.SerializeObject(template)));
+            Assert.That(JsonSerializer.Serialize(clone), Is.EqualTo(JsonSerializer.Serialize(template)));
             Assert.That(clone.Name, Is.EqualTo(template.Name));
             Assert.That(clone.BaseNames, Is.EquivalentTo(template.BaseNames));
 
@@ -506,11 +506,11 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             foreach (var weapon in allWeapons)
             {
                 var template = itemVerifier.CreateRandomTemplate(weapon);
-                template.BaseNames = new[] { "base name", "other base name" };
+                template.BaseNames = ["base name", "other base name"];
 
                 var clone = template.SmartClone();
                 Assert.That(clone, Is.Not.SameAs(template));
-                Assert.That(JsonConvert.SerializeObject(clone), Is.EqualTo(JsonConvert.SerializeObject(template)));
+                Assert.That(JsonSerializer.Serialize(clone), Is.EqualTo(JsonSerializer.Serialize(template)));
                 Assert.That(clone.Name, Is.EqualTo(template.Name));
                 Assert.That(clone.BaseNames, Is.EquivalentTo(template.BaseNames));
 
@@ -543,11 +543,11 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             foreach (var armor in allArmors)
             {
                 var template = itemVerifier.CreateRandomTemplate(armor);
-                template.BaseNames = new[] { "base name", "other base name" };
+                template.BaseNames = ["base name", "other base name"];
 
                 var clone = template.SmartClone();
                 Assert.That(clone, Is.Not.SameAs(template));
-                Assert.That(JsonConvert.SerializeObject(clone), Is.EqualTo(JsonConvert.SerializeObject(template)));
+                Assert.That(JsonSerializer.Serialize(clone), Is.EqualTo(JsonSerializer.Serialize(template)));
                 Assert.That(clone.Name, Is.EqualTo(template.Name));
                 Assert.That(clone.BaseNames, Is.EquivalentTo(template.BaseNames));
 
@@ -613,11 +613,11 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             {
                 var name = Guid.NewGuid().ToString();
                 var template = itemVerifier.CreateRandomTemplate(name);
-                template.BaseNames = new[] { "base name", weapon, "other base name" };
+                template.BaseNames = ["base name", weapon, "other base name"];
 
                 var clone = template.SmartClone();
                 Assert.That(clone, Is.Not.SameAs(template));
-                Assert.That(JsonConvert.SerializeObject(clone), Is.EqualTo(JsonConvert.SerializeObject(template)));
+                Assert.That(JsonSerializer.Serialize(clone), Is.EqualTo(JsonSerializer.Serialize(template)));
                 Assert.That(clone.Name, Is.EqualTo(template.Name));
                 Assert.That(clone.BaseNames, Is.EquivalentTo(template.BaseNames));
 
@@ -651,11 +651,11 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             {
                 var name = Guid.NewGuid().ToString();
                 var template = itemVerifier.CreateRandomTemplate(name);
-                template.BaseNames = new[] { "base name", armor, "other base name" };
+                template.BaseNames = ["base name", armor, "other base name"];
 
                 var clone = template.SmartClone();
                 Assert.That(clone, Is.Not.SameAs(template));
-                Assert.That(JsonConvert.SerializeObject(clone), Is.EqualTo(JsonConvert.SerializeObject(template)));
+                Assert.That(JsonSerializer.Serialize(clone), Is.EqualTo(JsonSerializer.Serialize(template)));
                 Assert.That(clone.Name, Is.EqualTo(template.Name));
                 Assert.That(clone.BaseNames, Is.EquivalentTo(template.BaseNames));
 
@@ -721,7 +721,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
 
             var clone = template.Clone();
             Assert.That(clone, Is.Not.SameAs(template));
-            Assert.That(JsonConvert.SerializeObject(clone), Is.EqualTo(JsonConvert.SerializeObject(template)));
+            Assert.That(JsonSerializer.Serialize(clone), Is.EqualTo(JsonSerializer.Serialize(template)));
             Assert.That(clone.Name, Is.EqualTo(template.Name));
 
             Assert.That(clone.Attributes, Is.EquivalentTo(template.Attributes));
@@ -756,7 +756,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             var newClone = template.CloneInto(clone);
             Assert.That(newClone, Is.SameAs(clone).And.EqualTo(clone));
             Assert.That(clone, Is.Not.SameAs(template));
-            Assert.That(JsonConvert.SerializeObject(clone), Is.EqualTo(JsonConvert.SerializeObject(template)));
+            Assert.That(JsonSerializer.Serialize(clone), Is.EqualTo(JsonSerializer.Serialize(template)));
             Assert.That(clone.Name, Is.EqualTo(template.Name));
 
             Assert.That(clone.Attributes, Is.EquivalentTo(template.Attributes));
@@ -784,13 +784,15 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         [Test]
         public void BUG_CloneIntoDoesNotOverwriteWeaponProperties()
         {
-            var weapon = new Weapon();
-            weapon.Ammunition = "my ammo";
-            weapon.CriticalMultiplier = "x9266";
+            var weapon = new Weapon
+            {
+                Ammunition = "my ammo",
+                CriticalMultiplier = "x9266",
+                ThreatRange = 1336,
+                Size = "my size"
+            };
             weapon.Damages.Add(new Damage { Roll = "90210d42", Type = "emotional" });
             weapon.CriticalDamages.Add(new Damage { Roll = "600d1337", Type = "spiritual" });
-            weapon.ThreatRange = 1336;
-            weapon.Size = "my size";
 
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomTemplate(name);
@@ -836,11 +838,13 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         [Test]
         public void BUG_CloneIntoDoesNotOverwriteArmorProperties()
         {
-            var armor = new Armor();
-            armor.ArmorBonus = 9266;
-            armor.ArmorCheckPenalty = -90210;
-            armor.MaxDexterityBonus = 42;
-            armor.Size = "my size";
+            var armor = new Armor
+            {
+                ArmorBonus = 9266,
+                ArmorCheckPenalty = -90210,
+                MaxDexterityBonus = 42,
+                Size = "my size"
+            };
 
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomTemplate(name);
@@ -881,7 +885,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         public void NameMatchesIfName()
         {
             item.Name = "name";
-            item.BaseNames = new[] { "base name", "other base name" };
+            item.BaseNames = ["base name", "other base name"];
 
             Assert.That(item.NameMatches("name"), Is.True);
         }
@@ -890,7 +894,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         public void NameMatchesIfAnyBaseName()
         {
             item.Name = "name";
-            item.BaseNames = new[] { "base name", "other base name" };
+            item.BaseNames = ["base name", "other base name"];
 
             Assert.That(item.NameMatches("base name"), Is.True);
             Assert.That(item.NameMatches("other base name"), Is.True);
@@ -900,7 +904,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         public void NameDoesNotMatch()
         {
             item.Name = "name";
-            item.BaseNames = new[] { "base name", "other base name" };
+            item.BaseNames = ["base name", "other base name"];
 
             Assert.That(item.NameMatches("wrong name"), Is.False);
         }
@@ -926,7 +930,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         {
             item.Name = "my name";
             item.Magic.Bonus = 0;
-            item.Magic.SpecialAbilities = Enumerable.Empty<SpecialAbility>();
+            item.Magic.SpecialAbilities = [];
 
             Assert.That(item.Summary, Is.EqualTo("my name"));
         }
@@ -976,13 +980,13 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         {
             item.Name = name;
             item.Magic.Bonus = 666;
-            item.Magic.SpecialAbilities = new[]
-            {
+            item.Magic.SpecialAbilities =
+            [
                 new SpecialAbility { Name = "ability 1" },
                 new SpecialAbility { Name = "ability 2" },
-            };
+            ];
             item.Traits.Add(TraitConstants.SpecialMaterials.Dragonhide);
-            item.Attributes = new[] { "attribute 1", AttributeConstants.Specific, "attribute 2" };
+            item.Attributes = ["attribute 1", AttributeConstants.Specific, "attribute 2"];
 
             Assert.That(item.Summary, Is.EqualTo(name));
         }
@@ -994,7 +998,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         {
             item.Name = "my name";
             item.Magic.Bonus = 0;
-            item.Magic.SpecialAbilities = Enumerable.Empty<SpecialAbility>();
+            item.Magic.SpecialAbilities = [];
             item.Traits.Add(TraitConstants.Markings);
             item.Traits.Add(material);
 
@@ -1006,7 +1010,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         {
             item.Name = "my name";
             item.Magic.Bonus = 0;
-            item.Magic.SpecialAbilities = Enumerable.Empty<SpecialAbility>();
+            item.Magic.SpecialAbilities = [];
             item.Traits.Add(TraitConstants.Markings);
             item.Traits.Add(TraitConstants.SpecialMaterials.Adamantine);
             item.Traits.Add(TraitConstants.SpecialMaterials.ColdIron);
@@ -1019,7 +1023,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         {
             item.Name = "my name";
             item.Magic.Bonus = 9266;
-            item.Magic.SpecialAbilities = Enumerable.Empty<SpecialAbility>();
+            item.Magic.SpecialAbilities = [];
 
             Assert.That(item.Summary, Is.EqualTo("+9266 my name"));
         }
@@ -1029,7 +1033,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         {
             item.Name = "my name";
             item.Magic.Bonus = 0;
-            item.Magic.SpecialAbilities = Enumerable.Empty<SpecialAbility>();
+            item.Magic.SpecialAbilities = [];
             item.IsMagical = true;
 
             Assert.That(item.Summary, Is.EqualTo("my name"));
@@ -1040,7 +1044,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         {
             item.Name = "my name";
             item.Magic.Bonus = 9266;
-            item.Magic.SpecialAbilities = Enumerable.Empty<SpecialAbility>();
+            item.Magic.SpecialAbilities = [];
             item.Traits.Add(material);
 
             Assert.That(item.Summary, Is.EqualTo($"+9266 {material} my name"));
@@ -1051,7 +1055,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         {
             item.Name = "my name";
             item.Magic.Bonus = 9266;
-            item.Magic.SpecialAbilities = Enumerable.Empty<SpecialAbility>();
+            item.Magic.SpecialAbilities = [];
             item.Traits.Add(TraitConstants.SpecialMaterials.Dragonhide);
             item.Traits.Add(TraitConstants.SpecialMaterials.AlchemicalSilver);
 
@@ -1063,10 +1067,10 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         {
             item.Name = "my name";
             item.Magic.Bonus = 9266;
-            item.Magic.SpecialAbilities = new[]
-            {
+            item.Magic.SpecialAbilities =
+            [
                 new SpecialAbility { Name = "ability 1" },
-            };
+            ];
 
             Assert.That(item.Summary, Is.EqualTo("+9266 my name of ability 1"));
         }
@@ -1076,11 +1080,11 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         {
             item.Name = "my name";
             item.Magic.Bonus = 9266;
-            item.Magic.SpecialAbilities = new[]
-            {
+            item.Magic.SpecialAbilities =
+            [
                 new SpecialAbility { Name = "ability 1" },
                 new SpecialAbility { Name = "ability 2" },
-            };
+            ];
 
             Assert.That(item.Summary, Is.EqualTo("+9266 my name of ability 1, ability 2"));
         }
@@ -1090,11 +1094,11 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
         {
             item.Name = "my name";
             item.Magic.Bonus = 9266;
-            item.Magic.SpecialAbilities = new[]
-            {
+            item.Magic.SpecialAbilities =
+            [
                 new SpecialAbility { Name = "ability 1" },
                 new SpecialAbility { Name = "ability 2" },
-            };
+            ];
             item.Traits.Add(TraitConstants.SpecialMaterials.Dragonhide);
             item.Traits.Add(TraitConstants.SpecialMaterials.AlchemicalSilver);
 

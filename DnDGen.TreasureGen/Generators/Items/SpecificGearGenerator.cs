@@ -13,36 +13,15 @@ using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items
 {
-    internal class SpecificGearGenerator : ISpecificGearGenerator
+    internal class SpecificGearGenerator(IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
+        ICollectionSelector collectionsSelector,
+        IChargesGenerator chargesGenerator,
+        ITreasurePercentileSelector percentileSelector,
+        ISpellGenerator spellGenerator,
+        ISpecialAbilitiesGenerator specialAbilitiesGenerator,
+        JustInTimeFactory justInTimeFactory,
+        IReplacementSelector replacementSelector) : ISpecificGearGenerator
     {
-        private readonly IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
-        private readonly ICollectionSelector collectionsSelector;
-        private readonly IChargesGenerator chargesGenerator;
-        private readonly ITreasurePercentileSelector percentileSelector;
-        private readonly ISpellGenerator spellGenerator;
-        private readonly ISpecialAbilitiesGenerator specialAbilitiesGenerator;
-        private readonly JustInTimeFactory justInTimeFactory;
-        private readonly IReplacementSelector replacementSelector;
-
-        public SpecificGearGenerator(IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
-            ICollectionSelector collectionsSelector,
-            IChargesGenerator chargesGenerator,
-            ITreasurePercentileSelector percentileSelector,
-            ISpellGenerator spellGenerator,
-            ISpecialAbilitiesGenerator specialAbilitiesGenerator,
-            JustInTimeFactory justInTimeFactory,
-            IReplacementSelector replacementSelector)
-        {
-            this.typeAndAmountPercentileSelector = typeAndAmountPercentileSelector;
-            this.collectionsSelector = collectionsSelector;
-            this.chargesGenerator = chargesGenerator;
-            this.percentileSelector = percentileSelector;
-            this.spellGenerator = spellGenerator;
-            this.specialAbilitiesGenerator = specialAbilitiesGenerator;
-            this.justInTimeFactory = justInTimeFactory;
-            this.replacementSelector = replacementSelector;
-        }
-
         private Item SetPrototypeAttributes(Item prototype, string specificGearType)
         {
             var gear = prototype.Clone();
@@ -191,7 +170,7 @@ namespace DnDGen.TreasureGen.Generators.Items
             return gear;
         }
 
-        private string GetItemType(string specificGearType)
+        private static string GetItemType(string specificGearType)
         {
             if (specificGearType == ItemTypeConstants.Weapon)
                 return ItemTypeConstants.Weapon;
@@ -199,7 +178,7 @@ namespace DnDGen.TreasureGen.Generators.Items
             return ItemTypeConstants.Armor;
         }
 
-        private string GetSpecificGearType(string name)
+        private static string GetSpecificGearType(string name)
         {
             var weapons = GetGear(ItemTypeConstants.Weapon);
             if (weapons.Contains(name))
@@ -240,12 +219,12 @@ namespace DnDGen.TreasureGen.Generators.Items
             };
             gear.Magic.Bonus = selection.Amount;
             gear.Quantity = 0;
-            gear.Traits = new HashSet<string>(traits);
+            gear.Traits = [.. traits];
 
             return gear;
         }
 
-        private bool NameMatchesSpecific(string name)
+        private static bool NameMatchesSpecific(string name)
         {
             var weapons = GetGear(ItemTypeConstants.Weapon);
             var armors = GetGear(ItemTypeConstants.Armor);
@@ -288,7 +267,7 @@ namespace DnDGen.TreasureGen.Generators.Items
                     names.Add(selection.Type);
             }
 
-            if (!names.Any())
+            if (names.Count == 0)
             {
                 throw new ArgumentException($"No {power} specific {specificGearType} has base type {baseType}");
             }
@@ -308,7 +287,7 @@ namespace DnDGen.TreasureGen.Generators.Items
             return isSpecific;
         }
 
-        private IEnumerable<string> GetGear(string gearType)
+        private static IEnumerable<string> GetGear(string gearType)
         {
             return gearType switch
             {

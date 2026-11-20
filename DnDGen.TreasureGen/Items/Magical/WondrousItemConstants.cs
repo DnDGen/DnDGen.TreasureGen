@@ -273,10 +273,8 @@ namespace DnDGen.TreasureGen.Items.Magical
         public const string WingedBoots = "Winged Boots";
         public const string WingsOfFlying = "Wings of Flying";
 
-        public static IEnumerable<string> GetAllWondrousItems()
-        {
-            return new[]
-            {
+        public static IEnumerable<string> GetAllWondrousItems() =>
+            [
                 AmuletOfHealth,
                 AmuletOfMightyFists,
                 AmuletOfNaturalArmor,
@@ -523,7 +521,6 @@ namespace DnDGen.TreasureGen.Items.Magical
                 WindFan,
                 WingedBoots,
                 WingsOfFlying
-            };
-        }
+            ];
     }
 }

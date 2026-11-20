@@ -4,27 +4,15 @@ using DnDGen.TreasureGen.Items.Mundane;
 using DnDGen.TreasureGen.Selectors.Percentiles;
 using DnDGen.TreasureGen.Selectors.Selections;
 using DnDGen.TreasureGen.Tables;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items.Mundane
 {
-    internal class MundaneArmorGenerator : MundaneItemGenerator
+    internal class MundaneArmorGenerator(
+        ITreasurePercentileSelector percentileSelector,
+        ICollectionSelector collectionsSelector,
+        ICollectionDataSelector<ArmorDataSelection> armorDataSelector) : MundaneItemGenerator
     {
-        private readonly ITreasurePercentileSelector percentileSelector;
-        private readonly ICollectionSelector collectionsSelector;
-        private readonly ICollectionDataSelector<ArmorDataSelection> armorDataSelector;
-
-        public MundaneArmorGenerator(
-            ITreasurePercentileSelector percentileSelector,
-            ICollectionSelector collectionsSelector,
-            ICollectionDataSelector<ArmorDataSelection> armorDataSelector)
-        {
-            this.percentileSelector = percentileSelector;
-            this.collectionsSelector = collectionsSelector;
-            this.armorDataSelector = armorDataSelector;
-        }
-
         public Item GenerateRandom()
         {
             var name = GetRandomName();
@@ -34,7 +22,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
         public Item Generate(string itemName, params string[] traits)
         {
             var armor = GeneratePrototype(itemName);
-            armor.Traits = new HashSet<string>(traits);
+            armor.Traits = [.. traits];
 
             armor = GenerateFromPrototype(armor, true);
 
@@ -81,7 +69,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
             if (!string.IsNullOrEmpty(template.Size))
                 return template.Size;
 
-            if (!template.Traits.Any())
+            if (template.Traits.Count == 0)
                 return GetRandomSize();
 
             var allSizes = percentileSelector.SelectAllFrom(Config.Name, TableNameConstants.Percentiles.MundaneGearSizes);
@@ -124,9 +112,11 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
 
         private Armor GeneratePrototype(string itemName)
         {
-            var armor = new Armor();
-            armor.Name = itemName;
-            armor.BaseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, itemName);
+            var armor = new Armor
+            {
+                Name = itemName,
+                BaseNames = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, itemName)
+            };
 
             return armor;
         }

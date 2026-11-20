@@ -67,7 +67,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             var template = itemVerifier.CreateRandomTemplate(name);
 
             var potion = potionGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(potion, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(potion, template);
             Assert.That(potion.BaseNames.Single(), Is.EqualTo(name));
             Assert.That(potion.Attributes, Contains.Item(AttributeConstants.OneTimeUse));
             Assert.That(potion.IsMagical, Is.True);
@@ -82,7 +82,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             var template = itemVerifier.CreateRandomTemplate(name);
 
             var potion = potionGenerator.Generate(template, true);
-            itemVerifier.AssertMagicalItemFromTemplate(potion, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(potion, template);
             Assert.That(potion.BaseNames.Single(), Is.EqualTo(name));
             Assert.That(potion.Attributes, Contains.Item(AttributeConstants.OneTimeUse));
             Assert.That(potion.IsMagical, Is.True);

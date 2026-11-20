@@ -1,8 +1,8 @@
 ﻿using DnDGen.TreasureGen.Items;
 using DnDGen.TreasureGen.Items.Magical;
-using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
+using System.Text.Json;
 
 namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
 {
@@ -157,7 +157,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
 
             var clone = template.Clone();
             Assert.That(clone, Is.Not.SameAs(template));
-            Assert.That(JsonConvert.SerializeObject(clone), Is.EqualTo(JsonConvert.SerializeObject(template)));
+            Assert.That(JsonSerializer.Serialize(clone as Armor), Is.EqualTo(JsonSerializer.Serialize(template)));
             Assert.That(clone.Name, Is.EqualTo(template.Name));
 
             Assert.That(clone.Attributes, Is.EquivalentTo(template.Attributes));
@@ -194,20 +194,20 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomArmorTemplate(name);
             template.ItemType = Guid.NewGuid().ToString();
-            template.Magic.SpecialAbilities = new[]
-            {
+            template.Magic.SpecialAbilities =
+            [
                 new SpecialAbility { Name = Guid.NewGuid().ToString() },
                 new SpecialAbility { Name = Guid.NewGuid().ToString() }
-            };
+            ];
 
-            template.Attributes = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+            template.Attributes = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()];
             template.ArmorBonus = 9266;
             template.ArmorCheckPenalty = -90210;
             template.MaxDexterityBonus = 42;
             template.Size = "massive";
 
             var clone = template.MundaneClone();
-            itemVerifier.AssertMundaneItemFromTemplate(clone, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(clone, template);
             Assert.That(clone.ItemType, Is.EqualTo(template.ItemType));
             Assert.That(clone.Attributes, Is.EquivalentTo(template.Attributes));
             Assert.That(clone.Magic.SpecialAbilities, Is.Empty);
@@ -226,14 +226,14 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             var template = itemVerifier.CreateRandomArmorTemplate(name);
             template.ItemType = Guid.NewGuid().ToString();
 
-            template.Attributes = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+            template.Attributes = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()];
             template.ArmorBonus = 9266;
             template.ArmorCheckPenalty = -90210;
             template.MaxDexterityBonus = 42;
             template.Size = "massive";
 
             var clone = template.SmartClone();
-            itemVerifier.AssertMagicalItemFromTemplate(clone, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(clone, template);
             Assert.That(clone.ItemType, Is.EqualTo(template.ItemType));
             Assert.That(clone.Attributes, Is.EquivalentTo(template.Attributes));
 
@@ -298,11 +298,13 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             template.MaxDexterityBonus = 0;
             template.Size = string.Empty;
 
-            var clone = new Armor();
-            clone.ArmorBonus = 9266;
-            clone.ArmorCheckPenalty = -90210;
-            clone.MaxDexterityBonus = 42;
-            clone.Size = "massive";
+            var clone = new Armor
+            {
+                ArmorBonus = 9266,
+                ArmorCheckPenalty = -90210,
+                MaxDexterityBonus = 42,
+                Size = "massive"
+            };
 
             var newClone = template.CloneInto(clone);
             Assert.That(newClone, Is.EqualTo(clone));

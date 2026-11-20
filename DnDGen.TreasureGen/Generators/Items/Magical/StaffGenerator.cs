@@ -6,32 +6,16 @@ using DnDGen.TreasureGen.Items.Magical;
 using DnDGen.TreasureGen.Items.Mundane;
 using DnDGen.TreasureGen.Tables;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DnDGen.TreasureGen.Generators.Items.Magical
 {
-    internal class StaffGenerator : MagicalItemGenerator
+    internal class StaffGenerator(IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
+        IChargesGenerator chargesGenerator,
+        ICollectionSelector collectionsSelector,
+        ISpecialAbilitiesGenerator specialAbilitiesGenerator,
+        JustInTimeFactory justInTimeFactory) : MagicalItemGenerator
     {
-        private readonly IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector;
-        private readonly IChargesGenerator chargesGenerator;
-        private readonly ICollectionSelector collectionsSelector;
-        private readonly ISpecialAbilitiesGenerator specialAbilitiesGenerator;
-        private readonly JustInTimeFactory justInTimeFactory;
-
-        public StaffGenerator(IPercentileTypeAndAmountSelector typeAndAmountPercentileSelector,
-            IChargesGenerator chargesGenerator,
-            ICollectionSelector collectionsSelector,
-            ISpecialAbilitiesGenerator specialAbilitiesGenerator,
-            JustInTimeFactory justInTimeFactory)
-        {
-            this.typeAndAmountPercentileSelector = typeAndAmountPercentileSelector;
-            this.chargesGenerator = chargesGenerator;
-            this.collectionsSelector = collectionsSelector;
-            this.specialAbilitiesGenerator = specialAbilitiesGenerator;
-            this.justInTimeFactory = justInTimeFactory;
-        }
-
         public Item GenerateRandom(string power)
         {
             var rodPowers = collectionsSelector.SelectFrom(Config.Name, TableNameConstants.Collections.PowerGroups, ItemTypeConstants.Staff);
@@ -50,7 +34,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
                 Name = name
             };
             staff.Magic.Bonus = bonus;
-            staff.Traits = new HashSet<string>(traits);
+            staff.Traits = [.. traits];
 
             staff = BuildStaff(staff);
             staff.Magic.Charges = chargesGenerator.GenerateFor(staff.ItemType, name);
@@ -78,7 +62,7 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
             if (staffs.Contains(itemName))
                 return itemName;
 
-            var staffFromBaseName = collectionsSelector.FindCollectionOf(Config.Name, TableNameConstants.Collections.ItemGroups, itemName, staffs.ToArray());
+            var staffFromBaseName = collectionsSelector.FindCollectionOf(Config.Name, TableNameConstants.Collections.ItemGroups, itemName, [.. staffs]);
 
             return staffFromBaseName;
         }

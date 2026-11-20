@@ -43,14 +43,14 @@ namespace DnDGen.TreasureGen.IoC.Modules
             NameAndDecorate<MundaneItemGenerator, MundaneArmorGenerator>(ItemTypeConstants.Armor, decorators);
             NameAndDecorate<MundaneItemGenerator, MundaneWeaponGenerator>(ItemTypeConstants.Weapon, decorators);
 
-            decorators = new[]
-            {
+            decorators =
+            [
                 typeof(MagicalItemGeneratorMundaneProxy),
                 typeof(MagicalItemGeneratorSpecialMaterialDecorator),
                 typeof(MagicalItemGeneratorTraitsDecorator),
                 typeof(MagicalItemGeneratorIntelligenceDecorator),
                 typeof(MagicalItemGeneratorCurseDecorator),
-            };
+            ];
 
             NameAndDecorate<MagicalItemGenerator, MagicalArmorGenerator>(ItemTypeConstants.Armor, decorators);
             NameAndDecorate<MagicalItemGenerator, PotionGenerator>(ItemTypeConstants.Potion, decorators);
