@@ -8,7 +8,7 @@
           <CodeCoverage>
             <ModulePaths>
               <Include>
-                <ModulePath>.*[\\/]DnDGen\.RollGen\.dll$</ModulePath>
+                <ModulePath>.*[\\/]DnDGen\.TreasureGen\.dll$</ModulePath>
               </Include>
             </ModulePaths>
             <Sources>
