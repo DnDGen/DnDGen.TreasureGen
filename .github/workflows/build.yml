@@ -12,4 +12,4 @@ jobs:
     name: build
     uses: DnDGen/.github/.github/workflows/nuget-build.yml@v1
     with:
-      project: DnDGen.RollGen
+      project: DnDGen.TreasureGen

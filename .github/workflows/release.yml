@@ -16,7 +16,7 @@ jobs:
     name: build
     uses: DnDGen/.github/.github/workflows/nuget-build.yml@v1
     with:
-      project: DnDGen.RollGen
+      project: DnDGen.TreasureGen
 
   # Defined here, not in a shared workflow: nuget.org only accepts a Trusted Publishing token
   # from a job in this repository's own workflows.
