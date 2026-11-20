@@ -318,7 +318,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             mockCollectionsSelector.Setup(p => p.SelectFrom(Config.Name, tableName, name)).Returns(attributes);
 
             var ring = ringGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(ring, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(ring, template);
             Assert.That(ring.BaseNames.Single(), Is.EqualTo(name));
             Assert.That(ring.Attributes, Is.EquivalentTo(attributes));
             Assert.That(ring.IsMagical, Is.True);
@@ -337,7 +337,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             mockCollectionsSelector.Setup(p => p.SelectFrom(Config.Name, tableName, name)).Returns(attributes);
 
             var ring = ringGenerator.Generate(template, true);
-            itemVerifier.AssertMagicalItemFromTemplate(ring, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(ring, template);
             Assert.That(ring.BaseNames.Single(), Is.EqualTo(name));
             Assert.That(ring.Attributes, Is.EquivalentTo(attributes));
             Assert.That(ring.IsMagical, Is.True);
@@ -356,7 +356,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             mockCollectionsSelector.Setup(p => p.SelectFrom(Config.Name, tableName, name)).Returns(attributes);
 
             var ring = ringGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(ring, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(ring, template);
             Assert.That(ring.BaseNames.Single(), Is.EqualTo(name));
             Assert.That(ring.Attributes, Is.EquivalentTo(attributes));
             Assert.That(ring.IsMagical, Is.True);

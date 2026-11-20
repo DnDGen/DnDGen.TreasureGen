@@ -56,10 +56,8 @@ namespace DnDGen.TreasureGen.Items
             return armors.Union(shields);
         }
 
-        public static IEnumerable<string> GetAllSpecificArmors()
-        {
-            return new[]
-            {
+        public static IEnumerable<string> GetAllSpecificArmors() =>
+            [
                 ElvenChain,
                 CelestialArmor,
                 RhinoHide,
@@ -71,25 +69,21 @@ namespace DnDGen.TreasureGen.Items
                 DemonArmor,
                 ArmorOfArrowAttraction,
                 ArmorOfRage
-            };
-        }
+            ];
 
-        public static IEnumerable<string> GetAllSpecificShields()
-        {
-            return new[]
-            {
+        public static IEnumerable<string> GetAllSpecificShields() =>
+            [
                 CastersShield,
                 SpinedShield,
                 LionsShield,
                 WingedShield,
                 AbsorbingShield,
-            };
-        }
+            ];
 
         public static IEnumerable<string> GetAllShields(bool includeSpecific)
         {
-            IEnumerable<string> shields = new[]
-            {
+            IEnumerable<string> shields =
+            [
                 Buckler,
                 LightWoodenShield,
                 LightSteelShield,
@@ -101,7 +95,7 @@ namespace DnDGen.TreasureGen.Items
                 LionsShield,
                 WingedShield,
                 AbsorbingShield,
-            };
+            ];
 
             if (!includeSpecific)
             {
@@ -123,15 +117,15 @@ namespace DnDGen.TreasureGen.Items
 
         public static IEnumerable<string> GetAllLightArmors(bool includeSpecific)
         {
-            IEnumerable<string> armors = new[]
-            {
+            IEnumerable<string> armors =
+            [
                 PaddedArmor,
                 LeatherArmor,
                 StuddedLeatherArmor,
                 ChainShirt,
                 ElvenChain,
                 CelestialArmor,
-            };
+            ];
 
             if (!includeSpecific)
             {
@@ -144,15 +138,15 @@ namespace DnDGen.TreasureGen.Items
 
         public static IEnumerable<string> GetAllMediumArmors(bool includeSpecific)
         {
-            IEnumerable<string> armors = new[]
-            {
+            IEnumerable<string> armors =
+            [
                 HideArmor,
                 ScaleMail,
                 Chainmail,
                 Breastplate,
                 RhinoHide,
                 BreastplateOfCommand,
-            };
+            ];
 
             if (!includeSpecific)
             {
@@ -165,8 +159,8 @@ namespace DnDGen.TreasureGen.Items
 
         public static IEnumerable<string> GetAllHeavyArmors(bool includeSpecific)
         {
-            IEnumerable<string> armors = new[]
-            {
+            IEnumerable<string> armors =
+            [
                 SplintMail,
                 BandedMail,
                 HalfPlate,
@@ -178,7 +172,7 @@ namespace DnDGen.TreasureGen.Items
                 DemonArmor,
                 ArmorOfArrowAttraction,
                 ArmorOfRage
-            };
+            ];
 
             if (!includeSpecific)
             {

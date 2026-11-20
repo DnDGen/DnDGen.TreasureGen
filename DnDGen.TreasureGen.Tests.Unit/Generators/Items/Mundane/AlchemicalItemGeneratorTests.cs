@@ -60,7 +60,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             var template = itemVerifier.CreateRandomTemplate(name);
 
             var item = alchemicalItemGenerator.Generate(template);
-            itemVerifier.AssertMundaneItemFromTemplate(item, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(item, template);
             Assert.That(item.BaseNames.Single(), Is.EqualTo(name));
             Assert.That(item.ItemType, Is.EqualTo(ItemTypeConstants.AlchemicalItem));
             Assert.That(item.Attributes, Is.Empty);
@@ -73,7 +73,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             var template = itemVerifier.CreateRandomTemplate(name);
 
             var item = alchemicalItemGenerator.Generate(template, true);
-            itemVerifier.AssertMundaneItemFromTemplate(item, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(item, template);
             Assert.That(item.BaseNames.Single(), Is.EqualTo(name));
             Assert.That(item.ItemType, Is.EqualTo(ItemTypeConstants.AlchemicalItem));
             Assert.That(item.Attributes, Is.Empty);

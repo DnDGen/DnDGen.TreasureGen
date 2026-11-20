@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace DnDGen.TreasureGen.Items.Magical
 {
@@ -20,32 +19,33 @@ namespace DnDGen.TreasureGen.Items.Magical
 
         public Intelligence()
         {
-            Powers = new List<string>();
+            Powers = [];
             SpecialPurpose = string.Empty;
             DedicatedPower = string.Empty;
-            Communication = Enumerable.Empty<string>();
+            Communication = [];
             Senses = string.Empty;
             Alignment = string.Empty;
-            Languages = new List<string>();
+            Languages = [];
             Personality = string.Empty;
         }
 
         public Intelligence Clone()
         {
-            var clone = new Intelligence();
-
-            clone.Alignment = Alignment;
-            clone.CharismaStat = CharismaStat;
-            clone.Communication = Communication.ToArray();
-            clone.DedicatedPower = DedicatedPower;
-            clone.Ego = Ego;
-            clone.IntelligenceStat = IntelligenceStat;
-            clone.Languages.AddRange(Languages);
-            clone.Personality = Personality;
-            clone.Powers.AddRange(Powers);
-            clone.Senses = Senses;
-            clone.SpecialPurpose = SpecialPurpose;
-            clone.WisdomStat = WisdomStat;
+            var clone = new Intelligence
+            {
+                Alignment = Alignment,
+                CharismaStat = CharismaStat,
+                Communication = [.. Communication],
+                DedicatedPower = DedicatedPower,
+                Ego = Ego,
+                IntelligenceStat = IntelligenceStat,
+                Languages = [.. Languages],
+                Personality = Personality,
+                Powers = [.. Powers],
+                Senses = Senses,
+                SpecialPurpose = SpecialPurpose,
+                WisdomStat = WisdomStat
+            };
 
             return clone;
         }

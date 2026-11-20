@@ -59,9 +59,9 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             AssertSpecialMaterials(item);
         }
 
-        private void AssertArmor(Item item)
+        private static void AssertArmor(Item item)
         {
-            if (!(item is Armor))
+            if (item is not Armor)
                 return;
 
             var armor = item as Armor;
@@ -75,9 +75,9 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
                 Assert.That(armor.Traits, Contains.Item(TraitConstants.Masterwork), armor.Summary);
         }
 
-        private void AssertWeapon(Item item)
+        private static void AssertWeapon(Item item)
         {
-            if (!(item is Weapon))
+            if (item is not Weapon)
                 return;
 
             var weapon = item as Weapon;
@@ -88,7 +88,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
                 .And.Count.EqualTo(1 + weapon.Magic.SpecialAbilities.SelectMany(a => a.Damages).Count()), $"{weapon.Summary} damages: {weapon.DamageSummary}");
             Assert.That(weapon.CriticalDamages, Is.Not.Empty
                 .And.Count.EqualTo(1 + weapon.Magic.SpecialAbilities
-                    .Where(a => a.CriticalDamages.Any())
+                    .Where(a => a.CriticalDamages.Count != 0)
                     .SelectMany(a => a.CriticalDamages)
                     .Count()), $"{weapon.Summary} critical damages: {weapon.CriticalDamageSummary}");
 
@@ -163,7 +163,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
                         .And.Count.EqualTo(1 + weapon.Magic.SpecialAbilities.SelectMany(a => a.Damages).Count()), $"{weapon.Summary} secondary damages: {weapon.SecondaryDamageSummary}");
                     Assert.That(weapon.SecondaryCriticalDamages, Is.Not.Empty
                         .And.Count.EqualTo(1 + weapon.Magic.SpecialAbilities
-                            .Where(a => a.CriticalDamages.Any())
+                            .Where(a => a.CriticalDamages.Count != 0)
                             .SelectMany(a => a.CriticalDamages)
                             .Count()), $"{weapon.Summary} secondary critical damages: {weapon.SecondaryCriticalDamageSummary}");
                 }
@@ -187,9 +187,15 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
                 Assert.That(weapon.SecondaryCriticalMultiplier, Is.Empty, weapon.Summary);
                 Assert.That(weapon.SecondaryMagicBonus, Is.Zero, weapon.Summary);
             }
+
+            if (weapon.NameMatches(WeaponConstants.CompositeLongbow) || weapon.NameMatches(WeaponConstants.CompositeShortbow))
+            {
+                Assert.That(weapon.Traits, Is.Not.Empty, weapon.Summary);
+                Assert.That(weapon.Traits, Has.Some.Contain("Strength"), weapon.Summary);
+            }
         }
 
-        private void AssertSpecialMaterials(Item item)
+        private static void AssertSpecialMaterials(Item item)
         {
             if (item.Traits.Contains(TraitConstants.SpecialMaterials.Adamantine))
             {
@@ -227,7 +233,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             }
         }
 
-        public void AssertIntelligence(Intelligence intelligence)
+        public static void AssertIntelligence(Intelligence intelligence)
         {
             Assert.That(intelligence.Ego, Is.Positive);
             Assert.That(intelligence.Alignment, Is.Not.Empty);
@@ -319,7 +325,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             item.Magic.Curse = Guid.NewGuid().ToString();
             item.Magic.Intelligence.Alignment = Guid.NewGuid().ToString();
             item.Magic.Intelligence.CharismaStat = random.Next();
-            item.Magic.Intelligence.Communication = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+            item.Magic.Intelligence.Communication = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()];
             item.Magic.Intelligence.DedicatedPower = Guid.NewGuid().ToString();
             item.Magic.Intelligence.Ego = random.Next();
             item.Magic.Intelligence.IntelligenceStat = random.Next();
@@ -331,20 +337,20 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             item.Magic.Intelligence.Senses = Guid.NewGuid().ToString();
             item.Magic.Intelligence.SpecialPurpose = Guid.NewGuid().ToString();
             item.Magic.Intelligence.WisdomStat = random.Next();
-            item.Magic.SpecialAbilities = new[]
-            {
+            item.Magic.SpecialAbilities =
+            [
                 new SpecialAbility { Name = Guid.NewGuid().ToString() },
                 new SpecialAbility { Name = Guid.NewGuid().ToString() }
-            };
+            ];
 
             item.Traits.Add(Guid.NewGuid().ToString());
             item.Traits.Add(Guid.NewGuid().ToString());
-            item.Attributes = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+            item.Attributes = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()];
 
             return item;
         }
 
-        public void AssertMagicalItemFromTemplate(Item item, Item template)
+        public static void AssertMagicalItemFromTemplate(Item item, Item template)
         {
             Assert.That(item, Is.Not.EqualTo(template), item.Summary);
             Assert.That(item.IsMagical, Is.True, item.Summary);
@@ -374,7 +380,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             }
         }
 
-        private void AssertNoIntelligence(Intelligence intelligence, string name)
+        private static void AssertNoIntelligence(Intelligence intelligence, string name)
         {
             Assert.That(intelligence.Alignment, Is.Empty, name);
             Assert.That(intelligence.CharismaStat, Is.EqualTo(0), name);
@@ -390,7 +396,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             Assert.That(intelligence.WisdomStat, Is.EqualTo(0), name);
         }
 
-        public void AssertMundaneItemFromTemplate(Item item, Item template)
+        public static void AssertMundaneItemFromTemplate(Item item, Item template)
         {
             Assert.That(item, Is.Not.EqualTo(template), item.Summary);
             Assert.That(item.Name, Is.EqualTo(template.Name));
@@ -402,7 +408,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             AssertNoIntelligence(item.Magic.Intelligence, item.Summary);
             Assert.That(item.Magic.SpecialAbilities, Is.Empty, item.Summary);
 
-            if (!(item is Armor))
+            if (item is not Armor)
                 Assert.That(template.Traits, Is.SubsetOf(item.Traits), item.Summary);
         }
     }

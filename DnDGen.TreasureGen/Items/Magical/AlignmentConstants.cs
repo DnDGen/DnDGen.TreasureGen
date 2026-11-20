@@ -20,10 +20,8 @@ namespace DnDGen.TreasureGen.Items.Magical
         public static string NeutralEvil => $"{Neutral} {Evil}";
         public static string ChaoticEvil => $"{Chaotic} {Evil}";
 
-        public static IEnumerable<string> GetAllAlignments()
-        {
-            return new[]
-            {
+        public static IEnumerable<string> GetAllAlignments() =>
+            [
                 LawfulGood,
                 NeutralGood,
                 ChaoticGood,
@@ -33,19 +31,15 @@ namespace DnDGen.TreasureGen.Items.Magical
                 LawfulEvil,
                 NeutralEvil,
                 ChaoticEvil
-            };
-        }
+            ];
 
-        public static IEnumerable<string> GetAllPartialAlignments()
-        {
-            return new[]
-            {
+        public static IEnumerable<string> GetAllPartialAlignments() =>
+            [
                 Lawful,
                 Chaotic,
                 Evil,
                 Good,
                 Neutral
-            };
-        }
+            ];
     }
 }

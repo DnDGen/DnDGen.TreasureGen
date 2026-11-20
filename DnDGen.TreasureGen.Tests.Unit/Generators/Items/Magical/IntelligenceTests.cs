@@ -1,6 +1,6 @@
 ﻿using DnDGen.TreasureGen.Items.Magical;
-using Newtonsoft.Json;
 using NUnit.Framework;
+using System.Text.Json;
 
 namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
 {
@@ -96,7 +96,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
 
             var copy = intelligence.Clone();
             Assert.That(copy, Is.Not.SameAs(intelligence));
-            Assert.That(JsonConvert.SerializeObject(copy), Is.EqualTo(JsonConvert.SerializeObject(intelligence)));
+            Assert.That(JsonSerializer.Serialize(copy), Is.EqualTo(JsonSerializer.Serialize(intelligence)));
             Assert.That(copy.Alignment, Is.EqualTo(intelligence.Alignment));
             Assert.That(copy.CharismaStat, Is.EqualTo(intelligence.CharismaStat));
             Assert.That(copy.Communication, Is.EquivalentTo(intelligence.Communication));

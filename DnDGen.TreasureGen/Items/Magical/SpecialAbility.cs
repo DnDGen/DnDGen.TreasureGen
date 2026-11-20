@@ -41,7 +41,7 @@ namespace DnDGen.TreasureGen.Items.Magical
             return AndRequirementsMet(allAttributes) && OrRequirementsMet(allAttributes) && NotRequirementsMet(allAttributes);
         }
 
-        private IEnumerable<string> GetAttributes(Item targetItem)
+        private static IEnumerable<string> GetAttributes(Item targetItem)
         {
             var attributes = targetItem.Attributes;
 
@@ -93,7 +93,7 @@ namespace DnDGen.TreasureGen.Items.Magical
 
             foreach (var notRequirement in notRequirements)
             {
-                var requirement = notRequirement.Substring(1);
+                var requirement = notRequirement[1..];
                 if (itemAttributes.Any(a => a.Contains(requirement)))
                     return false;
             }

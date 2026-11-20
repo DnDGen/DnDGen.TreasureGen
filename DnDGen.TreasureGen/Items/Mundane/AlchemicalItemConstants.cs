@@ -13,10 +13,8 @@ namespace DnDGen.TreasureGen.Items.Mundane
         public const string TanglefootBag = "Tanglefoot Bag";
         public const string Thunderstone = "Thunderstone";
 
-        public static IEnumerable<string> GetAllAlchemicalItems()
-        {
-            return new[]
-            {
+        public static IEnumerable<string> GetAllAlchemicalItems() =>
+            [
                 AlchemistsFire,
                 Acid,
                 Smokestick,
@@ -25,7 +23,6 @@ namespace DnDGen.TreasureGen.Items.Mundane
                 EverburningTorch,
                 TanglefootBag,
                 Thunderstone
-            };
-        }
+            ];
     }
 }

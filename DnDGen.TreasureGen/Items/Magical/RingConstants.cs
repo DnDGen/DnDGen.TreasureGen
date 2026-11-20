@@ -63,10 +63,8 @@ namespace DnDGen.TreasureGen.Items.Magical
         public const string Wizardry_IV = "Ring of Wizardry (IV)";
         public const string XRayVision = "Ring of X-ray Vision";
 
-        public static IEnumerable<string> GetAllRings()
-        {
-            return new[]
-            {
+        public static IEnumerable<string> GetAllRings() =>
+            [
                 AnimalFriendship,
                 Blinking,
                 ChameleonPower,
@@ -122,7 +120,6 @@ namespace DnDGen.TreasureGen.Items.Magical
                 Wizardry_III,
                 Wizardry_IV,
                 XRayVision
-            };
-        }
+            ];
     }
 }

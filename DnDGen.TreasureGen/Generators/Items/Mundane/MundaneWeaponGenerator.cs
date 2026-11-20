@@ -86,7 +86,20 @@ namespace DnDGen.TreasureGen.Generators.Items.Mundane
                 var compositeStrengthBonus = GetCompositeBowBonus(oldName);
 
                 if (!string.IsNullOrEmpty(compositeStrengthBonus))
+                {
                     weapon.Traits.Add(compositeStrengthBonus);
+                }
+                else if (!weapon.Traits.Any(t => t.Contains("Strength")))
+                {
+                    var isLongbow = NameMatches(weapon.Name, WeaponConstants.CompositeLongbow);
+                    var allCommonRangedWeapons = percentileSelector.SelectAllFrom(Config.Name, TableNameConstants.Percentiles.WEAPONTYPEWeapons("CommonRanged"));
+                    var compositeBows = allCommonRangedWeapons
+                        .Where(w => isLongbow ? NameMatches(w, WeaponConstants.CompositeLongbow) : NameMatches(w, WeaponConstants.CompositeShortbow));
+                    var randomCompositeBow = collectionsSelector.SelectRandomFrom(compositeBows);
+
+                    compositeStrengthBonus = GetCompositeBowBonus(randomCompositeBow);
+                    weapon.Traits.Add(compositeStrengthBonus);
+                }
             }
 
             var tableName = TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Weapon);

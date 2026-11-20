@@ -60,8 +60,8 @@ namespace DnDGen.TreasureGen.Generators.Items.Magical
                 abilities.Add(ability);
                 availableAbilities.Remove(ability);
 
-                abilities.RemoveAll(a => a.BaseName == ability.BaseName && a.Power < ability.Power);
-                abilities.RemoveAll(a => a.BonusEquivalent + bonusSum > 10);
+                availableAbilities.RemoveAll(a => a.BaseName == ability.BaseName && a.Power < ability.Power);
+                availableAbilities.RemoveAll(a => a.BonusEquivalent + bonusSum > 10);
             }
 
             return abilities;

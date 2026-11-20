@@ -376,7 +376,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             mockCollectionsSelector.Setup(p => p.SelectFrom(Config.Name, tableName, name)).Returns(attributes);
 
             var wondrousItem = wondrousItemGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(wondrousItem, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(wondrousItem, template);
             Assert.That(wondrousItem.Name, Is.EqualTo(name));
             Assert.That(wondrousItem.BaseNames.Single(), Is.EqualTo(name));
             Assert.That(wondrousItem.ItemType, Is.EqualTo(ItemTypeConstants.WondrousItem));
@@ -395,7 +395,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             mockCollectionsSelector.Setup(p => p.SelectFrom(Config.Name, tableName, name)).Returns(attributes);
 
             var wondrousItem = wondrousItemGenerator.Generate(template, true);
-            itemVerifier.AssertMagicalItemFromTemplate(wondrousItem, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(wondrousItem, template);
             Assert.That(wondrousItem.Name, Is.EqualTo(name));
             Assert.That(wondrousItem.BaseNames.Single(), Is.EqualTo(name));
             Assert.That(wondrousItem.ItemType, Is.EqualTo(ItemTypeConstants.WondrousItem));

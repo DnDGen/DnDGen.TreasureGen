@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace DnDGen.TreasureGen.Items.Magical
 {
@@ -13,7 +12,7 @@ namespace DnDGen.TreasureGen.Items.Magical
 
         public Magic()
         {
-            SpecialAbilities = Enumerable.Empty<SpecialAbility>();
+            SpecialAbilities = [];
             Curse = string.Empty;
             Intelligence = new Intelligence();
         }

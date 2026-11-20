@@ -594,7 +594,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             template.SecondaryCriticalMultiplier = "sevenfold";
 
             var clone = template.MundaneClone();
-            itemVerifier.AssertMundaneItemFromTemplate(clone, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(clone, template);
             Assert.That(clone.ItemType, Is.EqualTo(template.ItemType));
             Assert.That(clone.Attributes, Is.EquivalentTo(template.Attributes));
             Assert.That(clone.Magic.SpecialAbilities, Is.Empty);
@@ -641,7 +641,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             template.SecondaryCriticalMultiplier = "sevenfold";
 
             var clone = template.SmartClone();
-            itemVerifier.AssertMagicalItemFromTemplate(clone, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(clone, template);
             Assert.That(clone.ItemType, Is.EqualTo(template.ItemType));
             Assert.That(clone.Attributes, Is.EquivalentTo(template.Attributes));
 

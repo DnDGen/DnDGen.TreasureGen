@@ -178,7 +178,7 @@ namespace DnDGen.TreasureGen.Generators.Items
             return ItemTypeConstants.Armor;
         }
 
-        private string GetSpecificGearType(string name)
+        private static string GetSpecificGearType(string name)
         {
             var weapons = GetGear(ItemTypeConstants.Weapon);
             if (weapons.Contains(name))
@@ -224,7 +224,7 @@ namespace DnDGen.TreasureGen.Generators.Items
             return gear;
         }
 
-        private bool NameMatchesSpecific(string name)
+        private static bool NameMatchesSpecific(string name)
         {
             var weapons = GetGear(ItemTypeConstants.Weapon);
             var armors = GetGear(ItemTypeConstants.Armor);
@@ -267,7 +267,7 @@ namespace DnDGen.TreasureGen.Generators.Items
                     names.Add(selection.Type);
             }
 
-            if (!names.Any())
+            if (names.Count == 0)
             {
                 throw new ArgumentException($"No {power} specific {specificGearType} has base type {baseType}");
             }
@@ -287,7 +287,7 @@ namespace DnDGen.TreasureGen.Generators.Items
             return isSpecific;
         }
 
-        private IEnumerable<string> GetGear(string gearType)
+        private static IEnumerable<string> GetGear(string gearType)
         {
             return gearType switch
             {

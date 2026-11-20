@@ -48,7 +48,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             var template = itemVerifier.CreateRandomTemplate(name);
 
             var tool = toolGenerator.Generate(template);
-            itemVerifier.AssertMundaneItemFromTemplate(tool, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(tool, template);
             Assert.That(tool.BaseNames.Single(), Is.EqualTo(name));
             Assert.That(tool.ItemType, Is.EqualTo(ItemTypeConstants.Tool));
             Assert.That(tool.Attributes, Is.Empty);
@@ -63,7 +63,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             var template = itemVerifier.CreateRandomTemplate(name);
 
             var tool = toolGenerator.Generate(template, true);
-            itemVerifier.AssertMundaneItemFromTemplate(tool, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(tool, template);
             Assert.That(tool.BaseNames.Single(), Is.EqualTo(name));
             Assert.That(tool.ItemType, Is.EqualTo(ItemTypeConstants.Tool));
             Assert.That(tool.Attributes, Is.Empty);

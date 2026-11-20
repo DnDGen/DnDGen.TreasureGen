@@ -28,7 +28,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Stress.Items.Mundane
             var item = mundaneItemGenerator.Generate(template);
             AssertItem(item);
             Assert.That(item.Name, Is.EqualTo(name));
-            ItemVerifier.AssertMundaneItemFromTemplate(item, template);
+            Unit.Generators.Items.ItemVerifier.AssertMundaneItemFromTemplate(item, template);
         }
 
         protected void GenerateAndAssertItemFromName()

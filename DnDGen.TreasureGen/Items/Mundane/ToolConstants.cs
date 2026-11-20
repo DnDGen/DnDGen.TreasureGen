@@ -25,10 +25,8 @@ namespace DnDGen.TreasureGen.Items.Mundane
         public const string MusicalInstrument_Masterwork = "Masterwork musical instrument";
         public const string ThievesTools_Masterwork = "Masterwork thieves' tools";
 
-        public static IEnumerable<string> GetAllTools()
-        {
-            return new[]
-            {
+        public static IEnumerable<string> GetAllTools() =>
+            [
                 Backpack_Empty,
                 Crowbar,
                 Lantern_Bullseye,
@@ -49,7 +47,6 @@ namespace DnDGen.TreasureGen.Items.Mundane
                 MagnifyingGlass,
                 MusicalInstrument_Masterwork,
                 ThievesTools_Masterwork
-            };
-        }
+            ];
     }
 }

@@ -1,6 +1,6 @@
 ﻿using DnDGen.TreasureGen.Items;
-using Newtonsoft.Json;
 using NUnit.Framework;
+using System.Text.Json;
 
 namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
 {
@@ -82,7 +82,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
 
             var clone = damage.Clone();
             Assert.That(clone, Is.Not.SameAs(damage));
-            Assert.That(JsonConvert.SerializeObject(clone), Is.EqualTo(JsonConvert.SerializeObject(damage)));
+            Assert.That(JsonSerializer.Serialize(clone), Is.EqualTo(JsonSerializer.Serialize(damage)));
             Assert.That(clone.Roll, Is.EqualTo("9266d90210"));
             Assert.That(clone.Type, Is.EqualTo("emotional"));
             Assert.That(clone.Condition, Is.EqualTo("my condition"));

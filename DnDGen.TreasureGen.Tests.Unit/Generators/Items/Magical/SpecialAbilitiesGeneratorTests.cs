@@ -46,9 +46,11 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             names = [];
             power = "power";
 
-            item = new Item();
-            item.ItemType = ItemTypeConstants.Armor;
-            item.Attributes = itemAttributes;
+            item = new Item
+            {
+                ItemType = ItemTypeConstants.Armor,
+                Attributes = itemAttributes
+            };
             item.Magic.Bonus = 1;
 
             mockPercentileSelector.Setup(p => p.SelectAllFrom(Config.Name, It.IsAny<string>())).Returns(names);
@@ -795,7 +797,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
 
             mockCollectionsSelector
                 .Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.SpecialAbilityAttributeRequirements, "base ability 1"))
-                .Returns(new[] { "other type", "type 1" });
+                .Returns(["other type", "type 1"]);
             mockCollectionsSelector
                 .Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.SpecialAbilityAttributeRequirements, "base ability 2"))
                 .Returns(itemAttributes);
@@ -819,10 +821,10 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
 
             mockCollectionsSelector
                 .Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.SpecialAbilityAttributeRequirements, "base ability 1"))
-                .Returns(new[] { "other/order/of/type", "type 1" });
+                .Returns(["other/order/of/type", "type 1"]);
             mockCollectionsSelector
                 .Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.SpecialAbilityAttributeRequirements, "base ability 2"))
-                .Returns(new[] { "either/or" });
+                .Returns(["either/or"]);
 
             var abilities = specialAbilitiesGenerator.GenerateFor(item, power, 1);
             Assert.That(abilities, Is.Not.Empty);
@@ -838,7 +840,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             CreateSpecialAbility("ability");
             mockPercentileSelector.Setup(p => p.SelectFrom(Config.Name, It.IsAny<string>())).Returns("ability");
             itemAttributes.Add("type 1");
-            item.Attributes = itemAttributes.Union(new[] { "other type" });
+            item.Attributes = itemAttributes.Union(["other type"]);
 
             var abilities = specialAbilitiesGenerator.GenerateFor(item, power, 1);
             Assert.That(abilities, Is.Not.Empty);
@@ -896,7 +898,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
         [Test]
         public void GenerateFor_ReturnEmptyIfNoCompatibleAbilities()
         {
-            mockPercentileSelector.Setup(p => p.SelectAllFrom(Config.Name, It.IsAny<string>())).Returns(Enumerable.Empty<string>());
+            mockPercentileSelector.Setup(p => p.SelectAllFrom(Config.Name, It.IsAny<string>())).Returns([]);
             var abilities = specialAbilitiesGenerator.GenerateFor(item, power, 1);
             Assert.That(abilities, Is.Empty);
         }
@@ -1607,7 +1609,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             Assert.That(updatedWeapon.CriticalDamages[0].Condition, Is.Empty);
         }
 
-        private Weapon CreateWeapon(bool isDouble = false)
+        private static Weapon CreateWeapon(bool isDouble = false)
         {
             var weapon = new Weapon
             {
@@ -1882,8 +1884,10 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
         {
             mockPercentileSelector.Setup(s => s.SelectFrom(.5)).Returns(true);
 
-            var ability = new SpecialAbility();
-            ability.Name = "my name";
+            var ability = new SpecialAbility
+            {
+                Name = "my name"
+            };
             ability.Damages.Add(new Damage { Roll = "some", Type = "plasma", Condition = "my condition" });
             ability.Damages.Add(new Damage { Roll = "a bit", Type = "ether", Condition = "my other condition" });
 

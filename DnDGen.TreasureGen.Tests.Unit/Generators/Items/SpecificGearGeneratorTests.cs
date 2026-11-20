@@ -1220,7 +1220,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, ArmorConstants.AbsorbingShield)).Returns(baseNames);
 
             var gear = specificGearGenerator.GenerateFrom(template);
-            itemVerifier.AssertMagicalItemFromTemplate(gear, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(gear, template);
             Assert.That(gear.ItemType, Is.EqualTo(ItemTypeConstants.Armor));
             Assert.That(gear.Attributes, Is.EqualTo(attributes));
             Assert.That(gear.Traits, Is.SupersetOf(traits));
@@ -1265,7 +1265,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, ArmorConstants.ArmorOfRage)).Returns(baseNames);
 
             var gear = specificGearGenerator.GenerateFrom(template);
-            itemVerifier.AssertMagicalItemFromTemplate(gear, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(gear, template);
             Assert.That(gear.ItemType, Is.EqualTo(ItemTypeConstants.Armor));
             Assert.That(gear.Attributes, Is.EqualTo(attributes));
             Assert.That(gear.Traits, Is.SupersetOf(traits));
@@ -1325,7 +1325,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, WeaponConstants.HolyAvenger)).Returns(baseNames);
 
             var gear = specificGearGenerator.GenerateFrom(template);
-            itemVerifier.AssertMagicalItemFromTemplate(gear, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(gear, template);
             Assert.That(gear.ItemType, Is.EqualTo(ItemTypeConstants.Weapon));
             Assert.That(gear.Attributes, Is.EqualTo(attributes));
             Assert.That(gear.Traits, Is.SupersetOf(traits));
@@ -1402,7 +1402,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, WeaponConstants.HolyAvenger)).Returns(baseNames);
 
             var gear = specificGearGenerator.GenerateFrom(template);
-            itemVerifier.AssertMagicalItemFromTemplate(gear, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(gear, template);
             Assert.That(gear.ItemType, Is.EqualTo(ItemTypeConstants.Weapon));
             Assert.That(gear.Attributes, Is.EqualTo(attributes));
             Assert.That(gear.Traits, Is.SupersetOf(traits));
@@ -1472,7 +1472,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, WeaponConstants.ShiftersSorrow)).Returns(baseNames);
 
             var gear = specificGearGenerator.GenerateFrom(template);
-            itemVerifier.AssertMagicalItemFromTemplate(gear, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(gear, template);
             Assert.That(gear.ItemType, Is.EqualTo(ItemTypeConstants.Weapon));
             Assert.That(gear.Attributes, Is.EqualTo(attributes));
             Assert.That(gear.Traits, Is.SupersetOf(traits));
@@ -1553,7 +1553,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, WeaponConstants.ShiftersSorrow)).Returns(baseNames);
 
             var gear = specificGearGenerator.GenerateFrom(template);
-            itemVerifier.AssertMagicalItemFromTemplate(gear, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(gear, template);
             Assert.That(gear.ItemType, Is.EqualTo(ItemTypeConstants.Weapon));
             Assert.That(gear.Attributes, Is.EqualTo(attributes));
             Assert.That(gear.Traits, Is.SupersetOf(traits));

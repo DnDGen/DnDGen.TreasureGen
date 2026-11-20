@@ -69,7 +69,7 @@ namespace DnDGen.TreasureGen.Tests.Integration.Stress.Items.Magical
             Assert.That(item.ItemType, Is.EqualTo(itemType));
 
             if (!allowDecoration)
-                ItemVerifier.AssertMagicalItemFromTemplate(item, template);
+                Unit.Generators.Items.ItemVerifier.AssertMagicalItemFromTemplate(item, template);
         }
 
         protected void GenerateAndAssertItemFromName()

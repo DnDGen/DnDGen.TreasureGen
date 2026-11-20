@@ -68,7 +68,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GenerateWeapon()
+        public void GenerateRandom_GenerateWeapon()
         {
             var baseNames = new[] { "base name", "other base name" };
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, "weapon name")).Returns(baseNames);
@@ -96,7 +96,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GenerateWeapon_DoubleWeapon()
+        public void GenerateRandom_GenerateWeapon_DoubleWeapon()
         {
             weaponSelection.SecondaryCriticalMultiplier = "above and beyond";
 
@@ -138,7 +138,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GenerateMasterworkWeapon()
+        public void GenerateRandom_GenerateMasterworkWeapon()
         {
             mockPercentileSelector.Setup(s => s.SelectFrom<bool>(Config.Name, TableNameConstants.Percentiles.IsMasterwork)).Returns(true);
 
@@ -147,7 +147,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GenerateNonMasterworkWeapon()
+        public void GenerateRandom_GenerateNonMasterworkWeapon()
         {
             mockPercentileSelector.Setup(s => s.SelectFrom<bool>(Config.Name, TableNameConstants.Percentiles.IsMasterwork)).Returns(false);
 
@@ -156,7 +156,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GetAttributesFromSelector()
+        public void GenerateRandom_GetAttributesFromSelector()
         {
             var attributes = new[] { "type 1", "type 2" };
             var tableName = TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Weapon);
@@ -266,7 +266,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         [TestCase(98, 49)]
         [TestCase(99, 49)]
         [TestCase(100, 50)]
-        public void AmmunitionQuantityRoll(int roll, int quantity)
+        public void GenerateRandom_AmmunitionQuantityRoll(int roll, int quantity)
         {
             var attributes = new[] { "type 1", AttributeConstants.Ammunition };
             var tableName = TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Weapon);
@@ -279,7 +279,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void ThrownWeaponReceivesQuantity()
+        public void GenerateRandom_ThrownWeaponReceivesQuantity()
         {
             var attributes = new[] { "type 1", AttributeConstants.Thrown };
             var tableName = TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Weapon);
@@ -291,7 +291,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void ThrownMeleeWeaponReceivesQuantityOf1()
+        public void GenerateRandom_ThrownMeleeWeaponReceivesQuantityOf1()
         {
             var attributes = new[] { "type 1", AttributeConstants.Thrown, AttributeConstants.Melee };
             var tableName = TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Weapon);
@@ -303,7 +303,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void BUG_NetReceivesQuantityOf1()
+        public void BUG_GenerateRandom_NetReceivesQuantityOf1()
         {
             mockPercentileSelector.Setup(p => p.SelectFrom(Config.Name, expectedTableName)).Returns(WeaponConstants.Net);
             mockWeaponDataSelector.Setup(s => s.Select(WeaponConstants.Net, "size")).Returns(weaponSelection);
@@ -318,7 +318,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void BUG_SpecialNetReceivesQuantityOf1()
+        public void BUG_GenerateRandom_SpecialNetReceivesQuantityOf1()
         {
             var baseNames = new[] { "base name", WeaponConstants.Net };
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, "weapon name")).Returns(baseNames);
@@ -340,7 +340,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         [TestCase(WeaponConstants.CompositeShortbow_StrengthPlus0, WeaponConstants.CompositeShortbow, 0)]
         [TestCase(WeaponConstants.CompositeShortbow_StrengthPlus1, WeaponConstants.CompositeShortbow, 1)]
         [TestCase(WeaponConstants.CompositeShortbow_StrengthPlus2, WeaponConstants.CompositeShortbow, 2)]
-        public void ChangeCompositeBowName(string compositeBowWithBonus, string compositeBow, int bonus)
+        public void GenerateRandom_ChangeCompositeBowName(string compositeBowWithBonus, string compositeBow, int bonus)
         {
             mockPercentileSelector.Setup(p => p.SelectFrom(Config.Name, expectedTableName)).Returns(compositeBowWithBonus);
 
@@ -350,7 +350,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
 
             mockWeaponDataSelector.Setup(s => s.Select(compositeBow, "size")).Returns(weaponSelection);
             mockReplacementSelector.Setup(s => s.SelectSingle(compositeBowWithBonus)).Returns(compositeBow);
-            mockReplacementSelector.Setup(s => s.SelectAll(compositeBowWithBonus, true)).Returns(new[] { compositeBow });
+            mockReplacementSelector.Setup(s => s.SelectAll(compositeBowWithBonus, true)).Returns([compositeBow]);
 
             var weapon = mundaneWeaponGenerator.GenerateRandom();
             Assert.That(weapon.Name, Is.EqualTo(compositeBow));
@@ -359,7 +359,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GenerateCustomMundaneWeapon()
+        public void Generate_FromTemplate_GenerateCustomMundaneWeapon()
         {
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomTemplate(name);
@@ -375,7 +375,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, name)).Returns(baseNames);
 
             var item = mundaneWeaponGenerator.Generate(template);
-            itemVerifier.AssertMundaneItemFromTemplate(item, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(item, template);
             Assert.That(item.ItemType, Is.EqualTo(ItemTypeConstants.Weapon));
             Assert.That(item.Attributes, Is.EquivalentTo(attributes));
             Assert.That(item.Traits, Is.All.Not.EqualTo(TraitConstants.Masterwork));
@@ -399,7 +399,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GenerateCustomMundaneWeaponFromWeaponTemplate_WithWeaponSize()
+        public void Generate_FromTemplate_GenerateCustomMundaneWeaponFromWeaponTemplate_WithWeaponSize()
         {
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomWeaponTemplate(name);
@@ -416,7 +416,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, name)).Returns(baseNames);
 
             var item = mundaneWeaponGenerator.Generate(template);
-            itemVerifier.AssertMundaneItemFromTemplate(item, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(item, template);
             Assert.That(item.ItemType, Is.EqualTo(ItemTypeConstants.Weapon));
             Assert.That(item.Attributes, Is.EquivalentTo(attributes));
             Assert.That(item.Traits, Is.All.Not.EqualTo(TraitConstants.Masterwork));
@@ -436,7 +436,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GenerateCustomMundaneWeaponFromWeaponTemplate_WithTraitSize()
+        public void Generate_FromTemplate_GenerateCustomMundaneWeaponFromWeaponTemplate_WithTraitSize()
         {
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomWeaponTemplate(name);
@@ -473,7 +473,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GenerateCustomMundaneWeaponFromWeaponTemplate_WithSize()
+        public void Generate_FromTemplate_GenerateCustomMundaneWeaponFromWeaponTemplate_WithSize()
         {
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomWeaponTemplate(name);
@@ -489,7 +489,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, name)).Returns(baseNames);
 
             var item = mundaneWeaponGenerator.Generate(template);
-            itemVerifier.AssertMundaneItemFromTemplate(item, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(item, template);
             Assert.That(item.ItemType, Is.EqualTo(ItemTypeConstants.Weapon));
             Assert.That(item.Attributes, Is.EquivalentTo(attributes));
             Assert.That(item.Traits, Is.All.Not.EqualTo(TraitConstants.Masterwork));
@@ -509,7 +509,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GenerateCustomMundaneWeaponFromWeaponTemplate_WithoutSize()
+        public void Generate_FromTemplate_GenerateCustomMundaneWeaponFromWeaponTemplate_WithoutSize()
         {
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomWeaponTemplate(name);
@@ -526,7 +526,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, name)).Returns(baseNames);
 
             var item = mundaneWeaponGenerator.Generate(template);
-            itemVerifier.AssertMundaneItemFromTemplate(item, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(item, template);
             Assert.That(item.ItemType, Is.EqualTo(ItemTypeConstants.Weapon));
             Assert.That(item.Attributes, Is.EquivalentTo(attributes));
             Assert.That(item.Traits, Is.All.Not.EqualTo(TraitConstants.Masterwork));
@@ -546,7 +546,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GenerateCustomMundaneWeaponFromWeaponTemplate_DoubleWeapon()
+        public void Generate_FromTemplate_GenerateCustomMundaneWeaponFromWeaponTemplate_DoubleWeapon()
         {
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomWeaponTemplate(name);
@@ -565,7 +565,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, name)).Returns(baseNames);
 
             var item = mundaneWeaponGenerator.Generate(template);
-            itemVerifier.AssertMundaneItemFromTemplate(item, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(item, template);
             Assert.That(item.ItemType, Is.EqualTo(ItemTypeConstants.Weapon));
             Assert.That(item.Attributes, Is.EquivalentTo(attributes));
             Assert.That(item.Traits, Is.All.Not.EqualTo(TraitConstants.Masterwork));
@@ -588,7 +588,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GenerateCustomMundaneWeaponWithRandomQuantity()
+        public void Generate_FromTemplate_GenerateCustomMundaneWeaponWithRandomQuantity()
         {
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomTemplate(name);
@@ -605,7 +605,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, name)).Returns(baseNames);
 
             var item = mundaneWeaponGenerator.Generate(template);
-            itemVerifier.AssertMundaneItemFromTemplate(item, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(item, template);
             Assert.That(item.ItemType, Is.EqualTo(ItemTypeConstants.Weapon));
             Assert.That(item.Attributes, Is.EquivalentTo(attributes));
             Assert.That(item.Traits, Is.All.Not.EqualTo(TraitConstants.Masterwork));
@@ -629,7 +629,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GenerateCustomThrownMundaneWeaponWithRandomQuantity()
+        public void Generate_FromTemplate_GenerateCustomThrownMundaneWeaponWithRandomQuantity()
         {
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomTemplate(name);
@@ -647,7 +647,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, name)).Returns(baseNames);
 
             var item = mundaneWeaponGenerator.Generate(template);
-            itemVerifier.AssertMundaneItemFromTemplate(item, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(item, template);
             Assert.That(item.ItemType, Is.EqualTo(ItemTypeConstants.Weapon));
             Assert.That(item.Attributes, Is.EquivalentTo(attributes));
             Assert.That(item.Traits, Is.All.Not.EqualTo(TraitConstants.Masterwork));
@@ -671,7 +671,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GenerateCustomAmmunitionWithRandomQuantity()
+        public void Generate_FromTemplate_GenerateCustomAmmunitionWithRandomQuantity()
         {
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomTemplate(name);
@@ -689,7 +689,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, name)).Returns(baseNames);
 
             var item = mundaneWeaponGenerator.Generate(template);
-            itemVerifier.AssertMundaneItemFromTemplate(item, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(item, template);
             Assert.That(item.ItemType, Is.EqualTo(ItemTypeConstants.Weapon));
             Assert.That(item.Attributes, Is.EquivalentTo(attributes));
             Assert.That(item.Traits, Is.All.Not.EqualTo(TraitConstants.Masterwork));
@@ -713,7 +713,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GenerateRandomCustomMundaneWeapon()
+        public void Generate_FromTemplate_GenerateRandomCustomMundaneWeapon()
         {
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomTemplate(name);
@@ -729,7 +729,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, name)).Returns(baseNames);
 
             var item = mundaneWeaponGenerator.Generate(template, true);
-            itemVerifier.AssertMundaneItemFromTemplate(item, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(item, template);
             Assert.That(item.ItemType, Is.EqualTo(ItemTypeConstants.Weapon));
             Assert.That(item.Attributes, Is.EquivalentTo(attributes));
             Assert.That(item.Traits, Contains.Item(TraitConstants.Masterwork));
@@ -753,7 +753,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void DoNotAddSizeToCustomWeaponIfItAlreadyHasOne()
+        public void Generate_FromTemplate_DoNotAddSizeToCustomWeaponIfItAlreadyHasOne()
         {
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomTemplate(name);
@@ -800,7 +800,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void DoNotAddSizeToCustomWeaponFromWeaponTemplateIfItAlreadyHasOne()
+        public void Generate_FromTemplate_DoNotAddSizeToCustomWeaponFromWeaponTemplateIfItAlreadyHasOne()
         {
             var name = Guid.NewGuid().ToString();
             var template = itemVerifier.CreateRandomWeaponTemplate(name);
@@ -822,7 +822,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             mockCollectionsSelector.Setup(s => s.SelectFrom(Config.Name, TableNameConstants.Collections.ItemGroups, name)).Returns(baseNames);
 
             var item = mundaneWeaponGenerator.Generate(template);
-            itemVerifier.AssertMundaneItemFromTemplate(item, template);
+            ItemVerifier.AssertMundaneItemFromTemplate(item, template);
             Assert.That(item.ItemType, Is.EqualTo(ItemTypeConstants.Weapon));
             Assert.That(item.Attributes, Is.EquivalentTo(attributes));
             Assert.That(item.Traits, Is.All.Not.EqualTo(TraitConstants.Masterwork));
@@ -851,7 +851,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         [TestCase(WeaponConstants.CompositeShortbow_StrengthPlus0, WeaponConstants.CompositeShortbow, 0)]
         [TestCase(WeaponConstants.CompositeShortbow_StrengthPlus1, WeaponConstants.CompositeShortbow, 1)]
         [TestCase(WeaponConstants.CompositeShortbow_StrengthPlus2, WeaponConstants.CompositeShortbow, 2)]
-        public void ChangeCustomCompositeBowName(string compositeBowWithBonus, string compositeBow, int bonus)
+        public void Generate_FromTemplate_ChangeCustomCompositeBowName(string compositeBowWithBonus, string compositeBow, int bonus)
         {
             var attributes = new[] { "type 1", "type 2" };
             var tableName = TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Weapon);
@@ -859,11 +859,13 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
 
             mockWeaponDataSelector.Setup(s => s.Select(compositeBow, "size")).Returns(weaponSelection);
 
-            var template = new Item();
-            template.Name = compositeBowWithBonus;
+            var template = new Item
+            {
+                Name = compositeBowWithBonus
+            };
 
             mockReplacementSelector.Setup(s => s.SelectSingle(compositeBowWithBonus)).Returns(compositeBow);
-            mockReplacementSelector.Setup(s => s.SelectAll(compositeBowWithBonus, true)).Returns(new[] { compositeBow });
+            mockReplacementSelector.Setup(s => s.SelectAll(compositeBowWithBonus, true)).Returns([compositeBow]);
 
             var weapon = mundaneWeaponGenerator.Generate(template);
             Assert.That(weapon.Name, Is.EqualTo(compositeBow));
@@ -873,7 +875,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
 
         [TestCase(WeaponConstants.CompositeLongbow)]
         [TestCase(WeaponConstants.CompositeShortbow)]
-        public void DoNotChangeCustomCompositeBowName(string compositeBow)
+        public void Generate_FromTemplate_DoNotChangeCustomCompositeBowName(string compositeBow)
         {
             var attributes = new[] { "type 1", "type 2" };
             var tableName = TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Weapon);
@@ -881,8 +883,10 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
 
             mockWeaponDataSelector.Setup(s => s.Select(compositeBow, "size")).Returns(weaponSelection);
 
-            var template = new Item();
-            template.Name = compositeBow;
+            var template = new Item
+            {
+                Name = compositeBow
+            };
             template.Traits.Add("+9266 Strength bonus");
 
             var weapon = mundaneWeaponGenerator.Generate(template);
@@ -891,9 +895,15 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             Assert.That(weapon.Traits, Contains.Item("+9266 Strength bonus"));
         }
 
-        [TestCase(WeaponConstants.CompositeLongbow)]
-        [TestCase(WeaponConstants.CompositeShortbow)]
-        public void DoNotChangeCustomCompositeBowNameWithoutStrengthBonus(string compositeBow)
+        [TestCase(WeaponConstants.CompositeLongbow, 0)]
+        [TestCase(WeaponConstants.CompositeLongbow, 1)]
+        [TestCase(WeaponConstants.CompositeLongbow, 2)]
+        [TestCase(WeaponConstants.CompositeLongbow, 3)]
+        [TestCase(WeaponConstants.CompositeLongbow, 4)]
+        [TestCase(WeaponConstants.CompositeShortbow, 0)]
+        [TestCase(WeaponConstants.CompositeShortbow, 1)]
+        [TestCase(WeaponConstants.CompositeShortbow, 2)]
+        public void BUG_Generate_FromTemplate_AddCompositeBowStrengthBonusWhenMissing(string compositeBow, int bonus)
         {
             var attributes = new[] { "type 1", "type 2" };
             var tableName = TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Weapon);
@@ -901,16 +911,47 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
 
             mockWeaponDataSelector.Setup(s => s.Select(compositeBow, "size")).Returns(weaponSelection);
 
-            var template = new Item();
-            template.Name = compositeBow;
+            var isLongbow = compositeBow.Contains("longbow");
+            var longbows = new[]
+            {
+                "Composite (+90210) longbow",
+                $"Composite (+{(isLongbow ? bonus : 600)}) longbow",
+                "Composite (+666) longbow",
+            };
+            var shortbows = new[]
+            {
+                "Composite (+42) shortbow",
+                $"Composite (+{(isLongbow ? 600 : bonus)}) shortbow",
+                "Composite (+666) shortbow",
+            };
+            mockPercentileSelector
+                .Setup(s => s.SelectAllFrom(Config.Name, TableNameConstants.Percentiles.WEAPONTYPEWeapons("CommonRanged")))
+                .Returns(shortbows.Concat(longbows));
+            mockReplacementSelector
+                .Setup(s => s.SelectSingle(It.Is<string>(b => b.EndsWith("longbow"))))
+                .Returns(WeaponConstants.CompositeLongbow);
+            mockReplacementSelector
+                .Setup(s => s.SelectSingle(It.Is<string>(b => b.EndsWith("shortbow"))))
+                .Returns(WeaponConstants.CompositeShortbow);
+
+            var expectedBows = isLongbow ? longbows : shortbows;
+            mockCollectionsSelector
+                .Setup(s => s.SelectRandomFrom(expectedBows))
+                .Returns(expectedBows.First(b => b.Contains($"+{bonus}")));
+
+            var template = new Item
+            {
+                Name = compositeBow
+            };
 
             var weapon = mundaneWeaponGenerator.Generate(template);
             Assert.That(weapon.Name, Is.EqualTo(compositeBow));
             Assert.That(weapon.Attributes, Is.EqualTo(attributes));
+            Assert.That(weapon.Traits, Contains.Item($"Allows up to +{bonus} Strength bonus on damage"));
         }
 
         [Test]
-        public void GenerateFromName()
+        public void Generate_FromName_ReturnsWeapon()
         {
             mockPercentileSelector.SetupSequence(p => p.SelectFrom(Config.Name, TableNameConstants.Percentiles.MundaneWeaponTypes))
                 .Returns("wrong weapon type")
@@ -959,7 +1000,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GenerateAmmunitionFromName()
+        public void Generate_FromName_GenerateAmmunitionFromName()
         {
             mockPercentileSelector.SetupSequence(p => p.SelectFrom(Config.Name, TableNameConstants.Percentiles.MundaneWeaponTypes))
                 .Returns("wrong weapon type")
@@ -1010,7 +1051,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GenerateThrownWeaponFromName()
+        public void Generate_FromName_GenerateThrownWeaponFromName()
         {
             mockPercentileSelector.SetupSequence(p => p.SelectFrom(Config.Name, TableNameConstants.Percentiles.MundaneWeaponTypes))
                 .Returns("wrong weapon type")
@@ -1061,7 +1102,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GenerateFromNameWithTraits()
+        public void Generate_FromName_GenerateFromNameWithTraits()
         {
             mockPercentileSelector.SetupSequence(p => p.SelectFrom(Config.Name, TableNameConstants.Percentiles.MundaneWeaponTypes))
                 .Returns("wrong weapon type")
@@ -1112,7 +1153,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GenerateFromNameWithDuplicateTraits()
+        public void Generate_FromName_GenerateFromNameWithDuplicateTraits()
         {
             mockPercentileSelector.SetupSequence(p => p.SelectFrom(Config.Name, TableNameConstants.Percentiles.MundaneWeaponTypes))
                 .Returns("wrong weapon type")
@@ -1162,7 +1203,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
         }
 
         [Test]
-        public void GenerateFromNameWithSize()
+        public void Generate_FromName_GenerateFromNameWithSize()
         {
             mockPercentileSelector.SetupSequence(p => p.SelectFrom(Config.Name, TableNameConstants.Percentiles.MundaneWeaponTypes))
                 .Returns("wrong weapon type")
@@ -1211,6 +1252,98 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Mundane
             Assert.That(weapon.CriticalDamages[0].Type, Is.EqualTo("emotional"));
             Assert.That(weapon.ThreatRange, Is.EqualTo(42));
             Assert.That(weapon.Ammunition, Is.EqualTo("QA tears"));
+        }
+
+        [TestCase(WeaponConstants.CompositeLongbow_StrengthPlus0, WeaponConstants.CompositeLongbow, 0)]
+        [TestCase(WeaponConstants.CompositeLongbow_StrengthPlus1, WeaponConstants.CompositeLongbow, 1)]
+        [TestCase(WeaponConstants.CompositeLongbow_StrengthPlus2, WeaponConstants.CompositeLongbow, 2)]
+        [TestCase(WeaponConstants.CompositeLongbow_StrengthPlus3, WeaponConstants.CompositeLongbow, 3)]
+        [TestCase(WeaponConstants.CompositeLongbow_StrengthPlus4, WeaponConstants.CompositeLongbow, 4)]
+        [TestCase(WeaponConstants.CompositeShortbow_StrengthPlus0, WeaponConstants.CompositeShortbow, 0)]
+        [TestCase(WeaponConstants.CompositeShortbow_StrengthPlus1, WeaponConstants.CompositeShortbow, 1)]
+        [TestCase(WeaponConstants.CompositeShortbow_StrengthPlus2, WeaponConstants.CompositeShortbow, 2)]
+        public void BUG_Generate_FromName_ChangeCompositeBowName(string compositeBowWithBonus, string compositeBow, int bonus)
+        {
+            mockPercentileSelector.Setup(p => p.SelectFrom(Config.Name, expectedTableName)).Returns(compositeBowWithBonus);
+
+            var attributes = new[] { "type 1", "type 2" };
+            var tableName = TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Weapon);
+            mockCollectionsSelector.Setup(p => p.SelectFrom(Config.Name, tableName, compositeBow)).Returns(attributes);
+
+            mockWeaponDataSelector.Setup(s => s.Select(compositeBow, "size")).Returns(weaponSelection);
+            mockReplacementSelector.Setup(s => s.SelectSingle(compositeBowWithBonus)).Returns(compositeBow);
+            mockReplacementSelector.Setup(s => s.SelectAll(compositeBowWithBonus, true)).Returns([compositeBow]);
+
+            var weapon = mundaneWeaponGenerator.Generate(compositeBowWithBonus);
+            Assert.That(weapon.Name, Is.EqualTo(compositeBow));
+            Assert.That(weapon.Attributes, Is.EqualTo(attributes));
+            Assert.That(weapon.Traits, Contains.Item($"Allows up to +{bonus} Strength bonus on damage"));
+        }
+
+        [TestCase(WeaponConstants.CompositeLongbow)]
+        [TestCase(WeaponConstants.CompositeShortbow)]
+        public void BUG_Generate_FromName_DoNotChangeCustomCompositeBowStrengthBonus(string compositeBow)
+        {
+            var attributes = new[] { "type 1", "type 2" };
+            var tableName = TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Weapon);
+            mockCollectionsSelector.Setup(p => p.SelectFrom(Config.Name, tableName, compositeBow)).Returns(attributes);
+
+            mockWeaponDataSelector.Setup(s => s.Select(compositeBow, "size")).Returns(weaponSelection);
+
+            var weapon = mundaneWeaponGenerator.Generate(compositeBow, "+9266 Strength bonus");
+            Assert.That(weapon.Name, Is.EqualTo(compositeBow));
+            Assert.That(weapon.Attributes, Is.EqualTo(attributes));
+            Assert.That(weapon.Traits, Contains.Item("+9266 Strength bonus"));
+        }
+
+        [TestCase(WeaponConstants.CompositeLongbow, 0)]
+        [TestCase(WeaponConstants.CompositeLongbow, 1)]
+        [TestCase(WeaponConstants.CompositeLongbow, 2)]
+        [TestCase(WeaponConstants.CompositeLongbow, 3)]
+        [TestCase(WeaponConstants.CompositeLongbow, 4)]
+        [TestCase(WeaponConstants.CompositeShortbow, 0)]
+        [TestCase(WeaponConstants.CompositeShortbow, 1)]
+        [TestCase(WeaponConstants.CompositeShortbow, 2)]
+        public void BUG_Generate_FromName_AddCompositeBowStrengthBonusWhenMissing(string compositeBow, int bonus)
+        {
+            var attributes = new[] { "type 1", "type 2" };
+            var tableName = TableNameConstants.Collections.ITEMTYPEAttributes(ItemTypeConstants.Weapon);
+            mockCollectionsSelector.Setup(p => p.SelectFrom(Config.Name, tableName, compositeBow)).Returns(attributes);
+
+            mockWeaponDataSelector.Setup(s => s.Select(compositeBow, "size")).Returns(weaponSelection);
+
+            var isLongbow = compositeBow.Contains("longbow");
+            var longbows = new[]
+            {
+                "Composite (+90210) longbow",
+                $"Composite (+{(isLongbow ? bonus : 600)}) longbow",
+                "Composite (+666) longbow",
+            };
+            var shortbows = new[]
+            {
+                "Composite (+42) shortbow",
+                $"Composite (+{(isLongbow ? 600 : bonus)}) shortbow",
+                "Composite (+666) shortbow",
+            };
+            mockPercentileSelector
+                .Setup(s => s.SelectAllFrom(Config.Name, TableNameConstants.Percentiles.WEAPONTYPEWeapons("CommonRanged")))
+                .Returns(shortbows.Concat(longbows));
+            mockReplacementSelector
+                .Setup(s => s.SelectSingle(It.Is<string>(b => b.EndsWith("longbow"))))
+                .Returns(WeaponConstants.CompositeLongbow);
+            mockReplacementSelector
+                .Setup(s => s.SelectSingle(It.Is<string>(b => b.EndsWith("shortbow"))))
+                .Returns(WeaponConstants.CompositeShortbow);
+
+            var expectedBows = isLongbow ? longbows : shortbows;
+            mockCollectionsSelector
+                .Setup(s => s.SelectRandomFrom(expectedBows))
+                .Returns(expectedBows.First(b => b.Contains($"+{bonus}")));
+
+            var weapon = mundaneWeaponGenerator.Generate(compositeBow);
+            Assert.That(weapon.Name, Is.EqualTo(compositeBow));
+            Assert.That(weapon.Attributes, Is.EqualTo(attributes));
+            Assert.That(weapon.Traits, Contains.Item($"Allows up to +{bonus} Strength bonus on damage"));
         }
     }
 }

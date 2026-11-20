@@ -123,7 +123,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             var template = itemVerifier.CreateRandomTemplate(name);
 
             var scroll = scrollGenerator.Generate(template);
-            itemVerifier.AssertMagicalItemFromTemplate(scroll, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(scroll, template);
             Assert.That(scroll.ItemType, Is.EqualTo(ItemTypeConstants.Scroll));
             Assert.That(scroll.IsMagical, Is.True);
             Assert.That(scroll.Attributes.Single(), Is.EqualTo(AttributeConstants.OneTimeUse));
@@ -140,7 +140,7 @@ namespace DnDGen.TreasureGen.Tests.Unit.Generators.Items.Magical
             var template = itemVerifier.CreateRandomTemplate(name);
 
             var scroll = scrollGenerator.Generate(template, true);
-            itemVerifier.AssertMagicalItemFromTemplate(scroll, template);
+            ItemVerifier.AssertMagicalItemFromTemplate(scroll, template);
             Assert.That(scroll.ItemType, Is.EqualTo(ItemTypeConstants.Scroll));
             Assert.That(scroll.IsMagical, Is.True);
             Assert.That(scroll.Attributes.Single(), Is.EqualTo(AttributeConstants.OneTimeUse));
