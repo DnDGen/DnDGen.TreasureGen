@@ -99,10 +99,10 @@ Ninject loads the ship
 — Ninject!
 Dice are rolled, every pip
 — RollGen!
-Infrastructure reads every table
+Infrastructure fetches tables
 — Infrastructure!
-Stress confirms the rules are stable
-— Stress!
+Badge confirms the build is stable
+— GitHub Actions!
 
 [Verse 4 - building back up, the shantyman sings each call and the whole crew sings the answer, together, hauling on the beat]
 Version thirteen and later need dot net ten
@@ -158,10 +158,10 @@ The *Argenteus Re* is the ship. Its name is Latin for "silver in substance", Tre
 | — Ninject! | Not from the README: the crew echoing the word |
 | Dice are rolled, every pip | Getting the Generators: "including RollGen and Infrastructure" |
 | — RollGen! | Not from the README: the crew echoing the name |
-| Infrastructure reads every table | Getting the Generators: "including RollGen and Infrastructure" |
+| Infrastructure fetches tables | Getting the Generators: "including RollGen and Infrastructure" |
 | — Infrastructure! | Not from the README: the crew echoing the word |
-| Stress confirms the rules are stable | Not from the README: DnDGen.Stress, which TreasureGen's stress tests use |
-| — Stress! | Not from the README: the crew echoing the word |
+| Badge confirms the build is stable | Build badge: "Build Status" |
+| — GitHub Actions! | Not from the README: the crew naming the workflow the build badge reports, which the badge links to |
 | Version thirteen and later need dot net ten | Installing: "Version 13 and later need .NET 10" |
 | Install it via the NuGet Package Manager, then | Installing: "Install via the NuGet Package Manager" |
 | So many constants that name what you can make<br>So much loot to plunder, so grab what you can take! | Use: "using the constants in the Constants table below" |
