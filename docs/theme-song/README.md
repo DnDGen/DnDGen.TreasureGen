@@ -46,7 +46,8 @@ Traditional sea shanty, a steady two-beat work song for hauling rope. In every v
 
 ```
 [Intro - a lone squeezebox, a stamping boot, and a ship's bell, then the shantyman sings the call and the crew sings the answer]
-Heave away, heave away
+Welcome aboard the Argenteus Re!
+Let's generate some loot to haul away
 — Haul away!
 
 [Verse 1 - the shantyman sings each call and the whole crew sings the answer, together, hauling on the beat]
@@ -62,8 +63,9 @@ Haul away, haul away!
 — Haul away!
 Aboard the Argenteus Re
 — Argenteus Re!
-The coins, goods, and items of a treasure
-At the same time, we say
+The coins, goods, and items in the spray
+— In the spray!
+Name what you want, and haul away
 — Haul away!
 
 [Verse 2 - the shantyman sings each call and the whole crew sings the answer, together, hauling on the beat]
@@ -79,8 +81,9 @@ Haul away, haul away!
 — Haul away!
 Aboard the Argenteus Re
 — Argenteus Re!
-The coins, goods, and items of a treasure
-At the same time, we say
+The coins, goods, and items in the spray
+— In the spray!
+Name what you want, and haul away
 — Haul away!
 
 [Verse 3 - the shantyman sings each call and the whole crew sings the answer, together, hauling on the beat]
@@ -90,23 +93,23 @@ Curses, and intelligent items to see you through
 To get a specific item, name it, mate
 Add any traits, special materials, straight
 — Haul away!
-An item of a given type
-Comes from the generator named for that type
-— Haul away!
 
 [Bridge - slower and low, the shantyman sings each call and the crew sings the answer in a murmur]
-Obtain the generators via the Ninject module
+Ninject builds this ship
 — Ninject!
-It will also load the dependencies for TreasureGen
+Dependencies won't slip
 — Dependencies!
-Including RollGen
+RollGen in the hold
 — Grollen!
-And Infrastructure
+Infrastructure too, I'm told
 — Infrastructure!
 
 [Verse 4 - building back up, the shantyman sings each call and the whole crew sings the answer, together, hauling on the beat]
 Version thirteen and later need dot net ten
 Install it via the NuGet Package Manager, then
+— Haul away!
+So many constants that name what you can make,
+Too much for all, so grab what you can take!
 — Haul away!
 
 [Final Chorus - key change, the shantyman sings the call and the whole crew sings the answer, every sailor on the rope]
@@ -114,8 +117,9 @@ Haul away, haul away!
 — Haul away!
 Aboard the Argenteus Re
 — Argenteus Re!
-The coins, goods, and items of a treasure
-At the same time, we say
+The coins, goods, and items in the spray
+— In the spray!
+Name what you want, and haul away
 — Haul away!
 
 [Outro - the crew slows and fades, the shantyman sings the call and the crew sings the answer, a squeezebox and a ship's bell]
@@ -130,7 +134,8 @@ The *Argenteus Re* is the ship. Its name is Latin for "silver in substance", Tre
 
 | Lyric | From the README |
 |---|---|
-| Heave away, heave away | Not from the README: the shanty's work call |
+| Welcome aboard the Argenteus Re! | Not from the README: the welcome, naming the ship, TreasureGen's leitmotif from the DnDGen main theme |
+| Let's generate some loot to haul away | Introduction: "Generate random Dungeons & Dragons treasure" |
 | — Haul away! | Not from the README: the crew's answer, the shanty's work call and the song's title |
 | Generate random treasure, equipment, and items galore | Introduction: "Generate random Dungeons & Dragons treasure, equipment, and items" |
 | Coins, goods, gems and art, haul them to the shore | Introduction: "coins, goods (gems and art), and items" |
@@ -139,7 +144,9 @@ The *Argenteus Re* is the ship. Its name is Latin for "silver in substance", Tre
 | Haul away, haul away! | Not from the README: the shanty's work call and the song's title |
 | Aboard the Argenteus Re | Not from the README: TreasureGen's leitmotif from the DnDGen main theme, Latin for silver in substance, as the name of the ship |
 | — Argenteus Re! | Not from the README: the crew answering with the ship's name |
-| The coins, goods, and items of a treasure<br>At the same time, we say | Use: "generates the coins, goods, and items of a treasure at the same time" |
+| The coins, goods, and items in the spray | Use: "the coins, goods, and items of a treasure" |
+| — In the spray! | Not from the README: the crew echoing the last words |
+| Name what you want, and haul away | Use: "To get a specific item, name it" |
 | Mundane, Minor, Medium, and Major | Use: "Item powers are Mundane, Minor, Medium, and Major" |
 | Pick a power, my brave sailor | Use: "Item powers are Mundane, Minor, Medium, and Major" |
 | Armor, weapons, tools, potions, rings | Introduction: "armor, weapons, tools, potions, rings, rods, scrolls, staffs, wands, and wondrous items" |
@@ -147,17 +154,17 @@ The *Argenteus Re* is the ship. Its name is Latin for "silver in substance", Tre
 | Magical bonuses, special abilities, too<br>Curses, and intelligent items to see you through | Introduction: "including magical bonuses, special abilities, curses, and intelligent items" |
 | To get a specific item, name it, mate | Use: "To get a specific item, name it" |
 | Add any traits, special materials, straight | Use: "with any traits (such as a special material)" |
-| An item of a given type<br>Comes from the generator named for that type | Use: "An item of a given type comes from the generator named for that type" |
-| Obtain the generators via the Ninject module | Getting the Generators: "You can obtain generators via the Ninject module" |
+| Ninject builds this ship | Getting the Generators: "You can obtain generators via the Ninject module" |
 | — Ninject! | Not from the README: the crew echoing the word |
-| It will also load the dependencies for TreasureGen | Getting the Generators: "This will also load the dependencies for TreasureGen" |
+| Dependencies won't slip | Getting the Generators: "This will also load the dependencies for TreasureGen" |
 | — Dependencies! | Not from the README: the crew echoing the word |
-| Including RollGen | Getting the Generators: "including RollGen and Infrastructure" |
+| RollGen in the hold | Getting the Generators: "including RollGen and Infrastructure" |
 | — Grollen! | Not from the README: the crew answering with RollGen's leitmotif from the DnDGen main theme, German for a rumble of thunder |
-| And Infrastructure | Getting the Generators: "including RollGen and Infrastructure" |
+| Infrastructure too, I'm told | Getting the Generators: "including RollGen and Infrastructure" |
 | — Infrastructure! | Not from the README: the crew echoing the word |
 | Version thirteen and later need dot net ten | Installing: "Version 13 and later need .NET 10" |
 | Install it via the NuGet Package Manager, then | Installing: "Install via the NuGet Package Manager" |
+| So many constants that name what you can make,<br>Too much for all, so grab what you can take! | Use: "using the constants in the Constants table below" |
 | Haul away, haul away | Not from the README: the shanty's work call and the song's title |
 | — Haul away | Not from the README: the crew's answer, slowing to the end |
 
@@ -176,14 +183,15 @@ This is a draft: nothing has been generated yet. What is untested, for the first
   each answer for the reader. This draft does the same. The Argenteus Re and Grollen answers are in
   that form too. It has not been generated yet.
 - **Rhyme.** Verses are written in couplets (shore/galore, twenty/plenty, rings/things, too/through,
-  ten/then), and the chorus rhymes "Re" with "away" and "say". Some lines are the README's phrase with
-  a few words added to rhyme ("galore", "and that's plenty", "straight"), and the Sources rows quote
-  only the README part. The bridge and a few lines don't rhyme.
+  ten/then, make/take), and the chorus rhymes "Re", "spray", and "away". The bridge rhymes too
+  (ship/slip, hold/told). Some lines are the README's phrase with a few words added to rhyme ("galore",
+  "and that's plenty", "straight"), and the Sources rows quote only the README part.
 - **The singer is a guess.** A "weathered, warm tenor" is named because RollGen's lesson was to name
   the singer, and a raspy baritone came out growly there. "Weathered" may still pull it gravelly.
 - **The Sample pulls toward the orchestra.** The Style names a squeezebox, tin whistle, and fiddle
-  to counter it, as Web's Kit Kat band did. Infrastructure's lesson was not to name instruments you
-  hope to allow, so this is the clause to cut first if strings and a choir arrive anyway.
+  to counter it, as Web's Kit Kat band did. Naming instruments is fine here: Infrastructure's
+  lesson against it was for an a cappella song, where naming an instrument to "bound" the sound fed
+  the orchestra. This shanty wants the band, so name it.
 - **Length is a guess:** about 2,700 characters of lyrics, about 700 of Style. A shanty moves faster
   than slow chant (about 460 characters a minute), so expect somewhere near 4 to 6 minutes. Record the
   real duration here after the first generation.
