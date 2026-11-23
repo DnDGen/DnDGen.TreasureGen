@@ -191,9 +191,11 @@ Drafts so far, and what is still untested:
   lesson against it was for an a cappella song, where naming an instrument to "bound" the sound fed
   the orchestra. This shanty wants the band, so name it. The sampled takes still brought the orchestra
   in, but as fiddle and sea-adventure strings rather than a choir, which the song can carry.
-- **Length is a guess:** about 2,700 characters of lyrics, about 700 of Style. A shanty moves faster
-  than slow chant (about 460 characters a minute), so expect somewhere near 4 to 6 minutes. Record the
-  real duration here after the first generation.
+- **Length: 3:12.** The takes ran fast, about 2,830 characters of lyrics in 3:12, roughly 880
+  characters a minute, nearly double the 460 of slow chant I guessed from. That run also had the
+  Rogante Marendor instrumental snippets, a repeated final chorus, and an extra bass "Haul away"
+  growl at the very end, none of which are in the lyrics, so the true sung rate is higher still.
+  For a shanty, budget about 900 characters a minute or more.
 - **"Dot net ten"** is spelled out so Suno doesn't read ".NET" as a symbol; RollGen's song sang
   ".NET ten".
 
