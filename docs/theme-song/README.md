@@ -95,21 +95,21 @@ Add any traits, special materials, straight
 — Haul away!
 
 [Bridge - slower and low, the shantyman sings each call and the crew sings the answer in a murmur]
-Ninject builds this ship
+Ninject loads the ship
 — Ninject!
-Dependencies won't slip
-— Dependencies!
-RollGen in the hold
-— Grollen!
-Infrastructure too, I'm told
+Dice are rolled, every pip
+— RollGen!
+Infrastructure reads every table
 — Infrastructure!
+Stress confirms the rules are stable
+— Stress!
 
 [Verse 4 - building back up, the shantyman sings each call and the whole crew sings the answer, together, hauling on the beat]
 Version thirteen and later need dot net ten
 Install it via the NuGet Package Manager, then
 — Haul away!
-So many constants that name what you can make,
-Too much for all, so grab what you can take!
+So many constants that name what you can make
+So much loot to plunder, so grab what you can take!
 — Haul away!
 
 [Final Chorus - key change, the shantyman sings the call and the whole crew sings the answer, every sailor on the rope]
@@ -154,17 +154,17 @@ The *Argenteus Re* is the ship. Its name is Latin for "silver in substance", Tre
 | Magical bonuses, special abilities, too<br>Curses, and intelligent items to see you through | Introduction: "including magical bonuses, special abilities, curses, and intelligent items" |
 | To get a specific item, name it, mate | Use: "To get a specific item, name it" |
 | Add any traits, special materials, straight | Use: "with any traits (such as a special material)" |
-| Ninject builds this ship | Getting the Generators: "You can obtain generators via the Ninject module" |
+| Ninject loads the ship | Getting the Generators: "You can obtain generators via the Ninject module" |
 | — Ninject! | Not from the README: the crew echoing the word |
-| Dependencies won't slip | Getting the Generators: "This will also load the dependencies for TreasureGen" |
-| — Dependencies! | Not from the README: the crew echoing the word |
-| RollGen in the hold | Getting the Generators: "including RollGen and Infrastructure" |
-| — Grollen! | Not from the README: the crew answering with RollGen's leitmotif from the DnDGen main theme, German for a rumble of thunder |
-| Infrastructure too, I'm told | Getting the Generators: "including RollGen and Infrastructure" |
+| Dice are rolled, every pip | Getting the Generators: "including RollGen and Infrastructure" |
+| — RollGen! | Not from the README: the crew echoing the name |
+| Infrastructure reads every table | Getting the Generators: "including RollGen and Infrastructure" |
 | — Infrastructure! | Not from the README: the crew echoing the word |
+| Stress confirms the rules are stable | Not from the README: DnDGen.Stress, which TreasureGen's stress tests use |
+| — Stress! | Not from the README: the crew echoing the word |
 | Version thirteen and later need dot net ten | Installing: "Version 13 and later need .NET 10" |
 | Install it via the NuGet Package Manager, then | Installing: "Install via the NuGet Package Manager" |
-| So many constants that name what you can make,<br>Too much for all, so grab what you can take! | Use: "using the constants in the Constants table below" |
+| So many constants that name what you can make<br>So much loot to plunder, so grab what you can take! | Use: "using the constants in the Constants table below" |
 | Haul away, haul away | Not from the README: the shanty's work call and the song's title |
 | — Haul away | Not from the README: the crew's answer, slowing to the end |
 
@@ -180,7 +180,7 @@ This is a draft: nothing has been generated yet. What is untested, for the first
 - **The crew's answers are ordinary lines, not parentheses.** Infrastructure's drafts lost almost
   every parenthesized echo and got the second voice only once it was sung as an ordinary line, with
   the voices assigned in each section's tag and the Style, no inline voice tags, and an em dash before
-  each answer for the reader. This draft does the same. The Argenteus Re and Grollen answers are in
+  each answer for the reader. This draft does the same. The Argenteus Re answers are in
   that form too. It has not been generated yet.
 - **Rhyme.** Verses are written in couplets (shore/galore, twenty/plenty, rings/things, too/through,
   ten/then, make/take), and the chorus rhymes "Re", "spray", and "away". The bridge rhymes too
