@@ -161,7 +161,7 @@ The *Argenteus Re* is the ship. Its name is Latin for "silver in substance", Tre
 | Infrastructure fetches tables | Getting the Generators: "including RollGen and Infrastructure" |
 | — Infrastructure! | Not from the README: the crew echoing the word |
 | Badge confirms the build is stable | Build badge: "Build Status" |
-| — GitHub Actions! | Not from the README: the crew naming the workflow the build badge reports, which the badge links to |
+| — GitHub Actions! | Build badge: "actions/workflows/release.yml", the GitHub Actions workflow the badge reports |
 | Version thirteen and later need dot net ten | Installing: "Version 13 and later need .NET 10" |
 | Install it via the NuGet Package Manager, then | Installing: "Install via the NuGet Package Manager" |
 | So many constants that name what you can make<br>So much loot to plunder, so grab what you can take! | Use: "using the constants in the Constants table below" |
