@@ -163,18 +163,23 @@ The *Argenteus Re* is the ship. Its name is Latin for "silver in substance", Tre
 
 ## Suno Notes
 
-This is a draft: nothing has been generated yet. What is untested, for the first takes to answer:
+Drafts so far, and what is still untested:
 
 - **Drafts and the Sample.** Every draft before this song first merges is a fresh generation that
   Samples the main theme's "Rogante Marendor" snippet (3:00.0 to 3:17.1) with Variety all the way
   down, per the main theme's
   [New Theme Songs](https://github.com/DnDGen/.github/blob/main/theme-song/README.md#new-theme-songs).
   The take that merges is v1; every update from there Covers it.
+  The first two takes were generated without the Sample by mistake, and both were very good, so
+  the unsampled shanty stands well on its own and the maintainer almost prefers it. The sampled
+  takes followed. In one, the tin whistle plays the Rogante Marendor theme well, and the orchestra
+  that creeps in comes across as fiddle or an epic sailor song (think Klaus Badelt's Pirates of the
+  Caribbean score), which suits a shanty about treasure, so that kind of take is a keeper.
 - **The crew's answers are ordinary lines, not parentheses.** Infrastructure's drafts lost almost
   every parenthesized echo and got the second voice only once it was sung as an ordinary line, with
   the voices assigned in each section's tag and the Style, no inline voice tags, and an em dash before
   each answer for the reader. This draft does the same. The Argenteus Re answers are in
-  that form too. It has not been generated yet.
+  that form too.
 - **Rhyme.** Verses are written in couplets (shore/galore, twenty/plenty, rings/things, too/through,
   ten/then, make/take), and the chorus rhymes "Re", "spray", and "away". The bridge rhymes too
   (ship/slip, hold/told). Some lines are the README's phrase with a few words added to rhyme ("galore",
@@ -184,7 +189,8 @@ This is a draft: nothing has been generated yet. What is untested, for the first
 - **The Sample pulls toward the orchestra.** The Style names a squeezebox, tin whistle, and fiddle
   to counter it, as Web's Kit Kat band did. Naming instruments is fine here: Infrastructure's
   lesson against it was for an a cappella song, where naming an instrument to "bound" the sound fed
-  the orchestra. This shanty wants the band, so name it.
+  the orchestra. This shanty wants the band, so name it. The sampled takes still brought the orchestra
+  in, but as fiddle and sea-adventure strings rather than a choir, which the song can carry.
 - **Length is a guess:** about 2,700 characters of lyrics, about 700 of Style. A shanty moves faster
   than slow chant (about 460 characters a minute), so expect somewhere near 4 to 6 minutes. Record the
   real duration here after the first generation.
