@@ -142,10 +142,8 @@ The *Argenteus Re* is the ship. Its name is Latin for "silver in substance", Tre
 | Levels start at one, and run to twenty | Use: "Levels start at 1" and "run to 20 for standard treasure" |
 | Thirty for epic, and that's plenty | Use: "to 30 for epic treasure" |
 | Haul away, haul away! | Not from the README: the shanty's work call and the song's title |
-| Aboard the Argenteus Re | Not from the README: TreasureGen's leitmotif from the DnDGen main theme, Latin for silver in substance, as the name of the ship |
-| — Argenteus Re! | Not from the README: the crew answering with the ship's name |
-| The coins, goods, and items in the spray | Use: "the coins, goods, and items of a treasure" |
-| — In the spray! | Not from the README: the crew echoing the last words |
+| Aboard the Argenteus Re<br>— Argenteus Re! | Not from the README: TreasureGen's leitmotif from the DnDGen main theme, Latin for silver in substance, as the name of the ship |
+| The coins, goods, and items in the spray<br>— In the spray! | Use: "the coins, goods, and items of a treasure" |
 | Name what you want, and haul away | Use: "To get a specific item, name it" |
 | Mundane, Minor, Medium, and Major | Use: "Item powers are Mundane, Minor, Medium, and Major" |
 | Pick a power, my brave sailor | Use: "Item powers are Mundane, Minor, Medium, and Major" |
@@ -154,19 +152,14 @@ The *Argenteus Re* is the ship. Its name is Latin for "silver in substance", Tre
 | Magical bonuses, special abilities, too<br>Curses, and intelligent items to see you through | Introduction: "including magical bonuses, special abilities, curses, and intelligent items" |
 | To get a specific item, name it, mate | Use: "To get a specific item, name it" |
 | Add any traits, special materials, straight | Use: "with any traits (such as a special material)" |
-| Ninject loads the ship | Getting the Generators: "You can obtain generators via the Ninject module" |
-| — Ninject! | Not from the README: the crew echoing the word |
-| Dice are rolled, every pip | Getting the Generators: "including RollGen and Infrastructure" |
-| — RollGen! | Not from the README: the crew echoing the name |
-| Infrastructure fetches tables | Getting the Generators: "including RollGen and Infrastructure" |
-| — Infrastructure! | Not from the README: the crew echoing the word |
-| Badge confirms the build is stable | Build badge: "Build Status" |
-| — GitHub Actions! | Build badge: "actions/workflows/release.yml", the GitHub Actions workflow the badge reports |
+| Ninject loads the ship<br>— Ninject! | Getting the Generators: "You can obtain generators via the Ninject module" |
+| Dice are rolled, every pip<br>— RollGen! | Getting the Generators: "including RollGen and Infrastructure" |
+| Infrastructure fetches tables<br>— Infrastructure! | Getting the Generators: "including RollGen and Infrastructure" |
+| Badge confirms the build is stable<br>— GitHub Actions! | Build badge: "Build Status" and "actions/workflows/release.yml", the GitHub Actions workflow the badge reports |
 | Version thirteen and later need dot net ten | Installing: "Version 13 and later need .NET 10" |
 | Install it via the NuGet Package Manager, then | Installing: "Install via the NuGet Package Manager" |
 | So many constants that name what you can make<br>So much loot to plunder, so grab what you can take! | Use: "using the constants in the Constants table below" |
-| Haul away, haul away | Not from the README: the shanty's work call and the song's title |
-| — Haul away | Not from the README: the crew's answer, slowing to the end |
+| Haul away, haul away<br>— Haul away | Not from the README: the shanty's work call and the song's title |
 
 ## Suno Notes
 
