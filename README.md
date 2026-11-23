@@ -2,7 +2,7 @@
 
 Generate random Dungeons & Dragons treasure, equipment, and items
 
-[![Build Status](https://github.com/DnDGen/DnDGen.TreasureGen/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/DnDGen/DnDGen.TreasureGen/actions/workflows/release.yml?query=branch%3Amain)
+[![Build Status](https://github.com/DnDGen/DnDGen.TreasureGen/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/DnDGen/DnDGen.TreasureGen/actions/workflows/release.yml?query=branch%3Amain) [![Theme Song](https://img.shields.io/badge/theme_song-Suno-ff69b4)](https://suno.com/s/1srFPYgfd6VuVpzh)
 
 TreasureGen generates treasure for the Dungeons & Dragons 3.5 system: coins, goods (gems and art), and items (alchemical items, armor, weapons, tools, potions, rings, rods, scrolls, staffs, wands, and wondrous items), including magical bonuses, special abilities, curses, and intelligent items.
 
@@ -502,6 +502,6 @@ The `*Constants` classes name things as strings, spelled as they read in the boo
 
 ## Theme Song
 
-DnDGen.TreasureGen has its own theme song: Haul Away -DnDGen.TreasureGen Theme-, a pirate sea shanty for the treasure hunt.
+DnDGen.TreasureGen has its own theme song: [Haul Away -DnDGen.TreasureGen Theme-](https://suno.com/s/1srFPYgfd6VuVpzh), a pirate sea shanty for the treasure hunt.
 It follows this README, so a change here may need the song updated too.
 See the song's [lyrics, notes, and update procedure](https://github.com/DnDGen/DnDGen.TreasureGen/blob/main/docs/theme-song/README.md).

@@ -1,12 +1,12 @@
 # Haul Away -DnDGen.TreasureGen Theme-
 
-[![Haul Away album art](cover.png)](TODO_SUNO_LINK)
+[![Haul Away album art](cover.png)](https://suno.com/s/1srFPYgfd6VuVpzh)
 
 The DnDGen.TreasureGen theme song: a pirate sea shanty for the treasure hunt, where a shantyman calls out the loot and the crew hauls it aboard.
 Its lyrics come from the [DnDGen.TreasureGen README](https://github.com/DnDGen/DnDGen.TreasureGen/blob/main/README.md), sung in plain English,
 and the ship they haul it aboard is the *Argenteus Re*, TreasureGen's leitmotif from the [DnDGen main theme](https://github.com/DnDGen/.github/blob/main/theme-song/README.md).
 
-**Listen on [Suno](TODO_SUNO_LINK).**
+**Listen on [Suno](https://suno.com/s/1srFPYgfd6VuVpzh).**
 
 ## Updating
 

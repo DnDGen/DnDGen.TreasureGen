@@ -37,7 +37,7 @@ description: "Task list for the DnDGen.TreasureGen theme song"
 - [ ] T009 (maintainer) Approve the album art
 - [ ] T010 (maintainer) Generate drafts in Suno, each Sampling the main theme's "Rogante
   Marendor" snippet (3:00.0 to 3:17.1) with Variety all the way down; pick and publish the take
-- [ ] T011 (maintainer) Add the Suno link to the record (`TODO_SUNO_LINK`, twice) and the README
+- [X] T011 (maintainer) Add the Suno link to the record (`TODO_SUNO_LINK`, twice) and the README
   (the badge, and the Theme Song section's link to the song), and record what was learned in
   Suno Notes
 
